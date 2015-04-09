@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="diseño" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" uuid="79808087-3164-42ce-a83d-0c206f7c0205">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="142"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="45ff4e7f-2e0b-4bd8-88fa-f33d52cd99d8"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/oracle/NetBeansProjects/deployar/rdu-patentes-pruebas/rdu-web/src/main/webapp/content/reportes/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombresApod" class="java.lang.String"/>
+	<field name="calleColoniaInv" class="java.lang.String"/>
+	<field name="poblacionEstadoInv" class="java.lang.String"/>
+	<field name="rgpApod" class="java.lang.String"/>
+	<field name="telefonoApod" class="java.lang.String"/>
+	<field name="faxApod" class="java.lang.String"/>
+	<field name="correoApod" class="java.lang.String"/>
+	<field name="nombresInv" class="java.lang.String"/>
+	<field name="nacionalidadInv" class="java.lang.String"/>
+	<field name="calleColoniaApod" class="java.lang.String"/>
+	<field name="poblacionEstadoAPod" class="java.lang.String"/>
+	<field name="telefonoInv" class="java.lang.String"/>
+	<field name="faxInv" class="java.lang.String"/>
+	<field name="correoInv" class="java.lang.String"/>
+	<field name="nombresSol" class="java.lang.String"/>
+	<field name="nacionalidadSol" class="java.lang.String"/>
+	<field name="calleColoniaSol" class="java.lang.String"/>
+	<field name="poblacionEstadoSol" class="java.lang.String"/>
+	<field name="telefonoSol" class="java.lang.String"/>
+	<field name="faxSol" class="java.lang.String"/>
+	<field name="correoSol" class="java.lang.String"/>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="invencion" class="java.lang.String"/>
+	<field name="nombresNot" class="java.lang.String"/>
+	<field name="tipoSolicitud" class="java.lang.Integer"/>
+	<field name="subTipoSolicitud" class="java.lang.Integer"/>
+	<field name="fechaDivulgacion" class="java.lang.String"/>
+	<field name="rutaFirmaImpi" class="java.lang.String"/>
+	<field name="codigoBarras" class="java.lang.String"/>
+	<field name="expedienteDivisional" class="java.lang.String"/>
+	<field name="figuraJurDivisional" class="java.lang.String"/>
+	<field name="fechaPresDivicional" class="java.lang.String"/>
+	<field name="nombresPaisPrior" class="java.lang.String"/>
+	<field name="fechaPresPaisPrior" class="java.lang.String"/>
+	<field name="numSeriePaisPrior" class="java.lang.String"/>
+	<field name="folioPago" class="java.lang.String"/>
+	<field name="montoPago" class="java.lang.String"/>
+	<field name="nombresSolAnexo" class="java.lang.String"/>
+	<field name="nombresApodAnexo" class="java.lang.String"/>
+	<field name="nombresInvAnexo" class="java.lang.String"/>
+	<field name="paisPriorAnexo" class="java.lang.String"/>
+	<field name="nombresPersNotAnexo" class="java.lang.String"/>
+	<field name="inventorSol" class="java.lang.Short"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="cadenaAnexos" class="java.lang.String"/>
+	<field name="cadenaImpi" class="java.lang.String"/>
+	<field name="cadenaSolicitante" class="java.lang.String"/>
+	<field name="selloImpi" class="java.lang.String"/>
+	<field name="selloSolicitante" class="java.lang.String"/>
+	<field name="certificadora" class="java.lang.String"/>
+	<field name="nombreFirmante" class="java.lang.String"/>
+	<field name="descuento" class="java.lang.Integer"/>
+	<field name="fechaPriorAnexo" class="java.lang.String"/>
+	<field name="expedientePriorAnexo" class="java.lang.String"/>
+	<field name="nombreDocAnexo" class="java.lang.String"/>
+	<field name="tamanoAnexo" class="java.lang.String"/>
+	<field name="numHojasAnexo" class="java.lang.String"/>
+	<field name="totalHojasAnexoStr" class="java.lang.String"/>
+	<field name="observacionAnexo" class="java.lang.String"/>
+	<field name="idSolicitud" class="java.lang.String"/>
+	<field name="fechaEstatusActual" class="java.lang.String"/>
+	<field name="emailSolicitante" class="java.lang.String"/>
+	<field name="emailApoderado" class="java.lang.String"/>
+	<field name="fechaDeCreacion" class="java.lang.String"/>
+	<field name="extTelefonoSol" class="java.lang.String"/>
+	<field name="extTelefonoInv" class="java.lang.String"/>
+	<variable name="nombresSolicitantesAnexo" class="java.lang.String[]">
+		<variableExpression><![CDATA[$F{nombresSolAnexo}.split(",")]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="285">
+			<image isLazy="true">
+				<reportElement uuid="1031a703-3f0b-4141-837d-4cf4f4e57ca2" isPrintRepeatedValues="false" x="5" y="5" width="194" height="60"/>
+				<imageExpression><![CDATA[$F{rutaFirmaImpi}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement uuid="2ac4e066-f214-4970-987b-a2ae4b94ea4a" x="7" y="71" width="241" height="126"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="795bebe5-f7da-4220-8f74-d217277c220b" x="292" y="71" width="272" height="126"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="7c73ebba-17fa-4abc-b5c0-7a4e174dc748" x="9" y="71" width="229" height="126"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN DIVISIONAL DE PATENTES.
+
+SUBDIRECCIÓN DIVISIONAL DE PROCESAMIENTO ADMINISTRATIVO DE PATENTES.
+
+COORDINACIÓN DEPARTAMENTAL DE RECEPCIÓN Y CONTROL DE DOCUMENTOS.
+
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7b9d11d4-b56d-48db-b88a-a23c8bb7bf0d" x="404" y="71" width="156" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expediente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f614aefa-eda5-4c28-9167-7aeb83020c34" x="302" y="71" width="99" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EXPEDIENTE:
+
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="302" y="90" width="150" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FOLIO DE RECEPCIÓN:
+
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="450" y="90" width="110" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="10" y="197" width="318" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ACUSE DE RECIBO DE LA SOLICITUD DE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="11" y="232" width="320" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[SOLICITANTE(S) O REPRESENTANTE LEGAL:
+
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="10" y="265" width="393" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTOS DE LA SOLICITUD:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fdb6ed7f-0e10-4660-a501-711825c967bf" x="11" y="250" width="539" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreFirmante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" x="10" y="216" width="539" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoSolicitud}.intValue()==9?"Solicitud Patente":$F{tipoSolicitud}.intValue()==10?"Modelo de Utilidad":$F{tipoSolicitud}.intValue()==11?"Registro de Diseño Industrial":$F{tipoSolicitud}.intValue()==12?"Esquema de Trazado de Circuito Integrado":""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a01f1634-0fa9-408e-86f9-5508059605bb" x="302" y="148" width="252" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[LUGAR, FECHA Y HORA DE RECEPCIÓN DE LA SOLICITUD:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dd29e72f-0262-410d-9a60-46c267beb9b1" x="302" y="180" width="251" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MEXICO D.F. "+$F{fecha}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="cc041b0a-2728-4005-9211-7a180ee4824f" x="345" y="5" width="219" height="60"/>
+				<jr:Code128 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{folio}==null?"sin-folio":$F{folio}.length()>0?$F{folio}:"sin-folio"]]></jr:codeExpression>
+				</jr:Code128>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5877a297-97d9-458e-8eb9-493a2bea7406" x="523" y="111" width="35" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idSolicitud}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3d8a5b34-9695-400e-9810-a29efa24470f" x="302" y="111" width="232" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[IDENTIFICADOR DE LA SOLICITUD:]]></text>
+			</staticText>
+		</band>
+		<band height="145">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="5b40b5ea-ee93-4b08-af8d-fcab343f91ed" style="table" x="407" y="1" width="60" height="143"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{numHojasAnexo} != null? "     HOJAS\n"+$F{numHojasAnexo} : "     HOJAS")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="4dacfbb5-e27a-42b6-9c44-1970c226b36d" style="table" x="347" y="1" width="60" height="143"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{tamanoAnexo} != null? "   TAMAÑO\n"+$F{tamanoAnexo} : "   TAMAÑO")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c35676f6-a18e-40c6-a39e-7cd0418d4983" style="table" x="467" y="1" width="97" height="143"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{observacionAnexo}!= null? "  OBSERVACIONES\n"+$F{observacionAnexo}
+:"  OBSERVACIONES")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="14b4b2ec-43fb-48a4-88fe-8770e44727c0" style="table" x="9" y="1" width="146" height="143"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{cadenaAnexos} != null? "             DOCUMENTO\n"+$F{cadenaAnexos} : "             DOCUMENTO")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="fa5a1801-3209-4e38-a178-ec9a208b9054" style="table" x="155" y="1" width="192" height="143"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nombreDocAnexo} != null? "             NOMBRE ARCHIVO\n"+$F{nombreDocAnexo} : "             NOMBRE ARCHIVO")]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="299">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" stretchType="RelativeToTallestObject" x="10" y="119" width="554" height="38"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numHojasAnexo} != null?"Declaró bajo protesta de decir verdad que cuenta con un domicilio en la República Mexicana."+"\nDeclaró bajo protesta de decir verdad que los documentos anexos a la solicitud son originales o copia debidamente certificada.":"Declaró bajo protesta de decir verdad que cuenta con un domicilio en la República Mexicana."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" stretchType="RelativeToTallestObject" x="10" y="69" width="554" height="51"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Que reconoce como propia y auténtica la información contenida en la solicitud enviada a través de este medio, asumiendo la responsabilidad por el uso de su nombre de usuario y contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se les atribuirá la autoría de la información que se envíe a través del PASE.
+
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" stretchType="RelativeToTallestObject" x="11" y="20" width="553" height="31"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalHojasAnexoStr} != null?"Los documentos adjuntos están sujetos al estudio correspondiente que el Instituto realice de conformidad con la Ley de la Propiedad Industrial y su Reglamento.":null]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" stretchType="RelativeToTallestObject" x="10" y="225" width="554" height="74"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[La presente solicitud, se recibe en los términos y fundamentos señalados en el ACUERDO por el que se establecen los lineamientos para la presentación y recepción de las solicitudes que se indican, a través del Portal de Pagos Electrónicos (PASE) ante el Instituto Mexicano de la Propiedad Industrial (Diario Oficial de la Federación del 20 de septiembre de 2012) con la fecha y hora referida, así como  los datos señalados de la que se acusa recibo.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" stretchType="RelativeToTallestObject" x="10" y="156" width="554" height="70"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descuento}==1?"Bajo protesta de decir verdad declaró, que me encuentro en el supuesto con respecto al beneficio en la Cuarta Disposición General de la tarifa por los servicios que presta este H. instituto, por lo que solicito el 50% de descuento de la tarifa establecida, para los artículos que aplique dicho descuento. Hago la presente declaración en cumplimiento de dicha disposición, según el acuerdo por el que se da a conocer la tarifa por los servicios que presta el Instituto Mexicano de la Propiedad Industrial, publicado en el Diario Oficial de la Federación con fecha 23 de Agosto de 1995.":null]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" stretchType="RelativeToTallestObject" x="10" y="51" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EL FIRMANTE MANIFESTÓ:
+
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6a4569ca-e9c8-4e11-aa7f-fd3ca4a7aeb8" stretchType="RelativeToTallestObject" x="11" y="1" width="553" height="19"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{totalHojasAnexoStr} != null? "TOTAL DE HOJAS: "+$F{totalHojasAnexoStr}+" (No se incluyen hojas del acuse)" :
+null)]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="115">
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" positionType="Float" stretchType="RelativeToTallestObject" x="11" y="2" width="119" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cadena Original IMPI
+
+
+
+
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" positionType="Float" stretchType="RelativeToTallestObject" x="11" y="63" width="120" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Firma IMPI
+
+
+
+
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" positionType="Float" stretchType="RelativeToTallestObject" x="11" y="34" width="538" height="29"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadenaImpi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" positionType="Float" stretchType="RelativeToTallestObject" x="11" y="81" width="560" height="34"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{selloImpi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" positionType="Float" stretchType="RelativeToTallestObject" x="11" y="16" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FIRMA DE ACUSE:
+
+                ]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="mx.gob.impi.rdu.i18n.Anexo" var="msgDtAnexo"/>
+
+ <f:view contentType="text/html">
+
+    <p:panel id="pnlAcreditaPersonalidad" header="Documento que acredita personalidad" style="padding-bottom: 0px;"  >
+        <h:panelGrid columns="1" cellpadding="2" style="font-family:sans-serif; font-size: 10pt; text-align: left; margin-left:30px;"  >
+            <h:panelGrid id="listaAnexos" columns="3" style="text-align: left; height: 55px; "   >
+            <p:column> 
+                <h:outputText value="*#{msgPatente['titulo.registro.Seleccion.documento']}"
+                          id="lblAnexosApoderado" style="font-weight: normal" ></h:outputText>
+            </p:column>
+            <p:column>
+            <h:selectOneMenu    
+                id="anexosApoderado"
+                value="#{patentesDisIndMB.datosAnexosApoderado.idTipoanexo}" style="width: 210px; height: 25px;" >
+                <!--<p:ajax event="change" listener="{patentesDisIndMB.esOtroDocumento}" process="@all"  update="pnlAcreditaPersonalidad btnArchivoAnexoDocs otroDocumento"/>-->
+                <f:selectItem itemLabel="#{msgPatente['titulo.registro.Seleccion.default']}"  />
+                <f:selectItems
+                    value="#{patentesDisIndMB.anexosApoderado}"
+                    var="renglon"
+                    itemLabel="#{renglon.descripcion}"
+                    itemValue="#{renglon.idTipoanexo}" />
+            </h:selectOneMenu>
+            </p:column> 
+            <p:column>
+                    <p:separator style="width: 108px;  border: none" rendered="#{patentesDisIndMB.forma.renderedOtroDoc==true? false:true}"  />
+                    <p:inputText id="otroDoc" value="#{patentesDisIndMB.forma.esTxtOtroDocumento}" style="width: 200px;"  rendered="#{patentesDisIndMB.forma.renderedOtroDoc}" autocomplete="false" >
+                        <p:ajax event="blur" update="otroDoc"/>
+                    </p:inputText>
+            </p:column>   
+            </h:panelGrid>
+            <h:panelGrid id="archivoPDFApoderadoMandator" columns="2" style="text-align: left"  >
+                    <p:column>
+                        <h:outputText  value="Archivo PDF:" style="padding-right: 27px;" />
+                    </p:column>
+                    <p:column  style="padding-left: 67px;"  > 
+                        <p:inputText id="rutaArchivoAnexoDocs" value="#{patentesDisIndMB.forma.rutaAnexoApoderado}" disabled="true" style="width: 200px;"/>
+                        <p:commandButton id="btnArchivoAnexoDocs" value="..." title="Cargar anexo" disabled="#{patentesDisIndMB.forma.esDesabilitadoPDF}"
+                                         onclick="singleSubirDialogApoderado.show();" process="@this" update=":form:displaySubirDocPersonalidad :form:singleSubirDialogApoderado">
+                            <f:setPropertyActionListener value="#{oAnexoDto}" target="#{patentesDisIndMB.anexoSelectedApoderado}"/>
+                        </p:commandButton>
+                    </p:column>
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:panel> 
+
+  </f:view>   
+</ui:composition>

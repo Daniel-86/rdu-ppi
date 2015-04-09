@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml">
+
+    <ui:define name="content">
+        <p:messages  id="msgAviso"  />
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolicitud" var="msgSolcitud"/>
+
+
+        <h:form id="form" style="display: inline" prependId="false">
+            <p:tabView id="tabs" style="background: #DDDDDD;"  >
+                <p:tab title="#{msgSolcitud['titulo.registro.Firmante.Dom.Notificaciones']}">
+                    <p:panel header="#{msgSolcitud['titulo.registro.Firmante.Dom.Notificaciones.titulo']}" id="pnlFirmante">
+                        <p:messages id="m4"/>
+                        <h:panelGrid columns="1" cellpadding="10" style="font-family:sans-serif; font-size: 10pt; text-align: left;">
+                            <ui:include src="datosFirmante.xhtml" id="usuarioFirmanteInclue">
+                                <ui:param name="managedBean" value="#{pruebaIncludeSolicitanteMB.firmante}" />
+                                <ui:param name="form" value="form" />
+                            </ui:include>
+                            <ui:include src="domicilioNotificacion.xhtml" id="domnotificacionInclude">
+                                <ui:param name="managedBean" value="#{pruebaIncludeSolicitanteMB.firmante.includeDomicilio}" />
+                                <ui:param name="form" value="form" />
+                            </ui:include>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <p:commandButton value="Datos" action="#{pruebaIncludeSolicitanteMB.mostrarDatos}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Include Domicilio">
+                    <p:panel header="" id="pnlTestDomicilio">
+                        <p:messages id="m2"/>                
+                        <ui:include src="domicilio.xhtml" id="domsInclude">
+                            <ui:param name="managedBean" value="#{pruebaIncludeSolicitanteMB.includeDomicilio}" />
+                            <ui:param name="form" value="form"/>
+                            <ui:param name="subfix" value="Subfijo"/>
+                        </ui:include>                        
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Include Domicilio">
+                    <p:panel header="">
+                        <p:messages id="m3"/>
+                        <ui:include src="domicilio.xhtml">
+                            <ui:param name="managedBean" value="#{pruebaIncludeSolicitanteMB.includeDomicilio2}" />
+                            <ui:param name="form" value="form"/>
+                            <ui:param name="subfix" value="Subfijo1"/>
+                        </ui:include>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+</ui:composition>

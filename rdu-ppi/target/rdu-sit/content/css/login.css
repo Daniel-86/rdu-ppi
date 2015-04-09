@@ -1,0 +1,51 @@
+/* 
+    Document   : login
+    Created on : 18-ene-2012, 9:40:02
+    Author     : roque
+    Description:
+    Purpose of the stylesheet follows.
+*/
+
+
+.login-fieldset
+{
+    display: block;   
+    outline: 0 none;
+    border:0; 
+}
+.login-fieldset-img
+{
+ width: 324px;
+ height: 100px;
+ margin-top: -12px;
+}
+.login-fieldset-user
+{
+    width: 377px;
+    height: auto;
+}
+
+.login-fieldset button
+{
+    float: left;
+}
+
+.login-fieldset input.text 
+{
+    margin-bottom: 12px;
+    padding: 0.4em;
+    width: 95%;
+}
+
+.login-fieldset label, input
+{ 
+    display:block; 
+    text-align: left;
+    font-weight: bold;
+}
+.login-fieldset input.text 
+{ 
+    margin-bottom:12px; 
+    width:95%; 
+    padding: .4em; 
+}

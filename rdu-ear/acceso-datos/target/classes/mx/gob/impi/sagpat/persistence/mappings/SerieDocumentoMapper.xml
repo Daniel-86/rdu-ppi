@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SerieDocumentoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SerieDocumento" >
+    <id column="SER_DOCUM" property="serDocum" jdbcType="DECIMAL" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="IND_ACTIVA" property="indActiva" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select  SER_DOCUM, ROW_VERSION, IND_ACTIVA
+    from PATENTES.SERIE_DOCUMENTO
+    where SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from PATENTES.SERIE_DOCUMENTO
+    where SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SerieDocumento" >
+    update PATENTES.SERIE_DOCUMENTO
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="indActiva != null" >
+        IND_ACTIVA = #{indActiva,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SerieDocumento" >
+    update PATENTES.SERIE_DOCUMENTO
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      IND_ACTIVA = #{indActiva,jdbcType=VARCHAR}
+    where SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+  </update>
+</mapper>

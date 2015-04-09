@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.SolicitanteXTramitePatenteMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.SolicitanteXTramitePatente" >
+        <id column="ID_SOLICITANTE" property="idSolicitante" jdbcType="DECIMAL" />
+        <id column="ID_TRAMITE_PATENTE" property="idTramitePatente" jdbcType="DECIMAL" />
+    </resultMap>
+    
+
+     <delete id="deleteByTramite" parameterType="java.lang.Long" >
+    delete from SOLICITANTE_X_TRAMITE_PATENTE
+    where ID_TRAMITE_PATENTE = #{idTramitePatente,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.SolicitanteXTramitePatente" >
+    insert into SOLICITANTE_X_TRAMITE_PATENTE (ID_SOLICITANTE, ID_TRAMITE_PATENTE)
+    values (#{idSolicitante,jdbcType=DECIMAL}, #{idTramitePatente,jdbcType=DECIMAL})
+  </insert>
+
+  <select id="obtenerSolicitantesXTramite" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      SELECT ID_SOLICITANTE, ID_TRAMITE_PATENTE
+        FROM SOLICITANTE_X_TRAMITE_PATENTE
+        WHERE
+        ID_TRAMITE_PATENTE=#{idTramitePatente,jdbcType=DECIMAL}
+        ORDER BY ID_SOLICITANTE
+    </select>
+</mapper>

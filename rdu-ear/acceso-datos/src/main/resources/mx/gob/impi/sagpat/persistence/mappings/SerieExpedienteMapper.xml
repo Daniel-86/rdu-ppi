@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SerieExpedienteMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SerieExpediente" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="IND_ACTIVA" property="indActiva" jdbcType="VARCHAR" />
+    <result column="IND_ANUAL" property="indAnual" jdbcType="VARCHAR" />
+    <result column="NUM_ULTIMO" property="numUltimo" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+   COD_OFICINA, SER_EXPED, TIP_EXPED, ROW_VERSION, IND_ACTIVA, IND_ANUAL, NUM_ULTIMO
+    from PATENTES.SERIE_EXPEDIENTE
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SERIE_EXPEDIENTE
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SerieExpediente" >
+    update PATENTES.SERIE_EXPEDIENTE
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="indActiva != null" >
+        IND_ACTIVA = #{indActiva,jdbcType=VARCHAR},
+      </if>
+      <if test="indAnual != null" >
+        IND_ANUAL = #{indAnual,jdbcType=VARCHAR},
+      </if>
+      <if test="numUltimo != null" >
+        NUM_ULTIMO = #{numUltimo,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SerieExpediente" >
+    update PATENTES.SERIE_EXPEDIENTE
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      IND_ACTIVA = #{indActiva,jdbcType=VARCHAR},
+      IND_ANUAL = #{indAnual,jdbcType=VARCHAR},
+      NUM_ULTIMO = #{numUltimo,jdbcType=DECIMAL}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <update id="generaNumeroExpediente" parameterType="mx.gob.impi.sagpat.persistence.model.SerieExpediente" >
+   UPDATE PATENTES.SERIE_EXPEDIENTE 
+   SET  NUM_ULTIMO = NUM_ULTIMO + 1
+   WHERE COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+   AND TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+   AND SER_EXPED =  #{serExped,jdbcType=DECIMAL}
+
+  </update>
+  
+  
+    <select id="seleccionaNumeroExpediente" resultType="java.lang.String" parameterType="mx.gob.impi.sagpat.persistence.model.SerieExpediente" >
+   SELECT NUM_ULTIMO 
+FROM SERIE_EXPEDIENTE
+WHERE COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+AND TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+AND SER_EXPED = #{serExped,jdbcType=DECIMAL}
+FOR UPDATE
+  </select>
+  
+
+
+
+</mapper>

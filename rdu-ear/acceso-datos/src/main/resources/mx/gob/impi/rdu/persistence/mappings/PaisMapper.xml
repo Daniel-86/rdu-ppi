@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.PaisMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Pais" >
+        <id column="ID_PAIS" property="idPais" jdbcType="DECIMAL" />
+        <id column="ID_AREA" property="idArea" jdbcType="DECIMAL" />
+        <result column="CLAVE_PAIS" property="clavePais" jdbcType="VARCHAR" />
+        <result column="NOMBRE" property="nombre" jdbcType="VARCHAR" />
+        <result column="NACIONALIDAD" property="nacionalidad" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    ID_PAIS, NOMBRE, NACIONALIDAD, CLAVE_PAIS
+    from PAIS
+    where ID_PAIS = #{idPais,jdbcType=DECIMAL}
+    </select>
+    <select id="selectDynamic" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    select
+        ID_AREA,
+        ID_PAIS,
+        CLAVE_PAIS,
+        NOMBRE,
+        NACIONALIDAD
+    from PAIS                  
+        <where>
+            <if test="idArea != null" >
+                ID_AREA = #{idArea,jdbcType=DECIMAL}
+            </if>
+            <if test="idPais != null" >
+                ID_PAIS = #{idPais,jdbcType=DECIMAL}
+            </if>
+            <if test="clavePais != null" >
+                AND CLAVE_PAIS = #{clavePais,jdbcType=VARCHAR}
+            </if>
+            <if test="nombre != null" >
+                AND NOMBRE = #{nombre,jdbcType=VARCHAR}
+            </if>
+            <if test="nacionalidad != null" >
+                AND NACIONALIDAD = #{nacionalidad,jdbcType=VARCHAR}
+            </if>
+            <if test="excluirOrg != null" >
+                and nacionalidad != '(null)'
+            </if>
+            AND IND_ACTIVO=1
+            <if test="incluirOrg != null" >
+                OR clave_pais in('BF','XN','BX','QZ','GC','EP','IB','EM','OA','EA','WO','AP','SX','SH') and IND_ACTIVO=1 AND ID_AREA = #{idArea,jdbcType=DECIMAL}
+            </if>
+        </where>
+        ORDER BY NOMBRE
+    </select>
+    <select id="selectNacionalidades" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    select
+        ID_AREA,
+        ID_PAIS,
+        CLAVE_PAIS,
+        NOMBRE,
+        NACIONALIDAD
+    from PAIS
+        <where>
+            <if test="idArea != null" >
+                ID_AREA = #{idArea,jdbcType=DECIMAL}
+            </if>
+            <if test="idPais != null" >
+                ID_PAIS = #{idPais,jdbcType=DECIMAL}
+            </if>
+            <if test="clavePais != null" >
+                AND CLAVE_PAIS = #{clavePais,jdbcType=VARCHAR}
+            </if>
+            <if test="nombre != null" >
+                AND NOMBRE = #{nombre,jdbcType=VARCHAR}
+            </if>
+            <if test="nacionalidad != null" >
+                AND NACIONALIDAD = #{nacionalidad,jdbcType=VARCHAR}
+            </if>
+            <if test="excluirOrg != null" >
+                and nacionalidad != '(null)'
+            </if>
+            AND IND_ACTIVO=1
+            <if test="incluirOrg != null" >
+                OR clave_pais in('BF','XN','BX','QZ','GC','EP','IB','EM','OA','EA','WO','AP','SX','SH') and IND_ACTIVO=0 AND ID_AREA = #{idArea,jdbcType=DECIMAL}
+            </if>
+        </where>
+        ORDER BY NACIONALIDAD
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PAIS
+    where ID_PAIS = #{idPais,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    insert into PAIS (ID_PAIS, NOMBRE)
+    values (#{idPais,jdbcType=DECIMAL}, #{nombre,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    insert into PAIS
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idPais != null" >
+        ID_PAIS,
+            </if>
+            <if test="nombre != null" >
+        NOMBRE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="idPais != null" >
+        #{idPais,jdbcType=DECIMAL},
+            </if>
+            <if test="nombre != null" >
+        #{nombre,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    update PAIS
+        <set >
+            <if test="nombre != null" >
+        NOMBRE = #{nombre,jdbcType=VARCHAR},
+            </if>
+        </set>
+    where ID_PAIS = #{idPais,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Pais" >
+    update PAIS
+    set NOMBRE = #{nombre,jdbcType=VARCHAR}
+    where ID_PAIS = #{idPais,jdbcType=DECIMAL}
+    </update>
+</mapper>

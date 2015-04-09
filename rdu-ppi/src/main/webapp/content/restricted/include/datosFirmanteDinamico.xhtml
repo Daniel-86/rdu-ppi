@@ -1,0 +1,105 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:panel header="Datos de la Persona Autorizada" id="pnlDatosFirmante#{subfix}">
+        <h:panelGrid columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+            <h:outputText value="*Tipo persona"  rendered="#{mostrarApoderados}"/>
+            <h:selectOneMenu  value="#{managedBean.tipoPersona.idTipopersona}" rendered="#{mostrarApoderados}" style="width: 202px;" disabled="true">
+                <f:selectItems value="#{managedBean.tiposPersona}" var="tipoPersona" itemLabel="#{tipoPersona.descripcion}"
+                               itemValue="#{tipoPersona.idTipopersona}"/>
+            </h:selectOneMenu>
+            <h:outputText value="*#{msgSolcitud['titulo.registro.solicitante.NombreC']}" style="font-weight: normal"/>
+            <p:column>
+                <p:inputTextarea id="txtNombrePersonaNot" value="#{managedBean.apoderado.nombre}" disabled="#{!mostrarApoderados}"
+                                 onkeyup="replaceSaltos(this); toUpperCaseFirst(event, this, 0)"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none "
+                                 onblur="campoNombreFocus(this);" />
+
+                <p:commandButton value="Simbolo" onclick="campoEspecial = 'txtNombrePersonaNot_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:txtNombrePersonaNot_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 1px;"/>
+            </p:column>
+            <h:outputText value="*#{msgPatente['datos.persona.aPaterno']}" />
+            <p:column>
+                <p:inputTextarea id="aPaternoFirmante" value="#{managedBean.apoderado.primerApellido}" 
+                                 onkeyup="toUpperCase(event, this); replaceSaltos(this);"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none"
+                                 onblur="campoNombreFocus(this);" />
+                <p:commandButton value="Simbolo" onclick="campoEspecial = 'aPaternoFirmante_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:aPaternoFirmante_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 2px;"/>
+            </p:column>
+            <h:outputText value="#{msgPatente['datos.persona.aMaterno']}"/>          
+            <p:column>
+                <p:inputTextarea id="aMaternoFirmante" value="#{managedBean.apoderado.segundoApellido}" 
+                                 onkeyup="toUpperCase(event, this); replaceSaltos(this);"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none"
+                                 onblur="campoNombreFocus(this);" />
+                <p:commandButton value="Simbolo" onclick="campoEspecial = 'aMaternoFirmante_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:aMaternoFirmante_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 2px;"/>
+            </p:column>        
+            <center>
+                <p:column>
+                    <!--                    <p:commandButton value="simbolo" onclick="campoEspecial='txtNombrePersonaNot_input';simbolosNombreDialog.show();"
+                                                         rendered="#{mostrarApoderados}"/>-->
+                    <p:commandButton value="#{msgSolcitud['titulo.registro.boton.agregar']}" onclick="usuarioFirmanteDialog#{subfix}.show()" process="@this" rendered="#{mostrarApoderados}"/>
+<!--                    <p:commandLink id="ayudaPersonaAutorizada" title="Ayuda para seleccionar un usuario del PASE."
+                               oncomplete="ayudaPersonaAutorizadaDialog.show()">
+                        <h:graphicImage url="../../imagenes/help-01.jpg" style="right: auto; border-style: none"/>
+                    </p:commandLink>-->
+                </p:column>
+            </center>
+
+            <h:outputText value="RGP"  rendered="#{!mostrarRFC}"/>
+            <p:inputText value="#{managedBean.apoderado.rgp}" rendered="#{!mostrarRFC}" size="35"/>            
+        </h:panelGrid>
+
+        <p:dialog id="usuarioFirmanteDialog#{subfix}" header="#{msgSolcitud['titulo.registro.usuarios.firmantes']}" widgetVar="usuarioFirmanteDialog#{subfix}" width="800" height="400"
+                  modal="true" position="center top">
+            <p:dataTable value="#{managedBean.apoderados}" var="apoderado"
+                         paginator="true" rows="10" selectionMode="single"
+                         rowKey="#{apoderado.id_promovente}"
+                         rowIndexVar="index">
+                <p:column headerText="Identificador">
+                    <p:commandLink value="#{apoderado.id_promovente}"
+                                   onclick="usuarioFirmanteDialog#{subfix}.hide();"
+                                   oncomplete="hideMessage('tabs:m4',6);hideMessage('tabs:msgCodigoPostalNotificaciones',2);"
+                                   style="color:blue;"
+                                   action="#{managedBean.apoderadosTable_onRowSelection}" update="tabs:#{panelFirmante}">
+                        <f:setPropertyActionListener value="#{apoderado}" target="#{managedBean.apoderado}"/>
+                    </p:commandLink>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{apoderado.nombre} #{apoderado.apaterno} #{apoderado.amaterno}"/>
+                </p:column>
+                <p:column headerText="Estado">
+                    <h:outputText value="#{apoderado.descEstado}"/>
+                </p:column>
+                <p:column headerText="Poblacion">
+                    <h:outputText value="#{apoderado.descMunicipio}"/>
+                </p:column>
+                <p:column headerText="Codigo Postal">
+                    <h:outputText value="#{apoderado.codigo_postal}"/>
+                </p:column>
+                <p:column headerText="Calle y numero">
+                    <h:outputText value="#{apoderado.calle_numero}"/>
+                </p:column>
+                <p:column headerText="Colonia">
+                    <h:outputText value="#{apoderado.colonia}"/>
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
+        <p:dialog widgetVar="ayudaPersonaAutorizadaDialog" header="Persona Autorizadas en el PASE"
+                  width="300" height="100">
+            <div style="text-align: justify;font-size: 13px;">
+                Podrá seleccionar personas que se encuentren dentro del PASE asociadas
+                a su cuenta Maestra.
+            </div>
+        </p:dialog>
+    </p:panel>
+</ui:composition>

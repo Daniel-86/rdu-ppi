@@ -1,0 +1,74 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>build-with-dependencies</actionName>
+            <basedir>..</basedir>
+            <reactor>also-make</reactor>
+            <goals>
+                <goal>install</goal>
+            </goals>
+        </action>
+    </actions>-->
+    <?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+<actionName>CUSTOM-embedded-glassfish:run</actionName>
+<displayName>embedded-glassfish:run</displayName>
+<goals>
+<goal>embedded-glassfish:run</goal>
+</goals>
+</action>
+<action>
+<actionName>CUSTOM-embedded-glassfish:start</actionName>
+<displayName>embedded-glassfish:start</displayName>
+<goals>
+<goal>embedded-glassfish:start</goal>
+</goals>
+</action>
+<action>
+<actionName>CUSTOM-embedded-glassfish:deploy</actionName>
+<displayName>embedded-glassfish:deploy</displayName>
+<goals>
+<goal>embedded-glassfish:deploy</goal>
+</goals>
+</action>
+<action>
+<actionName>CUSTOM-embedded-glassfish:undeploy</actionName>
+<displayName>embedded-glassfish:undeploy</displayName>
+<goals>
+<goal>embedded-glassfish:undeploy</goal>
+</goals>
+</action>
+<action>
+<actionName>CUSTOM-embedded-glassfish:stop</actionName>
+<displayName>embedded-glassfish:stop</displayName>
+<goals>
+<goal>embedded-glassfish:stop</goal>
+</goals>
+</action>
+<action>
+<actionName>CUSTOM-package</actionName>
+<displayName>package</displayName>
+<goals>
+<goal>clean</goal>
+<goal>package</goal>
+</goals>
+</action>
+<action>
+<actionName>build</actionName>
+<goals>
+<goal>clean</goal>
+<goal>package</goal>
+</goals>
+</action>
+<action>
+<actionName>run</actionName>
+<goals>
+<goal>clean</goal>
+<goal>package</goal>
+</goals>
+<properties>
+<netbeans.deploy>true</netbeans.deploy>
+</properties>
+</action>
+</actions>

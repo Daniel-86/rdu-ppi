@@ -1,0 +1,56 @@
+
+<faces-config xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+  
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome >forgot</from-outcome>
+            <to-view-id>/content/common/authentication/forgotPassword.xhtml
+            </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+ 
+  <navigation-rule>
+        <navigation-case>          
+            <from-outcome >firma</from-outcome>
+            <to-view-id>/content/restricted/firma/firma.faces</to-view-id>
+        </navigation-case> 
+        <navigation-case>          
+            <from-outcome >noLaborable</from-outcome>
+            <to-view-id>/content/restricted/firma/firmahorario.faces</to-view-id>
+        </navigation-case>         
+         <navigation-case>          
+            <from-outcome >firmasuccess</from-outcome>
+            <to-view-id>/content/restricted/firma/firmasuccess.faces</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            
+            <from-outcome >login</from-outcome>
+            <to-view-id >/content/common/authentication/login.faces
+            </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome >logout</from-outcome>
+            <to-view-id >/content/common/authentication/login.faces
+            </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    
+    <validator>       
+        <validator-id>passwordConfirmationValidator</validator-id>
+        <validator-class>mx.gob.impi.rdu.util.PasswordConfirmationValidator</validator-class>
+    </validator>
+    
+    <validator>       
+        <validator-id>requiredAtLeastOnePerfilValidator</validator-id>
+        <validator-class>mx.gob.impi.rdu.util.RequiredAtLeastOnePerfilValidator</validator-class>
+    </validator>
+  
+</faces-config>

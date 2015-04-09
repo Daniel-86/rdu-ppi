@@ -1,0 +1,33 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolicitud" var="msgSolcitud"/>
+    <p:panel header="Datos Solicitante" id="pnlDatosSolicitante">
+        <h:panelGrid columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+            <h:outputText value="*#{msgSolcitud['titulo.registro.solicitante.TipoPersona']}" style="font-weight: normal"/>
+            <p:selectOneMenu value="#{managedBean.tipoPersonaCombo.idTipopersona}" style="width:70px;">
+                <f:selectItems value="#{managedBean.tiposPersona}" var="tipoPersona"
+                               itemLabel="#{tipoPersona.descripcion}" itemValue="#{tipoPersona.idTipopersona}"/>
+                <p:ajax listener="#{managedBean.tipoPersonaSelect_valueChangeEvent}"/>
+            </p:selectOneMenu>
+            <h:outputText value="*#{msgSolcitud['titulo.registro.solicitante.Nombre']}" style="font-weight: normal"/>
+            <p:inputTextarea value="#{managedBean.solDatos.nombrecompleto}" onkeyup="toUpperCase(event,this)"
+                             autoResize="false" rows="2" cols="5" maxlength="250" style="width:380px;"/>
+            <h:outputText value="*#{msgSolcitud['titulo.registro.solicitante.Nacionalidad']}"/>
+            <p:selectOneMenu value="#{managedBean.nacionalidadCombo.idPais}">
+                <f:selectItems value="#{managedBean.nacionalidades}" var="nacionalidad"
+                               itemLabel="#{nacionalidad.nacionalidad}" itemValue="#{nacionalidad.idPais}"/>
+                <p:ajax listener="#{managedBean.nacionalidadSelect_valueChangeEvent}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+        <ui:include src="../../../content/restricted/include/datosContactar.xhtml" id="datosContactarInclude">
+            <ui:param name="managedBean" value="#{signosDistintivosMB.domicilioSolicitante}" />
+            <ui:param name="form" value="formMarcasSD"/>
+            <ui:param name="mostrar" value="#{signosDistintivosMB.listaSolicitantes.size()!=0}"/>
+        </ui:include>
+    </p:panel>
+</ui:composition>

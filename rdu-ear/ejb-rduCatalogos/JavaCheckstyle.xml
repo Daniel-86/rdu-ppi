@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+
+<module name="Checker">
+	<property name="severity" value="warning" />
+
+	<!-- Checks that a package.html file exists for each package.     -->
+	<!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml 
+	<module name="PackageHtml" />
+	-->
+	<!-- Checks whether files end with a new line.                        -->
+	<!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+	<module name="NewlineAtEndOfFile" />
+
+	<!-- Checks that property files contain the same keys.         -->
+	<!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+	<module name="Translation" />
+	
+	<!-- Checks if there is duplicate code.                          -->
+	<!-- See http://checkstyle.sourceforge.net/config_duplicates.html -->
+	<module name="StrictDuplicateCode">
+		<property name="min" value="7" /><!-- how many lines must be equal to be considered a duplicate  -->
+	</module>
+
+	<module name="TreeWalker">
+		<property name="tabWidth" value="4" />
+		<property name="fileExtensions" value="java" />
+
+		<!-- Checks for Javadoc comments.                     -->
+		<!-- See http://checkstyle.sf.net/config_javadoc.html -->
+		<module name="JavadocMethod">
+			<property name="allowMissingPropertyJavadoc" value="true"/>
+			<property name="logLoadErrors" value="true" />
+			<property name="suppressLoadErrors" value="true" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="JavadocType">
+			<property name="allowMissingParamTags" value="false" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="JavadocVariable">
+			<property name="severity" value="error" />
+		</module>
+		<module name="JavadocStyle">
+			<property name="checkEmptyJavadoc" value="true" />
+			<property name="checkFirstSentence" value="true" />
+			<property name="severity" value="error" />
+		</module>
+
+
+		<!-- Checks for Naming Conventions.                  -->
+		<!-- See http://checkstyle.sf.net/config_naming.html -->
+		<module name="ConstantName" />
+		<module name="LocalFinalVariableName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="MethodName" />
+		<module name="PackageName" />
+		<module name="ParameterName" />
+		<module name="StaticVariableName" />
+		<module name="TypeName" />
+		<module name="PackageName">
+			<!-- property name="format" value="^gob\.se(\.[a-z]+)*$" / -->
+			<property name="format" value="^[a-z]+(\.[a-z]+)*$" />
+		</module>
+		<module name="AbstractClassName">
+			<property name="format" value="^Abstract.*$" />
+		</module>
+
+
+		<!-- Checks for Headers                                -->
+		<!-- See http://checkstyle.sf.net/config_header.html   -->
+		<!-- <module name="Header">                            -->
+		<!-- The follow property value demonstrates the ability     -->
+		<!-- to have access to ANT properties. In this case it uses -->
+		<!-- the ${basedir} property to allow Checkstyle to be run  -->
+		<!-- from any directory within a project. See property      -->
+		<!-- expansion,                                             -->
+		<!-- http://checkstyle.sf.net/config.html#properties        -->
+		<!-- <property                                              -->
+		<!--     name="headerFile"                                  -->
+		<!--     value="${basedir}/java.header"/>                   -->
+		<!-- </module> -->
+
+		<!-- Following interprets the header file as regular expressions. -->
+		<module name="RegexpHeader">
+			<property name="severity" value="error" />
+			<property name="headerFile"
+				value="java.header" />
+		</module>
+
+
+		<!-- Checks for imports                              -->
+		<!-- See http://checkstyle.sf.net/config_import.html -->
+		<module name="AvoidStarImport" />
+		<module name="IllegalImport" /><!-- defaults to sun.* packages -->
+		<module name="RedundantImport" />
+		<module name="UnusedImports" />
+
+
+		<!-- Checks for Size Violations.                    -->
+		<!-- See http://checkstyle.sf.net/config_sizes.html -->
+		<module name="LineLength">
+			<property name="max" value="80" />
+		</module>
+		<module name="ParameterNumber">
+			<property name="max" value="7" />
+		</module>
+
+
+		<!-- Checks for whitespace                               -->
+		<!-- See http://checkstyle.sf.net/config_whitespace.html 
+		<module name="EmptyForIteratorPad" />
+		<module name="MethodParamPad" />
+		<module name="NoWhitespaceAfter" />
+		<module name="NoWhitespaceBefore" />
+		<module name="OperatorWrap" />
+		<module name="ParenPad" />
+		<module name="TypecastParenPad" />
+		<module name="TabCharacter" />
+		<module name="WhitespaceAfter" />
+		<module name="WhitespaceAround" />
+		-->
+
+		<!-- Modifier Checks                                    -->
+		<!-- See http://checkstyle.sf.net/config_modifiers.html -->
+		<module name="ModifierOrder" />
+		<module name="RedundantModifier" />
+
+
+		<!-- Checks for blocks. You know, those {}'s         -->
+		<!-- See http://checkstyle.sf.net/config_blocks.html -->
+		<module name="AvoidNestedBlocks" />
+		<module name="EmptyBlock" />
+		<module name="LeftCurly" />
+		<module name="NeedBraces" />
+		<module name="RightCurly" />
+
+
+		<!-- Checks for common coding problems               -->
+		<!-- See http://checkstyle.sf.net/config_coding.html -->
+			<!-- The "double-checked locking" idiom (DCL) tries to 
+			avoid the runtime cost of synchronization -->
+		<module name="DoubleCheckedLocking">
+			<property name="severity" value="error" />
+		</module>
+		<module name="EmptyStatement" />
+		<module name="EqualsHashCode" />
+		<module name="IllegalInstantiation" >
+			<property name="classes" value="java.lang.Boolean"/>
+			<property name="classes" value="java.lang.Integer"/>
+			<property name="classes" value="java.lang.String"/>
+			<property name="severity" value="error" />
+		</module>
+		<module name="MagicNumber" >
+			<property name="severity" value="error" />
+		</module>
+		<module name="MissingSwitchDefault" >
+			<property name="severity" value="error" />
+		</module>
+		<module name="RedundantThrows">
+			<property name="logLoadErrors" value="true" />
+			<property name="suppressLoadErrors" value="true" />
+		</module>
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+
+		<!-- Checks for class design                         -->
+		<!-- See http://checkstyle.sf.net/config_design.html -->
+		<module name="FinalClass" />
+		<module name="HideUtilityClassConstructor" />
+		<module name="InterfaceIsType" />
+		<module name="VisibilityModifier" />
+
+		<!-- Miscellaneous other checks.                   -->
+		<!-- See http://checkstyle.sf.net/config_misc.html -->
+			<!-- Checks that long constants are defined with an upper ell. 
+			That is ' L' and not 'l'. This is in accordance to the Java 
+			Language Specification -->
+		<module name="UpperEll" />
+		<module name="TodoComment">
+			<property name="format" value="TODO|todo|to-do|TO-DO|DOCUMENT ME!" />
+			<property name="severity" value="error" />
+		</module>
+		
+		<!-- Checks metrics for maintainability.                       -->
+		<!-- See http://checkstyle.sourceforge.net/config_metrics.html -->
+		<module name="BooleanExpressionComplexity">
+			<!-- Restrict the number of number of &&, ||, &, | and ^ in 
+				an expression to 4 -->
+			<property name="max" value="4" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="ClassDataAbstractionCoupling">
+			<!-- Measures the number of instantiations of other classes 
+				within the given class -->
+			<property name="max" value="7" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="ClassFanOutComplexity">
+			<!-- The number of other classes a given class relies on -->
+			<property name="max" value="20" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="CyclomaticComplexity">
+			<!-- The complexity is measured by the number of:
+				if, while, do, for, ?:, catch, switch, case statements, 
+				and operators && and || (plus one) in the body of a: 
+				constructor, method, static initializer, or instance initializer -->
+			<property name="max" value="7" />
+			<property name="severity" value="error" />
+		</module>
+		<module name="NPathComplexity">
+			<!-- Computes the number of possible execution paths through a 
+			function. It takes into account the nesting of conditional 
+			statements and multi-part boolean expressions 
+			(e.g., A && B, C || D, etc.). -->
+			<property name="max" value="200" />
+			<property name="severity" value="error" />
+			<!-- Rationale: Nejmeh says that his group had an informal 
+			NPATH limit of 200 on individual routines; functions that 
+			exceeded this value were candidates for further decomposition - 
+			or at least a closer look. -->
+		</module>
+		<module name="JavaNCSS">
+			<!-- Determines complexity of methods, classes and files by 
+			counting the Non Commenting Source Statements (NCSS).  -->
+			<property name="methodMaximum" value="30" />
+			<property name="classMaximum" value="1500" />
+			<property name="fileMaximum" value="2000" />
+			<property name="severity" value="error" />
+		</module>
+	</module>
+
+</module>

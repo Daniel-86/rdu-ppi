@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IMPI-00-003" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="23" bottomMargin="7" uuid="79808087-3164-42ce-a83d-0c206f7c0205">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="16"/>
+	<field name="rutaFirmaImpi" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="cadenaImpi" class="java.lang.String"/>
+	<field name="selloImpi" class="java.lang.String"/>
+	<field name="nombreArchivo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="958">
+			<image isLazy="true">
+				<reportElement uuid="1031a703-3f0b-4141-837d-4cf4f4e57ca2" isPrintRepeatedValues="false" x="15" y="15" width="194" height="60"/>
+				<imageExpression><![CDATA[$F{rutaFirmaImpi}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement uuid="2ac4e066-f214-4970-987b-a2ae4b94ea4a" x="17" y="94" width="241" height="126"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="795bebe5-f7da-4220-8f74-d217277c220b" x="302" y="94" width="270" height="126"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="7c73ebba-17fa-4abc-b5c0-7a4e174dc748" x="18" y="94" width="240" height="126"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN DIVISIONAL DE PROMOCIÓN.
+
+SUBDIRECCIÓN DIVISIONAL DE SERVICIOS DE INFORMACIÓN TECNOLÓGICA.
+
+COORDINACIÓN DEPARTAMENTAL DEL CENTRO DE INFORMACIÓN TECNOLÓGICA.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7b9d11d4-b56d-48db-b88a-a23c8bb7bf0d" x="414" y="103" width="130" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expediente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f614aefa-eda5-4c28-9167-7aeb83020c34" x="312" y="103" width="99" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EXPEDIENTE:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="312" y="137" width="150" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FOLIO DE RECEPCIÓN:
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="460" y="137" width="110" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="20" y="235" width="518" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Notificaciones Firmadas
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="20" y="307" width="320" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[SOLICITANTE(S) O REPRESENTANTE LEGAL:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="388" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTOS ANEXOS:
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="14b4b2ec-43fb-48a4-88fe-8770e44727c0" x="21" y="408" width="517" height="153"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreArchivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="581" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EL SOLICITANTE MANIFESTÓ:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="611" width="544" height="51"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Que reconoce como propia y auténtica la información contenida en la solicitud enviada a través de este medio, asumiendo la responsabilidad por el uso de su nombre de usuario y contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se les atribuirá la autoría de la información que se envíe a través del PASE.
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="761" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FIRMA DE ACUSE:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" x="21" y="792" width="119" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cadena Original IMPI
+
+
+
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e57eb09e-1210-4bf3-996f-dd7ad42fd5f9" x="19" y="935" width="115" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Número de serie
+
+
+
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" x="22" y="891" width="560" height="34"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{selloImpi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2e27dc33-43f3-4c5d-94a5-def062ac0a64" x="137" y="938" width="345" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="7" isItalic="false"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" x="22" y="866" width="120" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Firma IMPI
+
+
+
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" x="21" y="821" width="538" height="39"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadenaImpi}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fdb6ed7f-0e10-4660-a501-711825c967bf" x="20" y="334" width="539" height="44"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" x="20" y="264" width="539" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="702" width="544" height="41"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CON LA FECHA Y HORA REFERIDA SE HA RECIBIDO SU SOLICITUD CON LOS DATOS SEÑALADOS DE LA QUE SE ACUSA RECIBO.
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a01f1634-0fa9-408e-86f9-5508059605bb" x="312" y="172" width="252" height="39"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FECHA Y HORA DE LA RECEPCIÓN DE LA SOLICITUD:
+                ]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dd29e72f-0262-410d-9a60-46c267beb9b1" x="414" y="189" width="130" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="136422e7-2690-4b9d-9231-737c65ff8795" x="22" y="664" width="544" height="30"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Declaró bajo protesta de decir verdad que los documentos anexos a la solicitud son originales o copia debidamente certificada."]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="b7ed6e9f-850b-4911-a8a7-29d548c52e3e" x="329" y="15" width="245" height="60"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Codabar" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[1245]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+		<band height="112">
+			<staticText>
+				<reportElement uuid="53b9a2a0-0817-4f52-aaf7-450f8cad899f" x="10" y="61" width="352" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[  Nombres del (los) Titular(es) Cedente(s):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0781ac26-b7ff-4698-826c-21a74ae74fe8" x="10" y="33" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[  Anexos:]]></text>
+			</staticText>
+		</band>
+		<band height="112">
+			<staticText>
+				<reportElement uuid="e4187c5b-c08c-4f4f-a894-98beaa9852a7" x="10" y="10" width="352" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[  Nombres de (los) Titular(es) Cesionario(s):]]></text>
+			</staticText>
+		</band>
+		<band height="112"/>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="322482d3-f49c-4a37-b2c7-76081a9a6190" x="488" y="0" width="84" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[IMPI-00-XXX]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bcee90bf-c731-4420-9438-8a9f87db209c" x="0" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c32988c1-1353-47fa-a633-0733ac2e4b95" x="80" y="0" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

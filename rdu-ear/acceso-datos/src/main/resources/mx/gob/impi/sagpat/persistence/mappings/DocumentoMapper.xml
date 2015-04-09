@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.DocumentoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.Documento" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="NUM_DOCUM" property="numDocum" jdbcType="DECIMAL" />
+    <id column="SER_DOCUM" property="serDocum" jdbcType="DECIMAL" />
+    <id column="TIP_LIBRO" property="tipLibro" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="FEC_PROCESO" property="fecProceso" jdbcType="TIMESTAMP" />
+    <result column="FEC_PRESENTACION" property="fecPresentacion" jdbcType="TIMESTAMP" />
+    <result column="TIP_ENTRADA" property="tipEntrada" jdbcType="VARCHAR" />
+    <result column="IND_RECEPCION_FAX" property="indRecepcionFax" jdbcType="VARCHAR" />
+    <result column="COD_DELEGACION" property="codDelegacion" jdbcType="DECIMAL" />
+    <result column="FEC_DELEGACION" property="fecDelegacion" jdbcType="TIMESTAMP" />
+    <result column="FEC_RECEPCION_FAX" property="fecRecepcionFax" jdbcType="TIMESTAMP" />
+    <result column="COD_OFICINA_OFICIO_ACUSE" property="codOficinaOficioAcuse" jdbcType="VARCHAR" />
+    <result column="SER_OFICIO_ACUSE" property="serOficioAcuse" jdbcType="DECIMAL" />
+    <result column="NUM_OFICIO_ACUSE" property="numOficioAcuse" jdbcType="DECIMAL" />
+    <result column="TIP_SOLICITUD" property="tipSolicitud" jdbcType="VARCHAR" />
+    <result column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <result column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <result column="COD_OFICINA_PS" property="codOficinaPs" jdbcType="VARCHAR" />
+    <result column="TIP_LIBRO_PS" property="tipLibroPs" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM_PS" property="serDocumPs" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM_PS" property="numDocumPs" jdbcType="DECIMAL" />
+    <result column="COD_OFICINA_SI" property="codOficinaSi" jdbcType="VARCHAR" />
+    <result column="TIP_LIBRO_SI" property="tipLibroSi" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM_SI" property="serDocumSi" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM_SI" property="numDocumSi" jdbcType="DECIMAL" />
+    <result column="IND_ORIGINAL_FAX" property="indOriginalFax" jdbcType="VARCHAR" />
+    <result column="COD_OFICINA_RESP" property="codOficinaResp" jdbcType="VARCHAR" />
+    <result column="TIP_LIBRO_RESP" property="tipLibroResp" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM_RESP" property="serDocumResp" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM_RESP" property="numDocumResp" jdbcType="DECIMAL" />
+    <result column="FEC_CORREO" property="fecCorreo" jdbcType="TIMESTAMP" />
+    <result column="FEC_NOTIFICACION" property="fecNotificacion" jdbcType="TIMESTAMP" />
+    <result column="IND_RESPONDER" property="indResponder" jdbcType="VARCHAR" />
+    <result column="IND_SISTEMA" property="indSistema" jdbcType="VARCHAR" />
+    <result column="COD_OFICINA_OFICIO" property="codOficinaOficio" jdbcType="VARCHAR" />
+    <result column="SER_OFICIO" property="serOficio" jdbcType="DECIMAL" />
+    <result column="NUM_OFICIO" property="numOficio" jdbcType="DECIMAL" />
+    <result column="DES_DOCUM" property="desDocum" jdbcType="VARCHAR" />
+    <result column="REF_DOCUM" property="refDocum" jdbcType="DECIMAL" />
+    <result column="IND_FALTAN_EXPEDS" property="indFaltanExpeds" jdbcType="VARCHAR" />
+    <result column="COD_DIREC" property="codDirec" jdbcType="VARCHAR" />
+    <result column="COD_SUBDIREC" property="codSubdirec" jdbcType="VARCHAR" />
+    <result column="COD_DEPTO" property="codDepto" jdbcType="VARCHAR" />
+    <result column="OBS" property="obs" jdbcType="VARCHAR" />
+    <result column="SUBTIP_SOLICITUD" property="subtipSolicitud" jdbcType="VARCHAR" />
+    <result column="NUM_AUXIL1" property="numAuxil1" jdbcType="DECIMAL" />
+    <result column="FEC_RECEPCION" property="fecRecepcion" jdbcType="TIMESTAMP" />
+    <result column="FEC_RECEPCION_ORIG" property="fecRecepcionOrig" jdbcType="TIMESTAMP" />
+    <result column="NUM_PAGINAS" property="numPaginas" jdbcType="DECIMAL" />
+    <result column="NUM_PAGS_MIGRADAS" property="numPagsMigradas" jdbcType="DECIMAL" />
+    <result column="IND_DEPOSITO_MAT_BIOLOGICO" property="indDepositoMatBiologico" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="COD_OFICINA_RECEPTORA" property="codOficinaReceptora" jdbcType="DECIMAL" />
+    <result column="IND_CAPTURA_GLOSA" property="indCapturaGlosa" jdbcType="VARCHAR" />
+    <result column="IND_CAPTURA_DATOS_PROM" property="indCapturaDatosProm" jdbcType="VARCHAR" />
+    <result column="IND_CAPTURA_DATOS" property="indCapturaDatos" jdbcType="VARCHAR" />
+  </resultMap>
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select COD_OFICINA, NUM_DOCUM, SER_DOCUM, TIP_LIBRO, ROW_VERSION, FEC_PROCESO, FEC_PRESENTACION, 
+    TIP_ENTRADA, IND_RECEPCION_FAX, COD_DELEGACION, FEC_DELEGACION, FEC_RECEPCION_FAX, 
+    COD_OFICINA_OFICIO_ACUSE, SER_OFICIO_ACUSE, NUM_OFICIO_ACUSE, TIP_SOLICITUD, TIP_EXPED, 
+    SER_EXPED, NUM_EXPED, COD_OFICINA_PS, TIP_LIBRO_PS, SER_DOCUM_PS, NUM_DOCUM_PS, COD_OFICINA_SI, 
+    TIP_LIBRO_SI, SER_DOCUM_SI, NUM_DOCUM_SI, IND_ORIGINAL_FAX, COD_OFICINA_RESP, TIP_LIBRO_RESP, 
+    SER_DOCUM_RESP, NUM_DOCUM_RESP, FEC_CORREO, FEC_NOTIFICACION, IND_RESPONDER, IND_SISTEMA, 
+    COD_OFICINA_OFICIO, SER_OFICIO, NUM_OFICIO, DES_DOCUM, REF_DOCUM, IND_FALTAN_EXPEDS, 
+    COD_DIREC, COD_SUBDIREC, COD_DEPTO, OBS, SUBTIP_SOLICITUD, NUM_AUXIL1, FEC_RECEPCION, 
+    FEC_RECEPCION_ORIG, NUM_PAGINAS, NUM_PAGS_MIGRADAS, IND_DEPOSITO_MAT_BIOLOGICO, USER_ID, 
+    COD_OFICINA_RECEPTORA, IND_CAPTURA_GLOSA, IND_CAPTURA_DATOS_PROM, IND_CAPTURA_DATOS
+    from PATENTES.DOCUMENTO
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </select>
+    <select id="selectMinNumDocum" resultType="java.lang.String" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >      
+      SELECT min(NUM_DOCUM)
+      FROM DOCUMENTO
+      WHERE COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      AND  TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+      AND TO_CHAR(FEC_PROCESO, 'DD-MM-YYYY' ) = TO_CHAR( #{fecProceso,jdbcType=TIMESTAMP} ,'DD-MM-YYYY')
+  </select>
+  
+  
+   <select id="selectMaxNumDocum" resultType="java.lang.String" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >      
+      SELECT max(NUM_DOCUM)
+      FROM DOCUMENTO
+      WHERE COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      AND  TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}           
+      AND TO_CHAR(FEC_PROCESO, 'DD-MM-YYYY' ) = TO_CHAR( #{fecProceso,jdbcType=TIMESTAMP} ,'DD-MM-YYYY')
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.DOCUMENTO
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >
+    insert into PATENTES.DOCUMENTO (COD_OFICINA, NUM_DOCUM, SER_DOCUM, 
+      TIP_LIBRO, ROW_VERSION, FEC_PROCESO, 
+      FEC_PRESENTACION, TIP_ENTRADA, IND_RECEPCION_FAX, 
+      COD_DELEGACION, FEC_DELEGACION, FEC_RECEPCION_FAX, 
+      COD_OFICINA_OFICIO_ACUSE, SER_OFICIO_ACUSE, 
+      NUM_OFICIO_ACUSE, TIP_SOLICITUD, TIP_EXPED, 
+      SER_EXPED, NUM_EXPED, COD_OFICINA_PS, 
+      TIP_LIBRO_PS, SER_DOCUM_PS, NUM_DOCUM_PS, 
+      COD_OFICINA_SI, TIP_LIBRO_SI, SER_DOCUM_SI, 
+      NUM_DOCUM_SI, IND_ORIGINAL_FAX, COD_OFICINA_RESP, 
+      TIP_LIBRO_RESP, SER_DOCUM_RESP, NUM_DOCUM_RESP, 
+      FEC_CORREO, FEC_NOTIFICACION, IND_RESPONDER, 
+      IND_SISTEMA, COD_OFICINA_OFICIO, SER_OFICIO, 
+      NUM_OFICIO, DES_DOCUM, REF_DOCUM, 
+      IND_FALTAN_EXPEDS, COD_DIREC, COD_SUBDIREC, 
+      COD_DEPTO, OBS, SUBTIP_SOLICITUD, 
+      NUM_AUXIL1, FEC_RECEPCION, FEC_RECEPCION_ORIG, 
+      NUM_PAGINAS, NUM_PAGS_MIGRADAS, IND_DEPOSITO_MAT_BIOLOGICO, 
+      USER_ID, COD_OFICINA_RECEPTORA, IND_CAPTURA_GLOSA, 
+      IND_CAPTURA_DATOS_PROM, IND_CAPTURA_DATOS)
+    values (#{codOficina,jdbcType=VARCHAR}, #{numDocum,jdbcType=DECIMAL}, #{serDocum,jdbcType=DECIMAL}, 
+      #{tipLibro,jdbcType=VARCHAR}, #{rowVersion,jdbcType=DECIMAL},   to_date(to_char(#{fecProceso,jdbcType=TIMESTAMP}, 'DD-MM-YYYY' ) , 'DD-MM-YYYY') , 
+      
+      to_date((to_char( #{fecPresentacion,jdbcType=TIMESTAMP} , 'DD-MM-YYYY HH24:MI')) , 'DD-MM-YYYY HH24:MI')                                      
+      
+      , 
+      
+      #{tipEntrada,jdbcType=VARCHAR}, #{indRecepcionFax,jdbcType=VARCHAR}, 
+      #{codDelegacion,jdbcType=DECIMAL}, #{fecDelegacion,jdbcType=TIMESTAMP}, #{fecRecepcionFax,jdbcType=TIMESTAMP}, 
+      #{codOficinaOficioAcuse,jdbcType=VARCHAR}, #{serOficioAcuse,jdbcType=DECIMAL}, 
+      #{numOficioAcuse,jdbcType=DECIMAL}, #{tipSolicitud,jdbcType=VARCHAR}, #{tipExped,jdbcType=VARCHAR}, 
+      #{serExped,jdbcType=DECIMAL}, #{numExped,jdbcType=DECIMAL}, #{codOficinaPs,jdbcType=VARCHAR}, 
+      #{tipLibroPs,jdbcType=VARCHAR}, #{serDocumPs,jdbcType=DECIMAL}, #{numDocumPs,jdbcType=DECIMAL}, 
+      #{codOficinaSi,jdbcType=VARCHAR}, #{tipLibroSi,jdbcType=VARCHAR}, #{serDocumSi,jdbcType=DECIMAL}, 
+      #{numDocumSi,jdbcType=DECIMAL}, #{indOriginalFax,jdbcType=VARCHAR}, #{codOficinaResp,jdbcType=VARCHAR}, 
+      #{tipLibroResp,jdbcType=VARCHAR}, #{serDocumResp,jdbcType=DECIMAL}, #{numDocumResp,jdbcType=DECIMAL}, 
+      #{fecCorreo,jdbcType=TIMESTAMP}, #{fecNotificacion,jdbcType=TIMESTAMP}, #{indResponder,jdbcType=VARCHAR}, 
+      #{indSistema,jdbcType=VARCHAR}, #{codOficinaOficio,jdbcType=VARCHAR}, #{serOficio,jdbcType=DECIMAL}, 
+      #{numOficio,jdbcType=DECIMAL}, #{desDocum,jdbcType=VARCHAR}, #{refDocum,jdbcType=DECIMAL}, 
+      #{indFaltanExpeds,jdbcType=VARCHAR}, #{codDirec,jdbcType=VARCHAR}, #{codSubdirec,jdbcType=VARCHAR}, 
+      #{codDepto,jdbcType=VARCHAR}, #{obs,jdbcType=VARCHAR}, #{subtipSolicitud,jdbcType=VARCHAR}, 
+      #{numAuxil1,jdbcType=DECIMAL},       
+      to_date((to_char( #{fecRecepcion,jdbcType=TIMESTAMP} , 'DD-MM-YYYY HH24:MI')) , 'DD-MM-YYYY HH24:MI')     ,
+      #{fecRecepcionOrig,jdbcType=TIMESTAMP},       
+      #{numPaginas,jdbcType=DECIMAL}, #{numPagsMigradas,jdbcType=DECIMAL}, #{indDepositoMatBiologico,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=DECIMAL}, #{codOficinaReceptora,jdbcType=DECIMAL}, #{indCapturaGlosa,jdbcType=VARCHAR}, 
+      #{indCapturaDatosProm,jdbcType=VARCHAR}, #{indCapturaDatos,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >
+    insert into PATENTES.DOCUMENTO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        COD_OFICINA,
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM,
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM,
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="fecProceso != null" >
+        FEC_PROCESO,
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION,
+      </if>
+      <if test="tipEntrada != null" >
+        TIP_ENTRADA,
+      </if>
+      <if test="indRecepcionFax != null" >
+        IND_RECEPCION_FAX,
+      </if>
+      <if test="codDelegacion != null" >
+        COD_DELEGACION,
+      </if>
+      <if test="fecDelegacion != null" >
+        FEC_DELEGACION,
+      </if>
+      <if test="fecRecepcionFax != null" >
+        FEC_RECEPCION_FAX,
+      </if>
+      <if test="codOficinaOficioAcuse != null" >
+        COD_OFICINA_OFICIO_ACUSE,
+      </if>
+      <if test="serOficioAcuse != null" >
+        SER_OFICIO_ACUSE,
+      </if>
+      <if test="numOficioAcuse != null" >
+        NUM_OFICIO_ACUSE,
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="codOficinaPs != null" >
+        COD_OFICINA_PS,
+      </if>
+      <if test="tipLibroPs != null" >
+        TIP_LIBRO_PS,
+      </if>
+      <if test="serDocumPs != null" >
+        SER_DOCUM_PS,
+      </if>
+      <if test="numDocumPs != null" >
+        NUM_DOCUM_PS,
+      </if>
+      <if test="codOficinaSi != null" >
+        COD_OFICINA_SI,
+      </if>
+      <if test="tipLibroSi != null" >
+        TIP_LIBRO_SI,
+      </if>
+      <if test="serDocumSi != null" >
+        SER_DOCUM_SI,
+      </if>
+      <if test="numDocumSi != null" >
+        NUM_DOCUM_SI,
+      </if>
+      <if test="indOriginalFax != null" >
+        IND_ORIGINAL_FAX,
+      </if>
+      <if test="codOficinaResp != null" >
+        COD_OFICINA_RESP,
+      </if>
+      <if test="tipLibroResp != null" >
+        TIP_LIBRO_RESP,
+      </if>
+      <if test="serDocumResp != null" >
+        SER_DOCUM_RESP,
+      </if>
+      <if test="numDocumResp != null" >
+        NUM_DOCUM_RESP,
+      </if>
+      <if test="fecCorreo != null" >
+        FEC_CORREO,
+      </if>
+      <if test="fecNotificacion != null" >
+        FEC_NOTIFICACION,
+      </if>
+      <if test="indResponder != null" >
+        IND_RESPONDER,
+      </if>
+      <if test="indSistema != null" >
+        IND_SISTEMA,
+      </if>
+      <if test="codOficinaOficio != null" >
+        COD_OFICINA_OFICIO,
+      </if>
+      <if test="serOficio != null" >
+        SER_OFICIO,
+      </if>
+      <if test="numOficio != null" >
+        NUM_OFICIO,
+      </if>
+      <if test="desDocum != null" >
+        DES_DOCUM,
+      </if>
+      <if test="refDocum != null" >
+        REF_DOCUM,
+      </if>
+      <if test="indFaltanExpeds != null" >
+        IND_FALTAN_EXPEDS,
+      </if>
+      <if test="codDirec != null" >
+        COD_DIREC,
+      </if>
+      <if test="codSubdirec != null" >
+        COD_SUBDIREC,
+      </if>
+      <if test="codDepto != null" >
+        COD_DEPTO,
+      </if>
+      <if test="obs != null" >
+        OBS,
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD,
+      </if>
+      <if test="numAuxil1 != null" >
+        NUM_AUXIL1,
+      </if>
+      <if test="fecRecepcion != null" >
+        FEC_RECEPCION,
+      </if>
+      <if test="fecRecepcionOrig != null" >
+        FEC_RECEPCION_ORIG,
+      </if>
+      <if test="numPaginas != null" >
+        NUM_PAGINAS,
+      </if>
+      <if test="numPagsMigradas != null" >
+        NUM_PAGS_MIGRADAS,
+      </if>
+      <if test="indDepositoMatBiologico != null" >
+        IND_DEPOSITO_MAT_BIOLOGICO,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="codOficinaReceptora != null" >
+        COD_OFICINA_RECEPTORA,
+      </if>
+      <if test="indCapturaGlosa != null" >
+        IND_CAPTURA_GLOSA,
+      </if>
+      <if test="indCapturaDatosProm != null" >
+        IND_CAPTURA_DATOS_PROM,
+      </if>
+      <if test="indCapturaDatos != null" >
+        IND_CAPTURA_DATOS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="numDocum != null" >
+        #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="serDocum != null" >
+        #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="tipLibro != null" >
+        #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecProceso != null" >
+        #{fecProceso,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPresentacion != null" >
+        #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tipEntrada != null" >
+        #{tipEntrada,jdbcType=VARCHAR},
+      </if>
+      <if test="indRecepcionFax != null" >
+        #{indRecepcionFax,jdbcType=VARCHAR},
+      </if>
+      <if test="codDelegacion != null" >
+        #{codDelegacion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecDelegacion != null" >
+        #{fecDelegacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecRecepcionFax != null" >
+        #{fecRecepcionFax,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codOficinaOficioAcuse != null" >
+        #{codOficinaOficioAcuse,jdbcType=VARCHAR},
+      </if>
+      <if test="serOficioAcuse != null" >
+        #{serOficioAcuse,jdbcType=DECIMAL},
+      </if>
+      <if test="numOficioAcuse != null" >
+        #{numOficioAcuse,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitud != null" >
+        #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaPs != null" >
+        #{codOficinaPs,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroPs != null" >
+        #{tipLibroPs,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumPs != null" >
+        #{serDocumPs,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumPs != null" >
+        #{numDocumPs,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaSi != null" >
+        #{codOficinaSi,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroSi != null" >
+        #{tipLibroSi,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumSi != null" >
+        #{serDocumSi,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumSi != null" >
+        #{numDocumSi,jdbcType=DECIMAL},
+      </if>
+      <if test="indOriginalFax != null" >
+        #{indOriginalFax,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaResp != null" >
+        #{codOficinaResp,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroResp != null" >
+        #{tipLibroResp,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumResp != null" >
+        #{serDocumResp,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumResp != null" >
+        #{numDocumResp,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCorreo != null" >
+        #{fecCorreo,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecNotificacion != null" >
+        #{fecNotificacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indResponder != null" >
+        #{indResponder,jdbcType=VARCHAR},
+      </if>
+      <if test="indSistema != null" >
+        #{indSistema,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaOficio != null" >
+        #{codOficinaOficio,jdbcType=VARCHAR},
+      </if>
+      <if test="serOficio != null" >
+        #{serOficio,jdbcType=DECIMAL},
+      </if>
+      <if test="numOficio != null" >
+        #{numOficio,jdbcType=DECIMAL},
+      </if>
+      <if test="desDocum != null" >
+        #{desDocum,jdbcType=VARCHAR},
+      </if>
+      <if test="refDocum != null" >
+        #{refDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="indFaltanExpeds != null" >
+        #{indFaltanExpeds,jdbcType=VARCHAR},
+      </if>
+      <if test="codDirec != null" >
+        #{codDirec,jdbcType=VARCHAR},
+      </if>
+      <if test="codSubdirec != null" >
+        #{codSubdirec,jdbcType=VARCHAR},
+      </if>
+      <if test="codDepto != null" >
+        #{codDepto,jdbcType=VARCHAR},
+      </if>
+      <if test="obs != null" >
+        #{obs,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="numAuxil1 != null" >
+        #{numAuxil1,jdbcType=DECIMAL},
+      </if>
+      <if test="fecRecepcion != null" >
+        #{fecRecepcion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecRecepcionOrig != null" >
+        #{fecRecepcionOrig,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPaginas != null" >
+        #{numPaginas,jdbcType=DECIMAL},
+      </if>
+      <if test="numPagsMigradas != null" >
+        #{numPagsMigradas,jdbcType=DECIMAL},
+      </if>
+      <if test="indDepositoMatBiologico != null" >
+        #{indDepositoMatBiologico,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaReceptora != null" >
+        #{codOficinaReceptora,jdbcType=DECIMAL},
+      </if>
+      <if test="indCapturaGlosa != null" >
+        #{indCapturaGlosa,jdbcType=VARCHAR},
+      </if>
+      <if test="indCapturaDatosProm != null" >
+        #{indCapturaDatosProm,jdbcType=VARCHAR},
+      </if>
+      <if test="indCapturaDatos != null" >
+        #{indCapturaDatos,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >
+    update PATENTES.DOCUMENTO
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecProceso != null" >
+        FEC_PROCESO = #{fecProceso,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tipEntrada != null" >
+        TIP_ENTRADA = #{tipEntrada,jdbcType=VARCHAR},
+      </if>
+      <if test="indRecepcionFax != null" >
+        IND_RECEPCION_FAX = #{indRecepcionFax,jdbcType=VARCHAR},
+      </if>
+      <if test="codDelegacion != null" >
+        COD_DELEGACION = #{codDelegacion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecDelegacion != null" >
+        FEC_DELEGACION = #{fecDelegacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecRecepcionFax != null" >
+        FEC_RECEPCION_FAX = #{fecRecepcionFax,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codOficinaOficioAcuse != null" >
+        COD_OFICINA_OFICIO_ACUSE = #{codOficinaOficioAcuse,jdbcType=VARCHAR},
+      </if>
+      <if test="serOficioAcuse != null" >
+        SER_OFICIO_ACUSE = #{serOficioAcuse,jdbcType=DECIMAL},
+      </if>
+      <if test="numOficioAcuse != null" >
+        NUM_OFICIO_ACUSE = #{numOficioAcuse,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED = #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED = #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED = #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaPs != null" >
+        COD_OFICINA_PS = #{codOficinaPs,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroPs != null" >
+        TIP_LIBRO_PS = #{tipLibroPs,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumPs != null" >
+        SER_DOCUM_PS = #{serDocumPs,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumPs != null" >
+        NUM_DOCUM_PS = #{numDocumPs,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaSi != null" >
+        COD_OFICINA_SI = #{codOficinaSi,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroSi != null" >
+        TIP_LIBRO_SI = #{tipLibroSi,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumSi != null" >
+        SER_DOCUM_SI = #{serDocumSi,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumSi != null" >
+        NUM_DOCUM_SI = #{numDocumSi,jdbcType=DECIMAL},
+      </if>
+      <if test="indOriginalFax != null" >
+        IND_ORIGINAL_FAX = #{indOriginalFax,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaResp != null" >
+        COD_OFICINA_RESP = #{codOficinaResp,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroResp != null" >
+        TIP_LIBRO_RESP = #{tipLibroResp,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumResp != null" >
+        SER_DOCUM_RESP = #{serDocumResp,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumResp != null" >
+        NUM_DOCUM_RESP = #{numDocumResp,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCorreo != null" >
+        FEC_CORREO = #{fecCorreo,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecNotificacion != null" >
+        FEC_NOTIFICACION = #{fecNotificacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indResponder != null" >
+        IND_RESPONDER = #{indResponder,jdbcType=VARCHAR},
+      </if>
+      <if test="indSistema != null" >
+        IND_SISTEMA = #{indSistema,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaOficio != null" >
+        COD_OFICINA_OFICIO = #{codOficinaOficio,jdbcType=VARCHAR},
+      </if>
+      <if test="serOficio != null" >
+        SER_OFICIO = #{serOficio,jdbcType=DECIMAL},
+      </if>
+      <if test="numOficio != null" >
+        NUM_OFICIO = #{numOficio,jdbcType=DECIMAL},
+      </if>
+      <if test="desDocum != null" >
+        DES_DOCUM = #{desDocum,jdbcType=VARCHAR},
+      </if>
+      <if test="refDocum != null" >
+        REF_DOCUM = #{refDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="indFaltanExpeds != null" >
+        IND_FALTAN_EXPEDS = #{indFaltanExpeds,jdbcType=VARCHAR},
+      </if>
+      <if test="codDirec != null" >
+        COD_DIREC = #{codDirec,jdbcType=VARCHAR},
+      </if>
+      <if test="codSubdirec != null" >
+        COD_SUBDIREC = #{codSubdirec,jdbcType=VARCHAR},
+      </if>
+      <if test="codDepto != null" >
+        COD_DEPTO = #{codDepto,jdbcType=VARCHAR},
+      </if>
+      <if test="obs != null" >
+        OBS = #{obs,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="numAuxil1 != null" >
+        NUM_AUXIL1 = #{numAuxil1,jdbcType=DECIMAL},
+      </if>
+      <if test="fecRecepcion != null" >
+        FEC_RECEPCION = #{fecRecepcion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecRecepcionOrig != null" >
+        FEC_RECEPCION_ORIG = #{fecRecepcionOrig,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPaginas != null" >
+        NUM_PAGINAS = #{numPaginas,jdbcType=DECIMAL},
+      </if>
+      <if test="numPagsMigradas != null" >
+        NUM_PAGS_MIGRADAS = #{numPagsMigradas,jdbcType=DECIMAL},
+      </if>
+      <if test="indDepositoMatBiologico != null" >
+        IND_DEPOSITO_MAT_BIOLOGICO = #{indDepositoMatBiologico,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaReceptora != null" >
+        COD_OFICINA_RECEPTORA = #{codOficinaReceptora,jdbcType=DECIMAL},
+      </if>
+      <if test="indCapturaGlosa != null" >
+        IND_CAPTURA_GLOSA = #{indCapturaGlosa,jdbcType=VARCHAR},
+      </if>
+      <if test="indCapturaDatosProm != null" >
+        IND_CAPTURA_DATOS_PROM = #{indCapturaDatosProm,jdbcType=VARCHAR},
+      </if>
+      <if test="indCapturaDatos != null" >
+        IND_CAPTURA_DATOS = #{indCapturaDatos,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.Documento" >
+    update PATENTES.DOCUMENTO
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      FEC_PROCESO = #{fecProceso,jdbcType=TIMESTAMP},
+      FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      TIP_ENTRADA = #{tipEntrada,jdbcType=VARCHAR},
+      IND_RECEPCION_FAX = #{indRecepcionFax,jdbcType=VARCHAR},
+      COD_DELEGACION = #{codDelegacion,jdbcType=DECIMAL},
+      FEC_DELEGACION = #{fecDelegacion,jdbcType=TIMESTAMP},
+      FEC_RECEPCION_FAX = #{fecRecepcionFax,jdbcType=TIMESTAMP},
+      COD_OFICINA_OFICIO_ACUSE = #{codOficinaOficioAcuse,jdbcType=VARCHAR},
+      SER_OFICIO_ACUSE = #{serOficioAcuse,jdbcType=DECIMAL},
+      NUM_OFICIO_ACUSE = #{numOficioAcuse,jdbcType=DECIMAL},
+      TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      TIP_EXPED = #{tipExped,jdbcType=VARCHAR},
+      SER_EXPED = #{serExped,jdbcType=DECIMAL},
+      NUM_EXPED = #{numExped,jdbcType=DECIMAL},
+      COD_OFICINA_PS = #{codOficinaPs,jdbcType=VARCHAR},
+      TIP_LIBRO_PS = #{tipLibroPs,jdbcType=VARCHAR},
+      SER_DOCUM_PS = #{serDocumPs,jdbcType=DECIMAL},
+      NUM_DOCUM_PS = #{numDocumPs,jdbcType=DECIMAL},
+      COD_OFICINA_SI = #{codOficinaSi,jdbcType=VARCHAR},
+      TIP_LIBRO_SI = #{tipLibroSi,jdbcType=VARCHAR},
+      SER_DOCUM_SI = #{serDocumSi,jdbcType=DECIMAL},
+      NUM_DOCUM_SI = #{numDocumSi,jdbcType=DECIMAL},
+      IND_ORIGINAL_FAX = #{indOriginalFax,jdbcType=VARCHAR},
+      COD_OFICINA_RESP = #{codOficinaResp,jdbcType=VARCHAR},
+      TIP_LIBRO_RESP = #{tipLibroResp,jdbcType=VARCHAR},
+      SER_DOCUM_RESP = #{serDocumResp,jdbcType=DECIMAL},
+      NUM_DOCUM_RESP = #{numDocumResp,jdbcType=DECIMAL},
+      FEC_CORREO = #{fecCorreo,jdbcType=TIMESTAMP},
+      FEC_NOTIFICACION = #{fecNotificacion,jdbcType=TIMESTAMP},
+      IND_RESPONDER = #{indResponder,jdbcType=VARCHAR},
+      IND_SISTEMA = #{indSistema,jdbcType=VARCHAR},
+      COD_OFICINA_OFICIO = #{codOficinaOficio,jdbcType=VARCHAR},
+      SER_OFICIO = #{serOficio,jdbcType=DECIMAL},
+      NUM_OFICIO = #{numOficio,jdbcType=DECIMAL},
+      DES_DOCUM = #{desDocum,jdbcType=VARCHAR},
+      REF_DOCUM = #{refDocum,jdbcType=DECIMAL},
+      IND_FALTAN_EXPEDS = #{indFaltanExpeds,jdbcType=VARCHAR},
+      COD_DIREC = #{codDirec,jdbcType=VARCHAR},
+      COD_SUBDIREC = #{codSubdirec,jdbcType=VARCHAR},
+      COD_DEPTO = #{codDepto,jdbcType=VARCHAR},
+      OBS = #{obs,jdbcType=VARCHAR},
+      SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      NUM_AUXIL1 = #{numAuxil1,jdbcType=DECIMAL},
+      FEC_RECEPCION = #{fecRecepcion,jdbcType=TIMESTAMP},
+      FEC_RECEPCION_ORIG = #{fecRecepcionOrig,jdbcType=TIMESTAMP},
+      NUM_PAGINAS = #{numPaginas,jdbcType=DECIMAL},
+      NUM_PAGS_MIGRADAS = #{numPagsMigradas,jdbcType=DECIMAL},
+      IND_DEPOSITO_MAT_BIOLOGICO = #{indDepositoMatBiologico,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      COD_OFICINA_RECEPTORA = #{codOficinaReceptora,jdbcType=DECIMAL},
+      IND_CAPTURA_GLOSA = #{indCapturaGlosa,jdbcType=VARCHAR},
+      IND_CAPTURA_DATOS_PROM = #{indCapturaDatosProm,jdbcType=VARCHAR},
+      IND_CAPTURA_DATOS = #{indCapturaDatos,jdbcType=VARCHAR}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.NotificacionMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Notificacion" >
+        <id column="ID_NOTIFICACION" property="idNotificacion" jdbcType="DECIMAL" />
+        <result column="FOLIO" property="folio" jdbcType="VARCHAR" />
+        <result column="ID_USUARIO_CARGA" property="idUsuarioCarga" jdbcType="DECIMAL" />
+        <result column="FECHA_CARGA" property="fechaCarga" jdbcType="TIMESTAMP" />
+        <result column="ID_USUARIO_FIRMA" property="idUsuarioFirma" jdbcType="DECIMAL" />
+        <result column="ARCHIVO_NOMBRE" property="archivoNombre" jdbcType="VARCHAR" />
+        <result column="ID_ACTIVO" property="idActivo" jdbcType="DECIMAL" />
+        <result column="ID_ESTATUS" property="idEstatus" jdbcType="DECIMAL" />
+        <result column="EXPEDIENTE" property="expediente" jdbcType="VARCHAR" />
+        <result column="DENOMINACION" property="denominacion" jdbcType="VARCHAR" />
+        <result column="ID_ESTATUS" property="titular" jdbcType="DECIMAL" />
+        <result column="ID_AREA" property="idArea" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.Notificacion" extends="BaseResultMap" >
+        <result column="ARCHIVO" property="archivo" jdbcType="BLOB" />
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+        select  ID_NOTIFICACION, FOLIO, ID_USUARIO_CARGA, FECHA_CARGA, ID_USUARIO_FIRMA, ARCHIVO_NOMBRE, 
+        ID_ACTIVO, ID_ESTATUS,  ARCHIVO
+        from NOTIFICACION
+        where ID_NOTIFICACION = #{idNotificacion,jdbcType=DECIMAL}
+    </select>
+    <select id="selectByIdUsuarioFirma" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+            DENOMINACION,
+            TITULAR,
+            ID_AREA
+        from NOTIFICACION
+        where ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL} and ID_ESTATUS=3 and ID_ACTIVO != 0
+    </select>
+    
+    
+    <select id="selectByDates"  resultMap="ResultMapWithBLOBs" parameterType="map" >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+        DENOMINACION,
+         TITULAR,
+         ID_AREA
+        from NOTIFICACION
+        where  ID_ESTATUS=3 and ID_ACTIVO != 0
+        <if test="fechaInicio!=null and fechaFin!=null">
+                       AND FECHA_CARGA BETWEEN TO_DATE(#{fechaInicio},'DD-MM-YYYY') AND TO_DATE(#{fechaFin}||' 23:59:59','DD-MM-YYYY hh24:mi:ss')
+        </if>
+        <if test="ultimoMes!=null">
+                       AND FECHA_CARGA > add_months(SYSDATE,-1)
+        </if>
+        <if test="ultimaSemana!=null">
+                       AND FECHA_CARGA > SYSDATE-7
+        </if>
+        AND ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL}   
+        
+        
+    </select>
+    
+    
+    
+    
+    
+    <select id="selectByIdUsuarioCarga" resultMap="ResultMapWithBLOBs"  >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+            DENOMINACION,
+            TITULAR,
+            ID_AREA
+        from NOTIFICACION
+        where ID_USUARIO_CARGA = #{idUsuarioCarga,jdbcType=DECIMAL} and ID_ESTATUS=3 and ID_ACTIVO != 0
+        and ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL} 
+    </select>
+    
+    
+    
+    <select id="selectByIds" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+        DESCRIPCION,
+        TITULAR
+        from NOTIFICACION
+        where ID_NOTIFICACION in ( #{notificacionIds,jdbcType=VARCHAR} )
+        and ID_ESTATUS=3 
+        and ID_ACTIVO != 0
+    </select>
+    
+    <select id="selectByFolio" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+        DESCRIPCION,
+        TITULAR
+        from NOTIFICACION
+        where FOLIO=#{folio,jdbcType=VARCHAR}
+        and ID_ACTIVO != 0
+    </select>
+    
+    <select id="selecttest" resultMap="ResultMapWithBLOBs" >
+        select
+        ID_ESTATUS,
+        ARCHIVO,
+        ID_NOTIFICACION,
+        FOLIO,        
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        ID_ACTIVO,
+        DENOMINACION,
+        EXPEDIENTE,
+        ID_AREA,
+        DESCRIPCION,
+        TITULAR
+        from NOTIFICACION
+        where ID_ESTATUS=3
+        and ID_ACTIVO != 0
+        and ID_NOTIFICACION in
+        <foreach item="item"   collection="notificacionIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Notificacion">
+        INSERT
+        INTO NOTIFICACION(
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO,
+        ARCHIVO_NOMBRE,
+        ID_ACTIVO,
+        ID_ESTATUS,
+        EXPEDIENTE,
+            DENOMINACION,
+            TITULAR,
+            ID_AREA
+        )
+        VALUES
+        (
+        NOTIFICACION_SEQ.NEXTVAL,
+        #{folio,jdbcType=VARCHAR},
+        #{idUsuarioCarga,jdbcType=DECIMAL},
+              sysdate,
+        #{idUsuarioFirma,jdbcType=DECIMAL},
+        #{archivo,jdbcType=BLOB},
+        #{archivoNombre,jdbcType=VARCHAR},
+        1,
+        3,
+        #{expediente,jdbcType=DECIMAL},
+              #{denominacion,jdbcType=VARCHAR},
+              #{titular,jdbcType=DECIMAL},
+              #{idArea,jdbcType=DECIMAL}
+        )
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from NOTIFICACION
+        where ID_NOTIFICACION = #{idNotificacion,jdbcType=DECIMAL}
+    </delete>
+    
+    
+    <delete id="deleteByIds"  >
+        delete from NOTIFICACION
+        where ID_NOTIFICACION in   
+        <foreach item="item"   collection="notificacionIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Notificacion" >
+        update NOTIFICACION
+        <set >
+            <if test="folio != null" >
+                FOLIO = #{folio,jdbcType=VARCHAR},
+            </if>
+            <if test="idUsuarioCarga != null" >
+                ID_USUARIO_CARGA = #{idUsuarioCarga,jdbcType=DECIMAL},
+            </if>
+            <if test="fechaCarga != null" >
+                FECHA_CARGA = #{fechaCarga,jdbcType=TIMESTAMP},
+            </if>
+            <if test="idUsuarioFirma != null" >
+                ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL},
+            </if>
+            <if test="archivoNombre != null" >
+                ARCHIVO_NOMBRE = #{archivoNombre,jdbcType=VARCHAR},
+            </if>
+            <if test="idActivo != null" >
+                ID_ACTIVO = #{idActivo,jdbcType=DECIMAL},
+            </if>
+            <if test="idEstatus != null" >
+                ID_ESTATUS = #{idEstatus,jdbcType=DECIMAL},
+            </if>
+            <if test="archivo != null" >
+                ARCHIVO = #{archivo,jdbcType=BLOB},
+            </if>
+        </set>
+        where ID_NOTIFICACION = #{idNotificacion,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="mx.gob.impi.rdu.persistence.model.Notificacion" >
+        update NOTIFICACION
+        set FOLIO = #{folio,jdbcType=VARCHAR},
+        ID_USUARIO_CARGA = #{idUsuarioCarga,jdbcType=DECIMAL},
+        FECHA_CARGA = #{fechaCarga,jdbcType=TIMESTAMP},
+        ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL},
+        ARCHIVO_NOMBRE = #{archivoNombre,jdbcType=VARCHAR},
+        ID_ACTIVO = #{idActivo,jdbcType=DECIMAL},
+        ID_ESTATUS = #{idEstatus,jdbcType=DECIMAL},
+        ARCHIVO = #{archivo,jdbcType=BLOB}
+        where ID_NOTIFICACION = #{idNotificacion,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Notificacion" >
+        update NOTIFICACION
+        set FOLIO = #{folio,jdbcType=VARCHAR},
+        ID_USUARIO_CARGA = #{idUsuarioCarga,jdbcType=DECIMAL},
+        FECHA_CARGA = #{fechaCarga,jdbcType=TIMESTAMP},
+        ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL},
+        ARCHIVO_NOMBRE = #{archivoNombre,jdbcType=VARCHAR},
+        ID_ACTIVO = #{idActivo,jdbcType=DECIMAL},
+        ID_ESTATUS = #{idEstatus,jdbcType=DECIMAL}
+        where ID_NOTIFICACION = #{idNotificacion,jdbcType=DECIMAL}
+    </update>
+    
+    <update id="disableByIds"  >
+        update NOTIFICACION
+        set ID_ESTATUS = 0
+        where ID_NOTIFICACION in 
+        <foreach item="item"   collection="notificacionIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    
+</mapper>

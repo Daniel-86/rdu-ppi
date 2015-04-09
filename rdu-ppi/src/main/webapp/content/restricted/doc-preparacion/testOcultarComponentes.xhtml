@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml">
+
+    <ui:define name="content">
+        <p:messages showDetail="true" globalOnly="true" id="msgtst"/>
+        <h:form id="fmTstOcultarComponents" prependId="false">
+
+            <div class="titulo_seccion">Test Ocultar Componentes</div>
+            <p:panel header="Seleccion areas." id="pnlTstArea">
+                <h:outputText id="lblIdArea" value="Tipo Area"/>
+                    <h:selectOneMenu
+                        id="slcIdTstTipoArea"
+                        value="0"
+                        style="width: 445px;"
+                        onchange="showHideTest()"
+                        required="true"
+                        requiredMessage="El area es requerida">
+                                <f:selectItem
+                                    itemValue="0" 
+                                    itemLabel="Seleccione una opcion"/>
+                                <f:selectItems
+                                    value="#{indiceMB.areas}"
+                                    var="area"
+                                    itemLabel="#{area.nombreArea}" itemValue="#{area.idArea}"/>
+                                <f:validateLongRange  minimum="1"/>
+                    </h:selectOneMenu>
+
+
+            </p:panel>
+
+            <p:outputPanel id="outPnlTstMarcas" style="display:none">
+                <h:outputText
+                    id="lblDescArea"
+                    value="Captura de areas....."
+                    />
+
+            </p:outputPanel>
+
+            <p:outputPanel id="outPnlTstPatentes" style="display:none">
+                <h:outputText
+                    id="lblDescPatente"
+                    value="Captura de Patentes....."
+                    />
+
+            </p:outputPanel>
+
+        </h:form>     
+            
+    </ui:define>
+</ui:composition>

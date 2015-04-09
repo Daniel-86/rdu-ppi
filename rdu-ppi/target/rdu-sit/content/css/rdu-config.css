@@ -1,0 +1,232 @@
+/* 
+    Document   : rdu-config.css
+    Created on : 06-ene-2012, 12:32:54
+    Author     : roque
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+/*GRC*/
+select, table
+{
+    width: 95%;
+}
+textarea
+{
+    width: 95%;
+}
+table
+{
+    border-collapse: collapse;
+    text-align: center;
+    width: 95%;
+}
+
+table td, table th {
+    /*    border: 1px solid #81BEF7;*/
+}
+
+.ui-widget-bit-panel
+{
+    width: 30%
+}
+
+.edit 
+{
+    background-image: url("images/edit.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 20px;
+    margin: 5px 45px -6px 15px;
+    overflow: hidden;
+    text-indent: -99999px;
+    width: 16px;
+    text-decoration: none;
+}
+.delete
+{
+    background-image: url("images/delete.png");
+    height: 20px;
+    width: 16px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -99999px;
+    margin: -15px -3px -3px 54px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.ui-widget-header 
+{
+    color: #19221f;
+    font-weight: bold;
+    font-size: 12px;
+}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited 
+{
+    color: #7b7474;
+    text-decoration: none;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default 
+{
+    color: #7b7474;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"],textarea, select, input[type="file"] 
+{
+    background: url("../themes/se-blue-sky/images/default.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #CCDDEE;
+    color: #222222;
+}
+input.error, select.error, td.error, span.error
+{
+    border:1px dotted red;
+}
+
+label.error, span.error
+{
+    margin-left: 10px;
+    width: auto;
+    display: block;
+    color:red;
+    font-style:italic;
+}
+div#cuerpo,div#post
+{
+    background: url("../imagenes/degradado/ui-bg_highlight-hard_100_f2f5f7_1x100.png") repeat-x scroll 50% top #F2F5F7;
+    /*background: url("../imagenes/degradado/ui-bg_highlight-hard_100_f2f5f7_1x100.png") repeat-x scroll 50% top #C3122F;*/
+    border: 1px solid #DDDDDD;
+    color: #362B36;  
+}
+
+.ui-widget-content .ui-picklist .ui-picklist-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow:auto;
+    height:200px;
+    width:280px;
+}
+
+.ui-picklist ui-widget{
+    width:50px;
+}
+
+.label-message
+{
+    font-size: 12px;
+    font-weight: bold;
+    color: #222222;
+    text-align: justify;    
+}
+
+.label-message-dialog
+{
+    font-size: 12px;
+    font-weight: bold;
+    color: #222222;
+    text-align: justify;    
+    margin:41px 6px 5px 92px;
+}
+.message-dialog .ui-dialog-content
+{
+    background: url("../imagenes/degradado/ui-bg_highlight-hard_100_f2f5f7_1x100.png") repeat-x scroll 50% top #F2F5F7;
+    border: 1px solid #DDDDDD;
+    color: #362B36;    
+}
+
+.ui-clase-producto-captura .ui-selectonemenu-label
+{
+    background: none repeat scroll 0 0 #7b7474;
+    border: 1px dotted #274cc9;
+    color: #f6f6f6;
+}
+.ui-datatable th, .ui-datatable tfoot td 
+{
+    padding: 0px;
+    white-space: pre-line;    
+    font-size: 12px;
+    font-weight: bold;
+    background: url("../themes/se-blue-sky/images/header.png") repeat-x scroll 0 0 #BED6F8;
+    border: 1px solid #BED6F8;
+    width: auto;
+}
+.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td 
+{
+    border-color: inherit;
+    border-style: solid;
+    border-width: 1px;
+    color: gray;
+    font-weight: bold;
+    margin: 0;
+    overflow: hidden;
+    padding: 3.3px;
+}
+
+.ui-datatable table
+{
+    width: 99%;    
+}
+.ui-datatable table thead th.ui-state-default
+{
+    color: #19221F;  
+}
+.ui-datatable table tbody td .ui-dt-c
+{
+    color: #4F4F4F;  
+}
+
+/*
+    modificaciones de los estilos de las pestañas de la captura
+    de signos distintivos
+*/
+
+#tabs ul {
+    background:#BED6F8;
+    /*border: none;*/
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background:#FFFFFF;
+    border: 1px solid #BED6F8;
+    color: #000000;
+    font-weight: bold;
+}
+
+#tabs ul li a:hover {
+    color: blue;
+    background: white;
+}
+
+#tabs:j_idt43 {
+    width: 100px;
+}
+
+.ui-selectonemenu {
+    width: auto;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger{
+}
+
+.tipoSolicitante-selectonemenu{
+    width: 370px !important;
+}
+
+.tipoPersona-selectonemenu{
+    width: 130px !important;
+}
+
+.nacionalidad-selectonemenu{
+    width: 350px !important;
+}
+.autoSizeDialog {
+    width: auto !important;
+    height: auto !important;
+}

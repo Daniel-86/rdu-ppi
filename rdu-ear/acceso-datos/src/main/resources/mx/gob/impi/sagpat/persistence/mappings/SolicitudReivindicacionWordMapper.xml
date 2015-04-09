@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SolicitudReivindicacionWordMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SEC_REIVINDICACION" property="secReivindicacion" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="LARGO" property="largo" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" extends="BaseResultMap" >
+    <result column="REIVINDICACION_WORD" property="reivindicacionWord" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="map" >
+    select 
+     COD_OFICINA, NUM_EXPED, SEC_REIVINDICACION, SER_EXPED, TIP_EXPED, ROW_VERSION, LARGO,
+    REIVINDICACION_WORD
+    from PATENTES.SOLICITUD_REIVINDICACION_WORD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SEC_REIVINDICACION = #{secReivindicacion,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" >
+    insert into PATENTES.SOLICITUD_REIVINDICACION_WORD(
+        COD_OFICINA, NUM_EXPED, SEC_REIVINDICACION, SER_EXPED, TIP_EXPED, ROW_VERSION, LARGO, REIVINDICACION_WORD
+      )
+    values (
+      #{codOficina,jdbcType=VARCHAR}, #{numExped,jdbcType=DECIMAL}, #{secReivindicacion,jdbcType=DECIMAL}, #{serExped,jdbcType=DECIMAL},
+      #{tipExped,jdbcType=VARCHAR}, #{rowVersion,jdbcType=DECIMAL}, #{largo,jdbcType=DECIMAL}, #{reivindicacionWord,jdbcType=LONGVARCHAR}      
+      )
+  </insert>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SOLICITUD_REIVINDICACION_WORD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SEC_REIVINDICACION = #{secReivindicacion,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" >
+    update PATENTES.SOLICITUD_REIVINDICACION_WORD
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="largo != null" >
+        LARGO = #{largo,jdbcType=DECIMAL},
+      </if>
+      <if test="reivindicacionWord != null" >
+        REIVINDICACION_WORD = #{reivindicacionWord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SEC_REIVINDICACION = #{secReivindicacion,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" >
+    update PATENTES.SOLICITUD_REIVINDICACION_WORD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      LARGO = #{largo,jdbcType=DECIMAL},
+      REIVINDICACION_WORD = #{reivindicacionWord,jdbcType=LONGVARCHAR}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SEC_REIVINDICACION = #{secReivindicacion,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudReivindicacionWord" >
+    update PATENTES.SOLICITUD_REIVINDICACION_WORD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      LARGO = #{largo,jdbcType=DECIMAL}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SEC_REIVINDICACION = #{secReivindicacion,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

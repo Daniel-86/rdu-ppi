@@ -1,0 +1,60 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolPatentes" var="msgPatente"/>
+    
+    <p:panel header="#{msgPatente['titulo.tab.descripcion']}" >
+        <div style="text-align: center;width: 80%">
+            <center>
+                <h:panelGrid columns="2" >
+                    <h:panelGroup >
+                        <p:selectOneRadio id="radioDescripcion" value="#{managedBean.flujoDescripcion}" 
+                                                  style="text-align: center; font-family:sans-serif; font-size: 10pt;" >
+                            <f:selectItem itemLabel="Capturar en Texto" itemValue="1"  />  
+                            <f:selectItem itemLabel="Cargar documento pdf" itemValue="2" />
+                            <p:ajax update="btnCargarDesc" process="@this" immediate="true" global="false"/>
+                        </p:selectOneRadio>
+                    </h:panelGroup>
+                    
+                    <h:panelGroup id="cargarDescripcion" style="width: 30%">
+                        <p:inputText id="txtRutaArchivoDesc"  disabled="true" style="width: 40%" />
+                        <p:commandButton id="btnCargarDesc" value="..." title="Cargar descripción" 
+                                         onclick="archivoDescripcionDlg.show(); seleccionarArchivo('cmbSeleccionDescripcion');"                                                 
+                                         disabled="#{managedBean.flujoDescripcionArchivo == false}" />
+                        
+                        <p:dialog  header="Subir archivos" widgetVar="archivoDescripcionDlg" resizable="true">                            
+                            <p:fileUpload id="cmbSeleccionDescripcion" label="Seleccionar"
+                                      auto="true" sizeLimit="10000000"                                                
+                                      fileUploadListener="#{managedBean.cargarArchivoDescripcion}"                            
+                                      oncomplete="archivoDescripcionDlg.hide();formPatenteDisInd.submit();"                                      
+                                      fileLimitMessage="El tamaño del archivo excede del permitido"
+                                      invalidFileMessage="El tipo de archivo no es válido, PDF"
+                                      invalidSizeMessage="El tamaño del archivo excede del permitido, 10MB" />
+                        </p:dialog>
+
+                    </h:panelGroup>
+                    
+                </h:panelGrid>
+            </center>
+        </div>
+        
+        <br/>
+        <center>
+            <h:outputText value="Preámbulo" style="font-family:sans-serif; font-size: 10pt; text-align: justify;"/>
+            <p:inputTextarea id="preambuloTxt" rows="10" value="#{managedBean.tramitePat.preambulo}" style="width: 80%"/>
+
+            <br/>
+            <h:outputText value="Descripción de Vistas" style="font-family:sans-serif; font-size: 10pt; text-align: justify;"/>
+            <p:inputTextarea id="descripVistaTxt" rows="10" value="#{managedBean.tramitePat.descripcionVistas}" style="width: 80%"/>
+            <p:watermark for="descripVistaTxt" value="#{managedBean.mensajeDescripcionVistas}"  />  
+            <h:outputText value="#{managedBean.mensajeDescripcionVistas}"  />  
+
+            <br/>
+            <h:outputText value="Texto adicional" style="font-family:sans-serif; font-size: 10pt; text-align: justify;"/>
+            <p:inputTextarea rows="10" value="#{managedBean.tramitePat.textoAdicional}" style="width: 80%"/>
+        </center>
+    </p:panel>
+</ui:composition>

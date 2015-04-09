@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SolicitudTituloWordMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="COD_PAIS" property="codPais" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="LARGO" property="largo" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" extends="BaseResultMap" >
+    <result column="TITULO_WORD" property="tituloWord" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="map" >
+    select 'false' as QUERYID,
+    COD_OFICINA, COD_PAIS, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION, LARGO, TITULO_WORD
+    from PATENTES.SOLICITUD_TITULO_WORD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SOLICITUD_TITULO_WORD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    insert into PATENTES.SOLICITUD_TITULO_WORD (COD_OFICINA, COD_PAIS, NUM_EXPED, 
+      SER_EXPED, TIP_EXPED, ROW_VERSION, 
+      LARGO, TITULO_WORD)
+    values (#{codOficina,jdbcType=VARCHAR}, #{codPais,jdbcType=VARCHAR}, #{numExped,jdbcType=DECIMAL}, 
+      #{serExped,jdbcType=DECIMAL}, #{tipExped,jdbcType=VARCHAR}, #{rowVersion,jdbcType=DECIMAL}, 
+      #{largo,jdbcType=DECIMAL}, #{tituloWord,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    insert into PATENTES.SOLICITUD_TITULO_WORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        COD_OFICINA,
+      </if>
+      <if test="codPais != null" >
+        COD_PAIS,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="largo != null" >
+        LARGO,
+      </if>
+      <if test="tituloWord != null" >
+        TITULO_WORD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="codPais != null" >
+        #{codPais,jdbcType=VARCHAR},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="largo != null" >
+        #{largo,jdbcType=DECIMAL},
+      </if>
+      <if test="tituloWord != null" >
+        #{tituloWord,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    update PATENTES.SOLICITUD_TITULO_WORD
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="largo != null" >
+        LARGO = #{largo,jdbcType=DECIMAL},
+      </if>
+      <if test="tituloWord != null" >
+        TITULO_WORD = #{tituloWord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    update PATENTES.SOLICITUD_TITULO_WORD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      LARGO = #{largo,jdbcType=DECIMAL},
+      TITULO_WORD = #{tituloWord,jdbcType=LONGVARCHAR}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudTituloWord" >
+    update PATENTES.SOLICITUD_TITULO_WORD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      LARGO = #{largo,jdbcType=DECIMAL}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

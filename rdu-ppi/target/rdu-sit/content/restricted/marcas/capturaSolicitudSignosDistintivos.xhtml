@@ -1,0 +1,794 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="content">
+        <p:messages  id="msgAviso"  />
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolicitud" var="msgSolcitud"/>
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.parametros" var="msgPrm"/>
+
+        <h:form id="formMarcasSD" style="display: inline" prependId="false">
+            <table border="0" style="width: 930px" id="steps">
+                <tr>
+                    <td align="left" style="width: 20%">
+                        <h:graphicImage url="../../imagenes/marca-en-linea-small.jpg" height="50" width="100"/>
+                    </td>
+                    <td align="center" style="width: 50%">
+                        <div class="titulo_seccion" style="font-size: 10pt">#{msgSolcitud['titulo.registro.solicitud.signos']}</div>
+                    </td>
+                    <td align="right" style="width: 30%">
+                        <h:graphicImage url="../../imagenes/RDU-proceso-3.jpg" />
+                    </td>
+                </tr>
+            </table>
+
+            <h:panelGrid columns="1" cellpadding="4" style="font-family:sans-serif; font-size: 8pt; text-align: left;">
+
+                <p:dataTable id="listaError" var="error"
+                             value="#{signosDistintivosMB.errores}"
+                             style="display: inline"
+                             rendered="#{signosDistintivosMB.verErrores}">
+
+                    <p:column style="text-align: left" >
+                        <h:outputText value="#{error}" style="font-family:sans-serif; font-size: 8pt; text-align: left; color: red" />
+                    </p:column>
+
+
+                </p:dataTable>
+
+            </h:panelGrid>
+
+            <p:tabView id="tabs" style="background: #DDDDDD;"  >
+                 
+                <p:tab title="Tipo de solicitud"  >
+                    <p:panel header="#{msgSolcitud['titulo.registro.tab.TipoSol']}" id="pnlTipoSol"  >
+                        <p:messages id="m1"/>
+                        <h:panelGrid  columns="2" cellpadding="2" style="font-family:sans-serif;   font-size: 10pt; text-align: left;">
+                            <h:outputText  value="*#{msgSolcitud['titulo.registro.tab.TipoSol']}" style="font-weight:normal;width: 30%"  ></h:outputText>
+                            <p:selectOneMenu
+                                id="tipoSubSolicitudSelect"
+                                value="#{signosDistintivosMB.subtipo.idSubtiposolicitud}"
+                                style="width: 40%"
+                                required="false" requiredMessage="#{msgSolcitud['titulo.registro.TipoSol.error']}" >
+                                <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.TipoSol.Default']}"  />
+                                <f:selectItems
+                                    value="#{signosDistintivosMB.listSubtiposSol}"
+                                    var="renglon"
+                                    itemLabel="#{renglon.descripcion}"
+                                    itemValue="#{renglon.idSubtiposolicitud}"  />
+                                <p:ajax update="pnlTipoSol pnlClase pnlEstablecimiento solictanteDatos pnlPrioridadTab "
+                                        process="@this"
+                                        oncomplete="deseleccionarRadioButton('tabs:optionsEstablecimiento');"
+                                        listener="#{signosDistintivosMB.habilitarOpcionesSubTipoSol(1)}" />
+
+                            </p:selectOneMenu>
+
+                            <h:outputText value="*#{msgSolcitud['titulo.registro.TipoMarca']}"
+                                          id="lblTipoMarca" style="font-weight: normal; width: 30%"
+                                          rendered="#{signosDistintivosMB.verTiposMarcas}"></h:outputText>
+                            <h:panelGrid  columns="2" cellpadding="2" style="width: 50%; font-family:sans-serif;   font-size: 10pt; text-align: left;"
+                                          rendered="#{signosDistintivosMB.verTiposMarcas}">
+
+                                <p:selectOneMenu
+                                    id="tipomarcaSelect"
+                                    style="width: 40%"
+                                    value="#{signosDistintivosMB.marca.idTipomarca}"
+                                    rendered="#{signosDistintivosMB.verTiposMarcas}"
+
+                                    >
+                                    <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.TipoMarca.default']}" itemValue="0" />
+                                    <f:selectItems
+                                        value="#{signosDistintivosMB.listaTiposMarca}"
+                                        var="renglon"
+                                        itemLabel="#{renglon.descripcion}"
+                                        itemValue="#{renglon.idTipomarca}" />
+                                    <p:ajax update="pnlTipoSol "
+                                            process="@this" listener="#{signosDistintivosMB.habilitarOpcionesMarca}" />
+                                </p:selectOneMenu>
+                                <p:commandLink id="ayudaMarcas" title="Ayuda tipo de marca"
+                                               rendered="#{signosDistintivosMB.verTiposMarcas}"
+                                               oncomplete="ayudaTipoMarcaDialog.show()" process="@this">
+                                    <h:graphicImage url="../../imagenes/help-01.jpg" style="right: auto; border-style: none"/>
+                                </p:commandLink>
+
+
+                            </h:panelGrid>
+
+                            <h:outputText value="*#{msgSolcitud['titulo.registro.Dsc.Signo.Distintivo']}"
+                                          id="lblSD" style="font-weight: normal; width: 30%"
+                                          rendered="#{signosDistintivosMB.verSignoDsc}"></h:outputText>
+
+                            <p:inputTextarea id="descripSignoDistitivo"
+                                             maxlength="240"
+                                             effectDuration="0"
+                                             style="width:404px"
+                                             value="#{signosDistintivosMB.descripcionSignoDistintivo}"
+                                             title="#{msgSolcitud['titulo.registro.Dsc.Signo.Distintivo.ayuda']}"
+                                             rendered="#{signosDistintivosMB.verSignoDsc}"
+                                             onkeypress="{if(this.value.length>=240)
+                                                 alert('#{msgSolcitud['titulo.maximo.num.caracteres']}');}"
+                                                 onkeyup="toUpperCase(event,this)"
+                                             autoResize="false">
+                            </p:inputTextarea>
+
+                            <h:outputText value="#{signosDistintivosMB.subtipo.getIdSubtiposolicitud().intValue()==2?'*':''}#{msgSolcitud['titulo.registro.Fecha.Primer.Uso']}"
+                                          id="fechaPUso" style="font-weight: normal;width: 30%"
+                                          rendered="#{signosDistintivosMB.verFecha}"></h:outputText>
+                            <p:column>
+                                <p:calendar value="#{signosDistintivosMB.fechaPrimerUso}"
+                                            id="fechaPrimerUso" showOn="button"
+                                            readOnlyInputText="true"
+                                            pattern="dd/MM/yyyy"
+                                            locale="es"
+                                            disabled="#{signosDistintivosMB.habilitaFechaUso}"
+                                            style="width: 40%"
+                                            maxlength="10"
+                                            converterMessage="Fecha incorrecta, el formato es dd/mm/yyyy"
+                                            rendered="#{signosDistintivosMB.verFecha}"
+                                            mode="popup"
+                                            title="#{msgSolcitud['titulo.registro.Fecha.Primer.Uso.ayuda']}" >
+                                    <p:ajax event="dateSelect" update="pnlTipoSol pnlEstablecimiento pnlDomEstablecimiento" process="@all" listener="#{signosDistintivosMB.habilitarFechaUso(2)}" />
+                                </p:calendar>
+                                <p:commandButton
+                                    action="#{signosDistintivosMB.limpiarFechaPrimerUso}"
+                                    rendered="#{!signosDistintivosMB.habilitaFechaUso}"
+                                    title="Borrar fecha"
+                                    disabled="#{signosDistintivosMB.fechaPrimerUso==null}"
+                                    oncomplete ="document.getElementById('tabs:fechaPrimerUso_input').value='';deseleccionarRadioButton('tabs:optionsEstablecimiento');"
+                                    icon="ui-icon-trash" update="pnlTipoSol tabs:pnlEstablecimiento pnlDomEstablecimiento">
+                                </p:commandButton>
+
+                            </p:column>
+
+                            <h:outputText value="#{msgSolcitud['titulo.registro.sin.uso']}"
+                                          id="lblNousado"
+                                          style="width: 30%"
+                                          rendered="#{signosDistintivosMB.verNosuado}"></h:outputText>
+
+                            <p:selectBooleanCheckbox value="#{signosDistintivosMB.nousado}"
+                                                     id="nousado"
+                                                     style="width: 40%"
+                                                     rendered="#{signosDistintivosMB.verNosuado}" >
+                                <p:ajax update="pnlTipoSol tabs:pnlEstablecimiento pnlDomEstablecimiento" process="@all" listener="#{signosDistintivosMB.habilitarFechaUso(1)}"
+                                        oncomplete="deseleccionarRadioButton('tabs:optionsEstablecimiento');"/>
+                            </p:selectBooleanCheckbox>
+
+
+                            <h:outputText value="#{msgSolcitud['titulo.registro.leyendas']}"
+                                          id="lblLeyendasF"
+                                          style="width: 30%"
+                                          rendered="#{signosDistintivosMB.verLeyendas}"></h:outputText>
+
+                            <p:inputTextarea id="leyendasFiguras"
+                                             maxlength="300"
+                                             style="width: 404px"
+                                             value="#{signosDistintivosMB.leyendasFiguras}"
+                                             title="#{msgSolcitud['titulo.registro.leyendas.ayuda']}"
+                                             rendered="#{signosDistintivosMB.verLeyendas}"
+                                             effectDuration="0"
+                                             onkeypress="{if(this.value.length>=300)
+                                             alert('#{msgSolcitud['titulo.maximo.num.caracteres']}');}"
+                                             autoResize="false"><p:ajax process="@this"/></p:inputTextarea>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="#{msgSolcitud['titulo.registro.tab.Solicitantes']}">
+                    <p:panel id="pnlSolicitantes">
+                        <p:messages id="m2"/>
+                        <h:panelGrid  id="solictanteDatos" columns="1" cellpadding="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                            <ui:include src="../../../content/restricted/include/datosSolicitante.xhtml" id="solicitanteInclude">
+                                <ui:param name="managedBean" value="#{signosDistintivosMB}" />
+                                <ui:param name="form" value="formMarcasSD" />
+                            </ui:include>
+                            <h:panelGrid rendered="#{signosDistintivosMB.verDomicilioSolicitante}" >
+                                <ui:include src="../../../content/restricted/include/domicilio.xhtml" id="domsInclude">
+                                    <ui:param name="managedBean" value="#{signosDistintivosMB.domicilioSolicitante}" />
+                                    <ui:param name="form" value="formMarcasSD"/>
+                                    <ui:param name="subfix" value="Solicitante"/>
+                                    <ui:param name="cambiarPais" value="true"/>
+                                </ui:include>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1" style="text-align: center">
+
+                                <p:commandButton  id="#{msgSolcitud['titulo.registro.boton.agregar']}"
+                                                  value="#{signosDistintivosMB.editarSolicitante ==false ? 'Agregar Solicitante' : 'Modificar Solicitante'}"
+                                                  action="#{signosDistintivosMB.agregarSolicitantes}"
+                                                  update="formMarcasSD listaSol codigoPostalInput"
+                                                  style="width: 250px"/>
+
+                                <p:dataTable id="listaSol" var="solcitanteVar"
+                                             value="#{signosDistintivosMB.listaSolicitantes}"
+                                             style="display: inline"
+                                             emptyMessage="#{msgSolcitud['lista.solicitantes.vacio']}" >
+
+                                    <p:column style="text-align: left" >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.solicitante.NombreC']}" />
+                                        </f:facet>
+                                        <h:outputText value="#{solcitanteVar.nombrecompleto}" />
+                                    </p:column>
+
+                                    <p:column style="text-align: left"  >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.pais']}" />
+                                        </f:facet>
+                                        <h:outputText value="#{solcitanteVar.domicilioObj.pais.nombre}"/>
+                                    </p:column>
+                                    <p:column style="text-align: left"  >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.EntidadFed']}" />
+                                        </f:facet>
+                                        <h:outputText value="#{solcitanteVar.domicilioObj.entidad.nombre}" />
+                                    </p:column>
+                                    <p:column style="text-align: left"  >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.Poblacion']}" />
+                                        </f:facet>
+                                        <h:outputText value="${solcitanteVar.domicilioObj.poblacion}"  style="text-align: left"/>
+                                    </p:column>
+                                    <p:column  >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.CP']}" />
+                                        </f:facet>
+                                        <h:outputText value="${solcitanteVar.domicilioObj.codigopostal}" />
+                                    </p:column>
+
+                                    <p:column  style="text-align: left" >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.CalleNumero']}" />
+                                        </f:facet>
+                                        <h:outputText value="${solcitanteVar.domicilioObj.calle}" />
+                                    </p:column>
+                                    <p:column style="text-align: left" >
+                                        <f:facet name="header"  >
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.domicilio.Colonia']}" style="text-align: justify" />
+                                        </f:facet>
+                                        <h:outputText value="${solcitanteVar.domicilioObj.colonia}"  />
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgSolcitud['titulo.registro.boton.accion']}"/>
+                                        </f:facet>
+                                        <p:commandButton
+                                            action="#{signosDistintivosMB.editar(solcitanteVar)}"
+                                            update="formMarcasSD listaSol"
+                                            icon="ui-icon-arrowrefresh-1-w">
+                                        </p:commandButton>
+                                        <p:commandButton
+                                            action="#{signosDistintivosMB.eliminar(solcitanteVar)}"
+                                            update="formMarcasSD listaSol"  rendered="#{solcitanteVar.domicilioObj==null}"
+                                            icon="ui-icon-close">
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="tabClase" title="Selección clase/Giro Comercial Preponderante">
+
+                    <p:panel header="#{signosDistintivosMB.tituloSeccionClase}" id="pnlClase">
+                        <p:messages id="m3"/>
+                        <h:panelGrid  border="0" columns="1" cellpadding="2" style="font-family:sans-serif; font-size: 10pt; text-align: left;"
+                                      rendered="#{signosDistintivosMB.verDatosClase}">
+                            <h:panelGrid columns="2" cellpadding="2" border="0" style="width: 60%">
+                                <h:outputText value="#{msgSolcitud['titulo.registro.SeleccionClase.FormaClase']}" style="text-align: right" ></h:outputText>
+                                <p:column>
+                                    <p:selectOneMenu
+                                        id="formaSelClase"
+                                        style="text-align: left;width: 250px"
+                                        value="#{signosDistintivosMB.tipoSelClase.idFormaseleccionclase}"
+
+                                        onchange="{
+                                    if(this.value==1)
+                                        FormaLibre.show();
+                                    if(this.value==2)
+                                        FormaRubGrales.show();
+                                    if(this.value==3)
+                                        FormaProdServ.show();
+                                    ;}
+                                        "
+                                        >
+                                        <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.SeleccionClase.FormaClase.default']}"  itemValue="0"   />
+                                        <f:selectItems
+                                            value="#{signosDistintivosMB.listFormasSelClase}"
+                                            var="renglon"
+                                            itemLabel="#{renglon.descripcion}"
+                                            itemValue="#{renglon.idFormaseleccionclase}">
+                                        </f:selectItems>
+
+
+
+                                    </p:selectOneMenu>
+                                    <p:commandLink title="Ayuda Forma de elegir la clase">
+                                        <h:graphicImage url="../../imagenes/help-01.jpg" style="border-style: none;width: 27px;height: 27px;"
+                                                        onclick="seleccionarClaseDialog.show();"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </h:panelGrid>
+
+
+                            <p:dataTable id="listaProdServSel" var="prodServ"
+                                         value="#{signosDistintivosMB.listaProdServSeleccionados}"
+                                         style="display: inline"
+                                         rendered="#{signosDistintivosMB.verProdServiciosSeleccionados}">
+
+                                <p:column style="text-align: left" rendered="#{signosDistintivosMB.verNumeroClase}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgSolcitud['titulo.registro.tab.Num.Clase']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{prodServ.idClase}" title="#{signosDistintivosMB.tipoSelClase.idFormaseleccionclase==1?prodServ.descClase:''}" />
+                                </p:column>
+
+                                <p:column style="text-align: left" >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{signosDistintivosMB.tipoSelClase.idFormaseleccionclase==1?'Producto/Servicio':'Descripción de la clase'}" />
+                                    </f:facet>
+                                    <div style="#{prodServ.descripcion.length()>1500?'height:200px;overflow:auto':''};">
+                                        <h:outputText value="#{prodServ.descripcion}"/>
+                                    </div>
+                                </p:column>
+                                <p:column style="text-align: center">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgSolcitud['titulo.registro.boton.modificar']}"/>
+                                    </f:facet>
+                                    <p:commandButton
+                                        id="modProdServ"
+                                        value="#{msgSolcitud['titulo.registro.boton.modificar']}"
+                                        action="#{signosDistintivosMB.modificarProdServSeleccionados(prodServ)}"
+
+                                        update="formMarcasSD"
+                                        onclick="{
+                                var tipoSeleccion=#{signosDistintivosMB.tipoSelClase.idFormaseleccionclase};
+
+                                if(tipoSeleccion==1)
+                                    FormaLibre.show();
+                                if(tipoSeleccion==2)
+                                    FormaRubGrales.show();
+                            }"
+                                        type="button">
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+
+
+                            <p:dataTable id="listaProdServSel2" var="prodServ"
+                                         value="#{signosDistintivosMB.prodDMSel}"
+                                         selection="#{signosDistintivosMB.arrProdServSelFinales}"
+                                         rendered="#{signosDistintivosMB.verProdServXClase}"
+                                         paginator="true"
+                                         rows="10">
+                                <p:column selectionMode="multiple" style="width:18px" />
+
+
+                                <p:column headerText="Clase #{signosDistintivosMB.claseConsultaEtiqueta.idclase}" style="text-align: left">
+                                    #{prodServ.descripcion}
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="agregarProd" value="#{msgSolcitud['titulo.registro.boton.modificar']}" icon="ui-icon-new"
+                                                     update="formMarcasSD"
+                                                     onclick="FormaProdServ.show()" type="button"/>
+                                    <p:commandButton id="eliminarProd" value="#{msgSolcitud['titulo.registro.boton.eliminar']}" icon="ui-icon-delete"
+                                                     update="formMarcasSD listaProdServSel2"
+                                                     action="#{signosDistintivosMB.eliminarProdSeleccionados}"
+                                                     />
+                                </f:facet>
+
+
+                            </p:dataTable>
+
+
+                            <p:dialog id="FormaLibre" header="#{msgSolcitud['titulo.registro.SeleccionClase.Descrip.Libre']}"
+                                      widgetVar="FormaLibre" width="500"
+                                      height="400"
+                                      >
+
+                                <h:panelGrid id="pnlclaseSeleccion" columns="2" cellpadding="2" border="0">
+
+                                    <h:outputText value="#{msgSolcitud['titulo.registro.tab.SeleccionClase']}"
+                                                  style="width: 50%"   ></h:outputText>
+                                    <p:selectOneMenu
+                                        id="claseLibre"
+                                        value="#{signosDistintivosMB.idClaseSeleccionadaLibre}"
+                                        style="width: 115px;"
+                                        >
+                                        <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.SeleccionClase.Dsc.Libre.Clase.default']}"  itemValue="0" />
+                                        <f:selectItems
+                                            value="#{signosDistintivosMB.listaClases}"
+                                            var="renglon"
+                                            itemLabel="#{renglon.idclase}."
+                                            itemValue="#{renglon.idclase}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                <h:panelGrid >
+                                    <p:column style="text-align: left">
+                                        <h:outputText value="#{msgSolcitud['titulo.registro.ProdServicio']}" style="text-align: left" ></h:outputText>
+                                    </p:column>
+                                    <p:column style="text-align: left;">
+                                        <p:inputTextarea
+                                            id="dscProdServLibre"
+                                            label="Descripcion del producto o servicio"
+                                            required="false"
+                                            value="#{signosDistintivosMB.descripcionProductoServicio}"
+                                            cols="15"
+                                            rows="10"
+                                            autoResize="false"
+                                            onkeyup="toUpperCase(event,this)"
+                                            >
+
+                                        </p:inputTextarea>
+                                    </p:column>
+
+
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:outputText  value="#{msgSolcitud['titulo.registro.ProdServicio.mayusculas']}" ></h:outputText>
+                                    <p:commandButton value="#{msgSolcitud['titulo.registro.boton.aceptar']}" action="#{signosDistintivosMB.asociarProdServiciosTipoSelClase(1)}" onclick="cuadroP.hide();"
+                                                     update="formMarcasSD listaProdServSel">
+
+                                    </p:commandButton>
+                                </h:panelGrid>
+                                <p:ajax event="close" update="pnlClase" listener="#{signosDistintivosMB.cerrarDialogo(1)}"/>
+                            </p:dialog>
+
+                            <p:dialog id="FormaRubGrales" header="#{msgSolcitud['titulo.registro.Rubros.Gral.Titulo']}"
+                                      widgetVar="FormaRubGrales" width="800"
+                                      height="500"
+                                      >
+                                <h:panelGrid>
+                                    <p:dataTable id="rubrosGralTable" value="#{signosDistintivosMB.listaClases}"
+                                                 rowKey="#{claseRG.idclase}"
+                                                 rowIndexVar="index"
+                                                 var="claseRG"
+                                                 selectionMode="single"
+                                                 paginator="true"
+                                                 rows="10"
+                                                 >
+                                        <p:column headerText="#{msgSolcitud['titulo.registro.tab.SeleccionClase']}" filterBy="#{claseRG.idclase}">
+
+                                            <p:commandLink value="#{claseRG.idclase}" onclick="FormaRubGrales.hide()" update="formMarcasSD listaProdServSel"
+                                                           style="color:blue; font-size: 12pt" action="#{signosDistintivosMB.asociarProdServiciosTipoSelClase(2)}">
+                                                <f:setPropertyActionListener value="#{claseRG}" target="#{signosDistintivosMB.claseRG}" />
+                                            </p:commandLink>
+                                        </p:column>
+                                        <p:column headerText="#{msgSolcitud['titulo.registro.ProdServicio']}" filterBy="#{claseRG.descripcion}"
+                                                  filterMatchMode="contains"
+                                                  style="text-align: left">
+                                            <h:outputText value="#{claseRG.descripcion}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                                <p:ajax event="close" update="pnlClase" listener="#{signosDistintivosMB.cerrarDialogo(2)}"/>
+                            </p:dialog>
+
+
+                            <p:dialog id="FormaProdServ" header="#{msgSolcitud['titulo.registro.Lista.Prod.Servicios']}"
+                                      widgetVar="FormaProdServ" width="800"
+                                      height="600"
+                                      >
+                                <h:panelGrid columns="1" style="font-family:sans-serif; font-size: 10pt; text-align: left;width: 75% ">
+                                    <h:panelGrid  columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: left;">
+                                        <h:outputText value="Criterio de busqueda" ></h:outputText>
+                                        <h:panelGrid columns="1"  cellpadding="2" title="#{msgSolcitud['titulo.Prioridad.ayuda']}"  style="text-align: left;width: 50%" >
+                                            <p:selectOneRadio id="optionCritBusqueda" value="#{signosDistintivosMB.tipoCritBusqueda}">
+                                                <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.tab.SeleccionClase']}" itemValue="0" />
+                                                <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.crit.productos']}" itemValue="1" />
+                                                <p:ajax update="labelCriterio busquedaProdPanel"
+                                                        process="@this" listener="#{signosDistintivosMB.habilitarCriterioBusquedaProducto}" />
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+                                        <h:outputText id="labelCriterio" value="#{signosDistintivosMB.verCriterioProducto==false?'Clase':'Producto/Servicio'}" style="font-weight: normal" />
+                                        <h:panelGrid id="busquedaProdPanel" style="font-family:sans-serif; font-size: 10pt;text-align: left" columns="1">
+                                            <p:selectOneMenu
+                                                id="claseBuscar"
+                                                value="#{signosDistintivosMB.idClaseBuscar}"
+                                                rendered="#{!signosDistintivosMB.verCriterioProducto}"
+                                                >
+                                                <f:selectItem itemLabel="#{msgSolcitud['titulo.registro.SeleccionClase.Dsc.Libre.Clase.default']}"  itemValue="0" />
+                                                <f:selectItems
+                                                    value="#{signosDistintivosMB.listaClases}"
+                                                    var="renglon"
+                                                    itemLabel="#{renglon.idclase}-#{renglon.descripcion.length()>50?renglon.descripcion.substring(0,49):renglon.descripcion}"
+                                                    itemValue="#{renglon.idclase}" />
+                                            </p:selectOneMenu>
+                                            <p:inputText
+                                                id="prodServBusqueda"
+                                                maxlength="30"
+                                                label="Productos/Servicios"
+                                                required="false"
+                                                value="#{signosDistintivosMB.prodSevBusqueda}"
+                                                size="20"
+                                                rendered="#{signosDistintivosMB.verCriterioProducto}"
+                                                onkeyup="toUpperCase(event,this)"
+                                                >
+                                            </p:inputText>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <p:column>
+                                        <p:commandButton value="#{msgSolcitud['titulo.registro.boton.consultar']}" action="#{signosDistintivosMB.consultarProductosSevicios}"
+                                                         update="multProdSErv "  />
+                                    </p:column>
+
+
+                                    <p:dataTable id="multProdSErv" var="elemto" value="#{signosDistintivosMB.prodDM}"
+                                                 selection="#{signosDistintivosMB.arrProdServSel}"
+                                                 paginator="true"
+                                                 rows="10"
+
+                                                 >
+                                        <p:column selectionMode="multiple" style="width:18px"   />
+                                        <p:column headerText="#{msgSolcitud['titulo.registro.tab.numero.clase']}"  style="text-align: left;width: 15%">
+                                            #{elemto.idClase}
+                                        </p:column>
+                                        <p:column headerText="#{msgSolcitud['titulo.registro.ProdServicio']}" style="text-align: left;width: 30%" >
+                                            #{elemto.descripcion}
+                                        </p:column>
+                                        <p:column headerText="#{msgSolcitud['titulo.registro.tab.SeleccionClase']}"  style="text-align: left;width: 55%">
+                                            #{elemto.descClase}
+
+                                        </p:column>
+                                        <f:facet name="header" >
+                                            <p:commandButton id="multiViewButton" value="#{msgSolcitud['titulo.registro.boton.aceptar']}" icon="ui-icon-update"
+                                                             update="formMarcasSD listaProdServSel2"
+                                                             action="#{signosDistintivosMB.asociarProdServiciosTipoSelClase(3)}"
+                                                             onclick="FormaProdServ.hide()" />
+                                        </f:facet>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                                <p:ajax event="close" update="pnlClase" listener="#{signosDistintivosMB.cerrarDialogo(3)}"/>
+
+                            </p:dialog>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="10" style="font-family:sans-serif; font-size: 10pt; text-align: justify;"
+                                     rendered="#{!signosDistintivosMB.verDatosClase}">
+                            <h:outputText value="#{msgSolcitud['titulo.registro.tab.indicarGiro']}" ></h:outputText>
+                            <p:inputTextarea
+                                id="dscProdServLibreNombreComercial"
+                                label="Descripcion del producto o servicio"
+                                required="false"
+                                value="#{signosDistintivosMB.descpLibreNombreComercial}"
+                                cols="3"
+                                rows="2"
+                                autoResize="false"
+                                onkeyup="toUpperCase(event,this)"
+                                >
+                            </p:inputTextarea>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="#{msgSolcitud['titulo.registro.Firmante.Dom.Notificaciones']}">
+                    
+                    <p:panel header="#{msgSolcitud['titulo.registro.Firmante.Dom.Notificaciones.titulo']}" id="pnlFirmante">
+                        <p:messages id="m4"/>
+                        <h:panelGrid columns="1" cellpadding="10" style="font-family:sans-serif; font-size: 10pt; text-align: left;">
+                            <ui:include src="../../../content/restricted/include/datosFirmante.xhtml" id="usuarioFirmanteInclue">
+                                <ui:param name="managedBean" value="#{signosDistintivosMB}" />
+                                <ui:param name="form" value="formMarcasSD" />
+                                <ui:param name="mostrarApoderados" value="false"/>
+                            </ui:include>
+                            <ui:include src="../../../content/restricted/include/domicilioNotificacion.xhtml" id="domnotificacionInclude">
+                                <ui:param name="managedBean" value="#{signosDistintivosMB.domicilioFirmante}" />
+                                <ui:param name="form" value="formMarcasSD" />
+                                <ui:param name="cambiarPais" value="false" />
+                            </ui:include>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" cellpadding="4" style="font-family:sans-serif; font-size: 9pt; text-align: justify; color: red;">
+                            <h:outputText value="#{msgSolcitud['titulo.registro.info.firma']}"
+                                          ></h:outputText>
+                        </h:panelGrid>
+
+
+                    </p:panel>
+
+                </p:tab>
+                <p:tab title="#{msgSolcitud['titulo.registro.establecimiento']}">
+                    <p:panel header="#{msgSolcitud['titulo.registro.establecimiento']}" id="pnlEstablecimiento">
+                        <p:messages id="m5"/>
+                        <h:panelGrid columns="2" border="0" cellpadding="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+
+                            <h:outputText value="#{msgSolcitud['titulo.registro.establecimiento.existe']}"
+                                          rendered="#{signosDistintivosMB.verPreguntaEstablecimiento}"  style="width: 55%"></h:outputText>
+                            <h:panelGrid columns="2"  cellpadding="2" rendered="#{signosDistintivosMB.verPreguntaEstablecimiento}" style="width: 45%" title="#{msgSolcitud['titulo.establecimiento.ayuda']}" >
+
+
+                                <p:selectOneRadio id="optionsEstablecimiento" value="#{signosDistintivosMB.existeEstablecimiento}"   >
+                                    <f:selectItem itemLabel="Si" itemValue="1" />
+                                    <f:selectItem itemLabel="No" itemValue="0" />
+
+                                    <p:ajax update="pnlEstablecimiento "
+                                            process="@this" listener="#{signosDistintivosMB.habilitarEstablecimiento}" />
+                                </p:selectOneRadio>
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1"  cellpadding="2" rendered="#{signosDistintivosMB.verEstablecimiento}" >
+                            <ui:include src="../../../content/restricted/include/domicilio.xhtml" id="establecimientoInclude">
+                                <ui:param name="managedBean" value="#{signosDistintivosMB.domicilioEstablecimiento}" />
+                                <ui:param name="form" value="formMarcasSD" />
+                                <ui:param name="subfix" value="Establecimento"/>
+                                <ui:param name="cambiarPais" value="#{signosDistintivosMB.subtipo.getIdSubtiposolicitud().intValue()==2?false:true}" />
+
+                            </ui:include>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="#{msgSolcitud['titulo.registro.prioridad.titulo']}">
+                    <p:panel header="#{msgSolcitud['titulo.registro.prioridad.titulo']}" id="pnlPrioridadTab">
+                        <p:messages id="m6"/>
+                        <h:panelGrid columns="1" cellpadding="10" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                            <ui:include src="prioridad.xhtml" id="prioridadInclude">
+                                <ui:param name="managedBean" value="#{signosDistintivosMB}" />
+                                <ui:param name="form" value="formMarcasSD" />
+                            </ui:include>
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:tab>
+                <!--
+                <p:tab title="Pruebas Pdf">
+                    <ui:include src="../../../content/restricted/include/agregarNumero.xhtml" id="solicitanteInclude">
+                        <ui:param name="managedBean" value="#{signosDistintivosMB}" />
+                        <ui:param name="form" value="formMarcasSD" />
+                    </ui:include>
+                </p:tab>
+                -->
+            </p:tabView>
+            <h:panelGrid columns="6" cellpadding="5" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                <p:commandButton id="guardar" onclick="lockWindow('divLockWindow');"
+                                 value="#{msgSolcitud['titulo.registro.boton.guardar']}"
+                                 action="#{signosDistintivosMB.guardar(0)}"
+                                 oncomplete="hideMessage('tabs:m1',6);hideMessage('tabs:m2',6);hideMessage('tabs:m3',6);hideMessage('tabs:m4',6);hideMessage('tabs:m5',6);hideMessage('tabs:m6',6);unlockWindow('divLockWindow');"
+                                 update="formMarcasSD "/>
+                <p:commandButton id="anexos" value="#{msgSolcitud['titulo.registro.boton.vista.anexos']}" actionListener="#{signosDistintivosMB.crearCabeceroTramite}"
+                                 disabled="#{signosDistintivosMB.idTramite>0?false:true}"
+                                 update=":formMarcasSD:displayAnexoMarcas" oncomplete="singleAnexoDialog.show();">
+                </p:commandButton>
+                <p:commandButton id="finalizar" value="#{msgSolcitud['titulo.registro.boton.finalizar']}"
+                                 process="@this"
+                                 onclick="FinalizarDialog.show()"
+                                 update="formMarcasSD "
+                                 disabled="#{signosDistintivosMB.idTramite>0?false:true}"
+                                 type="button"
+                                 />
+                <p:commandButton id="btnVistaPrevia" value="#{msgSolcitud['titulo.registro.boton.vista.previa']}" actionListener="#{signosDistintivosMB.cmdVistaPrevia_action}"
+                                 onclick="lockWindow('divLockWindow');" oncomplete="unlockWindow('divLockWindow');"
+                                 update="vistaPrevia"/>
+
+                <!--p:commandButton id="irPagoPase" rendered="false"
+                                 value="Pagar"
+                                 action="#{signosDistintivosMB.setMostrarPago(true)}"
+                                 oncomplete="hideMessage('tabs:m1',6);hideMessage('tabs:m2',6);hideMessage('tabs:m3',6);hideMessage('tabs:m4',6);hideMessage('tabs:m5',6);hideMessage('tabs:m6',6);"
+                                 update="pnlIrPasePago"/-->
+                <h:panelGroup layout="block">
+                  <p:commandLink id="cmlnkAyudaCaptura" value="#{msgSolcitud['ayuda.captura.titulo']}" oncomplete="mostrarGuiaUsuario('#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/guiaUsuario.pdf');"
+                                 style="font-family: arial; text-align: left; font-size: 12px; color: #274cc9;">
+                  </p:commandLink><br />
+                  <p:commandLink id="cmlnkAyudaCaptura2" value="#{msgSolcitud['ayuda.captura.signos']}" oncomplete="mostrarGuiaUsuario('http://www.impi.gob.mx/work/sites/IMPI/resources/LocalContent/880/7/GUSD_2012.pdf');"
+                                 style="font-family: arial; text-align: left; font-size: 12px; color: #274cc9;">
+                  </p:commandLink>
+                </h:panelGroup>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                <h:outputText value="#{msgSolcitud['titulo.registro.info.requerida']}"
+                              ></h:outputText>
+            </h:panelGrid>
+            
+            
+
+            <!--p:panel id="pnlIrPasePago" visible="#{signosDistintivosMB.mostrarPago==false?false:true}">
+                <object data="#{msgPrm['action.regresaPagPrpal.url']}" type="text/html" width="850" height="520"/>
+            </p:panel-->
+
+
+            <p:dialog  id="confirmDialogFinalizar" header="Finalizar captura" widgetVar="FinalizarDialog"
+                       modal="false" width="510" height="220"  >
+                <h:panelGrid columns="1" style="text-align: left;font-size: 14px">
+                    <h:outputText value="#{msgSolcitud['mensaje1.finalizar.captura']}" style="text-align: left"/>
+                    <br/>
+                    <h:outputText value="#{msgSolcitud['mensaje2.finalizar.captura']}" style="text-align: left"/>
+                    <br/>
+                    <h:outputText value="#{msgSolcitud['mensaje3.finalizar.captura']}" style="text-align: left"/>                    
+                </h:panelGrid>
+
+                <div class="derecha">
+                        <p:commandButton id="confirmFinalizar" value="Si" 
+                                     oncomplete="unlockWindow('divLockWindow');"
+                                     actionListener="#{signosDistintivosMB.guardar(1)}" update="formMarcasSD"
+                                     onclick="lockWindow('divLockWindow');"
+                                     process="@this">
+                        </p:commandButton>
+                    <p:commandButton id="declineFinalizar" value="No" onclick="FinalizarDialog.hide()" type="button" />
+                </div>
+            </p:dialog >
+            
+            <p:dialog  id="confirmDialogPagoMoral" header="#{msgSolcitud['header.finalizar.captura.moral']}" widgetVar="PagoMoralDialog" 
+                       width="400" height="140" showEffect="fade" modal="true" closable="true">
+                <h:panelGrid columns="1" style="text-align: left;font-size: 14px">                    
+                        <h:outputText value="#{msgSolcitud['mensaje1.finalizar.captura.moral']}" style="text-align: left"/>
+                        <br/>
+                        <h:outputText value="#{msgSolcitud['mensaje2.finalizar.captura.moral']}" style="text-align: left"/>
+                </h:panelGrid>
+
+                <div class="derecha">
+                    <p:commandButton id="confirmPagoMoral" value="Si" oncomplete="PagoMoralDialog.hide() unlockWindow('divLockWindow');"
+                                     actionListener="#{signosDistintivosMB.guardar(1)}" update="formMarcasSD"
+                                     onclick="lockWindow('divLockWindow');"
+                                     process="@this">
+                    </p:commandButton>
+                    <p:commandButton id="declinePagoMoral" value="No" onclick="PagoMoralDialog.hide(); unlockWindow('divLockWindow');" type="button" />
+                </div>
+            </p:dialog >
+            
+            <p:outputPanel autoUpdate="true"  id="vistaPrevia">
+                <p:dialog id="reporteDialog" header="Vista Previa" widgetVar="reporteDialog" resizable="false"
+                          position="center top" rendered="#{signosDistintivosMB.vistaPrevia}" >
+                    <h:panelGrid >
+                        <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarReporte" width="850px" height="550px"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </p:outputPanel>
+
+            <!-- ventana emergente: ANEXOS-->
+            <!-- Cuando el parametro opcionUpload se asigna 1 es necesario
+            que la propiedad del dialogo(dlogPrincipalAnexos) closable sea igual a false
+            las propiedades fijas son: widgetVar="singleAnexoDialog"-->
+            <p:outputPanel autoUpdate="true">
+                <p:dialog id="dlogMarcasAnexos" header="Anexos" widgetVar="singleAnexoDialog" resizable="false"
+                          showEffect="fade" modal="true" closable="true">
+                    <h:panelGrid id="displayAnexoMarcas" columns="1" cellpadding="4">
+                        <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/content/restricted/include/anexos.faces"
+                                width="600px" height="550px"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </p:outputPanel>
+
+            <p:dialog  id="ayudaTipoMarca" header="Ayuda sobre el Tipo de Marca" widgetVar="ayudaTipoMarcaDialog"
+                       modal="true" width="700" height="500"  >
+                <h:panelGrid columns="1" style="text-align: left">
+                    <h:graphicImage url="../../imagenes/marcas_1.jpg" height="900px" width="600px"/>
+                </h:panelGrid>
+
+            </p:dialog >
+
+            <p:dialog widgetVar="seleccionarClaseDialog" header="Forma de Elegir la Clase"
+                      width="300" height="300">
+                <dl>
+                    <dt style="text-align: justify;font-weight: bold;">No se pueden mezclar productos de distintas clases, si pretende distinguir productos de diferentes clases deberá solicitar una por cada clase.</dt>
+                    <br/>
+                    <dt style="text-align: justify;font-weight: bold;">DESCRIPCIÓN LIBRE:</dt>
+                    <dd style="text-align: justify;">Indicación de productos o servicios cuya única limitación es que pertenezcan a la misma clase y en la cual no es necesario apegarse estrictamente a la lista alfabética.</dd>
+                    <br/>
+                    <dt style="text-align: justify;font-weight: bold;">TITULOS DE LAS CLASES:</dt>
+                    <dd style="text-align: justify;">Indicación de productos o servicios agrupados en un sector que encabeza la lista alfabética de la clase correspondiente.</dd>
+                    <br/>
+                    <dt style="text-align: justify;font-weight: bold;">LISTA ALFABETICA DE PRODUCTOS O SERVICIOS:</dt>
+                    <dd style="text-align: justify;">Nombres o denominaciones con que los productos o servicios aparecen en la Clasificación Internacional.</dd>
+                </dl>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

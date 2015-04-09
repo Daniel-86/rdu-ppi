@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.ApoderadoXTramitePatenteMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.ApoderadoXTramitePatente" >
+        <id column="ID_APODERADO" property="idApoderado" jdbcType="DECIMAL" />
+        <id column="ID_TRAMITE_PATENTE" property="idTramitePatente" jdbcType="DECIMAL" />
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.ApoderadoXTramitePatente" >
+    delete from APODERADO_X_TRAMITE_PATENTE
+    where ID_TRAMITE_PATENTE = #{idTramitePatente,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insertByExample" parameterType="mx.gob.impi.rdu.persistence.model.ApoderadoXTramitePatente">
+      INSERT INTO APODERADO_X_TRAMITE_PATENTE VALUES(#{idApoderado,jdbcType=DECIMAL},#{idTramitePatente,jdbcType=DECIMAL})
+    </insert>
+    <select id="obtenerApoderadosXTramitePatente" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      SELECT ID_APODERADO, ID_TRAMITE_PATENTE
+        FROM APODERADO_X_TRAMITE_PATENTE
+        WHERE
+        ID_TRAMITE_PATENTE=#{idTramitePatente,jdbcType=DECIMAL}
+        ORDER BY ID_APODERADO
+    </select>
+</mapper>

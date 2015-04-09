@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="rduTablerosService" class="mx.gob.impi.rdu.service.impl.RduTablerosServiceImpl" >
+        <property name="rduTramiteMapper" ref="rduTramiteMapper" />        
+        <property name="rduCatSubtiposolicitudMapper" ref="rduCatSubtiposolicitudMapper" />
+        <property name="rduCatTiposolicitudMapper" ref="rduCatTiposolicitudMapper" />
+        <property name="rduCatAreaMapper" ref="rduCatAreaMapper" />
+        <property name="rduCatEstatusMapper" ref="rduCatEstatusMapper" />
+        <property name="rduPagoMapper" ref="rduPagoMapper" />
+        <property name="rduSolicitanteXTramiteMapper" ref="rduSolicitanteXTramiteMapper" />
+        <property name="rduTramitePatenteMapper" ref="rduTramitePatenteMapper" />
+        <property name="rduTramitePromocionMarcaMapper" ref="rduTramitePromocionMarcaMapper" />
+        <property name="rduTramitePromocionPatenteMapper" ref="rduTramitePromocionPatenteMapper" />
+    </bean>
+
+    <bean id="rduFirmaService" class="mx.gob.impi.rdu.service.impl.RduFirmaServiceImpl" >
+        <property name="rduFirmaMapper" ref="rduFirmaMapper"/>
+        <property name="rduCatEstatusCertificadoMapper" ref="rduCatEstatusCertificadoMapper"/>
+        <property name="rduCatAreaMapper" ref="rduCatAreaMapper" />
+        <property name="rduFolioMapper" ref="rduFolioMapper"/>
+        <property name="rduCertificadoMapper" ref="rduCertificadoMapper"/>
+
+        <property name="serieExpedienteMapper" ref="serieExpedienteMapper"/>
+
+          <!--
+         <property name="notificacionMapper" ref="notificacionMapper"/>
+
+         -->
+
+
+        <!--property name="rduTelefonoMapper" ref="rduTelefonoMapper" /-->
+
+    </bean>
+
+    <bean id="rduFirmaPatenteService" class="mx.gob.impi.rdu.service.impl.RduFirmaServiceImpl" >
+        <property name="personaMapperSagpat" ref="personaMapperSagpat"/>
+        <property name="personaDirecMapper" ref="personaDirecMapper"/>
+        <property name="personaPalabraMapper" ref="personaPalabraMapper"/>
+        <property name="documentoMapper" ref="documentoMapper"/>
+        <property name="expedienteMapper" ref="expedienteMapper"/>
+        <property name="legajoMapper" ref="legajoMapper"/>
+        <property name="documentoExpedienteMapper" ref="documentoExpedienteMapper"/>
+        <property name="solicitudMapper" ref="solicitudMapper"/>
+        <property name="solicitudTitularMapper" ref="solicitudTitularMapper"/>
+        <property name="solicitudInventorMapper" ref="solicitudInventorMapper"/>
+        <property name="solicitudApoderadoMapper" ref="solicitudApoderadoMapper"/>
+        <property name="solicitudPrioridadMapper" ref="solicitudPrioridadMapper"/>
+        <property name="solicitudTituloWordMapper" ref="solicitudTituloWordMapper"/>
+        <property name="thisControlMapper" ref="thisControlMapper"/>
+
+        <property name="libroPartesMapper" ref="libroPartesMapper"/>
+        <property name="diaProcesoMapper" ref="diaProcesoMapper"/>
+        <property name="serieExpedienteMapper" ref="serieExpedienteMapper"/>
+
+        <property name="solicitudPalabraMapper" ref="solicitudPalabraMapper"/>
+        <property name="palabraIgnorarMapper" ref="palabraIgnorarMapper"/>
+        <property name="fepsRecibidosMapperSagpat" ref="fepsRecibidosMapperSagpat"/>
+        <property name="tipoSolicitudMapper" ref="tipoSolicitudMapper"/>
+        <property name="rduFuncionesSimplesMapper" ref="rduFuncionesSimplesMapper"/>
+
+
+        <property name="solicitudResumenUnicodeMapper" ref="solicitudResumenUnicodeMapper"/>
+        <property name="solicitudTituloUnicodeMapper" ref="solicitudTituloUnicodeMapper"/>
+        <property name="solicitudDibujosMapper" ref="solicitudDibujosMapper"/>
+        <property name="solicitudReivindicacionWordMapper" ref="solicitudReivindicacionWordMapper"/>
+        <property name="solicitudReivindicacionMapper" ref="solicitudReivindicacionMapper"/>
+
+
+
+
+
+
+
+
+
+        <!--property name="rduTelefonoMapper" ref="rduTelefonoMapper" /-->
+
+    </bean>
+
+
+    <bean id="rduPagoService" class="mx.gob.impi.rdu.service.impl.RduPagoServiceImpl" >
+        <!--property name="rduTelefonoMapper" ref="rduTelefonoMapper" /-->
+        <property name="rduPagoMapper" ref="rduPagoMapper" />
+    </bean>
+
+    <bean id="rduPagosFepsService" class="mx.gob.impi.rdu.service.impl.RduFirmaServiceImpl" >
+        <property name="fepsRecibidoMapper" ref="fepsRecibidoMapper"/>
+
+    </bean>
+
+    <bean id="rduFlujosGeneralesBean" class="mx.gob.impi.rdu.remote.impl.RduFlujosGeneralesBeanImpl">
+    </bean>
+
+    <bean id="rduAnexosService" class="mx.gob.impi.rdu.service.impl.RduAnexosServiceimpl">
+        <property name="rduAnexosMapper" ref="rduAnexosMapper" />
+        <property name="rduPrioridadMapper" ref="rduPrioridadMapper" />
+        <property name="rduAnexosxInventorMapper" ref="rduAnexosxInventorMapper" />
+    </bean>
+
+    <bean id="rduCodigosPostalesService" class="mx.gob.impi.rdu.service.impl.RduCodigosPostalesServicesImpl">
+        <property name="rduCodigosPostalesMapper" ref="rduCodigosPostalesMapper" />
+    </bean>
+
+    <bean id="rduComunesService" class="mx.gob.impi.rdu.service.impl.RduComunesServiceImpl">
+        <property name="rduSisAlertaMapper" ref="rduSisAlertaMapper" />
+        <property name="rduBitacoraErroresMapper" ref="rduBitacoraErroresMapper" />
+        <property name="promoventeMapper" ref="promoventeMapper" />
+    </bean>
+
+    <bean id="rduFuncionesSimplesService" class="mx.gob.impi.rdu.service.impl.RduFuncionesSimplesServiceImpl">
+        <property name="rduFuncionesSimplesMapper" ref="rduFuncionesSimplesMapper" />
+    </bean>
+
+    <bean id="rduProcesosService" class="mx.gob.impi.rdu.service.impl.RduProcesosServiceImpl" >
+        <property name="rduTramiteMapper" ref="rduTramiteMapper" />
+        <property name="rduTramitePatenteMapper" ref="rduTramitePatenteMapper" />
+        <property name="rduTramitePromocionPatenteMapper" ref="rduTramitePromocionPatenteMapper" />
+        <property name="rduFirmaService" ref="rduFirmaService" />
+    </bean>
+
+    <bean id="rduNotificacionesService" class="mx.gob.impi.rdu.service.impl.RduNotificacionesServiceImpl" >
+        <property name="rduNotificacionViewMapper" ref="rduNotificacionViewMapper" />
+        <property name="rduNotificacionMapper" ref="rduNotificacionMapper" />
+        <property name="notificacionFirmaMapper" ref="notificacionFirmaMapper" />
+        <property name="notificacionViewMapperSagpat" ref="notificacionViewMapperSagpat" />
+       
+    </bean>
+    
+    <bean id="rduSigappiService" class="mx.gob.impi.sigappi.service.impl.RduSigappiServiceImpl" >
+        <property name="kffoliosNotificacionMapper" ref="kffoliosNotificacionMapper" />
+        <property name="kfFoliosMapper" ref="kfFoliosMapper" />
+        <property name="kfAlmacenarMapper" ref="kfAlmacenarMapper" />
+        <property name="kfContenedoresMapper" ref="kfContenedoresMapper" />
+       
+    </bean>
+        
+    <bean id="rduTramiteService" class="mx.gob.impi.rdu.service.impl.RduTramiteServiceImpl" >        
+        <property name="solicitudMapper" ref="solicitudMapper" />
+        <property name="rduTramiteMapper" ref="rduTramiteMapper" />
+    </bean>
+    
+</beans>

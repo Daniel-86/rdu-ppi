@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.AnexosMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Anexos" >
+    <id column="ID_ANEXO" property="idAnexo" jdbcType="DECIMAL" />
+    <result column="ID_TIPOANEXO" property="idTipoanexo" jdbcType="DECIMAL" />
+    <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+    <result column="ARCHIVO_ANEXO" property="archivoAnexo" jdbcType="BLOB" />
+    <result column="EXTENSION" property="extension" jdbcType="VARCHAR" />
+    <result column="NOMBRE_ARCHIVO" property="nombreArchivo" jdbcType="VARCHAR" />
+    <result column="ID_TRAMITE_PATENTE" property="idTramitePatente" jdbcType="DECIMAL" />
+    <result column="ID_TRAMITE_PROMOCION_MARCA" property="idTramitePromocionMarcas" jdbcType="DECIMAL" />
+    <result column="TXTANEXO" property="txtAnexo" jdbcType="CLOB" />
+    <result column="OTRO_IDIOMA" property="otroIdioma" jdbcType="DECIMAL" />
+    <result column="ID_TIPOANEXOTRAD" property="idTipoanexoTrad" jdbcType="DECIMAL" />
+    <result column="ARCHIVO_TRAD" property="archivoTrad" jdbcType="BLOB" />
+    <result column="NOMBRE_TRAD" property="nombreTrad" jdbcType="VARCHAR" />
+    <result column="TXTANEXO_TRAD" property="txtAnexoTrad" jdbcType="CLOB" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.Anexos" extends="BaseResultMap" >
+    <result column="ARCHIVO_ANEXO" property="archivoAnexo" jdbcType="BLOB" />
+  </resultMap>  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE
+    ,ARCHIVO_ANEXO
+    from ANEXOS
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+  </select>
+  
+     <select id="selectMaxIdAnexo" resultType="java.lang.Long" >      
+      SELECT max(id_anexo) from ANEXOS
+  </select>
+  
+    <select id="selectByTramiteId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select
+    ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE,ARCHIVO_ANEXO,EXTENSION, NOMBRE_ARCHIVO,OTRO_IDIOMA,ID_TIPOANEXOTRAD, ARCHIVO_TRAD, NOMBRE_TRAD
+    from ANEXOS
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    or ID_TRAMITE_PATENTE = #{idTramite,jdbcType=DECIMAL} or ID_TRAMITE_PROMOCION_MARCA = #{idTramite,jdbcType=DECIMAL}
+    order by id_tipoanexo desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ANEXOS
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+  </delete>  
+  
+  <select id="obtenerAnexosDynamic" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    select ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE,ARCHIVO_ANEXO,EXTENSION, NOMBRE_ARCHIVO, ID_TRAMITE_PATENTE
+    from ANEXOS
+    where ID_TRAMITE_PATENTE = #{idTramitePatente,jdbcType=DECIMAL}
+      
+      <if test="idTipoanexo != null" >
+        AND ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}
+      </if>
+      <if test="idAnexo != null" >
+        AND ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+      </if>
+    
+  </select>
+  
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+        <selectKey resultType="long" keyProperty="idAnexo" order="AFTER">
+        SELECT ANEXOS_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into ANEXOS (ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE, ARCHIVO_ANEXO,
+                            EXTENSION, NOMBRE_ARCHIVO,ID_TRAMITE_PROMOCION_MARCA,TXTANEXO,OTRO_IDIOMA,
+                        ID_TIPOANEXOTRAD, ARCHIVO_TRAD, NOMBRE_TRAD, TXTANEXO_TRAD)
+    values (ANEXOS_SEQ.nextval, #{idTipoanexo,jdbcType=DECIMAL}, #{idTramite,jdbcType=DECIMAL},
+      #{archivoAnexo,jdbcType=BLOB}, #{extension,jdbcType=VARCHAR}, #{nombreArchivo,jdbcType=VARCHAR},
+      #{idTramitePromocionMarcas,jdbcType=DECIMAL},#{txtAnexo,jdbcType=CLOB},#{otroIdioma,jdbcType=DECIMAL},
+      #{idTipoanexoTrad,jdbcType=DECIMAL},#{archivoTrad,jdbcType=BLOB},#{nombreTrad,jdbcType=VARCHAR},
+      #{txtAnexoTrad,jdbcType=CLOB})
+  </insert>
+
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    insert into ANEXOS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idAnexo != null" >
+        ID_ANEXO,
+      </if>
+      <if test="idTipoanexo != null" >
+        ID_TIPOANEXO,
+      </if>
+      <if test="idTramite != null" >
+        ID_TRAMITE,
+      </if>
+      <if test="archivoAnexo != null" >
+        ARCHIVO_ANEXO,
+      </if>
+      <if test="idTramitePromocionMarcas != null" >
+        ID_TRAMITE_PROMOCION_MARCA,
+      </if>
+      <if test="idTramitePatente != null" >
+        ID_TRAMITE_PATENTE,
+      </if>
+      <if test="extension != null" >
+        EXTENSION,
+      </if>
+      <if test="nombreArchivo != null" >
+        NOMBRE_ARCHIVO,
+      </if>
+      <if test="txtAnexo != null" >
+        TXTANEXO,
+      </if>
+      <if test="otroIdioma != null" >
+        OTRO_IDIOMA,
+      </if>
+      <if test="idTipoanexoTrad != null" >
+        ID_TIPOANEXOTRAD,
+      </if>
+      <if test="archivoTrad != null" >
+        ARCHIVO_TRAD,
+      </if>
+      <if test="nombreTrad != null" >
+        NOMBRE_TRAD
+      </if>
+      <if test="nombreTrad != null" >
+        TXTANEXO_TRAD
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idAnexo != null" >
+        #{idAnexo,jdbcType=DECIMAL},
+      </if>
+      <if test="idTipoanexo != null" >
+        #{idTipoanexo,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramite != null" >
+        #{idTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="archivoAnexo != null" >
+        #{archivoAnexo,jdbcType=BLOB},
+      </if>
+      <if test="idTramitePromocionMarcas != null" >
+        #{idTramitePromocionMarcas,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramitePatente != null" >
+        #{idTramitePatente,jdbcType=DECIMAL},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="nombreArchivo != null" >
+        #{nombreArchivo,jdbcType=VARCHAR},
+      </if>
+      <if test="txtAnexo != null" >
+        #{txtAnexo,jdbcType=CLOB},
+      </if>
+      <if test="otroIdioma != null" >
+        #{otroIdioma,jdbcType=DECIMAL},
+      </if>
+      <if test="idTipoanexoTrad != null" >
+        #{idTipoanexoTrad,jdbcType=DECIMAL},
+      </if>
+      <if test="archivoTrad != null" >
+        #{archivoTrad,jdbcType=BLOB},
+      </if>
+      <if test="nombreTrad != null" >
+        #{nombreTrad,jdbcType=VARCHAR}
+      </if>
+      <if test="txtAnexoTrad != null" >
+        #{txtAnexoTrad,jdbcType=CLOB},
+      </if> 
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    update ANEXOS
+    <set >
+      <if test="idTipoanexo != null" >
+        ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="archivoAnexo != null" >
+        ARCHIVO_ANEXO = #{archivoAnexo,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    update ANEXOS
+    set ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL},
+      ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      ID_TRAMITE_PROMOCION_MARCA = #{idTramitePromocionMarcas,jdbcType=DECIMAL},
+      ARCHIVO_ANEXO = #{archivoAnexo,jdbcType=BLOB},
+      EXTENSION=#{extension,jdbcType=VARCHAR},
+      NOMBRE_ARCHIVO=#{nombreArchivo,jdbcType=VARCHAR},
+      TXTANEXO=#{txtAnexo,jdbcType=CLOB},
+      OTRO_IDIOMA=#{otroIdioma,jdbcType=DECIMAL},
+      ID_TIPOANEXOTRAD=#{idTipoanexoTrad,jdbcType=DECIMAL},
+      ARCHIVO_TRAD=#{archivoTrad,jdbcType=BLOB},
+      NOMBRE_TRAD=#{nombreTrad,jdbcType=VARCHAR},
+      TXTANEXO_TRAD=#{txtAnexoTrad,jdbcType=CLOB}
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    update ANEXOS
+    set ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL},
+      ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+  </update>
+
+  <insert id="insertPatente" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+        <selectKey resultType="long" keyProperty="idAnexo" order="AFTER">
+        SELECT ANEXOS_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into ANEXOS (ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE_PATENTE, ARCHIVO_ANEXO,
+                        EXTENSION, NOMBRE_ARCHIVO, ID_TRAMITE_PROMOCION_MARCA,TXTANEXO,OTRO_IDIOMA,
+                        ID_TIPOANEXOTRAD, ARCHIVO_TRAD, NOMBRE_TRAD, TXTANEXO_TRAD)
+    values (ANEXOS_SEQ.nextval, #{idTipoanexo,jdbcType=DECIMAL}, #{idTramitePatente,jdbcType=DECIMAL},
+        #{archivoAnexo,jdbcType=BLOB}, #{extension,jdbcType=VARCHAR}, #{nombreArchivo,jdbcType=VARCHAR},
+        #{idTramitePromocionMarcas,jdbcType=DECIMAL},#{txtAnexo,jdbcType=CLOB},#{otroIdioma,jdbcType=DECIMAL},
+        #{idTipoanexoTrad,jdbcType=DECIMAL},#{archivoTrad,jdbcType=BLOB},#{nombreTrad,jdbcType=VARCHAR},
+        #{txtAnexoTrad,jdbcType=CLOB})
+  </insert>
+
+  <insert id="insertPromoMarcas" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+        <selectKey resultType="long" keyProperty="idAnexo" order="AFTER">
+        SELECT ANEXOS_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into ANEXOS (ID_ANEXO, ID_TIPOANEXO, ID_TRAMITE_PROMOCION_MARCA, ARCHIVO_ANEXO,
+                            EXTENSION, NOMBRE_ARCHIVO)
+    values (ANEXOS_SEQ.nextval, #{idTipoanexo,jdbcType=DECIMAL}, #{idTramitePromocionMarcas,jdbcType=DECIMAL},
+      #{archivoAnexo,jdbcType=BLOB}, #{extension,jdbcType=VARCHAR}, #{nombreArchivo,jdbcType=VARCHAR})
+  </insert>
+  <delete id="deleteByTypeAnexo" parameterType="mx.gob.impi.rdu.persistence.model.Anexos" >
+    delete from ANEXOS
+    where ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}  AND ID_TRAMITE_PATENTE = #{idTramitePatente,jdbcType=DECIMAL}
+  </delete>
+ 
+</mapper>

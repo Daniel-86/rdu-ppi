@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+    <bean id="rduCatalogosService" class="mx.gob.impi.rdu.service.impl.CatalogosServiceImpl">
+        <property name="rduEntidadFederativaMapper" ref="rduEntidadFederativaMapper" />
+        <property name="rduCoordinacionEstatalMapper" ref="rduCoordinacionEstatalMapper" />
+        <property name="rduCatTipoanexoMapper" ref="rduCatTipoanexoMapper" />
+
+        <property name="rduTipoUsuarioMapper" ref="rduTipoUsuarioMapper" />
+        <property name="rduCatSubtiposolicitudMapper" ref="rduCatSubtiposolicitudMapper" />
+        <property name="rduPaisMapper" ref="rduPaisMapper" />      
+        <property name="rduCatAnexosMapper" ref="rduCatAnexosMapper"/>                          
+        <property name="rduDocumentoArticuloMapper" ref="rduDocumentoArticuloMapper" />
+        <property name="rduTipoDocumentoMapper" ref="rduTipoDocumentoMapper" />
+        <property name="rduCatTipopersonaMapper" ref="rduCatTipopersonaMapper" />                           
+        <property name="rduCatTiposolicitudMapper" ref="rduCatTiposolicitudMapper" />
+        <property name="rduCatFirmaHorariosMapper" ref="rduCatFirmaHorariosMapper" />
+        <property name="rduCatEstatusCertificadoMapper" ref="rduCatEstatusCertificadoMapper" />               
+        <property name="rduCatAreaMapper" ref="rduCatAreaMapper" />
+        <property name="rduCatTipoSolicitanteMapper" ref="rduCatTipoSolicitanteMapper" />
+        <property name="rduCatIdiomasMapper" ref="rduCatIdiomasMapper" />    
+                
+                
+    </bean>
+
+    <bean id="miRduCatalogosBeanImpl" class="mx.gob.impi.rdu.remote.impl.RduCatalogosBeanImpl">
+    </bean>
+	
+</beans>

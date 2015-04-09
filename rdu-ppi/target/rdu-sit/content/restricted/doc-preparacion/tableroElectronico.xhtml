@@ -1,0 +1,207 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="content">
+        <p:growl showDetail="true" id="msgGrw" globalOnly="true"/>
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.Tableros" var="msgdocs"/>
+        <p:messages showDetail="true" id="msg" globalOnly="true"/>
+        <h:form id="fmTabElectronico" prependId="true" style="width:920px">
+            <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{safeSurfMB.allowAccess(4)}"/>
+            <table border="0" style="width: 920px">
+                <tr>
+                    <td align="left" style="width: 30%">
+                <h:outputText value="#{msgdocs['titulo.tabElec.pagina']}" style="font-size: 10pt" styleClass="titulo_seccion"/>
+                </td>
+                <td style="width: 20%"></td><td style="width: 20%"></td>
+                <td align="right" style="width: 30%">
+                <h:graphicImage url="../../imagenes/RDU-proceso-6.jpg" />
+                </td>
+                </tr>
+            </table>
+            <p:panel style="width:920px;">
+                <h:panelGrid columns="4" style="width:70%" styleClass="FontContenido">
+                    <h:outputText value="Tipo de Solicitud:"/>
+                    <p:selectOneMenu id="tipoSolictudselect" label="Selecciona una Opcion"  value="#{tableroControlMB.idTipoTramite}"
+                                     styleClass="FontContenido">
+                        <f:selectItems value="#{tableroControlMB.filtrosTipoTramite}"
+                                       var="renglon"
+                                       itemLabel="#{renglon.descripcion}"
+                                       itemValue="#{renglon.idTipoTramite}"  />
+                        <p:ajax listener="#{tableroControlMB.tipoSolictudselect_changeValue}" update="expedientesTable pnlTabExpedientes"
+                                oncomplete="tablaExpediente.getPaginator().setPage(0)"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Filtro:"/>
+                    <p:selectOneMenu id="tipoFiltroExtraSelect" value="#{tableroControlMB.filtroExtra.idFiltro}"
+                                     styleClass="FontContenido">
+                        <f:selectItems value="#{tableroControlMB.filtrosExtras}" var="filtro"
+                                       itemLabel="#{filtro.descripcion}" itemValue="#{filtro.idFiltro}"/>
+                        <p:ajax process="@this" listener="#{tableroControlMB.tipoFiltroExtraSelect_changeValue}" update="expedientesTable fmTabElectronico"
+                                oncomplete="tablaExpediente.getPaginator().setPage(0)"/>
+                    </p:selectOneMenu>
+                    <h:outputText id="otFechaInicio" value="Inicio:" rendered="#{tableroControlMB.mostrarRango}"/>
+                    <p:calendar id="fechaInicioCal" mode="popup" showOn="button" pattern="dd/MM/yyyy" value="#{tableroControlMB.fechaInicio}"
+                                rendered="#{tableroControlMB.mostrarRango}" locale="es" readOnlyInputText="true"/>
+                    <h:outputText id="otFechaFin" value="Fin:" rendered="#{tableroControlMB.mostrarRango}"/>
+                    <p:calendar id="fechaFinCal" mode="popup" showOn="button" pattern="dd/MM/yyyy" value="#{tableroControlMB.fechaFin}"
+                                rendered="#{tableroControlMB.mostrarRango}" locale="es" readOnlyInputText="true"/>
+                    <center><p:commandButton value="Consultar" rendered="#{tableroControlMB.mostrarRango}" update="pnlTabExpedientes"
+                                             actionListener="#{tableroControlMB.cmbConsultar_actionListener}" oncomplete="tablaExpediente.getPaginator().setPage(0)"/>
+                    </center>
+
+
+                </h:panelGrid>
+            </p:panel>
+            <p:panel  id="pnlTabExpedientes"  style="width:920px; height:360px; background: #DDDDDD">
+<!--                <table style="width: 100%">
+                    <tr>
+                        <td align="left"><p:commandButton value="Seleccionar Acuses a Imprimir" onclick="dialogImprimir.show();" rendered="#{!perfilUsuario.coordinadorRecepcion}"/></td>
+                    </tr>
+                </table>-->
+                <p:dataTable id="expedientesTable" var="oExpediente" rowIndexVar="indexTramite"  
+                             value="#{tableroControlMB.expedienteDM}" widgetVar="tablaExpediente"
+                             emptyMessage="#{msgdocs['msg.tabElec.sinRegistrosTablero']}"
+                             selection="#{tableroControlMB.expedienteSelected}"
+                             paginator="true" paginatorPosition="bottom" rows=  "10" 
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
+                             currentPageReportTemplate="Registros encontrados :#{tableroControlMB.expedienteDM.totalReg}"
+                             >
+                            
+                    <p:column sortBy="#{oExpediente.folio}"
+                              style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.folio']}">
+                        <h:outputText value="#{oExpediente.folio}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column filterBy="#{oExpediente.expediente}"
+                              style="font-size: 8pt;" headerText="Expediente">
+                        <h:outputText value="#{oExpediente.expediente}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.tipoSolicitud']}">
+                        <h:outputText value="#{oExpediente.tipoSolicitud}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oExpediente.subTipoSolicitud}" filterBy="#{oExpediente.subTipoSolicitud}"
+
+                              style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.subTipoSolicitud']}">
+                        <h:outputText value="#{oExpediente.subTipoSolicitud}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oExpediente.fechaRegistro}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.fecPublicacion']}">
+                        <h:outputText value="#{oExpediente.fechaRegistro}" styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column 
+                              sortBy="#{oExpediente.area}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.tituloInvencion']}">
+                        <h:outputText value="#{oExpediente.area}"  styleClass="tablero-rows"/>
+                    </p:column>
+
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.acuse']}" >
+                        <!-- extraer acuse del BD local -->
+                                                
+                        <p:commandLink id="downloadAcuse" value="#{msgdocs['detalle.titulo.acuselocal']}" ajax="false" onclick="document.getElementById(this.id).style.color='black';"
+                                       style="font-family: arial; text-align: left; font-size: 11px; #{perfilUsuario.coordinadorRecepcion==false?oExpediente.fechaRevision!=null?'':'font-weight:bold;color:blue;':'color:black;'}"
+                                       rendered="#{onExpediente.tieneAcusePdf == false ? false:true}">
+                            <f:setPropertyActionListener value="#{oExpediente}" target="#{tableroControlMB.expedienteSelected}"/>
+                            <p:fileDownload value="#{tableroControlMB.acuseDownload}"/>
+                        </p:commandLink>
+                        <!-- extraer acuse del UCM-->
+                        <p:commandLink id="cmlnkSigAccion" value="#{msgdocs['detalle.titulo.acuseUCM']}" action="#{tableroControlMB.extraerAcuseUCM}" onclick="document.getElementById(this.id).style.color='black';"
+                                       style="font-family: arial; text-align: left; font-size: 11px; #{oExpediente.fechaRevision!=null?'':'font-weight:bold;color:blue;'}"
+                                       process="@this" rendered="#{onExpediente.tieneAcusePdf == false ? true:false}">
+                            <f:setPropertyActionListener value="#{oExpediente}" target="#{tableroControlMB.expedienteSelected}"/>
+                        </p:commandLink>
+
+
+                    </p:column>
+
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.xml']}"
+                              rendered="#{perfilUsuario.coordinadorRecepcion}">
+                        <p:commandLink id="downloadXml" value="#{msgdocs['detalle.titulo.xml']}" ajax="false"
+                                       style="font-family: arial; text-align: left; font-size: 11px; color: black;">
+                            <f:setPropertyActionListener value="#{oExpediente}" target="#{tableroControlMB.expedienteSelected}"/>
+                            <p:fileDownload value="#{tableroControlMB.xmlDownload}" />
+                        </p:commandLink>
+                    </p:column>
+
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.logos']}"
+                              rendered="false">
+<!--                              rendered="#{perfilUsuario.coordinadorRecepcion}">-->
+                        <p:commandLink id="downloadLogo" value="#{msgdocs['detalle.titulo.xml']}" ajax="false"
+                                       style="font-family: arial; text-align: left; font-size: 11px; color: black;"
+                                       rendered="#{oExpediente.tieneAcuseLogo == true}">
+                            <f:setPropertyActionListener value="#{oExpediente}" target="#{tableroControlMB.expedienteSelected}"/>
+                            <p:fileDownload value="#{tableroControlMB.logosDownload}" />
+                        </p:commandLink>
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.envioSIGMAR']}"
+                              rendered="#{perfilUsuario.coordinadorRecepcion}">
+                        <h:outputText value="#{oExpediente.envioSIGMAR==1?'SI':'NO'}" styleClass="tablero-rows"/>
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.fechaEnvioSIGMAR']}"
+                              rendered="#{perfilUsuario.coordinadorRecepcion}">
+                        <h:outputText value="#{oExpediente.fechaEnvioSIGMAR}" styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.envioUCM']}"
+                              rendered="#{perfilUsuario.coordinadorRecepcion}">
+                        <h:outputText value="#{oExpediente.envioUCM==1?'SI':'NO'}" styleClass="tablero-rows"/>
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.fechaEnvioUCM']}"
+                              rendered="#{perfilUsuario.coordinadorRecepcion}">
+                        <h:outputText value="#{oExpediente.fechaEnvioUCM}" styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                   
+                    
+
+                </p:dataTable>
+                <p:dialog id="dialogImprimir" widgetVar="dialogImprimir" width="600" height="350" header="Imprimir Archivos" position="center top">
+                    <table style="width: 100%">
+                        <tr>
+                            <td align="left"><p:commandButton value="Imprimir" action="#{tableroControlMB.imprimir_action}"/></td>
+                        </tr>
+                    </table>
+
+                    <p:dataTable var="oExpediente" rowIndexVar="indexTramite"
+                                 value="#{tableroControlMB.expedienteDM}"
+                                 selection="#{tableroControlMB.expedientesSelected}"
+                                 emptyMessage="#{msgdocs['msg.tabElec.sinRegistrosTablero']}"
+                                 paginator="true" paginatorPosition="bottom" rows="10">
+                        <p:column selectionMode="multiple"/>
+                        <p:column
+                            style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.folio']}">
+                            <h:outputText value="#{oExpediente.folio}"  styleClass="tablero-rows"/>
+                        </p:column>
+                        <p:column style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.tipoSolicitud']}">
+                            <h:outputText value="#{oExpediente.tipoSolicitud}"  styleClass="tablero-rows"/>
+                        </p:column>
+                        <p:column
+                            style="font-size: 8pt;" headerText="#{msgdocs['encabezado.tabElec.subTipoSolicitud']}">
+                            <h:outputText value="#{oExpediente.subTipoSolicitud}"  styleClass="tablero-rows"/>
+                        </p:column>
+                        <p:column
+                            style="font-size: 8pt" headerText="#{msgdocs['encabezado.tabElec.fecPublicacion']}">
+                            <h:outputText value="#{oExpediente.fechaRegistro}" styleClass="tablero-rows">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

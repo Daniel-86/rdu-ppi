@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" > 
+    <div id="footer">
+		<p class="dependencia"> 
+			INSTITUTO MEXICANO DE LA PROPIEDAD INDUSTRIAL , MÉXICO - ALGUNOS DERECHOS RESERVADOS <label class="copyright"/><script>$(".copyright")[0].innerHTML="\u00A9";</script> 2010
+			<!-- - <a href="/wb/IMPI/politica_de_privacidad_y_manejo_de_datos_m2010_14">POLÍTICAS DE PRIVACIDAD</a>
+			<a href="/wb/IMPI/politica_de_privacidad_y_manejo_de_datos_m2010_14"> <img width="15" height="15" alt="Políticas de privacidad" src="/work/sites/IMPI/images/privacy.gif" /></a> -->
+		</p>
+
+		<div id="redesSociales">
+			<!-- <div id="r1"><a target="_blank" href="http://www.facebook.com/impi.mexico">facebook</a></div> -->
+			<!-- <div id="r2"><a target="_blank" href="http://www.youtube.com/watch?v=_8F-Gm6keYI">youtube</a></div> -->
+			<!-- <div id="r3"><a target="_blank" href="http://twitter.com/IMPI_Mexico">twitter</a></div> -->
+			<div id="r9"><a href="#">favorito</a></div>
+			<!-- <div id="r8"><a href="/work/sites/IMPI/rss/noticiasRss.xml">rss</a></div> -->
+        	<p:lightBox rendered="#{sessionScope['area'] == 4 }" ><div id="r4"><a href="mailto:patentesenlinea@impi.gob.mx" target="_blank">Contacto</a></div></p:lightBox>
+        	<p:lightBox rendered="#{sessionScope['area'] == 8 }" ><div id="r4"><a href="mailto:marcaenlinea@impi.gob.mx" target="_blank">Contacto</a></div></p:lightBox>
+		</div>
+		<p class="logoFooter"><!-- <img width="268" height="70" src="/rdu-ppi/content/imagenes/logofooter.gif" alt="Página del INSTITUTO MEXICANO DE LA PROPIEDAD INDUSTRIAL" /> --></p>
+		<p class="topFooter">
+			Periférico Sur # 3106 <acronym title="Colonia">Col.</acronym> Jardines del Pedregal México <acronym title="Distrito Federal">D.F.</acronym> <acronym title="Código Postal">C.P</acronym> 01900 <br /> 
+			Arenal #550, <acronym title="Colonia">Col.</acronym> Pueblo Santa María Tepepan <acronym title="Distrito Federal">D.F.</acronym> <acronym title="Código Postal">C.P</acronym> 16020 <br />
+			<acronym title="Teléfonos">Tel.</acronym> para el <acronym title="Distrito Federal">D.F.</acronym> 5334 0700 | Interior de la República 01800 57 05990  <br />
+        	<p:lightBox rendered="#{sessionScope['area'] == 4 }" ><div><a href="mailto:patentesenlinea@impi.gob.mx" target="_blank">Comentarios sobre este Sitio de Internet</a></div></p:lightBox>
+        	<p:lightBox rendered="#{sessionScope['area'] == 8 }" ><div><a href="mailto:marcaenlinea@impi.gob.mx" target="_blank">Comentarios sobre este Sitio de Internet</a></div></p:lightBox>
+		</p>
+		<div id="footerBottom"> </div>
+	</div>
+</ui:composition>

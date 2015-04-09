@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml">
+    <ui:define name="content">
+
+
+        <table border="0" style="width: 930px">
+            <tr>
+                <td style="width: 20%"></td><td style="width: 25%"></td><td style="width: 25%"></td>
+                <td align="right" style="width: 30%">
+                    <h:graphicImage url="../../imagenes/RDU-proceso-4.jpg" />
+                </td>
+            </tr>
+        </table>
+
+        <p:panel header="Realizar Pago de Solicitud" id="pnlTipoDias" style="border-style: none" >
+                <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/content/restricted/include/salir.faces"
+                    width="870px" height="645px" style="border-style: none" />
+        </p:panel>
+
+    </ui:define>
+</ui:composition>

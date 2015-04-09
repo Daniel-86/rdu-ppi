@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.DomicilioMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Domicilio" >
+        <id column="ID_DOMICILIO" property="idDomicilio" jdbcType="DECIMAL" />
+        <result column="ID_PAIS" property="idPais" jdbcType="DECIMAL" />
+        <result column="ID_ENTIDAD" property="idEntidad" jdbcType="VARCHAR" />
+        <result column="CALLE" property="calle" jdbcType="VARCHAR" />
+        <result column="NUMERO" property="numero" jdbcType="VARCHAR" />
+        <result column="COLONIA" property="colonia" jdbcType="VARCHAR" />
+        <result column="POBLACION" property="poblacion" jdbcType="VARCHAR" />
+        <result column="CODIGOPOSTAL" property="codigopostal" jdbcType="VARCHAR" />
+        <result column="NUMEXT" property="numExt" jdbcType="VARCHAR" />
+        <result column="NUMINT" property="numInt" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="resultMapDomicilioDto" type="mx.gob.impi.rdu.dto.DomicilioDto" >
+        <id column="ID_DOMICILIO" property="idDomicilio" jdbcType="DECIMAL" />
+        <result column="ID_PAIS" property="idPais" jdbcType="DECIMAL" />
+        <result column="ID_ENTIDAD" property="idEntidad" jdbcType="VARCHAR" />
+        <result column="CALLE" property="calle" jdbcType="VARCHAR" />
+        <result column="NUMERO" property="numero" jdbcType="VARCHAR" />
+        <result column="COLONIA" property="colonia" jdbcType="VARCHAR" />
+        <result column="POBLACION" property="poblacion" jdbcType="VARCHAR" />
+        <result column="CODIGOPOSTAL" property="codigopostal" jdbcType="VARCHAR" />
+        <result column="NOMBRE_PAIS" property="nombrePais" jdbcType="VARCHAR" />
+        <result column="NOMBRE_ENTIDAD" property="nombreEntidad" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    ID_DOMICILIO, ID_PAIS, ID_ENTIDAD, CALLE, NUMERO, COLONIA, POBLACION, CODIGOPOSTAL,NUMEXT,NUMINT
+    from DOMICILIO
+    where ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL}
+    </select>
+    <select id="getDomiciliosDtoByCriteria" resultMap="resultMapDomicilioDto" parameterType="mx.gob.impi.rdu.dto.DomicilioDto">
+       SELECT
+          ROWNUM ID_DOMICILIO,
+          ID_PAIS,
+          NOMBRE_PAIS,
+          ID_ENTIDAD,
+          NOMBRE_ENTIDAD,
+          CALLE,
+          COLONIA,
+          POBLACION,
+          CODIGOPOSTAL FROM (
+                SELECT DISTINCT
+                  A.ID_PAIS,
+                  C.NOMBRE NOMBRE_PAIS,
+                  A.ID_ENTIDAD,
+                  B.NOMBRE NOMBRE_ENTIDAD,
+                  A.CALLE,
+                  A.COLONIA,
+                  A.POBLACION,
+                  A.CODIGOPOSTAL
+                FROM DOMICILIO A
+                INNER JOIN ENTIDAD_FEDERATIVA B
+                ON A.ID_ENTIDAD=TO_CHAR(B.ID_ENTIDAD_FEDERATIVA)
+                INNER JOIN PAIS C
+                ON(A.ID_PAIS=C.ID_PAIS)        
+        ) 
+        <where>
+            <if test="idPais != null" >
+                AND ID_PAIS=#{idPais,jdbcType=DECIMAL}
+            </if>
+            <if test="idEntidad != null" >
+                AND ID_ENTIDAD=#{idEntidad,jdbcType=VARCHAR}
+            </if>
+            <if test="calle != null" >
+                AND CALLE=#{calle,jdbcType=VARCHAR}
+            </if>
+            <if test="colonia != null" >
+                AND COLONIA=#{colonia,jdbcType=VARCHAR}
+            </if>
+            <if test="poblacion != null" >
+                AND POBLACION=#{poblacion,jdbcType=VARCHAR}
+            </if>
+            <if test="codigopostal != null" >
+                AND CODIGOPOSTAL=#{codigopostal,jdbcType=VARCHAR}
+            </if>
+            <if test="nombrePais != null" >
+                AND NOMBRE_PAIS=#{nombrePais,jdbcType=VARCHAR}
+            </if>
+            <if test="nombreEntidad != null" >
+                AND NOMBRE_ENTIDAD=#{nombreEntidad,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by 3,5,6,7,8,9
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DOMICILIO
+    where ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Domicilio" >
+        <selectKey resultType="long" keyProperty="idDomicilio" order="AFTER">
+        SELECT DOMICILIO_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into DOMICILIO (ID_DOMICILIO, ID_PAIS, ID_ENTIDAD, 
+      CALLE, NUMERO, COLONIA, 
+      POBLACION, CODIGOPOSTAL, NUMEXT, NUMINT)
+      values (
+            DOMICILIO_SEQ.NEXTVAL,
+            #{idPais,jdbcType=DECIMAL},
+            #{idEntidad,jdbcType=VARCHAR},
+            #{calle,jdbcType=VARCHAR},
+            #{numero,jdbcType=VARCHAR},
+            #{colonia,jdbcType=VARCHAR},
+            #{poblacion,jdbcType=VARCHAR},
+            #{codigopostal,jdbcType=VARCHAR},
+            #{numExt,jdbcType=VARCHAR},
+            #{numInt,jdbcType=VARCHAR}
+      )
+    </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Domicilio" >
+        <selectKey resultType="long" keyProperty="idDomicilio" order="AFTER">
+        SELECT DOMICILIO_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into DOMICILIO
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idPais != null" >
+        ID_DOMICILIO,
+            </if>
+            <if test="idPais != null" >
+        ID_PAIS,
+            </if>
+            <if test="idEntidad != null" >
+        ID_ENTIDAD,
+            </if>
+            <if test="calle != null" >
+        CALLE,
+            </if>
+            <if test="numero != null" >
+        NUMERO,
+            </if>
+            <if test="colonia != null" >
+        COLONIA,
+            </if>
+            <if test="poblacion != null" >
+        POBLACION,
+            </if>
+            <if test="codigopostal != null" >
+        CODIGOPOSTAL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+        DOMICILIO_SEQ.NEXTVAL,        
+            <if test="idPais != null" >
+        #{idPais,jdbcType=DECIMAL},
+            </if>
+            <if test="idEntidad != null" >
+        #{idEntidad,jdbcType=VARCHAR},
+            </if>
+            <if test="calle != null" >
+        #{calle,jdbcType=VARCHAR},
+            </if>
+            <if test="numero != null" >
+        #{numero,jdbcType=VARCHAR},
+            </if>
+            <if test="colonia != null" >
+        #{colonia,jdbcType=VARCHAR},
+            </if>
+            <if test="poblacion != null" >
+        #{poblacion,jdbcType=VARCHAR},
+            </if>
+            <if test="codigopostal != null" >
+        #{codigopostal,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Domicilio" >
+    update DOMICILIO
+        <set >
+            <if test="idPais != null" >
+        ID_PAIS = #{idPais,jdbcType=DECIMAL},
+            </if>
+            <if test="idEntidad != null" >
+        ID_ENTIDAD = #{idEntidad,jdbcType=VARCHAR},
+            </if>
+            <if test="calle != null" >
+        CALLE = #{calle,jdbcType=VARCHAR},
+            </if>
+            <if test="numero != null" >
+        NUMERO = #{numero,jdbcType=VARCHAR},
+            </if>
+            <if test="colonia != null" >
+        COLONIA = #{colonia,jdbcType=VARCHAR},
+            </if>
+            <if test="poblacion != null" >
+        POBLACION = #{poblacion,jdbcType=VARCHAR},
+            </if>
+            <if test="codigopostal != null" >
+        CODIGOPOSTAL = #{codigopostal,jdbcType=VARCHAR},
+            </if>
+        </set>
+    where ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Domicilio" >
+    update DOMICILIO
+    set ID_PAIS = #{idPais,jdbcType=DECIMAL},
+      ID_ENTIDAD = #{idEntidad,jdbcType=VARCHAR},
+      CALLE = #{calle,jdbcType=VARCHAR},
+      NUMERO = #{numero,jdbcType=VARCHAR},
+      COLONIA = #{colonia,jdbcType=VARCHAR},
+      POBLACION = #{poblacion,jdbcType=VARCHAR},
+      CODIGOPOSTAL = #{codigopostal,jdbcType=VARCHAR}
+    where ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL}
+    </update>
+</mapper>

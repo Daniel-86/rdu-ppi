@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.DomicilionotificacionMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Domicilionotificacion" >
+    <id column="ID_DOMICILIONOTIFICACION" property="idDomicilionotificacion" jdbcType="DECIMAL" />
+    <result column="ID_DOMICILIO" property="idDomicilio" jdbcType="DECIMAL" />
+    <result column="ID_DATOSCONTACTO" property="idDatoscontacto" jdbcType="DECIMAL" />
+  </resultMap>  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 'false' as QUERYID,
+    ID_DOMICILIONOTIFICACION, ID_DOMICILIO, ID_DATOSCONTACTO
+    from DOMICILIONOTIFICACION
+    where ID_DOMICILIONOTIFICACION = #{idDomicilionotificacion,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DOMICILIONOTIFICACION
+    where ID_DOMICILIONOTIFICACION = #{idDomicilionotificacion,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Domicilionotificacion" >
+      <selectKey resultType="long" keyProperty="idDomicilionotificacion" order="AFTER">
+        SELECT domicilionotificacion_seq.currVal AS ID FROM DUAL
+      </selectKey>
+
+    insert into DOMICILIONOTIFICACION (ID_DOMICILIONOTIFICACION, ID_DOMICILIO, 
+      ID_DATOSCONTACTO)
+    values (domicilionotificacion_seq.NEXTVAL, #{idDomicilio,jdbcType=DECIMAL},
+      #{idDatoscontacto,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Domicilionotificacion" >
+    insert into DOMICILIONOTIFICACION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idDomicilionotificacion != null" >
+        ID_DOMICILIONOTIFICACION,
+      </if>
+      <if test="idDomicilio != null" >
+        ID_DOMICILIO,
+      </if>
+      <if test="idDatoscontacto != null" >
+        ID_DATOSCONTACTO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idDomicilionotificacion != null" >
+        #{idDomicilionotificacion,jdbcType=DECIMAL},
+      </if>
+      <if test="idDomicilio != null" >
+        #{idDomicilio,jdbcType=DECIMAL},
+      </if>
+      <if test="idDatoscontacto != null" >
+        #{idDatoscontacto,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Domicilionotificacion" >
+    update DOMICILIONOTIFICACION
+    <set >
+      <if test="idDomicilio != null" >
+        ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL},
+      </if>
+      <if test="idDatoscontacto != null" >
+        ID_DATOSCONTACTO = #{idDatoscontacto,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_DOMICILIONOTIFICACION = #{idDomicilionotificacion,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Domicilionotificacion" >
+    update DOMICILIONOTIFICACION
+    set ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL},
+      ID_DATOSCONTACTO = #{idDatoscontacto,jdbcType=DECIMAL}
+    where ID_DOMICILIONOTIFICACION = #{idDomicilionotificacion,jdbcType=DECIMAL}
+  </update>
+</mapper>

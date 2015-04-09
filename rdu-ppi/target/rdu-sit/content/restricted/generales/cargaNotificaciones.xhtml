@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml">
+    <ui:define name="content">
+        <h:form id="forma">
+            <p:messages id="msgErrors"/>
+            <p:dialog header="subir archivos" widgetVar="subirArchivoDialog" resizable="false"
+                      showEffect="fade">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:fileUpload  label="Seleccionar"
+                                   mode="advance"
+                                   multiple="true"
+                                   invalidFileMessage="  "
+                                   invalidSizeMessage="  "
+                                   sizeLimit="10000000"
+                                   allowTypes="/(\.|\/)(pdf|PDF)$/"
+                                   fileUploadListener="#{cargaNotificacionMB.cargarArchivos}"                                   
+                                   auto="true" update="forma:txtNombreArchivos" oncomplete="subirArchivoDialog.hide();"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:panel>
+                <center>                    
+                    <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
+                        <h:outputText value="Busca notificación: "/>
+                        <p:inputText id="txtCodbarrasAcuerdo" value="#{cargaNotificacionMB.codbarrasAcuerdo}"/>
+                         <p:commandButton value="Buscar" action="#{cargaNotificacionMB.buscarAcuerdo()}"
+                                                 update="forma"/>
+                         <p:inputTextarea id="txtNombreArchivos" rendered="false"
+                                         disabled="true" value="#{cargaNotificacionMB.nombreArchivos!=null and cargaNotificacionMB.nombreArchivos.length()>2?cargaNotificacionMB.nombreArchivos.substring(0,cargaNotificacionMB.nombreArchivos.length()-2):cargaNotificacionMB.nombreArchivos}"
+                                         style="width: 400px;" autoResize="false"/>
+                        <p:commandButton value="..." onclick="subirArchivoDialog.show()" rendered="false"/>
+                        <center>
+                            <p:column>
+                               
+                                <p:commandButton value="Cargar" action="#{cargaNotificacionMB.cargarArchivo}" rendered="false"
+                                                 update="forma"/>
+                                <p:commandButton value="Cancelar" action="#{cargaNotificacionMB.cancelarArchivo}" rendered="false"
+                                                 update="forma"/>
+                            </p:column>
+                        </center>
+                    </h:panelGrid>
+                    
+                </center>
+                <br/>
+                <p:dataTable id="tableArchivos" value="#{cargaNotificacionMB.notificacionDM}" paginator="true" rows="7"
+                             selection="#{cargaNotificacionMB.notificacionesSelected}" var="notificacion">
+                    <p:column selectionMode="multiple"/>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
+                        <h:outputText value="#{notificacion.oficioSalida}"/>
+                    </p:column>
+                    <p:column headerText="Expediente">
+                        <h:outputText value="#{notificacion.expediente}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{notificacion.fechaMovimiento}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{notificacion.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{notificacion.tipoSolicitud}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
+                        <h:outputText value="#{notificacion.registro}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
+                        <h:outputText value="#{notificacion.titular}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
+                        <h:outputText value="#{notificacion.denominacion}"/>
+                    </p:column>                    
+                </p:dataTable>
+                <center>
+                    <h:panelGrid columns="2" style="width: 200px;">
+                        <p:commandButton value="Eliminar" actionListener="#{cargaNotificacionMB.eliminarNotSeleccionadas}" update="forma:tableArchivos forma:msgErrors"/>
+                        <p:commandButton value="Eliminar todas" actionListener="#{cargaNotificacionMB.eliminarTodasNot}" update="forma:tableArchivos forma:msgErrors"/>
+                    </h:panelGrid>
+                </center>
+                <br/>                
+                <center>
+                    <h:panelGrid columns="3" style="width: 500px;">
+                        <h:outputText value="Enviar a:"/>
+                        <p:selectOneMenu value="#{cargaNotificacionMB.promoventeSelected.idPromovente}">
+                            <f:selectItems value="#{cargaNotificacionMB.promoventes}" var="promovente"
+                                           itemLabel="#{promovente.nombre}" itemValue="#{promovente.idPromovente}"/>
+                            <p:ajax listener="#{cargaNotificacionMB.overrideNombreCoordinador_select}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Enviar" update="forma:confirmarDialog" oncomplete="confirmarDialog.show();"/>
+                    </h:panelGrid>
+                </center>                
+            </p:panel>
+            <p:panel id="pnlResumen" rendered="#{cargaNotificacionMB.mostrarResumen}">
+                <center><h:outputText value="Resumen" style="font-size: large"/></center>
+                <h:outputText value="#{sessionScope['area']=='20' ? 'Examinador': 'Examinador de Patentes'}: #{cargaNotificacionMB.usuarioCarga.nombre} #{cargaNotificacionMB.usuarioCarga.apaterno} #{cargaNotificacionMB.usuarioCarga.amaterno}"/>
+                <br/>
+                <br/>
+                <h:outputText value="#{sessionScope['area']=='20' ? 'Coordinador': 'Coordinador de Patentes'}: #{cargaNotificacionMB.promoventeSelected.nombre} #{cargaNotificacionMB.promoventeSelected.apaterno} #{cargaNotificacionMB.promoventeSelected.amaterno}"/>
+                <br/>
+                <br/>
+                <h:outputText value="Fecha: #{cargaNotificacionMB.sysdate}"/>
+                <br/>
+                <br/>
+                <p:dataTable value="#{cargaNotificacionMB.notificacionesSelect}" var="notificacion" paginator="true"
+                             rows="10">
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
+                        <h:outputText value="#{notificacion.oficioSalida}"/>
+                    </p:column>
+                    <p:column headerText="Expediente">
+                        <h:outputText value="#{notificacion.expediente}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
+                        <h:outputText value="#{notificacion.registro}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
+                        <h:outputText value="#{notificacion.titular}"/>
+                    </p:column>
+                    <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
+                        <h:outputText value="#{notificacion.denominacion}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:dialog id="confirmarDialog" widgetVar="confirmarDialog" header="Enviar Notificaciones" width="300" height="50" position="center">
+                <h:outputText value="#{cargaNotificacionMB.lengthOfArray>0?'Desea continuar?':'No hay notificaciones seleccionadas para enviar'}"/>
+                <center>
+                    <p:commandButton value="Si" actionListener="#{cargaNotificacionMB.enviarNotificaciones}" rendered="#{cargaNotificacionMB.lengthOfArray>0}"
+                                     oncomplete="confirmarDialog.hide();" update="forma"/>
+                    <p:commandButton value="No" onclick="confirmarDialog.hide();" rendered="#{cargaNotificacionMB.lengthOfArray>0}"/></center>
+            </p:dialog>            
+        </h:form>
+    </ui:define>
+</ui:composition>

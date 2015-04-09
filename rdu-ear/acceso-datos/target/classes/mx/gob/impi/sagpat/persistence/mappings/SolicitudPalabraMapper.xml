@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SolicitudPalabraMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SolicitudPalabra" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="COD_PALABRA" property="codPalabra" jdbcType="VARCHAR" />
+    <id column="COD_USO" property="codUso" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 'false' as QUERYID,
+      COD_OFICINA, COD_PALABRA, COD_USO, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION
+    from PATENTES.SOLICITUD_PALABRA
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_USO = #{codUso,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+<insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPalabra" >
+    insert into PATENTES.SOLICITUD_PALABRA (
+    COD_OFICINA, COD_PALABRA, COD_USO,NUM_EXPED,SER_EXPED,TIP_EXPED
+      )
+    values (
+    #{codOficina,jdbcType=VARCHAR}, #{codPalabra,jdbcType=VARCHAR}, #{codUso,jdbcType=VARCHAR},
+    #{numExped,jdbcType=DECIMAL}, #{serExped,jdbcType=DECIMAL}, #{tipExped,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SOLICITUD_PALABRA
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_USO = #{codUso,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPalabra" >
+    update PATENTES.SOLICITUD_PALABRA
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_USO = #{codUso,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPalabra" >
+    update PATENTES.SOLICITUD_PALABRA
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_USO = #{codUso,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

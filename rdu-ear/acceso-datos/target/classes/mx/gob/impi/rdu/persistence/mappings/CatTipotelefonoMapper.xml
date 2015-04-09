@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.CatTipotelefonoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.CatTipotelefono" >
+    <id column="ID_TIPOTELEFONO" property="idTipotelefono" jdbcType="DECIMAL" />
+    <result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+    <result column="IND_ACTIVO" property="indActivo" jdbcType="DECIMAL" />
+  </resultMap>  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select
+    ID_TIPOTELEFONO, DESCRIPCION, IND_ACTIVO
+    from CAT_TIPOTELEFONO
+    where ID_TIPOTELEFONO = #{idTipotelefono,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from CAT_TIPOTELEFONO
+    where ID_TIPOTELEFONO = #{idTipotelefono,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.CatTipotelefono" >
+    insert into CAT_TIPOTELEFONO (ID_TIPOTELEFONO, DESCRIPCION, IND_ACTIVO
+      )
+    values (#{idTipotelefono,jdbcType=DECIMAL}, #{descripcion,jdbcType=VARCHAR}, #{indActivo,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.CatTipotelefono" >
+    insert into CAT_TIPOTELEFONO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idTipotelefono != null" >
+        ID_TIPOTELEFONO,
+      </if>
+      <if test="descripcion != null" >
+        DESCRIPCION,
+      </if>
+      <if test="indActivo != null" >
+        IND_ACTIVO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idTipotelefono != null" >
+        #{idTipotelefono,jdbcType=DECIMAL},
+      </if>
+      <if test="descripcion != null" >
+        #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="indActivo != null" >
+        #{indActivo,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.CatTipotelefono" >
+    update CAT_TIPOTELEFONO
+    <set >
+      <if test="descripcion != null" >
+        DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="indActivo != null" >
+        IND_ACTIVO = #{indActivo,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_TIPOTELEFONO = #{idTipotelefono,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.CatTipotelefono" >
+    update CAT_TIPOTELEFONO
+    set DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+      IND_ACTIVO = #{indActivo,jdbcType=DECIMAL}
+    where ID_TIPOTELEFONO = #{idTipotelefono,jdbcType=DECIMAL}
+  </update>
+</mapper>

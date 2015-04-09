@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.gob.impi.rdu.persistence.mapper.EntidadFederativaMapper">
+  <resultMap id="EntidadFederativaResultMap" type="mx.gob.impi.rdu.persistence.model.EntidadFederativa">
+    <id column="id_entidad_federativa" property="idEntidadFederativa" jdbcType="SMALLINT"/>
+    <id column="id_pais" property="idPais" jdbcType="BIGINT"/>
+    <result column="nombre" property="nombre" jdbcType="VARCHAR"/>
+    <result column="id_zona_horaria" property="idZonaHoraria" jdbcType="SMALLINT"/>
+    <result column="id_horario_verano" property="idHorarioVerano" jdbcType="SMALLINT"/>
+  </resultMap>
+</mapper>

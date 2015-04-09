@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigmar.persistence.mappers.NotificacionMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigmar.persistence.model.Notificacion" >
+    <result column="TIPO_SOLICITUD" property="tipoSolicitud" jdbcType="DECIMAL" />
+    <result column="ANO_SOLICITUD" property="anoSolicitud" jdbcType="DECIMAL" />
+    <result column="EXPEDIENTE" property="expediente" jdbcType="DECIMAL" />
+    <result column="NOMBRE" property="nombre" jdbcType="VARCHAR" />
+    <result column="DIRECCION" property="direccion" jdbcType="VARCHAR" />
+    <result column="POBLACION" property="poblacion" jdbcType="VARCHAR" />
+    <result column="COD_POSTAL" property="codPostal" jdbcType="VARCHAR" />
+    <result column="COD_PAIS" property="codPais" jdbcType="VARCHAR" />
+    <result column="FECHA_MODIFICACION" property="fechaModificacion" jdbcType="TIMESTAMP" />
+    <result column="COD_NOTIFICACION" property="codNotificacion" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="mx.gob.impi.sigmar.persistence.model.Notificacion" >
+    insert into MARCAS.NOTIFICACION (TIPO_SOLICITUD, ANO_SOLICITUD, EXPEDIENTE, 
+      NOMBRE, DIRECCION, POBLACION, 
+      COD_POSTAL, COD_PAIS, FECHA_MODIFICACION, 
+      COD_NOTIFICACION)
+    values (#{tipoSolicitud,jdbcType=DECIMAL}, #{anoSolicitud,jdbcType=DECIMAL}, #{expediente,jdbcType=DECIMAL}, 
+      #{nombre,jdbcType=VARCHAR}, #{direccion,jdbcType=VARCHAR}, #{poblacion,jdbcType=VARCHAR}, 
+      #{codPostal,jdbcType=VARCHAR}, #{codPais,jdbcType=VARCHAR}, #{fechaModificacion,jdbcType=TIMESTAMP}, 
+      #{codNotificacion,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sigmar.persistence.model.Notificacion" >
+    insert into MARCAS.NOTIFICACION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tipoSolicitud != null" >
+        TIPO_SOLICITUD,
+      </if>
+      <if test="anoSolicitud != null" >
+        ANO_SOLICITUD,
+      </if>
+      <if test="expediente != null" >
+        EXPEDIENTE,
+      </if>
+      <if test="nombre != null" >
+        NOMBRE,
+      </if>
+      <if test="direccion != null" >
+        DIRECCION,
+      </if>
+      <if test="poblacion != null" >
+        POBLACION,
+      </if>
+      <if test="codPostal != null" >
+        COD_POSTAL,
+      </if>
+      <if test="codPais != null" >
+        COD_PAIS,
+      </if>
+      <if test="fechaModificacion != null" >
+        FECHA_MODIFICACION,
+      </if>
+      <if test="codNotificacion != null" >
+        COD_NOTIFICACION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tipoSolicitud != null" >
+        #{tipoSolicitud,jdbcType=DECIMAL},
+      </if>
+      <if test="anoSolicitud != null" >
+        #{anoSolicitud,jdbcType=DECIMAL},
+      </if>
+      <if test="expediente != null" >
+        #{expediente,jdbcType=DECIMAL},
+      </if>
+      <if test="nombre != null" >
+        #{nombre,jdbcType=VARCHAR},
+      </if>
+      <if test="direccion != null" >
+        #{direccion,jdbcType=VARCHAR},
+      </if>
+      <if test="poblacion != null" >
+        #{poblacion,jdbcType=VARCHAR},
+      </if>
+      <if test="codPostal != null" >
+        #{codPostal,jdbcType=VARCHAR},
+      </if>
+      <if test="codPais != null" >
+        #{codPais,jdbcType=VARCHAR},
+      </if>
+      <if test="fechaModificacion != null" >
+        #{fechaModificacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codNotificacion != null" >
+        #{codNotificacion,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

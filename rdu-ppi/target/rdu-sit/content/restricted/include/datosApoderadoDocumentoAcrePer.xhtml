@@ -1,0 +1,121 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:panel header="#{titulo!=null?titulo:'Nombre del Firmante'}" id="pnlDatosFirmante">
+        <h:panelGrid columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+            <h:outputText value="*Tipo persona"  rendered="#{mostrarApoderados}"/>
+            <h:selectOneMenu  value="#{managedBean.includeApoderado.tipoPersona.idTipopersona}" rendered="#{mostrarApoderados}" style="width: 202px;" disabled="true">
+                <f:selectItems value="#{managedBean.tiposPersona}" var="tipoPersona" itemLabel="#{tipoPersona.descripcion}"
+                               itemValue="#{tipoPersona.idTipopersona}"/>
+            </h:selectOneMenu>        
+            <h:outputText value="*#{msgSolcitud['titulo.registro.solicitante.NombreC']}" style="font-weight: normal"/>
+            <p:column>
+                <p:inputTextarea id="txtNombreApoderado" value="#{managedBean.apoderado.nombre}" disabled="#{!mostrarApoderados}"
+                                 onkeyup="replaceSaltos(this); toUpperCaseFirst(event, this, 0)"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none;"/>
+                <p:commandButton value="Símbolo" onclick="campoEspecial = 'txtNombreApoderado_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:txtNombreApoderado_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 1px;"
+                                    title="Insertar caracter especial"/>
+            </p:column>
+            <h:outputText value="*#{msgPatente['datos.persona.aPaterno']}" />
+            <p:column>
+                <p:inputTextarea id="aPaternoApoderado" value="#{managedBean.apoderado.primerApellido}" 
+                                 onkeyup="toUpperCase(event, this); replaceSaltos(this);"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none;"/>
+                <p:commandButton value="Símbolo" onclick="campoEspecial = 'aPaternoApoderado_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:aPaternoApoderado_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 2px;"
+                                    title="Insertar caracter especial"/>
+            </p:column>
+            <h:outputText value="#{msgPatente['datos.persona.aMaterno']}" />
+            <p:column>
+                <p:inputTextarea id="aMaternoApoderado" value="#{managedBean.apoderado.segundoApellido}" 
+                                 onkeyup="toUpperCase(event, this); replaceSaltos(this);"
+                                 autoResize="false" rows="1" cols="5" maxlength="100" style="width:360px; height:15px; resize: none;"/>
+                <p:commandButton value="Símbolo" onclick="campoEspecial = 'aMaternoApoderado_input';
+                                    simbolosUnicodeDialog.show(); 
+                                    optenerCampo('tabs:aMaternoApoderado_input')" style="width:55px;height:22px; font-size-adjust:0.4; padding-top: 2px;"
+                                    title="Insertar caracter especial"/>
+            </p:column>
+            
+            <h:outputText value="#{msgPatente['datos.persona.mandatorio']}" style="font-weight: normal"/>
+            <p:selectBooleanCheckbox value="#{managedBean.apoderado.esMandatorio}"  />
+            
+            
+            <h:outputText value="RGP"  rendered="#{mostrarApoderados}" style="padding-top: 20px;"/>
+            <p:column>  
+                <p:inputText value="#{managedBean.apoderado.rgp}" rendered="#{mostrarApoderados}" size="35" style="width:192px;padding: 10px 4px 0px;"
+                        maxlength="10"  onkeypress="return justNumbers(event);" />
+                <p:commandLink title="Ayuda RGP"
+                        oncomplete="ayudaRGPDialog.show()" rendered="#{mostrarApoderados}" >
+                <h:graphicImage url="../../imagenes/help-01.jpg" style="right: auto; border-style: none"/>
+            </p:commandLink>
+            </p:column>
+            <center>
+            <p:column>
+            <p:commandButton value="#{msgSolcitud['titulo.registro.boton.agregar']}  " onclick="usuarioFirmanteDialog.show()" process="@this" rendered="#{mostrarApoderados}" 
+                                 style="width:90px;height:22px; "/>
+            </p:column>
+            </center>
+                    
+        </h:panelGrid>   
+        
+        
+        
+        
+        
+            
+        <h:panelGrid id="listaAnexosApoderadoMandatorio" columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: left;">
+
+            <p:column> 
+                <h:outputText value="*#{msgPatente['registro.acredita.personalidad.apoderado.mandatorio']}"
+                              id="lblAnexosApoderadoMandatorio" style="font-weight: normal" ></h:outputText>
+            </p:column>
+            <p:column>
+                <h:selectOneMenu    
+                    id="anexosApoderadoMandatorio"
+                    value="#{patentesDisIndMB.datosAnexosApoderado.idTipoanexo}" style="width: 210px; height: 25px;" >
+                    <p:ajax event="change" listener="#{patentesDisIndMB.habilitaDocumentoApoderado}" process="@all"  update="pnlAcreditaPersonalidad btnArchivoAnexoDocsApoMan otroDocumento"/>
+                    <f:selectItem itemLabel="#{msgPatente['titulo.registro.Seleccion.default']}"  />
+                    <f:selectItems
+                        value="#{patentesDisIndMB.anexosApoderado}"
+                        var="renglon"
+                        itemLabel="#{renglon.descripcion}"
+                        itemValue="#{renglon.idTipoanexo}" />
+                </h:selectOneMenu>
+            </p:column> 
+
+        </h:panelGrid>
+ryrtyrtytryrtytryrtyt
+#{patentesDisIndMB.forma.esDesabilitadoPDF}
+        <h:panelGrid id="archivoPDFApoderadoMandatorio" columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: justify;" >
+            <p:column>
+                <h:outputText  value="Archivo PDF:" style="padding-right: 27px;" />
+            </p:column>
+            <p:column  style="padding-left: 67px;"  > 
+                <p:inputText id="rutaArchivoAnexoDocsApoMan" value="#{patentesDisIndMB.forma.rutaAnexoApoderado}" disabled="true" style="width: 200px;"/>
+                <p:commandButton id="btnArchivoAnexoDocsApoMan" value="..." title="Cargar anexo" disabled="#{patentesDisIndMB.forma.esDesabilitadoPDF}"
+                                 onclick="singleSubirDialogApoderado.show();" process="@this" update=":form:displaySubirDocPersonalidad :form:singleSubirDialogApoderado">
+                    <f:setPropertyActionListener value="#{oAnexoDto}" target="#{patentesDisIndMB.anexoSelectedApoderado}"/>
+                </p:commandButton>
+            </p:column>
+        </h:panelGrid>
+        
+        
+        
+
+
+    </p:panel>
+    
+    
+    
+    
+    
+    
+
+</ui:composition>

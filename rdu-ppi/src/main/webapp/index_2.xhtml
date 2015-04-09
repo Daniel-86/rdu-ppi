@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="content/templates/PlainTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form id="fmIndexRDU">
+            <h:panelGrid columns="2" style="width: 870px;">
+                <p:fieldset id="idx_capsol" legend="Captura de Solicitudes" style="float:right; margin:20px; width:380px; height:360px; font-size: 70%;">
+                    
+                    
+                    
+                    
+                    <p:accordionPanel value="#{indiceMB.areas}" var="areaVO" style="width:380px; height:340px;">
+                        <p:tab title="#{areaVO.nombreArea}">
+                            <p:dataGrid  var="solicitudRduVO" value="#{areaVO.solicitudes}" columns="2" rows="6" style="font-size: 60%;" paginator="true" paginatorPosition="top" >
+                                <p:column>
+                                    <p:panel >
+                                        <p:graphicImage value="/content/imagenes/documentos.png"/>
+                                        <a href="#{request.contextPath}/#{solicitudRduVO.url}" >#{solicitudRduVO.nombreSolicitud}</a>
+                                    </p:panel>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                </p:fieldset>
+
+                <p:fieldset id="idx_gestion" legend="Gestion de Solicitudes" style="float:left; display:inline; margin-right:30px; width:360px; height:360px; font-size: 70%;" >
+                        <p:panel id="nmgestionmarcas" header="Marcas"
+                                 style="width:360px; height:150px;" >
+                            <p:scrollPanel style="height:100px">
+                                <p:dataGrid  var="gestionVO" value="#{indiceMB.tableros}" columns="2" style="font-size: 100%;">
+                                    <p:column>
+                                        <p:panel style="text-align:center">
+                                            
+                                            <h:panelGrid columns="1" style="width:100%; font-size: 100%;" >
+                                                <p:graphicImage value="/content/imagenes/gestion_solicitud.png"/>
+                                                <a href="#{request.contextPath}/#{gestionVO.url}" >#{gestionVO.nombreTablero}</a>
+                                            </h:panelGrid>
+                                            
+                                        </p:panel>
+                                    </p:column>
+
+                                </p:dataGrid>
+                            </p:scrollPanel>
+                        </p:panel>
+                        <p:panel id="nmgestionpatentes" header="Patentes"
+                                 style="width:360px; height:150px;" >
+                            <p:scrollPanel style="height:100px">
+                                <p:dataGrid  var="gestionVO" value="#{indiceMB.tableros}" columns="2" style="font-size: 100%;">
+                                    <p:column>
+                                        <p:panel style="text-align:center">
+
+                                            <h:panelGrid columns="1" style="width:100%; font-size: 100%;" >
+                                                <p:graphicImage value="/content/imagenes/gestion_solicitud.png"/>
+                                                <a href="#{request.contextPath}/#{gestionVO.url}" >#{gestionVO.nombreTablero}</a>
+                                            </h:panelGrid>
+
+                                        </p:panel>
+                                    </p:column>
+
+                                </p:dataGrid>
+                            </p:scrollPanel>
+                        </p:panel>
+                     
+                    
+                </p:fieldset>
+                
+                
+                
+            </h:panelGrid>
+            <p:fieldset id="idx_conoce" legend="Conoce a RDU" style="display:inline; margin-right:30px; width:97%; height:200px; border-style: solid; border-width:thin; border-color:#0080FF;">
+                        <p:carousel id="tabsCarouselRDU" rows="1" itemStyle="height:120px;width:800px;" effect="easeInStrong">
+                            <p:tab title="RDU">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:graphicImage value="content/imagenes/RDU.jpg" />
+                                    <h:outputText styleClass="contenido_index"
+                                        value="Recepción de Documentos Unificado es un aplicativo que permite iniciar el trámite de los
+                                            registros de Marcas y Patentes, a través de los pasos: captura y gestión(pago y firma) de la solicitud."/>
+                                </h:panelGrid>
+                            </p:tab>
+
+                            <p:tab title="Marcas">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:graphicImage value="content/imagenes/marcas.jpg" />
+                                    <h:outputText styleClass="contenido_index"
+                                        value="Una marca es todo signo visible que se utiliza para distinguir e individualizar un
+                                                producto o un servicio de otros de su misma clase o especie. Su función principal es
+                                                la de servir como elemento de identificación de los diversos productos y servicios
+                                                que se ofrecen y se prestan en el mercado.
+                                                La marca constituye el único instrumento que tiene a su disposición el consumidor
+                                                para identificar y poder seleccionar los artículos y los servicios de su preferencia. De
+                                                ahí su importancia y sobre todo la de registrarla."/>
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Patentes">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:graphicImage value="content/imagenes/patentes.jpg" />
+                                    <h:outputText styleClass="contenido_index" value="Se puede solicitar la protección de una patente a toda invención como: productos,
+                                        procesos o usos de creación humana que permitan transformar la materia o la energía
+                                        que existe en la naturaleza, para su aprovechamiento por el hombre y que satisfaga sus
+                                        necesidades concretas, siempre y cuando cumplan con los siguientes requisitos:
+                                        Novedad, Actividad Inventativa y Aplicación industrial.. "/>
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:carousel>
+
+            </p:fieldset>
+
+        </h:form>     
+            
+        </ui:define>
+</ui:composition>

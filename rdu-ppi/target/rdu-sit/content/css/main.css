@@ -1,0 +1,950 @@
+/* 
+    Document   : main.css
+    Created on : 11-oct-2011, 11:16:31
+    Author     : roque
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    /*
+    background: #F5F5F5*/  /*url("../imagenes/Fondo/background.jpg") no-repeat fixed center top; ;
+    
+    /*color:#2F2F2F;
+    margin:0;
+    font: 1em Arial;
+    */
+
+    background: none repeat scroll 0 0 #F5F5F5;
+    color: #2F2F2F;
+    font: 1em Arial;
+    margin: 0;
+}
+
+#header {
+    height:30px; 
+    width: 820px; 
+    background-color:#464646;
+    font-size: 14px;
+    color: #A07813;
+    text-align: right;
+    margin-bottom: 1px;
+}
+
+#cuerpo_principal {
+    width: 61em;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1em;
+
+}
+
+#post {
+    width: 930px; /*850*/
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px; /*Representa la separaciÃ³n entre el menÃº superior horizontal y el contenido (cuerpo)*/
+}
+
+#cuerpo {
+
+    /*
+    background-color: #A07813; /* white */
+    /*display: compact; /*display: table*/
+    /*padding: 1em;
+    width: auto;
+    text-align: center;
+    */
+    background-color: #ffffff ; /* #ffffffColor de prueba: #F7FAFF */
+    display: table;
+    padding: 0.2em;
+    width: 960px; /* PENDIENTE: por estandarizar en Chrome 944*/
+
+    /*
+    margin-top: 100px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    margin-left: 70px;
+    */
+}
+
+/* @group PRINCIPAL */
+
+
+
+/* @group ENCABZADO */
+#encabezado {
+    display:inline;
+    overflow: visible;
+    height: 5em;
+    margin-top: 2em;
+}
+
+
+/* @group BARRA DE HERRAMIENTAS */
+#barra_herramientas {
+    overflow: hidden;
+    height: 1.5em;
+    background-color: transparent;
+}
+
+#login Input {
+    border: 1px solid gray;
+    color: #5b5b76;
+    font-size: 12px;
+    margin:0;
+    padding:2px;
+    background-position: center top;
+}
+
+#herramientas {
+    width: 35em;
+    float: right;
+    padding-right: 1em;
+    text-align: right;
+    color: #414040;
+}
+
+#herramientas a {
+    text-decoration: underline;
+    font-size: .65em;
+    font-weight: bold;
+    color: #1C4257;
+}
+
+#herramientas a:hover {
+    text-decoration: none;
+    color: #234386;
+}
+
+#firma_busqueda {
+    height: 5em;
+    width: 976px;
+    display: block;
+    overflow: hidden;
+    background-image: url("../imagenes/top_rdu_01.jpg");
+}
+
+#firma_busquedai {
+    height: 5em;
+    display: block;
+    overflow: hidden;
+    background-image: url("../imagenes/SEi.jpg");
+}
+
+#firma a {
+    display:block;
+    height: 5em;
+    width: 20em;
+    float: left;
+    padding-left: 11em;
+}
+
+#firma_nombre {
+    color: white;
+    width: 14em;
+    height: 4em;
+    display: block;
+    float: left;
+    text-align: center;
+    padding: .5em;
+}
+
+#buscar {
+    display: table;
+    float: right;
+    padding-right: 1em;
+    height: 2.5em;
+    padding-top: .2em;
+    text-align: right;
+}
+
+#dominio {
+    color: white;
+    font-size: 18px;
+}
+/* @end BARRA DE HERRAMIENTAS */
+
+
+/* @group CONTENIDO */
+.contenido
+{
+    width: 990px;  /*976*/
+
+}
+/* @end CONTENIDO */
+
+
+
+/* @group PIE DE PÃ?GINA */
+#pie {
+    border-top: 1px solid #dedde0;
+    color: gray;
+    background-color: white;
+    display: table;
+    border-bottom-style: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+    width: 976px;
+}
+
+#pie-logo
+{
+    background-image: url("../imagenes/pie2.jpg");
+    height: 1.3em;
+    width: 975px;
+}
+
+#pie-logo-pat
+{
+    background-image: url("../imagenes/piepat.PNG");
+    height: 1.3em;
+    width: 975px;
+}
+
+#pie a {
+    color: gray;
+    text-decoration: underline;
+}
+
+#pie p {
+    margin: 0;
+    font-size: .8em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    color: gray;
+    text-align: center;
+}
+
+#pie_b {
+    width: 59em;
+    background-image: url("../imagenes/pie1.jpg");
+    height: .5em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#pie_d {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #dedde0;
+    height: 8em;
+    background-image: url("../imagenes/pie.jpg")  center;
+}
+/* @end PIE DE PÃ?GINA */
+
+#footer {
+    border-top: 1px solid #DEDDE0;
+    clear: both;
+    color: gray;
+    text-align: center;
+    width: 990px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#footer a {
+    color: gray;
+    text-decoration: none;
+}
+.topFooter {
+    display: block;
+    height: 55px;
+    line-height: 19px;
+}
+#footerBottom {
+    height: 3em;
+}
+#footer p {
+    color: gray;
+    font-size: 11px;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+#footer .dependencia {
+    border-bottom: medium double #DEDEDE;
+    border-top: medium double #DEDEDE;
+    font-size: 12px;
+    padding-bottom: 2px !important;
+    padding-top: 2px !important;
+    text-align: center;
+}
+#footer .logoFooter {
+    background: url("/rdu-ppi/content/imagenes/line-01.gif") repeat-x scroll left center transparent;
+}
+#redesSociales {
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 120px;
+}
+#redesSociales > div {
+    float: left;
+    height: 2.1em;
+    margin: 12px 10px 5px;
+    width: 2.1em;
+}
+#r1 a, #r2 a, #r3 a, #r9 a, #r8 a, #r4 a {
+    display: block;
+    font-size: 0;
+    height: 32px;
+    text-indent: -9000px;
+    width: 32px;
+}
+#r1 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll 0 -8px transparent;
+}
+#r1:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll 0 -51px transparent;
+}
+#r2 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -129px -8px transparent;
+}
+#r2:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -129px -51px transparent;
+}
+#r3 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -43px -8px transparent;
+}
+#r3:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -43px -51px transparent;
+}
+#r4 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -259px -8px transparent;
+}
+#r4:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -259px -51px transparent;
+}
+#r5 {
+}
+#r5:hover {
+}
+#r6 {
+}
+#r6:hover {
+}
+#r7 {
+}
+#r7:hover {
+}
+#r8 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -214px -8px transparent;
+}
+#r8:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -214px -51px transparent;
+}
+#r9 {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -302px -8px transparent;
+}
+#r9:hover {
+    background: url("/rdu-ppi/content/imagenes/sprites.png") no-repeat scroll -302px -51px transparent;
+}
+
+
+
+
+
+/* @group ALINEACIONES */
+.izquierda {
+    float: left;
+}
+
+.derecha {
+    float: right;
+}
+
+.margen_derecho {
+    margin-right: 1em; /* Originalmente "1em"*/
+}
+
+.centrado {
+    text-align:center;
+    margin-left:6em;
+}
+/* @end ALINEACIONES */
+
+
+/* @group RENGLONES */
+.renglon {
+    display: table;
+    min-height: 1em;
+    width: 100%;
+    /*margin-bottom: 1em;*/
+}
+
+
+hr {
+    margin: 2em 1em;
+    width:90%;
+    height: 2px;
+    text-align:center;
+    margin-left:6em;
+    background-color: silver;
+}
+/* @end RENGLONES */
+
+
+/* @group CUADROS-FONDOS-ADORNOS */
+.cuadro {
+    display: table-column; /* "table" originalmente */
+    float: left;
+    font-size: 1em;
+    /*min-height: 15em;*/
+    /*background-image: url('../content/imagenes/banner_1_home.jpg'); */
+}
+
+.I {
+    width: 18.5em;
+}
+
+.K {
+    width: 14em;
+}
+
+.my_BA{ /* Borde azÃºl */
+    border: 3px solid #A5D6F8; /* #A5D6F8 */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 10em;
+} 
+
+.my_K {
+    width: 12.7em;
+}
+
+.my_G {
+    width: 15em;
+}
+
+.my_C {
+    width: 7em;
+}
+
+.my_EM { /* Enlaces del home: secciÃ³n media superior */
+    width: 12.2em;
+}
+
+.my_EF { /* Enlaces del home: footer */
+    width: 12em;
+}
+
+.fondo_7 {
+    background-color: white;
+}
+
+.my_fondo_7 {
+    background-color: white;
+    width: 180px;
+}
+
+.my_fondo_8 {
+    background-color: #f8f8f8;
+    width: 220px;
+}
+
+.my_marco_cuadro_I {
+    border: 1px solid #1c6fc9;
+    width: 200px;
+}
+
+.margen_derecho {
+    margin-right: 0.5em; /* Originalmente "1em"*/
+}
+
+.titulo_seccion {
+    border-left-style: solid;
+    border-left-width: 2px;
+    padding-left: .3em;
+    border-width: 2px;
+    border-color: #e4e3e3;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #349cc8;
+    margin-bottom: .5em;
+    font-size: 8pt;
+    text-align: left;
+}
+
+.titulo_seccion a {
+    color: maroon;
+    text-decoration: underline;
+}
+
+.titulo_seccion_b {
+    font-size: .7em;
+    color: gray;
+    font-weight: bold;
+}
+
+.titulo_seccion_b a {
+    color: gray;
+}
+
+.contenido_index {
+    font-size: 10pt;
+    color: gray;
+    font-weight: bold;
+    text-align: justify;
+}
+.descripcion-usr {
+    font-size: .7em;
+    color: gray;
+    font-weight: bold;
+    text-align: right;
+}
+
+.my_region_cuadrado_peq{
+    width: 100px;
+    height: 100px;
+}
+
+.my_region_cuadrado_med{
+    width: 200px;
+    height: 200px;
+}
+
+.my_region_cuadrado_gde{
+    width: 300px;
+    height: 300px;
+}
+
+.my_region_rectangulo_peq{
+    width: 200px;
+    height: 100px;
+}
+
+.my_region_rectangulo_med{
+    width: 400px;
+    height: 200px;
+}
+
+.my_region_rectangulo_gde{
+    width: 600px;
+    height: 300px;
+}
+
+/* @end CUADROS-FONDOS-ADORNOS */
+
+
+/* @group LISTAS */
+.my_li{
+
+    color:#C3122F;
+    text-align: left;
+    font-size: 10px;
+}
+.w_libre li {
+    width: 100% !important;
+}
+
+.lista_tipo_B {
+    display: table;
+    padding-bottom: .5em;
+    margin-top: .5em;
+    padding-left: .5em;
+    font-size: .9em;
+    text-align: left;
+}
+
+.lista_tipo_B ul {
+    text-align: left;
+}
+
+.lista_tipo_B li {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    border-bottom-style: dotted;
+    border-bottom-color: #737576;
+    list-style-type: none;
+    padding-left: .5em;
+    font-size: .9em;
+    line-height: 1em;
+    text-align: left;
+}
+
+.lista_tipo_B li li {
+    border-bottom-style: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    list-style-type: none;
+    font-size: .9em;
+    text-align: left;
+}
+
+.lista_tipo_B a {
+    color: #2F2F2F;
+    font-size: 12px
+}
+
+.lista_tipo_B a:hover {
+    color: #349cc8;
+    font-size: 12px
+}
+
+.lista_tipo_D {
+    padding-top: .3em;
+    padding-bottom: .3em;
+}
+
+.lista_tipo_D ul {
+    margin: 0;
+    padding: 0;
+}
+
+.lista_tipo_D li {
+    list-style-type: none;
+    padding: .5px;
+    width: 9em;
+    vertical-align: top;
+    margin-bottom: .4em;
+    display: inline-block;
+}
+
+.lista_tipo_D li a {
+    color: gray;
+    font-size: .7em;
+    line-height: 1em;
+}
+
+.lista_tipo_D li a:hover {
+    color: #349cc8;
+    text-decoration: underline;
+}
+
+.lista_tipo_E {
+
+}
+
+.lista_tipo_E h1 {
+    background-color: #C3122F;
+    color: white;
+    font-size: 1em;
+    text-transform: capitalize;
+    padding: .5em;
+}
+
+.lista_tipo_E h2 {
+    color: #C3122F;
+    font-size: .8em;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lista_tipo_E h3 {
+    color: #C3122F;
+    text-align: right;
+    font-size: .7em;
+    text-transform: none;
+}
+
+.lista_tipo_E h3 a {
+    color: #C3122F;
+}
+
+.lista_tipo_E h3 a:hover {
+    color: #C3122F;
+    text-decoration: underline;
+}
+
+.lista_tipo_E li {
+    list-style-type: none;
+    margin-top: .5em;
+}
+
+.lista_tipo_E li a {
+    color: gray;
+    font-size: .8em;
+    line-height: .9em;
+}
+/* @end TERMINA LISTAS */
+
+
+
+/* @group MY UTILITIES.ISC.K4L-1N */
+.espacio_mediano{
+    width: 50%;
+    height: 200px;
+}
+
+.manita{
+    cursor: pointer;
+}
+
+/* @subgroup INICIA IMÃ?GENES */
+.img_enlaces_ext{ /* Enlaces en el HOME: Enlaces externos */
+    width: 165px;
+    height: 40px;
+}
+
+.img_tam_1{
+    width: 32px;
+    height: 32px;
+}
+
+.img_tam_2{
+    width: 64px;
+    height: 64px;
+}
+
+.img_tam_3{
+    width: 100px;
+    height: 100px;
+}
+
+.img_tam_4{
+    width: 256px;
+    height: 256px;
+}
+
+.img_tam_5{
+    width: 256px;
+    height: 256px;
+}
+
+.img_rectangular_tam_1{
+    width: 64px;
+    height: 32px;
+}
+
+.img_rectangular_tam_2{
+    width: 128px;
+    height: 64px;
+}
+
+.img_rectangular_tam_3{
+    width: 256px;
+    height: 100px;
+}
+
+.img_rectangular_tam_4{
+    width: 512px;
+    height: 256px;
+}
+
+.img_rectangular_tam_5{
+    width: 1024px;
+    height: 256px;
+}
+
+.img_carousel{
+    width: 142px;
+    height: 212px;
+}
+
+/* @end TERMINA IMÃ?GENES */
+
+/* @group Menu */
+
+.letra_menu {
+    font-size: .75em;
+}
+
+#menu_principal {
+    height: 1.5em;
+    display: block;
+    overflow: hidden;
+    background-image: url("../imagenes/fondo_menu.jpg");
+    width: 976px;
+    height: 40px;
+    margin-top: 0;
+    font-size: .50em;
+}
+
+#menu_principal ul{
+    height: 2em;
+    list-style:none;
+    margin:0;
+    padding:0;  
+    text-align: center;
+    font-size: .50em;
+}
+
+#menu_principal li{
+    display: inline-block;
+    font-weight: bold;
+    background-color: transparent;
+    margin-bottom: 0;
+    font-size: .50em;
+}
+#menu_principal li a{
+    color: white;
+    display:block;
+    line-height: 2em;
+    text-align:center;
+    text-decoration: none;
+    padding: 0px .5em;
+    font-size: .50em;
+}
+#menu_principal li a:hover{
+    text-decoration: underline;
+    font-size: .50em;
+}
+
+#menu_principal li ul{
+    background: #349cc8;
+    border-bottom: 2px solid #ff0;
+    display:none;
+    height:auto;
+    /*filter:alpha(opacity=95);
+    opacity:0.95;*/
+    position:absolute;
+    width: 12em;
+    z-index:200;
+    margin-top: -1px;
+    font-size: .50em;
+}
+#menu_principal li:hover ul{
+    display:block;
+}
+#menu_principal li li {
+    display:block;
+    float:none;
+    padding: 0;
+    width: 12em;
+    margin: 0;
+    font-size: .50em;
+    font-weight: normal;
+    font-style: normal;
+    background: url("../imagenes/bullet_menu.jpg") no-repeat 5px;
+    font-size: .50em;
+}
+#menu_principal li ul a{
+    display:block;
+    font-size:12px;
+    font-style:normal;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+    font-size: .50em;
+}
+#menu_principal li ul a:hover{
+    /*opacity:1.0;
+    filter:alpha(opacity=100);*/
+    text-decoration: underline;
+}
+
+#submenu, #submenu1, #submenu2, #submenu3, #submenu4, #submenu5 {
+    width: 20.4em;
+    font-weight: normal;
+    font-style: normal;
+}
+
+#submenu li, #submenu1 li, #submenu2 li, #submenu3 li, #submenu4 li, #submenu5 li {
+    display: inline-block;
+}
+.blockUI
+{
+    background: url("../themes/se-blue-sky/images/ui-bg_diagonals-thick_90_eeeeee_40x40.png") repeat scroll 50% 50% #EEEEEE;
+    opacity: 0.8;
+}
+
+/*rdu*/
+.tablero-rows
+{
+    font-family:arial;
+    font-size: 7pt;
+}
+
+.tablero-headercolumn
+{
+    font-family:arial;
+    font-weight: bold;
+    font-size: 8pt;
+}
+
+.TabFondoPrincipal
+{
+    background: #DDDDDD;
+    
+}
+.TabsCabecero
+{
+    font-family:arial;
+    font-weight: bold;
+    font-size: 9pt;
+    text-align: left;
+}
+
+.FontContenido
+{
+    text-align: left;
+    font-family: arial;
+    font-size: 10pt;
+    font-weight:normal
+}
+/*
+@media all and (min-width: 1200px){
+    .contenido{
+        width: 1200px !important;
+    }
+    .contenido #cuerpo{
+        width: 1170px !important;
+    }
+    #post{
+        width: 1150px !important;
+    }
+    #post form{
+        width: 1170px !important;
+    }
+    #steps{
+        width: 1150px !important;
+    }
+    .titulo_seccion{
+        text-align: center;
+    }
+    #cuerpo_principal, #firma_busqueda{
+        width: 1200px;
+    }
+
+    #firma_busqueda{
+        background-image: url("../imagenes/top_rdu_01_1600.jpg");
+    }
+
+}
+
+@media all and (min-width: 1600px){
+    .contenido{
+        width: 1600px !important;
+    }
+    .contenido #cuerpo{
+        width: 1570px !important;
+    }
+    #post{
+        width: 1550px !important;
+    }
+    #post form{
+        width: 1570px !important;
+    }
+    #steps{
+        width: 1550px !important;
+    }
+    .titulo_seccion{
+        text-align: center;
+    }
+    #cuerpo_principal, #firma_busqueda{
+        width: 1600px;
+    }
+
+    #firma_busqueda{
+        background-image: url("../imagenes/top_rdu_01_1600.jpg");
+    }
+}
+*/
+
+/*
+.ui-growl {
+    position:fixed;
+    top: 40%;
+    left: 37%;
+    width: 360px;
+    height: 110px;
+    z-index:9999;
+}
+*/

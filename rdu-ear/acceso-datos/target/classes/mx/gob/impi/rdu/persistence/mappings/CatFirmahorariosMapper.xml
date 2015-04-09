@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.CatFirmahorariosMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        <id column="ID_FIRMAHORARIOS" property="idFirmahorarios" jdbcType="DECIMAL" />
+        <result column="DIA_SEMANA" property="diaSemana" jdbcType="DECIMAL" />
+        <result column="FECHA_INHABIL" property="fechaInhabil" jdbcType="TIMESTAMP" />
+        <result column="HORARIO_DESDE" property="horarioDesde" jdbcType="VARCHAR" />
+        <result column="HORARIO_HASTA" property="horarioHasta" jdbcType="VARCHAR" />
+    </resultMap>
+ 
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select  ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, HORARIO_DESDE, HORARIO_HASTA
+        from CAT_FIRMAHORARIOS
+        where ID_FIRMAHORARIOS = #{idFirmahorarios,jdbcType=DECIMAL}
+    </select>
+  
+    <select id="selectByRule"   resultMap="BaseResultMap"  parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >    
+        SELECT ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, HORARIO_DESDE, HORARIO_HASTA
+        FROM CAT_FIRMAHORARIOS
+        WHERE 0  &lt;&gt;
+        (SELECT COUNT(*)
+        FROM
+        (SELECT ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, HORARIO_DESDE, HORARIO_HASTA      
+        FROM CAT_FIRMAHORARIOS cf
+        WHERE DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL}
+        AND TO_CHAR(FECHA_INHABIL,'DD-MM-YYYY') =TO_CHAR( #{fechaInhabil,jdbcType=TIMESTAMP}, 'DD-MM-YYYY')
+        )
+        )
+        and DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL} and fecha_inhabil is not null   AND TO_CHAR(FECHA_INHABIL,'DD-MM-YYYY') = TO_CHAR( #{fechaInhabil,jdbcType=TIMESTAMP}, 'DD-MM-YYYY')
+        or 0=(select count(*) from(
+        select ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, HORARIO_DESDE, HORARIO_HASTA
+        from CAT_FIRMAHORARIOS
+        WHERE  DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL}
+        AND TO_CHAR(FECHA_INHABIL,'DD-MM-YYYY') = TO_CHAR( #{fechaInhabil,jdbcType=TIMESTAMP}, 'DD-MM-YYYY')
+        )
+        )
+        and DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL} 
+        and FECHA_INHABIL is null
+    </select>
+
+    <select id="selectHorarios" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        select  ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, HORARIO_DESDE, HORARIO_HASTA
+        from CAT_FIRMAHORARIOS
+        where fecha_inhabil is not null
+           <if test="fechaInhabil != null" >
+               AND FECHA_INHABIL = #{fechaInhabil,jdbcType=TIMESTAMP}
+           </if>
+        order by FECHA_INHABIL desc
+    </select>
+  
+ 
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from CAT_FIRMAHORARIOS
+        where ID_FIRMAHORARIOS = #{idFirmahorarios,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        <selectKey resultType="long" keyProperty="idFirmahorarios" order="AFTER">
+            SELECT CAT_FIRMAHORARIOS_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+
+        insert into CAT_FIRMAHORARIOS (ID_FIRMAHORARIOS, DIA_SEMANA, FECHA_INHABIL, 
+        HORARIO_DESDE, HORARIO_HASTA)
+        values (CAT_FIRMAHORARIOS_SEQ.NextVal, #{diaSemana,jdbcType=DECIMAL}, #{fechaInhabil,jdbcType=TIMESTAMP},
+        #{horarioDesde,jdbcType=VARCHAR}, #{horarioHasta,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        insert into CAT_FIRMAHORARIOS
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idFirmahorarios != null" >
+                ID_FIRMAHORARIOS,
+            </if>
+            <if test="diaSemana != null" >
+                DIA_SEMANA,
+            </if>
+            <if test="fechaInhabil != null" >
+                FECHA_INHABIL,
+            </if>
+            <if test="horarioDesde != null" >
+                HORARIO_DESDE,
+            </if>
+            <if test="horarioHasta != null" >
+                HORARIO_HASTA,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="idFirmahorarios != null" >
+                #{idFirmahorarios,jdbcType=DECIMAL},
+            </if>
+            <if test="diaSemana != null" >
+                #{diaSemana,jdbcType=DECIMAL},
+            </if>
+            <if test="fechaInhabil != null" >
+                #{fechaInhabil,jdbcType=TIMESTAMP},
+            </if>
+            <if test="horarioDesde != null" >
+                #{horarioDesde,jdbcType=VARCHAR},
+            </if>
+            <if test="horarioHasta != null" >
+                #{horarioHasta,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        update CAT_FIRMAHORARIOS
+        <set >
+            <if test="diaSemana != null" >
+                DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL},
+            </if>
+            <if test="fechaInhabil != null" >
+                FECHA_INHABIL = #{fechaInhabil,jdbcType=TIMESTAMP},
+            </if>
+            <if test="horarioDesde != null" >
+                HORARIO_DESDE = #{horarioDesde,jdbcType=VARCHAR},
+            </if>
+            <if test="horarioHasta != null" >
+                HORARIO_HASTA = #{horarioHasta,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID_FIRMAHORARIOS = #{idFirmahorarios,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.CatFirmahorarios" >
+        update CAT_FIRMAHORARIOS
+        set DIA_SEMANA = #{diaSemana,jdbcType=DECIMAL},
+        FECHA_INHABIL = #{fechaInhabil,jdbcType=TIMESTAMP},
+        HORARIO_DESDE = #{horarioDesde,jdbcType=VARCHAR},
+        HORARIO_HASTA = #{horarioHasta,jdbcType=VARCHAR}
+        where ID_FIRMAHORARIOS = #{idFirmahorarios,jdbcType=DECIMAL}
+    </update>
+</mapper>

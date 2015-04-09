@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.TramitePersonaMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.TramitePersona" >
+        <id column="ID_SOLICITANTE" property="idSolicitante" jdbcType="DECIMAL" />
+        <id column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+        <result column="ID_CLASE_PERSONA" property="idClasePersona" jdbcType="DECIMAL" />
+        <result column="ES_SOLICITANTE" property="esSolicitante" jdbcType="DECIMAL" />
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select ID_SOLICITANTE, ID_TRAMITE, ID_CLASE_PERSONA, ES_SOLICITANTE
+    from TRAMITE_PERSONA
+    where ID_SOLICITANTE = #{idSolicitante,jdbcType=DECIMAL}
+      and ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </select>
+    <select id="selectPatentes" resultMap="BaseResultMap" parameterType="map" >
+    select ID_SOLICITANTE, ID_TRAMITE, ID_CLASE_PERSONA, ES_SOLICITANTE
+    from TRAMITE_PERSONA
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    AND ID_CLASE_PERSONA = #{idClasePersona,jdbcType=DECIMAL}
+    </select>
+    <select id="selectByTramite" resultMap="BaseResultMap" parameterType="map" >
+    select ID_SOLICITANTE, ID_TRAMITE, ID_CLASE_PERSONA, ES_SOLICITANTE
+    from TRAMITE_PERSONA
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </select>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.TramitePersona" >
+    insert into TRAMITE_PERSONA (ID_SOLICITANTE, ID_TRAMITE, ID_CLASE_PERSONA, ES_SOLICITANTE)
+    values (#{idSolicitante,jdbcType=DECIMAL},  #{idTramite,jdbcType=DECIMAL},
+            #{idClasePersona,jdbcType=DECIMAL}, #{esSolicitante,jdbcType=DECIMAL})
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from TRAMITE_PERSONA
+    where  ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    and ID_CLASE_PERSONA=#{clasePersona,jdbcType=DECIMAL}
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.TramitePersona" >
+    update TRAMITE_PERSONA
+        <set >
+            <if test="idClasePersona != null" >
+        ID_CLASE_PERSONA = #{idClasePersona,jdbcType=DECIMAL},
+            </if>
+            <if test="esSolicitante != null" >
+        ES_SOLICITANTE = #{esSolicitante,jdbcType=DECIMAL},
+            </if>
+        </set>
+    where ID_SOLICITANTE = #{idSolicitante,jdbcType=DECIMAL}
+      and ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.TramitePersona" >
+    update TRAMITE_PERSONA
+    set ID_CLASE_PERSONA = #{idClasePersona,jdbcType=DECIMAL},
+      ES_SOLICITANTE = #{esSolicitante,jdbcType=DECIMAL}
+    where ID_SOLICITANTE = #{idSolicitante,jdbcType=DECIMAL}
+      and ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </update>
+</mapper>

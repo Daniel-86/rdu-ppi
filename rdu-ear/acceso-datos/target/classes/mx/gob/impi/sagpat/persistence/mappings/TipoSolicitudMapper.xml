@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.TipoSolicitudMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.TipoSolicitud" >
+    <id column="TIP_SOLICITUD" property="tipSolicitud" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <result column="DES_TIPO" property="desTipo" jdbcType="VARCHAR" />
+    <result column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="TIP_TRAMITE" property="tipTramite" jdbcType="VARCHAR" />
+    <result column="NOM_TABLA" property="nomTabla" jdbcType="VARCHAR" />
+    <result column="DES_TITULO" property="desTitulo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+     TIP_SOLICITUD, ROW_VERSION, COD_OFICINA, DES_TIPO, TIP_EXPED, TIP_TRAMITE, NOM_TABLA, 
+    DES_TITULO
+    from PATENTES.TIPO_SOLICITUD
+    where TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTipExp" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+     TIP_SOLICITUD, ROW_VERSION, COD_OFICINA, DES_TIPO, TIP_EXPED, TIP_TRAMITE, NOM_TABLA, 
+    DES_TITULO
+    from PATENTES.TIPO_SOLICITUD
+    where TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PATENTES.TIPO_SOLICITUD
+    where TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.TipoSolicitud" >
+    update PATENTES.TIPO_SOLICITUD
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficina != null" >
+        COD_OFICINA = #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="desTipo != null" >
+        DES_TIPO = #{desTipo,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED = #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="tipTramite != null" >
+        TIP_TRAMITE = #{tipTramite,jdbcType=VARCHAR},
+      </if>
+      <if test="nomTabla != null" >
+        NOM_TABLA = #{nomTabla,jdbcType=VARCHAR},
+      </if>
+      <if test="desTitulo != null" >
+        DES_TITULO = #{desTitulo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.TipoSolicitud" >
+    update PATENTES.TIPO_SOLICITUD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      COD_OFICINA = #{codOficina,jdbcType=VARCHAR},
+      DES_TIPO = #{desTipo,jdbcType=VARCHAR},
+      TIP_EXPED = #{tipExped,jdbcType=VARCHAR},
+      TIP_TRAMITE = #{tipTramite,jdbcType=VARCHAR},
+      NOM_TABLA = #{nomTabla,jdbcType=VARCHAR},
+      DES_TITULO = #{desTitulo,jdbcType=VARCHAR}
+    where TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.pase.persistence.mappers.PromoventeMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.pase.persistence.model.Promovente" >
+        <id column="ID_PROMOVENTE" property="idPromovente" jdbcType="DECIMAL" />
+        <result column="LOGIN" property="login" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="NOMBRE" property="nombre" jdbcType="VARCHAR" />
+        <result column="APATERNO" property="apaterno" jdbcType="VARCHAR" />
+        <result column="AMATERNO" property="amaterno" jdbcType="VARCHAR" />
+        <result column="RFC" property="rfc" jdbcType="VARCHAR" />
+        <result column="CALLE_NUMERO" property="calleNumero" jdbcType="VARCHAR" />
+        <result column="COLONIA" property="colonia" jdbcType="VARCHAR" />
+        <result column="TELEFONO" property="telefono" jdbcType="VARCHAR" />
+        <result column="FAX" property="fax" jdbcType="VARCHAR" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="RAZON_SOCIAL" property="razonSocial" jdbcType="VARCHAR" />
+        <result column="HABILITADO" property="habilitado" jdbcType="DECIMAL" />
+        <result column="FECHA_REGISTRO" property="fechaRegistro" jdbcType="TIMESTAMP" />
+        <result column="FECHA_ACTIVACION" property="fechaActivacion" jdbcType="TIMESTAMP" />
+        <result column="ID_PROMOVENTE_PADRE" property="idPromoventePadre" jdbcType="DECIMAL" />
+        <result column="ID_PERFIL" property="idPerfil" jdbcType="DECIMAL" />
+        <result column="ID_ESTADO" property="idEstado" jdbcType="DECIMAL" />
+        <result column="ID_MUNICIPIO" property="idMunicipio" jdbcType="DECIMAL" />
+        <result column="TIPO_PERSONA" property="tipoPersona" jdbcType="DECIMAL" />
+        <result column="ID_TIPO_PROMOVENTE" property="idTipoPromovente" jdbcType="DECIMAL" />
+        <result column="CODIGO_POSTAL" property="codigoPostal" jdbcType="VARCHAR" />
+        <result column="CARGO" property="cargo" jdbcType="VARCHAR" />
+        <result column="NUMERO_EXTERIOR" property="numeroExterior" jdbcType="VARCHAR" />
+        <result column="NUMERO_INTERIOR" property="numeroInterior" jdbcType="VARCHAR" />
+        <result column="HABILITA_MARCANET" property="habilitaMarcanet" jdbcType="DECIMAL" />
+    </resultMap>
+  
+  
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+      ID_PROMOVENTE, LOGIN, PASSWORD, NOMBRE, APATERNO, AMATERNO, RFC, CALLE_NUMERO, COLONIA, 
+    TELEFONO, FAX, EMAIL, RAZON_SOCIAL, HABILITADO, FECHA_REGISTRO, FECHA_ACTIVACION, 
+    ID_PROMOVENTE_PADRE, ID_PERFIL, ID_ESTADO, ID_MUNICIPIO, TIPO_PERSONA, ID_TIPO_PROMOVENTE, 
+    CODIGO_POSTAL, CARGO, NUMERO_EXTERIOR, NUMERO_INTERIOR, HABILITA_MARCANET  
+    from PROMOVENTE
+    where ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+    </select>
+    <select id="selectByPerfil" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select id_promovente,upper(nombre||' '||apaterno||' '||amaterno) NOMBRE,id_perfil from promovente
+      where id_perfil=#{idPerfil}
+      order by nombre
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from PROMOVENTE
+    where ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.pase.persistence.model.Promovente" >
+    update PROMOVENTE
+        <set >
+            <if test="login != null" >
+        LOGIN = #{login,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nombre != null" >
+        NOMBRE = #{nombre,jdbcType=VARCHAR},
+            </if>
+            <if test="apaterno != null" >
+        APATERNO = #{apaterno,jdbcType=VARCHAR},
+            </if>
+            <if test="amaterno != null" >
+        AMATERNO = #{amaterno,jdbcType=VARCHAR},
+            </if>
+            <if test="rfc != null" >
+        RFC = #{rfc,jdbcType=VARCHAR},
+            </if>
+            <if test="calleNumero != null" >
+        CALLE_NUMERO = #{calleNumero,jdbcType=VARCHAR},
+            </if>
+            <if test="colonia != null" >
+        COLONIA = #{colonia,jdbcType=VARCHAR},
+            </if>
+            <if test="telefono != null" >
+        TELEFONO = #{telefono,jdbcType=VARCHAR},
+            </if>
+            <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="razonSocial != null" >
+        RAZON_SOCIAL = #{razonSocial,jdbcType=VARCHAR},
+            </if>
+            <if test="habilitado != null" >
+        HABILITADO = #{habilitado,jdbcType=DECIMAL},
+            </if>
+            <if test="fechaRegistro != null" >
+        FECHA_REGISTRO = #{fechaRegistro,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fechaActivacion != null" >
+        FECHA_ACTIVACION = #{fechaActivacion,jdbcType=TIMESTAMP},
+            </if>
+            <if test="idPromoventePadre != null" >
+        ID_PROMOVENTE_PADRE = #{idPromoventePadre,jdbcType=DECIMAL},
+            </if>
+            <if test="idPerfil != null" >
+        ID_PERFIL = #{idPerfil,jdbcType=DECIMAL},
+            </if>
+            <if test="idEstado != null" >
+        ID_ESTADO = #{idEstado,jdbcType=DECIMAL},
+            </if>
+            <if test="idMunicipio != null" >
+        ID_MUNICIPIO = #{idMunicipio,jdbcType=DECIMAL},
+            </if>
+            <if test="tipoPersona != null" >
+        TIPO_PERSONA = #{tipoPersona,jdbcType=DECIMAL},
+            </if>
+            <if test="idTipoPromovente != null" >
+        ID_TIPO_PROMOVENTE = #{idTipoPromovente,jdbcType=DECIMAL},
+            </if>
+            <if test="codigoPostal != null" >
+        CODIGO_POSTAL = #{codigoPostal,jdbcType=VARCHAR},
+            </if>
+            <if test="cargo != null" >
+        CARGO = #{cargo,jdbcType=VARCHAR},
+            </if>
+            <if test="numeroExterior != null" >
+        NUMERO_EXTERIOR = #{numeroExterior,jdbcType=VARCHAR},
+            </if>
+            <if test="numeroInterior != null" >
+        NUMERO_INTERIOR = #{numeroInterior,jdbcType=VARCHAR},
+            </if>
+            <if test="habilitaMarcanet != null" >
+        HABILITA_MARCANET = #{habilitaMarcanet,jdbcType=DECIMAL},
+            </if>
+        </set>
+    where ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.pase.persistence.model.Promovente" >
+    update PROMOVENTE
+    set LOGIN = #{login,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NOMBRE = #{nombre,jdbcType=VARCHAR},
+      APATERNO = #{apaterno,jdbcType=VARCHAR},
+      AMATERNO = #{amaterno,jdbcType=VARCHAR},
+      RFC = #{rfc,jdbcType=VARCHAR},
+      CALLE_NUMERO = #{calleNumero,jdbcType=VARCHAR},
+      COLONIA = #{colonia,jdbcType=VARCHAR},
+      TELEFONO = #{telefono,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      RAZON_SOCIAL = #{razonSocial,jdbcType=VARCHAR},
+      HABILITADO = #{habilitado,jdbcType=DECIMAL},
+      FECHA_REGISTRO = #{fechaRegistro,jdbcType=TIMESTAMP},
+      FECHA_ACTIVACION = #{fechaActivacion,jdbcType=TIMESTAMP},
+      ID_PROMOVENTE_PADRE = #{idPromoventePadre,jdbcType=DECIMAL},
+      ID_PERFIL = #{idPerfil,jdbcType=DECIMAL},
+      ID_ESTADO = #{idEstado,jdbcType=DECIMAL},
+      ID_MUNICIPIO = #{idMunicipio,jdbcType=DECIMAL},
+      TIPO_PERSONA = #{tipoPersona,jdbcType=DECIMAL},
+      ID_TIPO_PROMOVENTE = #{idTipoPromovente,jdbcType=DECIMAL},
+      CODIGO_POSTAL = #{codigoPostal,jdbcType=VARCHAR},
+      CARGO = #{cargo,jdbcType=VARCHAR},
+      NUMERO_EXTERIOR = #{numeroExterior,jdbcType=VARCHAR},
+      NUMERO_INTERIOR = #{numeroInterior,jdbcType=VARCHAR},
+      HABILITA_MARCANET = #{habilitaMarcanet,jdbcType=DECIMAL}
+    where ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+    </update>
+</mapper>

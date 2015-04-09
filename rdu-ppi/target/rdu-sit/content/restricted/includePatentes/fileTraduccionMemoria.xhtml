@@ -1,0 +1,61 @@
+<html           xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+        <f:view contentType="text/html" encoding="UTF-8">
+        <ui:insert name="metadata" />
+
+        <h:head>
+            <title>IMPI</title>
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" ></meta>
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/themes/se-blue-sky/se-theme.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/css/main.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/css/jquery.alerts.css" />
+            <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        </h:head>
+
+
+        <h:body>
+            <h:form id="form">
+                <p:growl id="growlAnexoTrad" showDetail="true" life="12000" sticky="false"/>
+                
+    <f:loadBundle basename="mx.gob.impi.rdu.i18n.Anexo" var="msgDtAnexo"/>
+    <p:panel id="pnlAnexoTrad" header="Traducción" style="height:193px;">
+        <h:panelGrid columns="1" cellpadding="2" style="font-family:sans-serif; font-size: 10pt; text-align: left; margin-left:50px; "> 
+           <h:panelGrid id="archivoPDFTrad" columns="2" style="text-align: left" >
+               <p:column>   </p:column>
+                <p:column style="margin-right: 50px; padding-right: 35px; alignment-adjust:central" > 
+                    <!--rutaPrioridad-->
+                    <p:inputText id="rutaArchivoAnexoTrad" value="#{patentesDisIndMB.forma.rutaAnexoTrad}" disabled="true" style="width: 300px;"/>
+                    <p:commandButton id="btnArchivoAnexoTrad" value="..." title="Cargar Traducción" 
+                                     onclick="singlesubirDialogTrad.show()" process="@this" update=":form:displaySubirAnexoTrad">
+                        <f:setPropertyActionListener value="#{oAnexoDto}" target="#{patentesDisIndMB.forma.anexoSeleccionado}"/>
+                    </p:commandButton>
+                </p:column>
+            </h:panelGrid> 
+        </h:panelGrid>
+    </p:panel>
+    <p:dialog id="dialogSubirAnexoTrad" header="Subir archivos" widgetVar="singlesubirDialogTrad" resizable="true"
+              showEffect="fade" hideEffect="explode" modal="false" minHeight="100" width="450" height="150">
+            <h:panelGrid id="displaySubirAnexoTrad" columns="1" cellpadding="4">
+                <p:fileUpload   label="Seleccionar" 
+                            widgetVar="subir"
+                            auto="true"
+                            multiple="true"
+                            sizeLimit="10000000"
+                            update="pnlAnexoTrad growlAnexoTrad msgDtAnexo :form"
+                            oncomplete="singlesubirDialogTrad.hide();form.submit();"
+                            allowTypes="/(\.|\/)(pdf)$/"
+                            fileUploadListener="#{patentesDisIndMB.uploadAnexoTrad}"
+                            fileLimitMessage="El tamaño del archivo excede del permitido"
+                            invalidFileMessage="El tipo de archivo no es válido, PDF"
+                            invalidSizeMessage="El tamaño del archivo excede del permitido, 10MB"  />
+            </h:panelGrid>
+    </p:dialog>
+ </h:form>
+
+        </h:body>
+    </f:view>
+</html>

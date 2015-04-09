@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SolicitudMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="TIP_LIBRO" property="tipLibro" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM" property="serDocum" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM" property="numDocum" jdbcType="DECIMAL" />
+    <result column="FEC_RECEPCION" property="fecRecepcion" jdbcType="TIMESTAMP" />
+    <result column="FEC_PRESENTACION" property="fecPresentacion" jdbcType="TIMESTAMP" />
+    <result column="FEC_1ER_PRIORIDAD" property="fec1erPrioridad" jdbcType="TIMESTAMP" />
+    <result column="FEC_DIVULGACION" property="fecDivulgacion" jdbcType="TIMESTAMP" />
+    <result column="FEC_SOL_PUBL_ANTI" property="fecSolPublAnti" jdbcType="TIMESTAMP" />
+    <result column="FEC_PUBLICACION" property="fecPublicacion" jdbcType="TIMESTAMP" />
+    <result column="COD_GACETA_PUBL" property="codGacetaPubl" jdbcType="VARCHAR" />
+    <result column="COD_LEY" property="codLey" jdbcType="DECIMAL" />
+    <result column="NUM_FOLIO_ART2T" property="numFolioArt2t" jdbcType="DECIMAL" />
+    <result column="FEC_ART2T" property="fecArt2t" jdbcType="TIMESTAMP" />
+    <result column="NUM_FOLIO_ART10T" property="numFolioArt10t" jdbcType="DECIMAL" />
+    <result column="FEC_ART10T" property="fecArt10t" jdbcType="TIMESTAMP" />
+    <result column="NUM_CONCESION" property="numConcesion" jdbcType="DECIMAL" />
+    <result column="FEC_CONCESION" property="fecConcesion" jdbcType="TIMESTAMP" />
+    <result column="IND_CONCESION" property="indConcesion" jdbcType="VARCHAR" />
+    <result column="FEC_VIGENCIA" property="fecVigencia" jdbcType="TIMESTAMP" />
+    <result column="FEC_VENCIMIENTO" property="fecVencimiento" jdbcType="TIMESTAMP" />
+    <result column="TITULO" property="titulo" jdbcType="VARCHAR" />
+    <result column="TIP_SOLICITUD" property="tipSolicitud" jdbcType="VARCHAR" />
+    <result column="SUBTIP_SOLICITUD" property="subtipSolicitud" jdbcType="VARCHAR" />
+    <result column="TIP_EXPED_DIVIDIDA" property="tipExpedDividida" jdbcType="VARCHAR" />
+    <result column="SER_EXPED_DIVIDIDA" property="serExpedDividida" jdbcType="DECIMAL" />
+    <result column="NUM_EXPED_DIVIDIDA" property="numExpedDividida" jdbcType="DECIMAL" />
+    <result column="COD_PERSONA_TIT1" property="codPersonaTit1" jdbcType="DECIMAL" />
+    <result column="SEC_DIRECCION_TIT1" property="secDireccionTit1" jdbcType="DECIMAL" />
+    <result column="COD_PERSONA_PRO" property="codPersonaPro" jdbcType="DECIMAL" />
+    <result column="SEC_DIRECCION_PRO" property="secDireccionPro" jdbcType="DECIMAL" />
+    <result column="TIP_SOLICITANTE" property="tipSolicitante" jdbcType="DECIMAL" />
+    <result column="IND_TITUL_INVEN" property="indTitulInven" jdbcType="VARCHAR" />
+    <result column="COD_OFICINA_RGP" property="codOficinaRgp" jdbcType="VARCHAR" />
+    <result column="TIP_LIBRO_RGP" property="tipLibroRgp" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM_RGP" property="serDocumRgp" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM_RGP" property="numDocumRgp" jdbcType="DECIMAL" />
+    <result column="USER_ID_CAPT" property="userIdCapt" jdbcType="DECIMAL" />
+    <result column="FEC_CAPT" property="fecCapt" jdbcType="TIMESTAMP" />
+    <result column="ID_SOLICITUD_PCT" property="idSolicitudPct" jdbcType="VARCHAR" />
+    <result column="FEC_SOLICITUD_PCT" property="fecSolicitudPct" jdbcType="TIMESTAMP" />
+    <result column="COD_PAIS_PUBL_PCT" property="codPaisPublPct" jdbcType="VARCHAR" />
+    <result column="ID_PUBL_PCT" property="idPublPct" jdbcType="VARCHAR" />
+    <result column="TIP_PUBL_PCT" property="tipPublPct" jdbcType="VARCHAR" />
+    <result column="FEC_PUBL_PCT" property="fecPublPct" jdbcType="TIMESTAMP" />
+    <result column="FASE_PCT" property="fasePct" jdbcType="DECIMAL" />
+    <result column="TITULO_INGLES" property="tituloIngles" jdbcType="VARCHAR" />
+    <result column="OBS_PUBL" property="obsPubl" jdbcType="VARCHAR" />
+    <result column="FOJAS_DESCRIPCION" property="fojasDescripcion" jdbcType="VARCHAR" />
+    <result column="FOJAS_REIVINDICACIONES" property="fojasReivindicaciones" jdbcType="VARCHAR" />
+    <result column="COD_OFICINA_DIVIDIDA" property="codOficinaDividida" jdbcType="VARCHAR" />
+    <result column="OFICINA_REGIONAL" property="oficinaRegional" jdbcType="VARCHAR" />
+    <result column="USER_ID_RECEPCION" property="userIdRecepcion" jdbcType="DECIMAL" />
+    <result column="COD_OFICINA_RECEPTORA" property="codOficinaReceptora" jdbcType="DECIMAL" />
+    <result column="NUM_RGP" property="numRgp" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COD_OFICINA, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION, TIP_LIBRO, SER_DOCUM,
+    NUM_DOCUM, FEC_RECEPCION, FEC_PRESENTACION, FEC_1ER_PRIORIDAD, FEC_DIVULGACION, FEC_SOL_PUBL_ANTI,
+    FEC_PUBLICACION, COD_GACETA_PUBL, COD_LEY, NUM_FOLIO_ART2T, FEC_ART2T, NUM_FOLIO_ART10T,
+    FEC_ART10T, NUM_CONCESION, FEC_CONCESION, IND_CONCESION, FEC_VIGENCIA, FEC_VENCIMIENTO,
+    TITULO, TIP_SOLICITUD, SUBTIP_SOLICITUD, TIP_EXPED_DIVIDIDA, SER_EXPED_DIVIDIDA,
+    NUM_EXPED_DIVIDIDA, COD_PERSONA_TIT1, SEC_DIRECCION_TIT1, COD_PERSONA_PRO, SEC_DIRECCION_PRO,
+    TIP_SOLICITANTE, IND_TITUL_INVEN, COD_OFICINA_RGP, TIP_LIBRO_RGP, SER_DOCUM_RGP,
+    NUM_DOCUM_RGP, USER_ID_CAPT, FEC_CAPT, ID_SOLICITUD_PCT, FEC_SOLICITUD_PCT, COD_PAIS_PUBL_PCT,
+    ID_PUBL_PCT, TIP_PUBL_PCT, FEC_PUBL_PCT, FASE_PCT, TITULO_INGLES, OBS_PUBL, FOJAS_DESCRIPCION,
+    FOJAS_REIVINDICACIONES, COD_OFICINA_DIVIDIDA, OFICINA_REGIONAL, USER_ID_RECEPCION,
+    COD_OFICINA_RECEPTORA, NUM_RGP
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    select 
+    COD_OFICINA, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION, TIP_LIBRO, SER_DOCUM,
+    NUM_DOCUM, FEC_RECEPCION, FEC_PRESENTACION, FEC_1ER_PRIORIDAD, FEC_DIVULGACION, FEC_SOL_PUBL_ANTI,
+    FEC_PUBLICACION, COD_GACETA_PUBL, COD_LEY, NUM_FOLIO_ART2T, FEC_ART2T, NUM_FOLIO_ART10T,
+    FEC_ART10T, NUM_CONCESION, FEC_CONCESION, IND_CONCESION, FEC_VIGENCIA, FEC_VENCIMIENTO,
+    TITULO, TIP_SOLICITUD, SUBTIP_SOLICITUD, TIP_EXPED_DIVIDIDA, SER_EXPED_DIVIDIDA,
+    NUM_EXPED_DIVIDIDA, COD_PERSONA_TIT1, SEC_DIRECCION_TIT1, COD_PERSONA_PRO, SEC_DIRECCION_PRO,
+    TIP_SOLICITANTE, IND_TITUL_INVEN, COD_OFICINA_RGP, TIP_LIBRO_RGP, SER_DOCUM_RGP,
+    NUM_DOCUM_RGP, USER_ID_CAPT, FEC_CAPT, ID_SOLICITUD_PCT, FEC_SOLICITUD_PCT, COD_PAIS_PUBL_PCT,
+    ID_PUBL_PCT, TIP_PUBL_PCT, FEC_PUBL_PCT, FASE_PCT, TITULO_INGLES, OBS_PUBL, FOJAS_DESCRIPCION,
+    FOJAS_REIVINDICACIONES, COD_OFICINA_DIVIDIDA, OFICINA_REGIONAL, USER_ID_RECEPCION,
+    COD_OFICINA_RECEPTORA, NUM_RGP
+
+    from PATENTES.SOLICITUD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+
+   <select id="selectByPrimaryKeyView" resultMap="BaseResultMap" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    SELECT ROW_VERSION, COD_OFICINA,TIP_EXPED,SER_EXPED,NUM_EXPED,
+    TIP_LIBRO,SER_DOCUM,NUM_DOCUM,FEC_RECEPCION,FEC_PRESENTACION,
+    FEC_1ER_PRIORIDAD,FEC_DIVULGACION,FEC_SOL_PUBL_ANTI,FEC_PUBLICACION,
+    COD_GACETA_PUBL,COD_LEY,NUM_FOLIO_ART2T,FEC_ART2T,NUM_FOLIO_ART10T,
+    FEC_ART10T,NUM_CONCESION,FEC_CONCESION,IND_CONCESION,FEC_VIGENCIA ,
+    FEC_VENCIMIENTO,TITULO ,TIP_SOLICITUD,SUBTIP_SOLICITUD,TIP_EXPED_DIVIDIDA,
+    SER_EXPED_DIVIDIDA,NUM_EXPED_DIVIDIDA,COD_PERSONA_TIT1,SEC_DIRECCION_TIT1,
+    COD_PERSONA_PRO,SEC_DIRECCION_PRO,TIP_SOLICITANTE,IND_TITUL_INVEN,
+    COD_OFICINA_RGP,TIP_LIBRO_RGP,SER_DOCUM_RGP,NUM_DOCUM_RGP,
+    USER_ID_CAPT,FEC_CAPT,ID_SOLICITUD_PCT,FEC_SOLICITUD_PCT,
+    COD_PAIS_PUBL_PCT,ID_PUBL_PCT,TIP_PUBL_PCT,FEC_PUBL_PCT,
+    FASE_PCT,TITULO_INGLES,OBS_PUBL,FOJAS_DESCRIPCION,
+    FOJAS_REIVINDICACIONES,OFICINA_REGIONAL,USER_ID_RECEPCION,
+    COD_OFICINA_RECEPTORA,NUM_RGP
+    from PATENTES.SOLICITUD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByExpedienteDivisional" resultMap="BaseResultMap" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    
+    select * from PATENTES.SOLICITUD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+    AND TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+    AND SER_EXPED = #{serExped,jdbcType=DECIMAL}
+    AND NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SOLICITUD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    insert into PATENTES.SOLICITUD (COD_OFICINA, NUM_EXPED, SER_EXPED, 
+      TIP_EXPED, ROW_VERSION, TIP_LIBRO, 
+      SER_DOCUM, NUM_DOCUM, FEC_RECEPCION, 
+      FEC_PRESENTACION, FEC_1ER_PRIORIDAD, FEC_DIVULGACION, 
+      FEC_SOL_PUBL_ANTI, FEC_PUBLICACION, COD_GACETA_PUBL, 
+      COD_LEY, NUM_FOLIO_ART2T, FEC_ART2T, 
+      NUM_FOLIO_ART10T, FEC_ART10T, NUM_CONCESION, 
+      FEC_CONCESION, IND_CONCESION, FEC_VIGENCIA, 
+      FEC_VENCIMIENTO, TITULO, TIP_SOLICITUD, 
+      SUBTIP_SOLICITUD, TIP_EXPED_DIVIDIDA, SER_EXPED_DIVIDIDA, 
+      NUM_EXPED_DIVIDIDA, COD_PERSONA_TIT1, SEC_DIRECCION_TIT1, 
+      COD_PERSONA_PRO, SEC_DIRECCION_PRO, TIP_SOLICITANTE, 
+      IND_TITUL_INVEN, COD_OFICINA_RGP, TIP_LIBRO_RGP, 
+      SER_DOCUM_RGP, NUM_DOCUM_RGP, USER_ID_CAPT, 
+      FEC_CAPT, ID_SOLICITUD_PCT, FEC_SOLICITUD_PCT, 
+      COD_PAIS_PUBL_PCT, ID_PUBL_PCT, TIP_PUBL_PCT, 
+      FEC_PUBL_PCT, FASE_PCT, TITULO_INGLES, 
+      OBS_PUBL, FOJAS_DESCRIPCION, FOJAS_REIVINDICACIONES, 
+      COD_OFICINA_DIVIDIDA, OFICINA_REGIONAL, USER_ID_RECEPCION, 
+      COD_OFICINA_RECEPTORA)
+    values (#{codOficina,jdbcType=VARCHAR}, #{numExped,jdbcType=DECIMAL}, #{serExped,jdbcType=DECIMAL}, 
+      #{tipExped,jdbcType=VARCHAR}, #{rowVersion,jdbcType=DECIMAL}, #{tipLibro,jdbcType=VARCHAR}, 
+      #{serDocum,jdbcType=DECIMAL}, #{numDocum,jdbcType=DECIMAL}, #{fecRecepcion,jdbcType=TIMESTAMP}, 
+      #{fecPresentacion,jdbcType=TIMESTAMP}, #{fec1erPrioridad,jdbcType=TIMESTAMP}, #{fecDivulgacion,jdbcType=TIMESTAMP}, 
+      #{fecSolPublAnti,jdbcType=TIMESTAMP}, #{fecPublicacion,jdbcType=TIMESTAMP}, #{codGacetaPubl,jdbcType=VARCHAR}, 
+      #{codLey,jdbcType=DECIMAL}, #{numFolioArt2t,jdbcType=DECIMAL}, #{fecArt2t,jdbcType=TIMESTAMP}, 
+      #{numFolioArt10t,jdbcType=DECIMAL}, #{fecArt10t,jdbcType=TIMESTAMP}, #{numConcesion,jdbcType=DECIMAL}, 
+      #{fecConcesion,jdbcType=TIMESTAMP}, #{indConcesion,jdbcType=VARCHAR}, #{fecVigencia,jdbcType=TIMESTAMP}, 
+      #{fecVencimiento,jdbcType=TIMESTAMP}, #{titulo,jdbcType=VARCHAR}, #{tipSolicitud,jdbcType=VARCHAR}, 
+      #{subtipSolicitud,jdbcType=VARCHAR}, #{tipExpedDividida,jdbcType=VARCHAR}, #{serExpedDividida,jdbcType=DECIMAL}, 
+      #{numExpedDividida,jdbcType=DECIMAL}, #{codPersonaTit1,jdbcType=DECIMAL}, #{secDireccionTit1,jdbcType=DECIMAL}, 
+      #{codPersonaPro,jdbcType=DECIMAL}, #{secDireccionPro,jdbcType=DECIMAL}, #{tipSolicitante,jdbcType=DECIMAL}, 
+      #{indTitulInven,jdbcType=VARCHAR}, #{codOficinaRgp,jdbcType=VARCHAR}, #{tipLibroRgp,jdbcType=VARCHAR}, 
+      #{serDocumRgp,jdbcType=DECIMAL}, #{numDocumRgp,jdbcType=DECIMAL}, #{userIdCapt,jdbcType=DECIMAL}, 
+      #{fecCapt,jdbcType=TIMESTAMP}, #{idSolicitudPct,jdbcType=VARCHAR}, #{fecSolicitudPct,jdbcType=TIMESTAMP}, 
+      #{codPaisPublPct,jdbcType=VARCHAR}, #{idPublPct,jdbcType=VARCHAR}, #{tipPublPct,jdbcType=VARCHAR}, 
+      #{fecPublPct,jdbcType=TIMESTAMP}, #{fasePct,jdbcType=DECIMAL}, #{tituloIngles,jdbcType=VARCHAR}, 
+      #{obsPubl,jdbcType=VARCHAR}, #{fojasDescripcion,jdbcType=VARCHAR}, #{fojasReivindicaciones,jdbcType=VARCHAR}, 
+      #{codOficinaDividida,jdbcType=VARCHAR}, #{oficinaRegional,jdbcType=VARCHAR}, #{userIdRecepcion,jdbcType=DECIMAL}, 
+      #{codOficinaReceptora,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    insert into PATENTES.SOLICITUD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        COD_OFICINA,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO,
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM,
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM,
+      </if>
+      <if test="fecRecepcion != null" >
+        FEC_RECEPCION,
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION,
+      </if>
+      <if test="fec1erPrioridad != null" >
+        FEC_1ER_PRIORIDAD,
+      </if>
+      <if test="fecDivulgacion != null" >
+        FEC_DIVULGACION,
+      </if>
+      <if test="fecSolPublAnti != null" >
+        FEC_SOL_PUBL_ANTI,
+      </if>
+      <if test="fecPublicacion != null" >
+        FEC_PUBLICACION,
+      </if>
+      <if test="codGacetaPubl != null" >
+        COD_GACETA_PUBL,
+      </if>
+      <if test="codLey != null" >
+        COD_LEY,
+      </if>
+      <if test="numFolioArt2t != null" >
+        NUM_FOLIO_ART2T,
+      </if>
+      <if test="fecArt2t != null" >
+        FEC_ART2T,
+      </if>
+      <if test="numFolioArt10t != null" >
+        NUM_FOLIO_ART10T,
+      </if>
+      <if test="fecArt10t != null" >
+        FEC_ART10T,
+      </if>
+      <if test="numConcesion != null" >
+        NUM_CONCESION,
+      </if>
+      <if test="fecConcesion != null" >
+        FEC_CONCESION,
+      </if>
+      <if test="indConcesion != null" >
+        IND_CONCESION,
+      </if>
+      <if test="fecVigencia != null" >
+        FEC_VIGENCIA,
+      </if>
+      <if test="fecVencimiento != null" >
+        FEC_VENCIMIENTO,
+      </if>
+      <if test="titulo != null" >
+        TITULO,
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD,
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD,
+      </if>
+      <if test="tipExpedDividida != null" >
+        TIP_EXPED_DIVIDIDA,
+      </if>
+      <if test="serExpedDividida != null" >
+        SER_EXPED_DIVIDIDA,
+      </if>
+      <if test="numExpedDividida != null" >
+        NUM_EXPED_DIVIDIDA,
+      </if>
+      <if test="codPersonaTit1 != null" >
+        COD_PERSONA_TIT1,
+      </if>
+      <if test="secDireccionTit1 != null" >
+        SEC_DIRECCION_TIT1,
+      </if>
+      <if test="codPersonaPro != null" >
+        COD_PERSONA_PRO,
+      </if>
+      <if test="secDireccionPro != null" >
+        SEC_DIRECCION_PRO,
+      </if>
+      <if test="tipSolicitante != null" >
+        TIP_SOLICITANTE,
+      </if>
+      <if test="indTitulInven != null" >
+        IND_TITUL_INVEN,
+      </if>
+      <if test="codOficinaRgp != null" >
+        COD_OFICINA_RGP,
+      </if>
+      <if test="tipLibroRgp != null" >
+        TIP_LIBRO_RGP,
+      </if>
+      <if test="serDocumRgp != null" >
+        SER_DOCUM_RGP,
+      </if>
+      <if test="numDocumRgp != null" >
+        NUM_DOCUM_RGP,
+      </if>
+      <if test="userIdCapt != null" >
+        USER_ID_CAPT,
+      </if>
+      <if test="fecCapt != null" >
+        FEC_CAPT,
+      </if>
+      <if test="idSolicitudPct != null" >
+        ID_SOLICITUD_PCT,
+      </if>
+      <if test="fecSolicitudPct != null" >
+        FEC_SOLICITUD_PCT,
+      </if>
+      <if test="codPaisPublPct != null" >
+        COD_PAIS_PUBL_PCT,
+      </if>
+      <if test="idPublPct != null" >
+        ID_PUBL_PCT,
+      </if>
+      <if test="tipPublPct != null" >
+        TIP_PUBL_PCT,
+      </if>
+      <if test="fecPublPct != null" >
+        FEC_PUBL_PCT,
+      </if>
+      <if test="fasePct != null" >
+        FASE_PCT,
+      </if>
+      <if test="tituloIngles != null" >
+        TITULO_INGLES,
+      </if>
+      <if test="obsPubl != null" >
+        OBS_PUBL,
+      </if>
+      <if test="fojasDescripcion != null" >
+        FOJAS_DESCRIPCION,
+      </if>
+      <if test="fojasReivindicaciones != null" >
+        FOJAS_REIVINDICACIONES,
+      </if>
+      <if test="codOficinaDividida != null" >
+        COD_OFICINA_DIVIDIDA,
+      </if>
+      <if test="oficinaRegional != null" >
+        OFICINA_REGIONAL,
+      </if>
+      <if test="userIdRecepcion != null" >
+        USER_ID_RECEPCION,
+      </if>
+      <if test="codOficinaReceptora != null" >
+        COD_OFICINA_RECEPTORA,
+      </if>
+      <if test="numRgp != null" >
+        NUM_RGP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="tipLibro != null" >
+        #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocum != null" >
+        #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocum != null" >
+        #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="fecRecepcion != null" >
+        #{fecRecepcion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPresentacion != null" >
+        #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fec1erPrioridad != null" >
+        #{fec1erPrioridad,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecDivulgacion != null" >
+        #{fecDivulgacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecSolPublAnti != null" >
+        #{fecSolPublAnti,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPublicacion != null" >
+        #{fecPublicacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codGacetaPubl != null" >
+        #{codGacetaPubl,jdbcType=VARCHAR},
+      </if>
+      <if test="codLey != null" >
+        #{codLey,jdbcType=DECIMAL},
+      </if>
+      <if test="numFolioArt2t != null" >
+        #{numFolioArt2t,jdbcType=DECIMAL},
+      </if>
+      <if test="fecArt2t != null" >
+        #{fecArt2t,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numFolioArt10t != null" >
+        #{numFolioArt10t,jdbcType=DECIMAL},
+      </if>
+      <if test="fecArt10t != null" >
+        #{fecArt10t,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numConcesion != null" >
+        #{numConcesion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecConcesion != null" >
+        #{fecConcesion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indConcesion != null" >
+        #{indConcesion,jdbcType=VARCHAR},
+      </if>
+      <if test="fecVigencia != null" >
+        #{fecVigencia,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecVencimiento != null" >
+        #{fecVencimiento,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titulo != null" >
+        #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="tipSolicitud != null" >
+        #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExpedDividida != null" >
+        #{tipExpedDividida,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedDividida != null" >
+        #{serExpedDividida,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedDividida != null" >
+        #{numExpedDividida,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaTit1 != null" >
+        #{codPersonaTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="secDireccionTit1 != null" >
+        #{secDireccionTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaPro != null" >
+        #{codPersonaPro,jdbcType=DECIMAL},
+      </if>
+      <if test="secDireccionPro != null" >
+        #{secDireccionPro,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitante != null" >
+        #{tipSolicitante,jdbcType=DECIMAL},
+      </if>
+      <if test="indTitulInven != null" >
+        #{indTitulInven,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaRgp != null" >
+        #{codOficinaRgp,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroRgp != null" >
+        #{tipLibroRgp,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumRgp != null" >
+        #{serDocumRgp,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumRgp != null" >
+        #{numDocumRgp,jdbcType=DECIMAL},
+      </if>
+      <if test="userIdCapt != null" >
+        #{userIdCapt,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCapt != null" >
+        #{fecCapt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idSolicitudPct != null" >
+        #{idSolicitudPct,jdbcType=VARCHAR},
+      </if>
+      <if test="fecSolicitudPct != null" >
+        #{fecSolicitudPct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codPaisPublPct != null" >
+        #{codPaisPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="idPublPct != null" >
+        #{idPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="tipPublPct != null" >
+        #{tipPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="fecPublPct != null" >
+        #{fecPublPct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fasePct != null" >
+        #{fasePct,jdbcType=DECIMAL},
+      </if>
+      <if test="tituloIngles != null" >
+        #{tituloIngles,jdbcType=VARCHAR},
+      </if>
+      <if test="obsPubl != null" >
+        #{obsPubl,jdbcType=VARCHAR},
+      </if>
+      <if test="fojasDescripcion != null" >
+        #{fojasDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="fojasReivindicaciones != null" >
+        #{fojasReivindicaciones,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaDividida != null" >
+        #{codOficinaDividida,jdbcType=VARCHAR},
+      </if>
+      <if test="oficinaRegional != null" >
+        #{oficinaRegional,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdRecepcion != null" >
+        #{userIdRecepcion,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaReceptora != null" >
+        #{codOficinaReceptora,jdbcType=DECIMAL},
+      </if>
+      <if test="numRgp != null" >
+        #{numRgp,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    update PATENTES.SOLICITUD
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM = #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM = #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="fecRecepcion != null" >
+        FEC_RECEPCION = #{fecRecepcion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fec1erPrioridad != null" >
+        FEC_1ER_PRIORIDAD = #{fec1erPrioridad,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecDivulgacion != null" >
+        FEC_DIVULGACION = #{fecDivulgacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecSolPublAnti != null" >
+        FEC_SOL_PUBL_ANTI = #{fecSolPublAnti,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecPublicacion != null" >
+        FEC_PUBLICACION = #{fecPublicacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codGacetaPubl != null" >
+        COD_GACETA_PUBL = #{codGacetaPubl,jdbcType=VARCHAR},
+      </if>
+      <if test="codLey != null" >
+        COD_LEY = #{codLey,jdbcType=DECIMAL},
+      </if>
+      <if test="numFolioArt2t != null" >
+        NUM_FOLIO_ART2T = #{numFolioArt2t,jdbcType=DECIMAL},
+      </if>
+      <if test="fecArt2t != null" >
+        FEC_ART2T = #{fecArt2t,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numFolioArt10t != null" >
+        NUM_FOLIO_ART10T = #{numFolioArt10t,jdbcType=DECIMAL},
+      </if>
+      <if test="fecArt10t != null" >
+        FEC_ART10T = #{fecArt10t,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numConcesion != null" >
+        NUM_CONCESION = #{numConcesion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecConcesion != null" >
+        FEC_CONCESION = #{fecConcesion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indConcesion != null" >
+        IND_CONCESION = #{indConcesion,jdbcType=VARCHAR},
+      </if>
+      <if test="fecVigencia != null" >
+        FEC_VIGENCIA = #{fecVigencia,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fecVencimiento != null" >
+        FEC_VENCIMIENTO = #{fecVencimiento,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titulo != null" >
+        TITULO = #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExpedDividida != null" >
+        TIP_EXPED_DIVIDIDA = #{tipExpedDividida,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedDividida != null" >
+        SER_EXPED_DIVIDIDA = #{serExpedDividida,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedDividida != null" >
+        NUM_EXPED_DIVIDIDA = #{numExpedDividida,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaTit1 != null" >
+        COD_PERSONA_TIT1 = #{codPersonaTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="secDireccionTit1 != null" >
+        SEC_DIRECCION_TIT1 = #{secDireccionTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaPro != null" >
+        COD_PERSONA_PRO = #{codPersonaPro,jdbcType=DECIMAL},
+      </if>
+      <if test="secDireccionPro != null" >
+        SEC_DIRECCION_PRO = #{secDireccionPro,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitante != null" >
+        TIP_SOLICITANTE = #{tipSolicitante,jdbcType=DECIMAL},
+      </if>
+      <if test="indTitulInven != null" >
+        IND_TITUL_INVEN = #{indTitulInven,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaRgp != null" >
+        COD_OFICINA_RGP = #{codOficinaRgp,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibroRgp != null" >
+        TIP_LIBRO_RGP = #{tipLibroRgp,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocumRgp != null" >
+        SER_DOCUM_RGP = #{serDocumRgp,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocumRgp != null" >
+        NUM_DOCUM_RGP = #{numDocumRgp,jdbcType=DECIMAL},
+      </if>
+      <if test="userIdCapt != null" >
+        USER_ID_CAPT = #{userIdCapt,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCapt != null" >
+        FEC_CAPT = #{fecCapt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idSolicitudPct != null" >
+        ID_SOLICITUD_PCT = #{idSolicitudPct,jdbcType=VARCHAR},
+      </if>
+      <if test="fecSolicitudPct != null" >
+        FEC_SOLICITUD_PCT = #{fecSolicitudPct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codPaisPublPct != null" >
+        COD_PAIS_PUBL_PCT = #{codPaisPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="idPublPct != null" >
+        ID_PUBL_PCT = #{idPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="tipPublPct != null" >
+        TIP_PUBL_PCT = #{tipPublPct,jdbcType=VARCHAR},
+      </if>
+      <if test="fecPublPct != null" >
+        FEC_PUBL_PCT = #{fecPublPct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fasePct != null" >
+        FASE_PCT = #{fasePct,jdbcType=DECIMAL},
+      </if>
+      <if test="tituloIngles != null" >
+        TITULO_INGLES = #{tituloIngles,jdbcType=VARCHAR},
+      </if>
+      <if test="obsPubl != null" >
+        OBS_PUBL = #{obsPubl,jdbcType=VARCHAR},
+      </if>
+      <if test="fojasDescripcion != null" >
+        FOJAS_DESCRIPCION = #{fojasDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="fojasReivindicaciones != null" >
+        FOJAS_REIVINDICACIONES = #{fojasReivindicaciones,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaDividida != null" >
+        COD_OFICINA_DIVIDIDA = #{codOficinaDividida,jdbcType=VARCHAR},
+      </if>
+      <if test="oficinaRegional != null" >
+        OFICINA_REGIONAL = #{oficinaRegional,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdRecepcion != null" >
+        USER_ID_RECEPCION = #{userIdRecepcion,jdbcType=DECIMAL},
+      </if>
+      <if test="codOficinaReceptora != null" >
+        COD_OFICINA_RECEPTORA = #{codOficinaReceptora,jdbcType=DECIMAL},
+      </if>
+      <if test="numRgp != null" >
+        NUM_RGP = #{numRgp,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.Solicitud" >
+    update PATENTES.SOLICITUD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR},
+      SER_DOCUM = #{serDocum,jdbcType=DECIMAL},
+      NUM_DOCUM = #{numDocum,jdbcType=DECIMAL},
+      FEC_RECEPCION = #{fecRecepcion,jdbcType=TIMESTAMP},
+      FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      FEC_1ER_PRIORIDAD = #{fec1erPrioridad,jdbcType=TIMESTAMP},
+      FEC_DIVULGACION = #{fecDivulgacion,jdbcType=TIMESTAMP},
+      FEC_SOL_PUBL_ANTI = #{fecSolPublAnti,jdbcType=TIMESTAMP},
+      FEC_PUBLICACION = #{fecPublicacion,jdbcType=TIMESTAMP},
+      COD_GACETA_PUBL = #{codGacetaPubl,jdbcType=VARCHAR},
+      COD_LEY = #{codLey,jdbcType=DECIMAL},
+      NUM_FOLIO_ART2T = #{numFolioArt2t,jdbcType=DECIMAL},
+      FEC_ART2T = #{fecArt2t,jdbcType=TIMESTAMP},
+      NUM_FOLIO_ART10T = #{numFolioArt10t,jdbcType=DECIMAL},
+      FEC_ART10T = #{fecArt10t,jdbcType=TIMESTAMP},
+      NUM_CONCESION = #{numConcesion,jdbcType=DECIMAL},
+      FEC_CONCESION = #{fecConcesion,jdbcType=TIMESTAMP},
+      IND_CONCESION = #{indConcesion,jdbcType=VARCHAR},
+      FEC_VIGENCIA = #{fecVigencia,jdbcType=TIMESTAMP},
+      FEC_VENCIMIENTO = #{fecVencimiento,jdbcType=TIMESTAMP},
+      TITULO = #{titulo,jdbcType=VARCHAR},
+      TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      TIP_EXPED_DIVIDIDA = #{tipExpedDividida,jdbcType=VARCHAR},
+      SER_EXPED_DIVIDIDA = #{serExpedDividida,jdbcType=DECIMAL},
+      NUM_EXPED_DIVIDIDA = #{numExpedDividida,jdbcType=DECIMAL},
+      COD_PERSONA_TIT1 = #{codPersonaTit1,jdbcType=DECIMAL},
+      SEC_DIRECCION_TIT1 = #{secDireccionTit1,jdbcType=DECIMAL},
+      COD_PERSONA_PRO = #{codPersonaPro,jdbcType=DECIMAL},
+      SEC_DIRECCION_PRO = #{secDireccionPro,jdbcType=DECIMAL},
+      TIP_SOLICITANTE = #{tipSolicitante,jdbcType=DECIMAL},
+      IND_TITUL_INVEN = #{indTitulInven,jdbcType=VARCHAR},
+      COD_OFICINA_RGP = #{codOficinaRgp,jdbcType=VARCHAR},
+      TIP_LIBRO_RGP = #{tipLibroRgp,jdbcType=VARCHAR},
+      SER_DOCUM_RGP = #{serDocumRgp,jdbcType=DECIMAL},
+      NUM_DOCUM_RGP = #{numDocumRgp,jdbcType=DECIMAL},
+      USER_ID_CAPT = #{userIdCapt,jdbcType=DECIMAL},
+      FEC_CAPT = #{fecCapt,jdbcType=TIMESTAMP},
+      ID_SOLICITUD_PCT = #{idSolicitudPct,jdbcType=VARCHAR},
+      FEC_SOLICITUD_PCT = #{fecSolicitudPct,jdbcType=TIMESTAMP},
+      COD_PAIS_PUBL_PCT = #{codPaisPublPct,jdbcType=VARCHAR},
+      ID_PUBL_PCT = #{idPublPct,jdbcType=VARCHAR},
+      TIP_PUBL_PCT = #{tipPublPct,jdbcType=VARCHAR},
+      FEC_PUBL_PCT = #{fecPublPct,jdbcType=TIMESTAMP},
+      FASE_PCT = #{fasePct,jdbcType=DECIMAL},
+      TITULO_INGLES = #{tituloIngles,jdbcType=VARCHAR},
+      OBS_PUBL = #{obsPubl,jdbcType=VARCHAR},
+      FOJAS_DESCRIPCION = #{fojasDescripcion,jdbcType=VARCHAR},
+      FOJAS_REIVINDICACIONES = #{fojasReivindicaciones,jdbcType=VARCHAR},
+      COD_OFICINA_DIVIDIDA = #{codOficinaDividida,jdbcType=VARCHAR},
+      OFICINA_REGIONAL = #{oficinaRegional,jdbcType=VARCHAR},
+      USER_ID_RECEPCION = #{userIdRecepcion,jdbcType=DECIMAL},
+      COD_OFICINA_RECEPTORA = #{codOficinaReceptora,jdbcType=DECIMAL},
+      NUM_RGP = #{numRgp,jdbcType=DECIMAL}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

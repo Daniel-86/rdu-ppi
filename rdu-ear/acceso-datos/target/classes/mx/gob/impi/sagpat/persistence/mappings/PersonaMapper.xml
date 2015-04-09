@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.PersonaMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.Persona" >
+    <id column="COD_PERSONA" property="codPersona" jdbcType="DECIMAL" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="NOM_PERSONA" property="nomPersona" jdbcType="VARCHAR" />
+    <result column="TIP_PERSONA" property="tipPersona" jdbcType="VARCHAR" />
+    <result column="COD_PAIS_NACION" property="codPaisNacion" jdbcType="VARCHAR" />
+    <result column="COD_DESPACHO" property="codDespacho" jdbcType="DECIMAL" />
+    <result column="NUM_RGP" property="numRgp" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    COD_PERSONA, ROW_VERSION, NOM_PERSONA, TIP_PERSONA, COD_PAIS_NACION, COD_DESPACHO
+    from PATENTES.PERSONA
+    where COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </select>
+
+ <select id="selectPersonaCodByDot" resultType="java.lang.String" parameterType="java.lang.String" >
+    SELECT COD_PERSONA 
+    FROM PERSONA    
+    WHERE trim(NOM_PERSONA) = #{nomPersona,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPersonaCod" resultType="java.lang.String" parameterType="java.lang.String" >
+      SELECT COD_PERSONA
+      FROM PERSONA
+      WHERE trim(NOM_PERSONA) = #{nomPersona,jdbcType=VARCHAR}
+      AND  ROWNUM =1 
+      ORDER BY cod_persona desc  
+  </select>
+
+
+    <select id="selectPersonaNombreCaracter" resultType="java.lang.String" parameterType="java.lang.String" >        
+      SELECT  UPPER(translate( #{nomPersona,jdbcType=VARCHAR}   ,  #{tipPersona,jdbcType=VARCHAR} ,   #{codPaisNacion,jdbcType=VARCHAR} )) as re FROM DUAL        
+    </select>
+
+
+
+
+   <select id="selectViewByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  COD_PERSONA, ROW_VERSION, NOM_PERSONA, TIP_PERSONA, COD_PAIS_NACION, COD_DESPACHO
+    from PATENTES.PERSONA
+    where COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PATENTES.PERSONA
+    where COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.Persona" >
+    insert into PATENTES.PERSONA (COD_PERSONA, ROW_VERSION, NOM_PERSONA, 
+      TIP_PERSONA, COD_PAIS_NACION, COD_DESPACHO,NUM_RGP
+      )
+    values (#{codPersona,jdbcType=DECIMAL}, #{rowVersion,jdbcType=DECIMAL}, #{nomPersona,jdbcType=VARCHAR}, 
+      #{tipPersona,jdbcType=VARCHAR}, #{codPaisNacion,jdbcType=VARCHAR}, #{codDespacho,jdbcType=DECIMAL}, #{numRgp,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.Persona" >
+    insert into PATENTES.PERSONA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codPersona != null" >
+        COD_PERSONA,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="nomPersona != null" >
+        NOM_PERSONA,
+      </if>
+      <if test="tipPersona != null" >
+        TIP_PERSONA,
+      </if>
+      <if test="codPaisNacion != null" >
+        COD_PAIS_NACION,
+      </if>
+      <if test="codDespacho != null" >
+        COD_DESPACHO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codPersona != null" >
+        #{codPersona,jdbcType=DECIMAL},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="nomPersona != null" >
+        #{nomPersona,jdbcType=VARCHAR},
+      </if>
+      <if test="tipPersona != null" >
+        #{tipPersona,jdbcType=VARCHAR},
+      </if>
+      <if test="codPaisNacion != null" >
+        #{codPaisNacion,jdbcType=VARCHAR},
+      </if>
+      <if test="codDespacho != null" >
+        #{codDespacho,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.Persona" >
+    update PATENTES.PERSONA
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="nomPersona != null" >
+        NOM_PERSONA = #{nomPersona,jdbcType=VARCHAR},
+      </if>
+      <if test="tipPersona != null" >
+        TIP_PERSONA = #{tipPersona,jdbcType=VARCHAR},
+      </if>
+      <if test="codPaisNacion != null" >
+        COD_PAIS_NACION = #{codPaisNacion,jdbcType=VARCHAR},
+      </if>
+      <if test="codDespacho != null" >
+        COD_DESPACHO = #{codDespacho,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.Persona" >
+    update PATENTES.PERSONA
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      NOM_PERSONA = #{nomPersona,jdbcType=VARCHAR},
+      TIP_PERSONA = #{tipPersona,jdbcType=VARCHAR},
+      COD_PAIS_NACION = #{codPaisNacion,jdbcType=VARCHAR},
+      COD_DESPACHO = #{codDespacho,jdbcType=DECIMAL}
+    where COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </update>
+</mapper>

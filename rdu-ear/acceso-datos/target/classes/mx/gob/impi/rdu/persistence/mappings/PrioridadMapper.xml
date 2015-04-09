@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.PrioridadMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Prioridad" >
+        <id column="ID_PRIORIDAD" property="idPrioridad" jdbcType="DECIMAL" />
+        <result column="ID_PAIS" property="idPais" jdbcType="DECIMAL" />
+        <result column="NUMERO_EXPEDIENTE" property="numeroExpediente" jdbcType="VARCHAR" />
+        <result column="FECHA_PRESENTACION_EXT" property="fechaPresentacionExt" jdbcType="TIMESTAMP" />
+        <result column="NOMBRE_PAIS" property="nombrePais" jdbcType="VARCHAR" />
+        <result column="CODIGO_PAIS" property="codigoPais" jdbcType="VARCHAR" />
+        <result column="ID_ANEXO_PRIORIDAD" property="idAnexoPrioridad" jdbcType="DECIMAL" />
+        <result column="ID_ANEXO_TRADUCCION" property="idAnexoTraduccion" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select ID_PRIORIDAD, ID_PAIS, NUMERO_EXPEDIENTE, FECHA_PRESENTACION_EXT, ID_ANEXO_PRIORIDAD, ID_ANEXO_TRADUCCION
+    from PRIORIDAD
+    where ID_PRIORIDAD = #{idPrioridad,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PRIORIDAD
+    where ID_PRIORIDAD = #{idPrioridad,jdbcType=DECIMAL}
+    </delete>
+    
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Prioridad" >
+         <selectKey keyProperty="idPrioridad" resultType="long" order="AFTER">
+            SELECT PRIORIDAD_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    insert into PRIORIDAD (ID_PRIORIDAD, ID_PAIS,NUMERO_EXPEDIENTE,FECHA_PRESENTACION_EXT, 
+            ID_ANEXO_PRIORIDAD, ID_ANEXO_TRADUCCION )
+    values (PRIORIDAD_SEQ.NEXTVAL,#{idPais,jdbcType=DECIMAL},#{numeroExpediente,jdbcType=VARCHAR},
+            #{fechaPresentacionExt,jdbcType=TIMESTAMP},  #{idAnexoPrioridad,jdbcType=DECIMAL} ,
+            #{idAnexoTraduccion,jdbcType=DECIMAL}        
+        
+        )
+    </insert>
+
+
+   
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Prioridad" >
+    update PRIORIDAD
+    set ID_PAIS = #{idPais,jdbcType=DECIMAL},
+      NUMERO_EXPEDIENTE = #{numeroExpediente,jdbcType=VARCHAR},
+      FECHA_PRESENTACION_EXT = #{fechaPresentacionExt,jdbcType=TIMESTAMP},
+        ID_ANEXO_PRIORIDAD =#{idAnexoPrioridad,jdbcType=DECIMAL}, 
+        ID_ANEXO_TRADUCCION = #{idAnexoTraduccion,jdbcType=DECIMAL}
+    where ID_PRIORIDAD = #{idPrioridad,jdbcType=DECIMAL}
+    </update>
+
+    <select id="selectPrioridadesTramitePatente" resultMap="BaseResultMap">
+        SELECT
+        PR.ID_PRIORIDAD, PR.ID_PAIS,PR.NUMERO_EXPEDIENTE,PR.FECHA_PRESENTACION_EXT,PA.NOMBRE NOMBRE_PAIS,PA.CLAVE_PAIS CODIGO_PAIS
+        FROM PRIORIDAD PR
+        INNER JOIN PAIS PA ON(PA.ID_PAIS=PR.ID_PAIS)
+        WHERE ID_PRIORIDAD IN(
+           SELECT ID_PRIORIDAD FROM PRIORIDAD_X_TRAMITE_PATENTE WHERE ID_TRAMITE_PATENTE=#{idTramitePatente,jdbcType=DECIMAL})
+        ORDER BY ID_PRIORIDAD
+    </select>
+    
+    <select id="selectByIdAnexo" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select ID_PRIORIDAD, ID_PAIS, NUMERO_EXPEDIENTE, FECHA_PRESENTACION_EXT, ID_ANEXO
+    from PRIORIDAD
+    where ID_ANEXO = #{idAnexo,jdbcType=DECIMAL}
+    </select>
+    
+    <update id="updateByIdAnexo" parameterType="mx.gob.impi.rdu.persistence.model.Prioridad" >
+    update PRIORIDAD
+    set 
+        <if test="idAnexoPrioridad != null" >
+            ID_ANEXO_PRIORIDAD = #{idAnexoPrioridad,jdbcType=DECIMAL}
+        </if>
+        <if test="idAnexoTraduccion != null" >
+            ID_ANEXO_TRADUCCION = #{idAnexoTraduccion,jdbcType=DECIMAL}
+        </if>
+    where ID_PRIORIDAD = #{idPrioridad,jdbcType=DECIMAL}
+    </update>
+</mapper>

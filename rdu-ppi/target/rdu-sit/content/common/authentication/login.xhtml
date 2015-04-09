@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:head>
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/css/login.css" />
+        </h:head>
+
+        <p:growl showDetail="true" id="msgS"/>
+        <h:form id="formAlta" prependId="false">
+            <p:growl showDetail="true" id="msg"/>
+                    <p:panel header="Usuarios Registrados">
+                        <h:panelGrid columns="2">
+                            <p:fieldset styleClass="login-fieldset-img login-fieldset" >
+                          <p:graphicImage value="/content/imagenes/login_2.png" />
+                          <h5>
+                                    Despues del tercer intento el usuario será bloqueado. Por lo que tendrás que contactar
+                                    al administrador del sistema para que tu usuario sea activado nuevamente.
+                           </h5>
+                       </p:fieldset>
+                       <p:fieldset  styleClass="login-fieldset-user login-fieldset">
+                                <p:fieldset  styleClass="login-panel">
+
+                                <label for="username">Usuario</label>
+                                <h:inputText styleClass="text" id="j_username" required="true" label="usuario" value="pole"/>
+
+                                <label for="password">Contraseña</label>
+                                <h:inputSecret id="j_password"  styleClass="text" required="true"  label="clave" value="0435712fc637ca4c4db9ab272b424683"/>
+
+                                <h:panelGrid columns="3">
+                                    <p:commandButton id="login" ajax="false" action="#{loginMB.login}" value="Login" />
+                                    <h:outputText value="Recordarme" />
+                                    <h:selectBooleanCheckbox id="_spring_security_remember_me" />
+                                </h:panelGrid>
+
+                             </p:fieldset>
+                            <a href='forgotPassword.faces'>Olvidé mi clave de acceso</a><br/><br/>
+                            <p:message for="login" showDetail="true" id="msgSs" display="icon" />
+                       </p:fieldset>
+                            </h:panelGrid>
+                    </p:panel>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

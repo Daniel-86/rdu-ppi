@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.DocumentoExpedienteMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.DocumentoExpediente" >
+    <id column="COD_OFICINA_DOCUM" property="codOficinaDocum" jdbcType="VARCHAR" />
+    <id column="COD_OFICINA_EXPED" property="codOficinaExped" jdbcType="VARCHAR" />
+    <id column="NUM_DOCUM" property="numDocum" jdbcType="DECIMAL" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_DOCUM" property="serDocum" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <id column="TIP_LIBRO" property="tipLibro" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 'false' as QUERYID,
+     COD_OFICINA_DOCUM, COD_OFICINA_EXPED, NUM_DOCUM, NUM_EXPED, SER_DOCUM, SER_EXPED, 
+    TIP_EXPED, TIP_LIBRO, ROW_VERSION
+    from PATENTES.DOCUMENTO_EXPEDIENTE
+    where COD_OFICINA_DOCUM = #{codOficinaDocum,jdbcType=VARCHAR}
+      and COD_OFICINA_EXPED = #{codOficinaExped,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.DOCUMENTO_EXPEDIENTE
+    where COD_OFICINA_DOCUM = #{codOficinaDocum,jdbcType=VARCHAR}
+      and COD_OFICINA_EXPED = #{codOficinaExped,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.DocumentoExpediente" >
+    insert into PATENTES.DOCUMENTO_EXPEDIENTE (COD_OFICINA_DOCUM, COD_OFICINA_EXPED, 
+      NUM_DOCUM, NUM_EXPED, SER_DOCUM, 
+      SER_EXPED, TIP_EXPED, TIP_LIBRO, 
+      ROW_VERSION)
+    values (#{codOficinaDocum,jdbcType=VARCHAR}, #{codOficinaExped,jdbcType=VARCHAR}, 
+      #{numDocum,jdbcType=DECIMAL}, #{numExped,jdbcType=DECIMAL}, #{serDocum,jdbcType=DECIMAL}, 
+      #{serExped,jdbcType=DECIMAL}, #{tipExped,jdbcType=VARCHAR}, #{tipLibro,jdbcType=VARCHAR}, 
+      #{rowVersion,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.DocumentoExpediente" >
+    insert into PATENTES.DOCUMENTO_EXPEDIENTE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficinaDocum != null" >
+        COD_OFICINA_DOCUM,
+      </if>
+      <if test="codOficinaExped != null" >
+        COD_OFICINA_EXPED,
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficinaDocum != null" >
+        #{codOficinaDocum,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaExped != null" >
+        #{codOficinaExped,jdbcType=VARCHAR},
+      </if>
+      <if test="numDocum != null" >
+        #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="serDocum != null" >
+        #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibro != null" >
+        #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.DocumentoExpediente" >
+    update PATENTES.DOCUMENTO_EXPEDIENTE
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_OFICINA_DOCUM = #{codOficinaDocum,jdbcType=VARCHAR}
+      and COD_OFICINA_EXPED = #{codOficinaExped,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.DocumentoExpediente" >
+    update PATENTES.DOCUMENTO_EXPEDIENTE
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL}
+    where COD_OFICINA_DOCUM = #{codOficinaDocum,jdbcType=VARCHAR}
+      and COD_OFICINA_EXPED = #{codOficinaExped,jdbcType=VARCHAR}
+      and NUM_DOCUM = #{numDocum,jdbcType=DECIMAL}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_DOCUM = #{serDocum,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+      and TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR}
+  </update>
+</mapper>

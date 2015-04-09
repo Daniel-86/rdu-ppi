@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mx.gob.impi.rdu.dto.PromoventeDto>
+	<id_promovente>83</id_promovente>
+	<nombre>Instituto</nombre>
+	<apaterno>Mexicano</apaterno>
+	<amaterno>De la Propiedad Industrial</amaterno>
+	<login>pole</login>
+	<password>0435712fc637ca4c4db9ab272b424683</password>
+	<email>apineda@impi.gob.mx</email>
+	<rfc>PNU010306II8</rfc>
+	<calle_numero>cambio</calle_numero>
+	<numero_exterior>dirección</numero_exterior>
+	<numero_interior>6</numero_interior>
+	<colonia>BONITA</colonia>
+	<codigo_postal>55555</codigo_postal>
+	<telefono>56242800</telefono>
+	<fax></fax>
+	<razon_social>pole &amp; cia</razon_social>
+	<fecha_registro>2006-03-03 11:04:05.0</fecha_registro>
+	<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+	<habilitado>1</habilitado>
+	<id_perfil>1</id_perfil>
+	<descPerfil>Usuarios Maestros</descPerfil>
+	<id_promovente_padre>0</id_promovente_padre>
+	<id_estado>22</id_estado>
+	<descEstado>QUERÉTARO</descEstado>
+	<id_municipio>22002</id_municipio>
+	<descMunicipio>PINAL DE AMOLES</descMunicipio>
+	<tipo_persona>2</tipo_persona>
+        <descTipoPromovente></descTipoPromovente>
+	<cargo>Dirección de Sistemas</cargo>
+	<habilita_marcanet>1</habilita_marcanet>
+	<id_tramite>1</id_tramite>
+	<apoderados class="list">
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>829</id_promovente>
+			<nombre>adriana rios</nombre>
+			<apaterno>Hernandez</apaterno>
+			<amaterno>lll</amaterno>
+			<login>alfa</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>eponce@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-01-26 10:19:19.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+                        <descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+                        <tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>gggg</cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>1354</id_promovente>
+			<nombre>b</nombre>
+			<apaterno>a</apaterno>
+			<amaterno>a</amaterno>
+			<login>a</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>apineda@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-03-15 15:20:23.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>sdfsdf</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>1356</id_promovente>
+			<nombre>a</nombre>
+			<apaterno>sfsaf</apaterno>
+			<amaterno>sfsf</amaterno>
+			<login>dfasf</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>apineda@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-03-15 15:21:33.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>6</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>promovente</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>1357</id_promovente>
+			<nombre>sdfs</nombre>
+			<apaterno>s</apaterno>
+			<amaterno>dfs</amaterno>
+			<login>dfsdfsd</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>apineda@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-03-15 15:23:50.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>sdfs</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>2227</id_promovente>
+			<nombre>a</nombre>
+			<apaterno>a</apaterno>
+			<amaterno>a</amaterno>
+			<login>aaaaaaaa</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>apineda@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-09-17 14:12:06.0</fecha_registro>
+			<fecha_activacion></fecha_activacion>
+                        <habilitado>0</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>a</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>2228</id_promovente>
+			<nombre>a</nombre>
+			<apaterno>a</apaterno>
+			<amaterno>a</amaterno>
+			<login>aaaaaaa</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>apineda@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+			<fax></fax>
+                        <razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-09-17 14:14:02.0</fecha_registro>
+			<fecha_activacion></fecha_activacion>
+                        <habilitado>0</habilitado>
+			<id_perfil>2</id_perfil>
+                        <descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>a</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>2229</id_promovente>
+			<nombre>dsf</nombre>
+			<apaterno>sfdsdf</apaterno>
+			<amaterno>sdfsf</amaterno>
+                        <login>sdfssss</login>
+			<password>d58e3582afa99040e27b92b13c8f2280</password>
+			<email>sdfs@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2007-09-17 14:16:08.0</fecha_registro>
+			<fecha_activacion></fecha_activacion>
+			<habilitado>0</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>sdfsf</cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>3545</id_promovente>
+			<nombre>Brenda</nombre>
+			<apaterno>Moreno</apaterno>
+			<amaterno>Mendoza</amaterno>
+			<login>bmoreno</login>
+			<password>7f5bfba455ab69fa15d0d767f05b9814</password>
+			<email>bmoreno@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2008-09-29 14:25:47.0</fecha_registro>
+			<fecha_activacion>2008-09-29 14:27:54.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>6</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>Especialista</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>3564</id_promovente>
+			<nombre>b</nombre>
+			<apaterno>b</apaterno>
+			<amaterno>b</amaterno>
+			<login>b</login>
+			<password>92eb5ffee6ae2fec3ad71c777531578f</password>
+			<email>bmoreno@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+			<fax></fax>
+                        <razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2008-10-02 13:12:12.0</fecha_registro>
+			<fecha_activacion></fecha_activacion>
+                        <habilitado>0</habilitado>
+			<id_perfil>6</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>b</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5103</id_promovente>
+			<nombre>Francisco Javier</nombre>
+			<apaterno>Roa</apaterno>
+			<amaterno>Botello</amaterno>
+			<login>jroa</login>
+			<password>8960340350524b5c0cc5bbe2bc0e261c</password>
+			<email>jroa@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-15 10:23:54.0</fecha_registro>
+			<fecha_activacion>2010-07-15 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+                        <descTipoPromovente></descTipoPromovente>
+                        <cargo>x</cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5104</id_promovente>
+			<nombre>Erika</nombre>
+			<apaterno>Froylan</apaterno>
+                        <amaterno>Espinosa</amaterno>
+			<login>EFROYLAN</login>
+                        <password>a820a492095f7c54e5828ff6f62bc4b4</password>
+			<email>efroylan@impi.gog.mx</email>
+                        <rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+                        <numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+                        <colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-15 10:43:42.0</fecha_registro>
+			<fecha_activacion>2010-07-15 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado><id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5105</id_promovente>
+			<nombre>NomPrueba</nombre>
+			<apaterno>PatPrueba</apaterno>
+			<amaterno>MatPrueba</amaterno>
+			<login>PRUEBA</login>
+			<password>bc8d59dd17141b22494512d8fffc89d9</password>
+			<email>efroylan@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+                        <colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+			<fax></fax>
+                        <razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-16 12:56:28.0</fecha_registro>
+			<fecha_activacion>2010-07-16 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+                        <descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+                        <descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+                        <tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>Firmante</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5106</id_promovente>
+                        <nombre>Roberto</nombre>
+			<apaterno>Villanueva</apaterno>
+			<amaterno>Martinez</amaterno>
+			<login>TEMP</login>
+			<password>a972681b318c92911a4020c18acf78b6</password>
+			<email>RVILLANUEVA@IMPI.GOB.MX</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-27 13:20:16.0</fecha_registro>
+			<fecha_activacion>2010-07-27 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>6</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5107</id_promovente>
+			<nombre>JOSE IVAN</nombre>
+			<apaterno>LEON</apaterno>
+			<amaterno>ISLAS</amaterno>
+                        <login>IVAN</login>
+			<password>843ea1a9d9986d775b5eb7138698c588</password>
+			<email>JLEON@IMPI.GOB.MX</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+                        <fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-27 13:22:21.0</fecha_registro>
+			<fecha_activacion>2010-07-27 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+                        <descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5108</id_promovente>
+			<nombre>CESAR</nombre>
+			<apaterno>GONZALEZ</apaterno>
+			<amaterno>ZAMORA</amaterno>
+                        <login>CESAR</login>
+			<password>2f1c0484f4e0762e2dd613e214528355</password>
+			<email>CGONZALEZ@IMPI.GOB.MX</email>
+                        <rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+                        <colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-27 13:22:48.0</fecha_registro>
+			<fecha_activacion>2010-07-27 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+                        <id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5109</id_promovente>
+			<nombre>RAUL</nombre>
+			<apaterno>LAGUNA</apaterno>
+			<amaterno>LAGUNA</amaterno>
+			<login>RAUL</login>
+			<password>cddd657b6fea683fc1a93c4f359e54cb</password>
+			<email>RLAGUNA@IMPI.GOB.MX</email>
+                        <rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+                        <colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-07-27 13:23:34.0</fecha_registro>
+			<fecha_activacion>2010-07-27 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+                        <id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+                        <id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+                        <cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>5112</id_promovente>
+			<nombre>Brenda</nombre>
+			<apaterno>M</apaterno>
+			<amaterno>M</amaterno>
+			<login>BMMP</login>
+			<password>ebe8bdd53b9c99d87dca0e5d36510036</password>
+			<email>bmoreno@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2010-11-25 13:44:39.0</fecha_registro>
+			<fecha_activacion>2010-11-25 00:00:00.0</fecha_activacion>
+                        <habilitado>1</habilitado>
+			<id_perfil>6</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>9951</id_promovente>
+			<nombre>Eduardo</nombre>
+			<apaterno>Conde</apaterno>
+			<amaterno>Angeles</amaterno>
+			<login>econde</login>
+			<password>50b322e0b8f60f055f9601ea0f4816fc</password>
+			<email>econde@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2011-03-17 14:48:44.0</fecha_registro>
+			<fecha_activacion>2011-03-17 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+                        <id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>9952</id_promovente>
+			<nombre>Matriz SA</nombre>
+			<apaterno></apaterno>
+			<amaterno></amaterno>
+			<login>matrizsa</login>
+			<password>371afac2eea016179b26ec99d10c4bcc</password>
+			<email>rvillanueva@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+                        <fax></fax>
+                        <razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2011-03-25 14:55:22.0</fecha_registro>
+			<fecha_activacion>2011-03-25 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>9967</id_promovente>
+			<nombre>funcionario</nombre>
+			<apaterno>IMPI</apaterno>
+			<amaterno>IMPI</amaterno>
+			<login>funcionario</login>
+			<password>cc7a84634199040d54376793842fe035</password>
+			<email>rvillanueva@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>CAMBIO DIRECCIÃN 6</calle_numero>
+			<numero_exterior>DIRECCIÃN</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>POLE&amp;CIA</razon_social>
+			<fecha_registro>2012-04-10 13:53:18.0</fecha_registro>
+			<fecha_activacion>2012-04-10 00:00:00.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>18</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo></cargo>
+			<habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>340</id_promovente>
+			<nombre>usuarioa</nombre>
+			<apaterno>usuarioa</apaterno>
+			<amaterno>usuarioa</amaterno>
+			<login>ua1</login>
+			<password>f852acbdfd92a3a13eee57d5c01b519d</password>
+			<email>eponce@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+			<colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+                        <telefono>56242800</telefono>
+                        <fax></fax>
+                        <razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2006-09-15 09:34:21.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+                        <descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+			<descTipoPromovente></descTipoPromovente>
+			<cargo>Director</cargo>
+			<habilita_marcanet>1</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+		<mx.gob.impi.rdu.dto.ApoderadoDto tipo='hermano'>
+			<id_promovente>341</id_promovente>
+			<nombre>usuariob</nombre>
+			<apaterno>usuariob</apaterno>
+			<amaterno>usuariob</amaterno>
+			<login>ua2</login>
+			<password>0cc175b9c0f1b6a831c399e269772661</password>
+			<email>eponce@impi.gob.mx</email>
+			<rfc>PNU010306II8</rfc>
+			<calle_numero>cambio</calle_numero>
+			<numero_exterior>dirección</numero_exterior>
+			<numero_interior>6</numero_interior>
+                        <colonia>BONITA</colonia>
+			<codigo_postal>55555</codigo_postal>
+			<telefono>56242800</telefono>
+			<fax></fax>
+			<razon_social>pole &amp; cia</razon_social>
+			<fecha_registro>2006-09-15 09:35:17.0</fecha_registro>
+			<fecha_activacion>2007-05-14 10:05:09.0</fecha_activacion>
+			<habilitado>1</habilitado>
+			<id_perfil>2</id_perfil>
+			<descPerfil></descPerfil>
+			<id_promovente_padre>83</id_promovente_padre>
+			<id_estado>22</id_estado>
+			<descEstado>QUERÉTARO</descEstado>
+			<id_municipio>22002</id_municipio>
+			<descMunicipio>PINAL DE AMOLES</descMunicipio>
+			<tipo_persona>2</tipo_persona>
+                        <descTipoPromovente></descTipoPromovente>
+			<cargo>Director</cargo>
+                        <habilita_marcanet>0</habilita_marcanet>
+		</mx.gob.impi.rdu.dto.ApoderadoDto>
+	</apoderados>
+</mx.gob.impi.rdu.dto.PromoventeDto>

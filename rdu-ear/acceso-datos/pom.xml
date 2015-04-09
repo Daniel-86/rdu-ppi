@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mx.gob.impi.rdu</groupId>
+	<artifactId>acceso-datos</artifactId>
+	<version>1.0.1</version>
+        <name>acceso-datos</name>
+	<packaging>jar</packaging>
+	<description>Mappers y Configuracion para el acceso de datos</description>
+
+        <properties>
+            <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+        </properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+	
+            <!-- entities de ejemplo -->
+            <dependency>
+                <groupId>mx.gob.impi.rdu.persistence.model</groupId>
+                <artifactId>rdu-model</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <!--
+            <dependency>
+           	<groupId>mx.gob.impi.rdu.persistence.model</groupId>
+           	<artifactId>sniim-model</artifactId>
+           	<version>1.0</version>
+            </dependency>
+            -->
+            <!-- Provedor de BD -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>11.2.0.2.0</version>
+            </dependency>
+
+            <dependency>
+                    <groupId>commons-dbcp</groupId>
+                    <artifactId>commons-dbcp</artifactId>
+                    <version>1.2</version>
+            </dependency>
+
+            <!-- MyIBatis -->
+            <dependency>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                    <version>1.0.0</version>
+            </dependency>
+		
+            <!-- SPRING -->
+            <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context-support</artifactId>
+                    <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-orm</artifactId>
+                    <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                    <version>${org.springframework.version}</version>
+                    <scope>test</scope>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.security</groupId>
+              <artifactId>spring-security-core</artifactId>
+              <version>${org.springframework.version} </version>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.security</groupId>
+              <artifactId>spring-security-web</artifactId>
+              <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.security</groupId>
+              <artifactId>spring-security-taglibs</artifactId>
+              <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.security</groupId>
+              <artifactId>spring-security-config</artifactId>
+              <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.springframework.security</groupId>
+              <artifactId>spring-security-acl</artifactId>
+              <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+
+            <dependency>
+              <groupId>net.sourceforge.jtds</groupId>
+              <artifactId>jtds</artifactId>
+              <version>1.2.4</version>
+             </dependency>
+
+		
+	</dependencies>
+
+
+	
+	<repositories>
+             <!--
+		<repository>
+			<id>m2repo</id>
+			<name>m2repo</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+
+		<repository>
+			<id>global</id>
+			<name>External Mirror of Central Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<id>repo.maven</id>
+			<url>http://repo1.maven.org/maven2-repoclean-java.net</url>
+		</repository>
+
+                <repository>
+                  <id>oracleReleases</id>
+                  <name>Oracle Released Java Packages</name>
+                  <url>http://download.oracle.com/maven</url>
+                  <layout>default</layout>
+                </repository>
+              -->
+
+                <repository>
+                    <id>infotec-repo</id>
+                    <name>INFOTEC Repository</name>
+                    <url>http://200.38.189.150/artifactory/infotec</url>
+                </repository>
+
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>repo1org</id>
+			<name>External Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.ReivindicacionMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Reivindicacion" >
+        <id column="ID_REIVINDICACION" property="idReivindicacion" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+        <result column="DESCRIPCION" property="descripcion" jdbcType="CLOB"/>
+        <result column="ORDEN" property="orden" jdbcType="DECIMAL" />
+        <result column="ID_IDIOMAS" property="idIdiomas" jdbcType="DECIMAL" />        
+    </resultMap>
+    <select id="selectSelective" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Reivindicacion" >
+    select
+    ID_REIVINDICACION, ID_TRAMITE, DESCRIPCION, ORDEN, ID_IDIOMAS
+    from Reivindicacion
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    order by orden
+    </select>
+    <delete id="deleteByTramite" parameterType="java.lang.Long" >
+    delete from Reivindicacion
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Reivindicacion" >
+    update Reivindicacion
+        <set >
+            <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+            </if>
+            <if test="descripcion != null" >
+        DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+            </if>
+            <if test="orden != null" >
+        ORDEN = #{orden,jdbcType=DECIMAL},
+            </if>
+            <if test="idIdiomas != null" >
+        ID_IDIOMAS = #{idIdiomas,jdbcType=DECIMAL}
+            </if>
+        </set>
+    where ID_REIVINDICACION = #{idReivindicacion,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Reivindicacion" >
+    update Reivindicacion
+    set ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+      ORDEN = #{orden,jdbcType=DECIMAL},
+      ID_IDIOMAS = #{idIdiomas,jdbcType=DECIMAL}
+    where ID_REIVINDICACION = #{idReivindicacion,jdbcType=DECIMAL}
+    </update>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Reivindicacion" >
+        <selectKey keyProperty="idReivindicacion" resultType="long" order="AFTER">
+            SELECT REIVINDICACION_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    INSERT INTO REIVINDICACION
+     (
+     ID_REIVINDICACION,
+     ID_TRAMITE,
+     DESCRIPCION,
+     ORDEN, ID_IDIOMAS
+     )
+    VALUES(
+       REIVINDICACION_SEQ.NEXTVAL,
+       #{idTramite,jdbcType=DECIMAL},
+       #{descripcion,jdbcType=BLOB},
+       #{orden,jdbcType=DECIMAL},
+       #{idIdiomas,jdbcType=DECIMAL}
+       )
+    </insert>
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.KffoliosNotificacionMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion" >
+    <result column="codbarras" property="codbarras" jdbcType="VARCHAR" />
+    <result column="cod_Interesado" property="codInteresado" jdbcType="DECIMAL" />
+    <result column="secuencia" property="secuencia" jdbcType="DECIMAL" />
+    <result column="fecha_envio" property="fechaEnvio" jdbcType="TIMESTAMP" />
+    <result column="fecha_recepcion_sepomex" property="fechaRecepcionSepomex" jdbcType="TIMESTAMP" />
+    <result column="fecha_notificacion" property="fechaNotificacion" jdbcType="TIMESTAMP" />
+    <result column="fecha_devolucion" property="fechaDevolucion" jdbcType="TIMESTAMP" />
+    <result column="tipo_entrega" property="tipoEntrega" jdbcType="VARCHAR" />
+    <result column="tipo_devolucion" property="tipoDevolucion" jdbcType="VARCHAR" />
+    <result column="tipo_cedula" property="tipoCedula" jdbcType="VARCHAR" />
+    <result column="tipo_status" property="tipoStatus" jdbcType="VARCHAR" />
+    <result column="nombre_recibio" property="nombreRecibio" jdbcType="VARCHAR" />
+    <result column="cedula_identificacion" property="cedulaIdentificacion" jdbcType="VARCHAR" />
+    <result column="codbarras_sepomex" property="codbarrasSepomex" jdbcType="VARCHAR" />
+    <result column="lote_sepomex" property="loteSepomex" jdbcType="VARCHAR" />
+    <result column="nombre" property="nombre" jdbcType="VARCHAR" />
+    <result column="calle" property="calle" jdbcType="VARCHAR" />
+    <result column="colonia" property="colonia" jdbcType="VARCHAR" />
+    <result column="cod_postal" property="codPostal" jdbcType="VARCHAR" />
+    <result column="cve_usuario" property="cveUsuario" jdbcType="VARCHAR" />
+    <result column="observaciones" property="observaciones" jdbcType="VARCHAR" />
+    <result column="fecha_modificacion" property="fechaModificacion" jdbcType="TIMESTAMP" />
+    <result column="cod_relacion" property="codRelacion" jdbcType="DECIMAL" />
+    <result column="codbarras_notificacion" property="codbarrasNotificacion" jdbcType="VARCHAR" />
+    <result column="poblacion" property="poblacion" jdbcType="VARCHAR" />
+    <result column="estado" property="estado" jdbcType="VARCHAR" />
+    <result column="cr" property="cr" jdbcType="DECIMAL" />
+    <result column="referencia" property="referencia" jdbcType="VARCHAR" />
+    <result column="cve_usuario_envio" property="cveUsuarioEnvio" jdbcType="VARCHAR" />
+    <result column="ind_citatorio" property="indCitatorio" jdbcType="DECIMAL" />
+    <result column="fecha_captura" property="fechaCaptura" jdbcType="TIMESTAMP" />
+    <result column="cve_usuario_capturo" property="cveUsuarioCapturo" jdbcType="VARCHAR" />
+    <result column="ind_notificado" property="indNotificado" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion" >
+    insert into KFFOLIO_NOTIFICACION (codbarras,			
+                                        cod_Interesado,
+                                        secuencia,
+                                        fecha_envio,
+                                        fecha_recepcion_sepomex,
+                                        fecha_notificacion,
+                                        fecha_devolucion,
+                                        tipo_entrega,
+                                        tipo_devolucion,
+                                        tipo_cedula,
+                                        tipo_status,
+                                        nombre_recibio,
+                                        cedula_identificacion,
+                                        codbarras_sepomex,
+                                        lote_sepomex,
+                                        nombre,
+                                        calle,
+                                        colonia,
+                                        cod_postal,
+                                        cve_usuario,
+                                        observaciones,
+                                        fecha_modificacion,
+                                        cod_relacion,
+                                        codbarras_notificacion,
+                                        poblacion,
+                                        estado,
+                                        cr,
+                                        referencia,
+                                        cve_usuario_envio,
+                                        ind_citatorio,
+                                        fecha_captura,
+                                        cve_usuario_capturo,
+                                        ind_notificado)
+                values (
+                #{codbarras,jdbcType=VARCHAR},
+                #{codInteresado,jdbcType=DECIMAL},
+                #{secuencia,jdbcType=DECIMAL},
+                #{fechaEnvio,jdbcType=TIMESTAMP},
+                #{fechaRecepcionSepomex,jdbcType=TIMESTAMP},
+                #{fechaNotificacion,jdbcType=TIMESTAMP},
+                #{fechaDevolucion,jdbcType=TIMESTAMP},
+                #{tipoEntrega,jdbcType=VARCHAR},
+                #{tipoDevolucion,jdbcType=VARCHAR},
+                #{tipoCedula,jdbcType=VARCHAR},
+                #{tipoStatus,jdbcType=VARCHAR},
+                #{nombreRecibio,jdbcType=VARCHAR},
+                #{cedulaIdentificacion,jdbcType=VARCHAR},
+                #{codbarrasSepomex,jdbcType=VARCHAR},
+                #{loteSepomex,jdbcType=VARCHAR},
+                #{nombre,jdbcType=VARCHAR},
+                #{calle,jdbcType=VARCHAR},
+                #{colonia,jdbcType=VARCHAR},
+                #{codPostal,jdbcType=VARCHAR},
+                #{cveUsuario,jdbcType=VARCHAR},
+                #{observaciones,jdbcType=VARCHAR},
+                #{fechaModificacion,jdbcType=TIMESTAMP},
+                #{codRelacion,jdbcType=DECIMAL},
+                #{codbarrasNotificacion,jdbcType=VARCHAR},
+                #{poblacion,jdbcType=VARCHAR},
+                #{estado,jdbcType=VARCHAR},
+                #{cr,jdbcType=DECIMAL},
+                #{referencia,jdbcType=VARCHAR},
+                #{cveUsuarioEnvio,jdbcType=VARCHAR},
+                #{indCitatorio,jdbcType=DECIMAL},
+                #{fechaCaptura,jdbcType=TIMESTAMP},
+                #{cveUsuarioCapturo,jdbcType=VARCHAR},
+                #{indNotificado,jdbcType=DECIMAL}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion" >
+    insert into KFFOLIO_NOTIFICACION (codbarras,			
+                                        cod_Interesado,
+                                        secuencia,
+                                        fecha_envio,
+                                        fecha_recepcion_sepomex,
+                                        fecha_notificacion,
+                                        fecha_devolucion,
+                                        tipo_entrega,
+                                        tipo_devolucion,
+                                        tipo_cedula,
+                                        tipo_status,
+                                        nombre_recibio,
+                                        cedula_identificacion,
+                                        codbarras_sepomex,
+                                        lote_sepomex,
+                                        nombre,
+                                        calle,
+                                        colonia,
+                                        cod_postal,
+                                        cve_usuario,
+                                        observaciones,
+                                        fecha_modificacion,
+                                        cod_relacion,
+                                        codbarras_notificacion,
+                                        poblacion,
+                                        estado,
+                                        cr,
+                                        referencia,
+                                        cve_usuario_envio,
+                                        ind_citatorio,
+                                        fecha_captura,
+                                        cve_usuario_capturo,
+                                        ind_notificado)
+                values (
+                #{codbarras,jdbcType=VARCHAR},
+                #{codInteresado,jdbcType=DECIMAL},
+                #{secuencia,jdbcType=DECIMAL},
+                #{fechaEnvio,jdbcType=TIMESTAMP},
+                #{fechaRecepcionSepomex,jdbcType=TIMESTAMP},
+                #{fechaNotificacion,jdbcType=TIMESTAMP},
+                #{fechaDevolucion,jdbcType=TIMESTAMP},
+                #{tipoEntrega,jdbcType=VARCHAR},
+                #{tipoDevolucion,jdbcType=VARCHAR},
+                #{tipoCedula,jdbcType=VARCHAR},
+                #{tipoStatus,jdbcType=VARCHAR},
+                #{nombreRecibio,jdbcType=VARCHAR},
+                #{cedulaIdentificacion,jdbcType=VARCHAR},
+                #{codbarrasSepomex,jdbcType=VARCHAR},
+                #{loteSepomex,jdbcType=VARCHAR},
+                #{nombre,jdbcType=VARCHAR},
+                #{calle,jdbcType=VARCHAR},
+                #{colonia,jdbcType=VARCHAR},
+                #{codPostal,jdbcType=VARCHAR},
+                #{cveUsuario,jdbcType=VARCHAR},
+                #{observaciones,jdbcType=VARCHAR},
+                #{fechaModificacion,jdbcType=TIMESTAMP},
+                #{codRelacion,jdbcType=DECIMAL},
+                #{codbarrasNotificacion,jdbcType=VARCHAR},
+                #{poblacion,jdbcType=VARCHAR},
+                #{estado,jdbcType=VARCHAR},
+                #{cr,jdbcType=DECIMAL},
+                #{referencia,jdbcType=VARCHAR},
+                #{cveUsuarioEnvio,jdbcType=VARCHAR},
+                #{indCitatorio,jdbcType=DECIMAL},
+                #{fechaCaptura,jdbcType=TIMESTAMP},
+                #{cveUsuarioCapturo,jdbcType=VARCHAR},
+                #{indNotificado,jdbcType=DECIMAL}
+      )
+  </insert>
+
+  <select id="selectByOficioSalida" parameterType="map" resultMap="BaseResultMap">
+        SELECT codbarras,			
+                                        cod_Interesado,
+                                        secuencia,
+                                        fecha_envio,
+                                        fecha_recepcion_sepomex,
+                                        fecha_notificacion,
+                                        fecha_devolucion,
+                                        tipo_entrega,
+                                        tipo_devolucion,
+                                        tipo_cedula,
+                                        tipo_status,
+                                        nombre_recibio,
+                                        cedula_identificacion,
+                                        codbarras_sepomex,
+                                        lote_sepomex,
+                                        nombre,
+                                        calle,
+                                        colonia,
+                                        cod_postal,
+                                        cve_usuario,
+                                        observaciones,
+                                        fecha_modificacion,
+                                        cod_relacion,
+                                        codbarras_notificacion,
+                                        poblacion,
+                                        estado,
+                                        cr,
+                                        referencia,
+                                        cve_usuario_envio,
+                                        ind_citatorio,
+                                        fecha_captura,
+                                        cve_usuario_capturo,
+                                        ind_notificado
+        FROM KFFOLIOS_NOTIFICACION
+        WHERE CODBARRAS = #{codbarras,jdbcType=VARCHAR} 
+        
+    </select>
+</mapper>

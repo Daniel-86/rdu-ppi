@@ -1,0 +1,18 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolPatentes" var="msgPatente"/>
+    <h:panelGrid columns="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+        <h:outputText value="#{msgPatente['datos.contacto.telefono']}"/>
+        <p:inputText id="telefonoInput#{subfix}" value="#{managedBean.datosContacto.telefono}" size="30" maxlength="40"/>
+        <h:outputText value="#{msgPatente['datos.contacto.fax']}"/>
+        <p:inputText id="faxInput#{subfix}" value="#{managedBean.datosContacto.fax}" size="30"  maxlength="40"/>
+        <h:outputText value="#{msgPatente['datos.contacto.correo']}"/>
+        <p:inputText id="correoInput#{subfix}" value="#{managedBean.datosContacto.correoelectronico}" size="30" validatorMessage="Correo invalido" maxlength="40"/>
+        
+        
+    </h:panelGrid>
+</ui:composition>

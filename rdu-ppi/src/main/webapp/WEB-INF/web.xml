@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    <!-- colocar cuando se implemente spring security en PASE
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+       /WEB-INF/spring/applicationContext-main.xml
+       /WEB-INF/spring/applicationContext-service.xml
+       /WEB-INF/spring/applicationContext-security.xml
+        </param-value>
+    </context-param>
+    -->
+    <!-- quitar cuando se implemente spring security en PASE -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+           /WEB-INF/spring/applicationContext-main.xml
+           /WEB-INF/spring/applicationContext-service.xml
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/jsf/faces-config.xml, /WEB-INF/jsf/catalogo-faces-config.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>none</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--servlet>
+        <servlet-name>IniciarAcciones</servlet-name>
+        <servlet-class>mx.gob.impi.rdu.util.IniciarAcciones</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet-->
+    <servlet>
+        <servlet-name>MostrarReporteServlet</servlet-name>
+        <servlet-class>mx.gob.impi.rdu.exposition.flujosGenerales.servlet.MostrarReporteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MostrarImagenServlet</servlet-name>
+        <servlet-class>mx.gob.impi.rdu.exposition.flujosGenerales.servlet.MostrarImagenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.faces</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>CustomCharacterEncodingFilter</filter-name>
+        <filter-class>mx.gob.impi.rdu.util.CustomCharacterEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CustomCharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Filtros para la seguridad, colocar cuando PASE se integre spring security -->
+    <!--
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    -->
+    <!-- Filtros para la seguridad con POST, quitar cuando PASE se integre spring security -->
+    <filter>
+        <filter-name>Filtro</filter-name>
+        <filter-class>mx.gob.impi.rdu.util.security.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <url-pattern>*.faces</url-pattern>
+    </filter-mapping>
+    <!-- configuracion para subir archivos -->
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>51200</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    <!-- Si se detecta una vista que ha expirado, muestra esta página de error -->
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/content/common/exception/ErrorViewExpired.faces</location>
+    </error-page>
+    <!-- Página a mostrar cuando se realice la solicitud de un recurso inexistente -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/content/common/exception/PageNotFound.faces</location>
+    </error-page>
+    <!-- Atrapa cualquier error que provenga del lado del server -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/content/common/exception/ServerError.faces</location>
+    </error-page>
+    <servlet-mapping>
+        <servlet-name>MostrarReporteServlet</servlet-name>
+        <url-pattern>/MostrarReporte</url-pattern>
+    </servlet-mapping>
+    <!-- Cada sesión tendrá un timeout por inactividad de 40 minutos -->
+    <servlet-mapping>
+        <servlet-name>MostrarImagenServlet</servlet-name>
+        <url-pattern>/MostrarImagen</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+</web-app>

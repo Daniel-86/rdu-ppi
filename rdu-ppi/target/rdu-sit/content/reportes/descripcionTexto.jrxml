@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="421" leftMargin="87" rightMargin="87" topMargin="87" bottomMargin="87" uuid="5a1dd755-dfa3-4721-a040-ed60915f77de">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="desReivindicaciones" class="java.lang.String"/>
+	<field name="textoAdicional" class="java.lang.String"/>
+	<field name="tituloDescripcion" class="java.lang.String"/>
+	<field name="paginas" class="java.lang.Integer"/>
+	<variable name="Pagina" class="java.lang.Integer" incrementType="Page">
+		<variableExpression><![CDATA[$V{Pagina} + 1]]></variableExpression>
+		<initialValueExpression><![CDATA[3]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="642">
+			<printWhenExpression><![CDATA[!$F{descripcion}.isEmpty()]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="205c466e-7109-4767-b2e8-16bbe7790504" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="31" width="421" height="611"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5501e512-2382-4456-aacf-8bf5c57cee59" stretchType="RelativeToTallestObject" x="0" y="0" width="421" height="31"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tituloDescripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="642">
+			<printWhenExpression><![CDATA[!$F{desReivindicaciones}.isEmpty()]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="205c466e-7109-4767-b2e8-16bbe7790504" x="0" y="39" width="421" height="603"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desReivindicaciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8c06b493-a6ae-4d90-84d0-407fb9e61fd1" x="58" y="13" width="311" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REIVINDICACIONES]]></text>
+			</staticText>
+		</band>
+		<band height="642">
+			<printWhenExpression><![CDATA[!$F{textoAdicional}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement uuid="8c06b493-a6ae-4d90-84d0-407fb9e61fd1" x="59" y="14" width="311" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8273f3a4-ea81-41bb-b13a-fdba19b01adb" x="0" y="35" width="421" height="607"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{textoAdicional}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26">
+			<textField>
+				<reportElement uuid="709d7693-cc88-4cbc-90da-3b4bfd76fa41" x="0" y="0" width="421" height="26"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} + $F{paginas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.EstablecimientoXPromomarcaMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.EstablecimientoXPromomarca" >
+    <id column="ID_DOMICILIO" property="idDomicilio" jdbcType="DECIMAL" />
+    <id column="ID_TRAMITE_PROMOCION_MARCA" property="idTramitePromocionMarca" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from ESTABLECIMIENTO_X_PROMOMARCA
+    where ID_DOMICILIO = #{idDomicilio,jdbcType=DECIMAL}
+      and ID_TRAMITE_PROMOCION_MARCA = #{idTramitePromocionMarca,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.EstablecimientoXPromomarca" >
+      insert into ESTABLECIMIENTO_X_PROMOMARCA (ID_DOMICILIO, ID_TRAMITE_PROMOCION_MARCA)
+      values (#{idDomicilio,jdbcType=DECIMAL}, #{idTramitePromocionMarca,jdbcType=DECIMAL})
+  </insert>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select ID_DOMICILIO, ID_TRAMITE_PROMOCION_MARCA
+    from ESTABLECIMIENTO_X_PROMOMARCA
+    where ID_TRAMITE_PROMOCION_MARCA = #{idTramitePromocionMarca,jdbcType=DECIMAL}
+  </select>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.FolioMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Folio" >
+    <id column="ID_FOLIO" property="idFolio" jdbcType="DECIMAL" />
+    <result column="ID_AREA" property="idArea" jdbcType="DECIMAL" />
+    <result column="TIPO_FOLIO" property="tipoFolio" jdbcType="VARCHAR" />
+    <result column="FIGURA_CLASIFICACION" property="figuraClasificacion" jdbcType="VARCHAR" />
+    <result column="FOLIO" property="folio" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select  ID_FOLIO, ID_AREA, TIPO_FOLIO, FIGURA_CLASIFICACION, FOLIO
+    from FOLIO
+    where ID_FOLIO = #{idFolio,jdbcType=DECIMAL}
+  </select>
+   <select id="selectDynamicFolio" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Folio" >
+    select  ID_FOLIO, ID_AREA, TIPO_FOLIO, FIGURA_CLASIFICACION, FOLIO
+    from FOLIO
+        <where>     
+         <if test="idFolio != null" >
+                AND    ID_FOLIO = #{idFolio,jdbcType=DECIMAL}
+            </if>          
+            <if test="tipoFolio != null" >
+                AND    TIPO_FOLIO = #{tipoFolio,jdbcType=VARCHAR}
+            </if>           
+           <if test="figuraClasificacion != null" >
+                AND FIGURA_CLASIFICACION = #{figuraClasificacion,jdbcType=VARCHAR}
+            </if>
+          </where>
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from FOLIO
+    where ID_FOLIO = #{idFolio,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Folio" >
+    insert into FOLIO (ID_FOLIO, ID_AREA, TIPO_FOLIO, 
+      FIGURA_CLASIFICACION, FOLIO)
+    values (#{idFolio,jdbcType=DECIMAL}, #{idArea,jdbcType=DECIMAL}, #{tipoFolio,jdbcType=VARCHAR}, 
+      #{figuraClasificacion,jdbcType=VARCHAR}, #{folio,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Folio" >
+    insert into FOLIO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idFolio != null" >
+        ID_FOLIO,
+      </if>
+      <if test="idArea != null" >
+        ID_AREA,
+      </if>
+      <if test="tipoFolio != null" >
+        TIPO_FOLIO,
+      </if>
+      <if test="figuraClasificacion != null" >
+        FIGURA_CLASIFICACION,
+      </if>
+      <if test="folio != null" >
+        FOLIO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idFolio != null" >
+        #{idFolio,jdbcType=DECIMAL},
+      </if>
+      <if test="idArea != null" >
+        #{idArea,jdbcType=DECIMAL},
+      </if>
+      <if test="tipoFolio != null" >
+        #{tipoFolio,jdbcType=VARCHAR},
+      </if>
+      <if test="figuraClasificacion != null" >
+        #{figuraClasificacion,jdbcType=VARCHAR},
+      </if>
+      <if test="folio != null" >
+        #{folio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Folio" >
+    update FOLIO
+    <set >
+      <if test="idArea != null" >
+        ID_AREA = #{idArea,jdbcType=DECIMAL},
+      </if>
+      <if test="tipoFolio != null" >
+        TIPO_FOLIO = #{tipoFolio,jdbcType=VARCHAR},
+      </if>
+      <if test="figuraClasificacion != null" >
+        FIGURA_CLASIFICACION = #{figuraClasificacion,jdbcType=VARCHAR},
+      </if>
+      <if test="folio != null" >
+        FOLIO = #{folio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_FOLIO = #{idFolio,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Folio" >
+    update FOLIO
+    set ID_AREA = #{idArea,jdbcType=DECIMAL},
+      TIPO_FOLIO = #{tipoFolio,jdbcType=VARCHAR},
+      FIGURA_CLASIFICACION = #{figuraClasificacion,jdbcType=VARCHAR},
+      FOLIO = #{folio,jdbcType=DECIMAL}
+    where ID_FOLIO = #{idFolio,jdbcType=DECIMAL}
+  </update>
+</mapper>

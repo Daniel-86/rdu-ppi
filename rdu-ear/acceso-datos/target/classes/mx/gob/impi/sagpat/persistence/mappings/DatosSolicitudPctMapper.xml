@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.DatosSolicitudPctMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.DatosSolicitudPct" >
+    <id column="ID_SOLICITUD_PCT" property="idSolicitudPct" jdbcType="VARCHAR" />
+    <result column="FECHA_SOLICITUD_PCT" property="fechaSolicitudPct" jdbcType="VARCHAR" />
+    <result column="FECHA_PUBLICACION_PCT" property="fechaPublicacionSolicitudPct" jdbcType="VARCHAR" />
+    <result column="NUMERO_PUBLICACION_PCT" property="numeroSolicitudPct" jdbcType="VARCHAR" />
+    <result column="TIPO_PUBLICACION_PCT" property="tipoSolicitudPct" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapMU" type="mx.gob.impi.sagpat.persistence.model.DatosSolicitudPctMU" >
+    <id column="ID_SOLICITUD_PCT" property="idSolicitudPct" jdbcType="VARCHAR" />
+    <result column="DATOS" property="datos" jdbcType="VARCHAR" />
+    <result column="CODIGO" property="codigo" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  SELECT
+    PATENTES.FN_SUBSTRLONG_PCT(SUBSTR(#{idSolicitudPct},5,2)||SUBSTR(REPLACE(#{idSolicitudPct},'/',''),8),'AN') ID_SOLICITUD_PCT,
+    PATENTES.FN_SUBSTRLONG_PCT(SUBSTR(#{idSolicitudPct},5,2)||SUBSTR(REPLACE(#{idSolicitudPct},'/',''),8),'AD') FECHA_SOLICITUD_PCT,
+    PATENTES.FN_SUBSTRLONG_PCT(SUBSTR(#{idSolicitudPct},5,2)||SUBSTR(REPLACE(#{idSolicitudPct},'/',''),8),'DP') FECHA_PUBLICACION_PCT,
+    SUBSTR(PATENTES.FN_SUBSTRLONG_PCT(SUBSTR(#{idSolicitudPct},5,2)||SUBSTR(REPLACE(#{idSolicitudPct},'/',''),8),'PN'),1,14) NUMERO_PUBLICACION_PCT,
+    SUBSTR(PATENTES.FN_SUBSTRLONG_PCT(SUBSTR(#{idSolicitudPct},5,2)||SUBSTR(REPLACE(#{idSolicitudPct},'/',''),8),'PN'),-2) TIPO_PUBLICACION_PCT
+  FROM DUAL
+  </select>
+  <select id="selectPCT" resultMap="BaseResultMapMU" parameterType="mx.gob.impi.sagpat.persistence.model.DatosSolicitudPct" >
+    SELECT VAL_DATO_LONG_PCT as DATOS,COD_DATO_PCT as CODIGO from solicitud_del_pct  
+    WHERE ID_SOLICITUD_PCT = SUBSTR(#{idSolicitudPct,jdbcType=VARCHAR}, 5, 2 ) || SUBSTR(#{idSolicitudPct,jdbcType=VARCHAR}, 9, 2 ) || SUBSTR(#{idSolicitudPct,jdbcType=VARCHAR}, 12, 6 )
+    AND COD_DATO_PCT in ('AN', 'AD',  'DP','PN') 
+  </select>      
+      
+</mapper>

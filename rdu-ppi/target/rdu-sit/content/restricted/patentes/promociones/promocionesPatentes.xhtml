@@ -1,0 +1,346 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="content">
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.CapturaSolPatentes" var="msgPatente"/>
+        <script type="text/javascript">
+
+            //<![CDATA[
+
+            // Trim para las cadenas
+            if (!String.prototype.trim) {
+                String.prototype.trim = function() {
+                    return this.replace(/^\s+|\s+$/g, '');
+                };
+            }
+
+            // Para habilitar/deshabilitar el botón Seleccionar
+            function toggleSeleccionar(habilitado) {
+                var botonSeleccionar = getElement("tab:cmdSeleccionar");
+                botonSeleccionar.disabled = !habilitado;
+
+                if (habilitado) {
+                    botonSeleccionar.classList.remove("ui-state-disabled");
+                } else {
+                    botonSeleccionar.classList.add("ui-state-disabled");
+                }
+            }
+
+            // Checar que se hayan capturado los campos requeridos
+            function checkSeleccionar() {
+                toggleSeleccionar(datosValidos());
+            }
+
+            // Indica si los datos son válidos
+            function datosValidos() {
+
+                // Validar la selección del año
+                var anioOficio = getElement("tab:anioOficio_input");
+                if (!anioOficio) {
+                    return;
+                }
+
+                // Validar la captura del folio
+                var folioOficio = getElement("tab:folioOficio");
+                var valor = folioOficio.value.trim();
+                var folioValido = false;
+
+                // Validar que el folio sea numérico
+                if (valor !== '') {
+                    folioValido = !isNaN(valor);
+                }
+
+                var habilitado = (anioOficio.value !== '') && folioValido;
+
+                return habilitado;
+            }
+
+            function getElement(id) {
+                return document.getElementById(id);
+            }
+
+            // Verificar el estado cuando se carga el documento
+            document.body.onload = checkSeleccionar;
+
+            //]]>
+
+        </script>
+
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.promociones_patentes" var="msg"/>
+        <c:set var="conOficio" value="#{!sessionScope['ocultarPanel']}"/>
+
+        <h:form id="formulario" style="display: inline" prependId="false">
+            <p:messages  id="msgAviso"  />
+            <h:panelGrid id="pnlErrores" columns="1" cellpadding="4" style="font-family:sans-serif; font-size: 8pt; text-align: left;">
+                <p:dataTable id="listaError" var="error"
+                             value="#{promocionesMB.errores}"
+                             style="display: inline"
+                             rendered="#{promocionesMB.verErrores}">
+                    <p:column style="text-align: left" >
+                        <h:outputText value="#{error}" style="font-family:sans-serif; font-size: 8pt; text-align: left; color: red" />
+                    </p:column>
+                </p:dataTable>
+            </h:panelGrid>
+
+
+            <p:tabView id="tab" styleClass="TabFondoPrincipal">
+                <p:tab title="#{msg['titulo.tab.TipoDoc']}">
+
+                    <!--=========================== BEGIN PANEL OFICIO ===================== -->
+
+                    <p:panel header="#{msg['prom.title.oficio']}" rendered="#{conOficio}">
+                        <h:panelGrid columns="7" cellpadding="7" style="font-family:sans-serif; font-size: 10pt; text-align: left">
+                            <h:outputText  value="#{msg['prom.oficio.oficina']}" style="font-weight:normal;width: 20%"  ></h:outputText>
+                            <h:inputText  value="#{promocionesMB.oficinaOficio}" readonly="true"></h:inputText>
+
+
+                            <h:outputText  value="#{msg['prom.oficio.anio']}" style="font-weight:normal;width: 30%"  ></h:outputText>
+                            <p:column>
+                                <p:selectOneMenu
+                                    id="anioOficio"
+                                    value="#{promocionesMB.anioOficio}"
+                                    style="width: 40%"
+                                    onchange="checkSeleccionar();">
+                                    <f:selectItem itemLabel="Selecccionar año" itemValue="" />
+                                    <f:selectItems value="#{promocionPatentesMB.listAnio}" />
+                                </p:selectOneMenu>
+
+                            </p:column>
+                            <h:outputText  value="#{msg['prom.oficio.folio']}" style="font-weight:normal;width: 30%"></h:outputText>
+                            <h:inputText id="folioOficio" value="#{promocionesMB.folioOficio}" onkeyup="checkSeleccionar();"></h:inputText>
+                            <p:commandButton id="cmdSeleccionar" value="#{msg['titulo.registro.boton.seleccionar']}" actionListener="#{promocionesMB.buscarOficioAResponder}" update="formulario"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1">
+                            <h:outputText value="#{msg['prom.oficio.descripcion']}" style="font-size: 13px"/>
+                            <p:inputTextarea id="descripcionText"
+                                             effectDuration="0"
+                                             style="height: 50px;"
+                                             value="#{promocionesMB.descripcionOficio}"
+                                             autoResize="false" readonly="true"/>
+                        </h:panelGrid>
+
+                    </p:panel>
+
+                    <!--=========================== END PANEL OFICIO ===================== -->
+
+                    <p:panel style="text-align: left;" header="#{msg['prom.title.promocion']}" id="pnlTipoDoc">
+                        <h:panelGrid  columns="2" cellpadding="10" border="0" style="width:50%;font-family:sans-serif;   font-size: 10pt; text-align: left;">
+                            <p:column style="text-align: right;">
+                                <h:outputText  value="#{msg['prom.promocion.tipoProm']} *" style="font-weight:normal;"  ></h:outputText>
+                            </p:column>
+                            <p:column rendered="#{conOficio}">
+                                <h:inputHidden id="hdnTipoPromocion" value="#{promocionesMB.tipoPromocion}"/>
+                                <h:outputText  value="#{promocionesMB.descPromocion}" style="font-weight:normal;"></h:outputText>
+                            </p:column>
+                            <p:column rendered="#{!conOficio}">
+                                <p:selectOneMenu
+                                    id="tipoPromocion"
+                                    value="#{promocionesMB.tipoPromocion}"
+                                    style="width: 40%"
+                                    required="false" requiredMessage="#{msg['titulo.registro.Seleccion.default']}" >
+                                    <p:ajax update="anexos" event="change"/>
+                                    <f:selectItem itemLabel="Selecciona Tipo de Promocion" itemValue="" />
+                                    <f:selectItems
+                                        value="#{promocionPatentesMB.listaCatTipoPromPatentes}"
+                                        var="renglon2"
+                                        itemLabel="#{renglon2.descripcion}"
+                                        itemValue="#{renglon2.idTipoPromocion}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column style="text-align: right;">
+                                <h:outputText  value="#{msg['prom.promocion.area']}" style="font-weight:normal;width: 50%"  ></h:outputText>
+                            </p:column>
+
+                            <p:column rendered="#{conOficio}">
+                                <h:outputText  value="#{promocionesMB.area}" style="font-weight:normal;width: 50%"  ></h:outputText>
+                            </p:column>
+                            <p:column rendered="#{!conOficio}">
+                                <p:selectOneMenu
+                                    id="tipoArea"
+                                    value="#{promocionesMB.area}"
+                                    style="width: 40%"
+                                    required="false" requiredMessage="#{msg['titulo.registro.Seleccion.default']}" >
+                                    <f:selectItems
+                                        value="#{promocionPatentesMB.listaCatAreaPromPatentes}"
+                                        var="renglon"
+                                        itemLabel="#{renglon.descripcionPromPat}"
+                                        itemValue="#{renglon.idAreaPromPat}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="5" cellpadding="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+
+
+                            <h:outputText  value="#{msg['prom.expediente']} *" style="font-weight:normal;width: 15%"  ></h:outputText>
+                            <h:inputText maxlength="2" value="#{promocionesMB.oficinaExpediente}" readonly="#{conOficio}"></h:inputText>
+                            <h:inputText maxlength="1" value="#{promocionesMB.tipoExpediente}" readonly="#{conOficio}"></h:inputText>
+                            <h:inputText maxlength="4" value="#{promocionesMB.serieExpediente}" readonly="#{conOficio}"></h:inputText>
+                            <h:inputText maxlength="6" value="#{promocionesMB.folioExpediente}" readonly="#{conOficio}"></h:inputText>
+
+
+                            <h:outputText  value="#{msg['prom.registro']}" style="font-weight:normal;width: 30%"  ></h:outputText>
+                            <h:inputText maxlength="6" value="#{promocionesMB.registroConcedido}" readonly="#{conOficio}"></h:inputText>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1">
+                            <h:outputText value="#{msg['prom.promocion.descripcion']} *" style="font-size: 13px"/>
+                            <p:inputTextarea id="descripcionProm"
+                                             effectDuration="0"
+                                             style="height: 100px;"
+                                             value="#{promocionesMB.descripcionPromocion}"
+                                             autoResize="false"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" cellpadding="10" style="width:50%;text-align: left;">
+                            <p:column rendered="#{promocionesMB.mostrarPlazoAdicional}">
+                                <h:outputText value="#{msg['prom.plazo']}" style="font-family:sans-serif; font-size: 10pt; text-align: left;"   ></h:outputText>
+                            </p:column>
+
+                            <p:column rendered="#{promocionesMB.mostrarPlazoAdicional}">
+                                <p:selectOneMenu 
+                                    id="plazoAdicional22"
+                                    value="#{promocionesMB.plazoAdicional}"
+                                    style="width: 100%">
+                                    <f:selectItem itemLabel="Seleccionar plazo" itemValue="" />
+                                    <f:selectItems value="#{promocionPatentesMB.listPlazo}" />
+                                </p:selectOneMenu>
+
+                            </p:column>
+
+                            <p:column rendered="#{promocionesMB.mostrarDescuento}" style="width: 300px;">
+                                <p:selectBooleanCheckbox id="descuentoPat" value="#{promocionesMB.descuento}"/>
+                                <h:outputText value="#{msg['prom.descuento']}" style="font-weight:normal;width: 100%"   />                               
+                            </p:column>
+                            <p:tooltip for="descuentoPat" value="Dar clic para aplicar descuento" showEvent="mouseover" />
+                            <br/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="4" cellpadding="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                            <p:commandButton id="guardar"
+                                             value="#{msg['titulo.registro.boton.guardar']}"
+                                             actionListener="#{promocionesMB.guardar(0)}"
+                                             update="formulario"/>
+
+                            <p:commandButton id="anexos" value="#{msg['titulo.registro.boton.vista.anexos']}" actionListener="#{promocionesMB.crearCabeceroTramite}"
+                                             disabled="#{promocionesMB.idPromocionCargada!=null?false:true}" onclick="chkAceptarTerminos = false;"
+                                             update=":formPatenteDisInd:displayAnexoPatente" oncomplete="singleAnexoDialog.show()"/>
+
+                            <p:commandButton id="finalizar" value="#{msg['titulo.registro.boton.finalizar']}"
+                                             oncomplete="FinalizarDialog.show();"
+                                             process="@this"
+                                             update="formulario"
+                                             disabled="#{promocionesMB.idPromocionCargada!=null?false:true}"/>
+
+                            <p:commandButton id="vistaPrevia" value="#{msg['titulo.registro.boton.vista.previa']}"
+                                             onclick="lockWindow('divLockWindow');" oncomplete="unlockWindow('divLockWindow');"
+                                             update="vistaPreviaPromo"
+                                             actionListener="#{promocionesMB.mostrarVistaPrevia}"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="4" style="font-family:sans-serif; font-size: 10pt; text-align: justify;">
+                            <h:outputText value="#{msg['titulo.registro.info.requerida']}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:outputPanel autoUpdate="true">
+                        <p:dialog id="dlogMarcasAnexos" header="Anexos" widgetVar="singleAnexoDialog" resizable="false"
+                                  showEffect="fade" modal="true" closable="true" position="center center">
+                            <p:ajax event="close" listener="#{promocionesMB.crearCabeceroTramite}" oncomplete="if(chkAceptarTerminos==false){msgAceptarTerminos()}" update=":formPatenteDisInd:displayAnexoPatente" />
+                            <h:panelGrid id="displayAnexoPatente" columns="1" cellpadding="4">
+                                <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/content/restricted/include/anexos.faces"
+                                        width="600px" height="550px"/>
+                            </h:panelGrid>
+                        </p:dialog>
+                    </p:outputPanel>
+                </p:tab>
+            </p:tabView>
+
+
+
+            <p:dialog  id="confirmDialogFinalizar" header="Finalizar captura" widgetVar="FinalizarDialog"
+                       modal="false" width="800" height="680" position="center top" >
+                <h:panelGrid columns="1" style="text-align: justify;font-size: 14px">
+                    <h:outputText value="#{msgPatente['mensaje1.finalizar.captura']}" style="text-align: left"/>
+                    <h:outputText value="#{msgPatente['mensaje2.finalizar.captura']}" style="text-align: left"/>
+                    <h:outputText value="#{msgPatente['mensaje3.finalizar.captura']}" style="text-align: left"/>
+                </h:panelGrid>
+                <br/>               
+
+                <h:panelGrid >
+                    <!--iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarReporte" width="700px" height="450px"/-->
+                </h:panelGrid>
+                <br/>  
+
+
+                <p:selectBooleanCheckbox value="#{promocionesMB.revisionFinalizaCaptura}" >
+                    <p:ajax update="confirmFinalizarMoral confirmFinalizar"/>                        
+                </p:selectBooleanCheckbox>
+
+                <h:outputText value="#{msgPatente['mensaje.aceptar.finalizar.captura']}" style="text-align: left"/>
+                <br/><br/>
+                <h:panelGrid  style="text-align: center;font-size: 14px" columns="2">
+                    <c:if test="#{promocionesMB.promovente.tipoPersona.idTipopersona==2}" >
+                        <p:commandButton id="confirmFinalizarMoral" value="ACEPTAR" 
+                                         update="formulario" disabled="#{promocionesMB.revisionFinalizaCaptura?false:true}"
+                                         onclick="PagoMoralDialog.show();
+                                             FinalizarDialog.hide();
+                                             lockWindow('divLockWindow');"
+                                         process="@this" type="button">
+                        </p:commandButton>
+                    </c:if>
+
+                    <c:if test="#{promocionesMB.promovente.tipoPersona.idTipopersona!=2}" >
+                        <p:commandButton id="confirmFinalizar" value="ACEPTAR" disabled="#{promocionesMB.revisionFinalizaCaptura?false:true}"
+                                         oncomplete="unlockWindow('divLockWindow');"
+                                         actionListener="#{promocionesMB.guardar(1)}" update="formulario"
+                                         onclick="lockWindow('divLockWindow');"
+                                         process="@this">
+                        </p:commandButton>
+                    </c:if>
+
+                    <p:commandButton id="declineFinalizar" value="CANCELAR" onclick="FinalizarDialog.hide();" type="button" />
+                </h:panelGrid>
+
+            </p:dialog>
+
+            <p:dialog  id="confirmDialogPagoMoral" header="#{msgPatente['header.finalizar.captura.moral']}" widgetVar="PagoMoralDialog" 
+                       width="400" height="140" showEffect="fade" modal="true" closable="true" position="center center">
+                <h:panelGrid columns="1" style="text-align: left;font-size: 14px">                    
+                    <h:outputText value="#{msgPatente['mensaje1.finalizar.captura.moral']}" style="text-align: left"/>
+                    <br/>
+                    <h:outputText value="#{msgPatente['mensaje2.finalizar.captura.moral']}" style="text-align: left"/>
+                </h:panelGrid>
+
+                <div class="derecha">
+                    <p:commandButton id="confirmPagoMoral" value="Si" oncomplete="PagoMoralDialog.hide() unlockWindow('divLockWindow');"
+                                     actionListener="#{promocionesMB.guardar(1)}" update="formulario"
+                                     onclick="lockWindow('divLockWindow');"
+                                     process="@this">
+                    </p:commandButton>
+                    <p:commandButton id="declinePagoMoral" value="No" onclick="PagoMoralDialog.hide();
+                        unlockWindow('divLockWindow');" type="button" />
+                </div>
+            </p:dialog>
+
+            <p:outputPanel id="vistaPreviaPromo">
+                <p:dialog id="reporteDialog" header="Vista Previa" widgetVar="reportePromocionesDialog" resizable="false"
+                          position="center top" rendered="#{promocionesMB.vistaPrevia}" >
+                    <h:panelGrid >
+                        <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarReporte" width="850px" height="550px"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </p:outputPanel>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

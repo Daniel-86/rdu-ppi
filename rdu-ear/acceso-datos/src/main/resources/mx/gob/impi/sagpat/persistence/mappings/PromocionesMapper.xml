@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.PromocionesMapper" >
+    
+    <resultMap id="resultadoOficio" type="mx.gob.impi.sagpat.persistence.model.TramiteOficio" >
+        <result column="TIP_TRAMITE" property="tipoTramite" jdbcType="VARCHAR" />
+        <result column="NUM_TRAMITE" property="numTramite" jdbcType="DECIMAL" />
+        <result column="COD_STATUS" property="codStatus" jdbcType="VARCHAR" />
+        <result column="TIP_OFICIO" property="tipoOficio" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="resultadoTipoOficio" type="mx.gob.impi.sagpat.persistence.model.TipoOficio" >
+        <result column="TIP_PROMOCION" property="tipoPromocion" jdbcType="VARCHAR" />
+        <result column="TIP_PROMOCION_WNOT" property="tipoPromocionWnot" jdbcType="VARCHAR" />
+        <result column="DES_OFICIO" property="descOficio" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="resultadoTipoPromocion" type="mx.gob.impi.sagpat.persistence.model.TipoPromocion" >
+        <result column="DES_TIPO_RDU" property="desTipoRdu" jdbcType="VARCHAR" />
+        <result column="ARTICULO" property="articulo" jdbcType="VARCHAR" />
+        <result column="TIP_TRAMITE" property="tipoTramite" jdbcType="VARCHAR" />
+        <result column="IND_RENOVACION" property="indRenovacion" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="resultadoDocumento" type="mx.gob.impi.sagpat.persistence.model.Documento" >
+        <id column="COD_OFICINA_RESP" property="codOficina" jdbcType="VARCHAR" />
+        <id column="TIP_LIBRO_RESP" property="tipLibro" jdbcType="VARCHAR" />
+        <id column="SER_DOCUM_RESP" property="serDocum" jdbcType="DECIMAL" />
+        <id column="NUM_DOCUM_RESP" property="numDocum" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <resultMap id="resultadoNumSolicitud" type="mx.gob.impi.sagpat.persistence.model.TramiteOficio" >
+        <result column="COD_OFICINA_EXPED" property="codOficinaExped" jdbcType="VARCHAR" />
+        <result column="TIP_EXPED" property="tipoExped" jdbcType="VARCHAR" />
+        <result column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+        <result column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <resultMap id="resultadoConsultaJerarquica" type="mx.gob.impi.sagpat.persistence.model.TramiteOficio" >
+        <result column="COD_OFICINA_EXPED" property="codOficinaExped" jdbcType="VARCHAR" />
+        <result column="TIP_EXPED" property="tipoExped" jdbcType="VARCHAR" />
+        <result column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+        <result column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+        <result column="COD_OFICINA_EXP_PRO" property="codOficinaExpPro" jdbcType="VARCHAR" />
+        <result column="TIP_EXPED_EXP_PRO" property="tipoExpedExpPro" jdbcType="VARCHAR" />
+        <result column="SER_EXPED_EXP_PRO" property="serExpedExpPro" jdbcType="DECIMAL" />
+        <result column="NUM_EXPED_EXP_PRO" property="numExpedExpPro" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <resultMap id="resultadoTipoSolicitante" type="mx.gob.impi.sagpat.persistence.model.Solicitante" >
+        <id column="TIP_SOLICITANTE" property="tipoSolicitante" jdbcType="DECIMAL" />
+        <result column="NOM_PERSONA" property="nomPersona" jdbcType="VARCHAR" />
+        <result column="DES_TIPO" property="descTipo" jdbcType="VARCHAR" />
+        <result column="TIP_PERSONA" property="tipoPersona" jdbcType="VARCHAR" />
+    </resultMap>
+  
+    <!-- SQL1 -->
+    <select id="buscarOficioAResponder" resultMap="resultadoOficio" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        SELECT TS.TIP_TRAMITE_SOLIC AS TIP_TRAMITE,
+        TS.NUM_TRAMITE_SOLIC AS NUM_TRAMITE,
+        TS.COD_STATUS AS COD_STATUS,
+        O.TIP_OFICIO AS TIP_OFICIO
+        FROM TRAMITE TS, OFICIO O 
+        WHERE O.COD_OFICINA_OFICIO = #{codOficinaOficio} and
+        O.SER_OFICIO = #{serOficio} and
+        O.NUM_OFICIO = #{numOficio} and 
+        O.TIP_TRAMITE_OFICIO = TS.TIP_TRAMITE and
+        O.NUM_TRAMITE_OFICIO = TS.NUM_TRAMITE and
+        O.TIP_TRAMITE_OFICIO = 'OFIC'
+    </select>
+    
+    <!-- SQL2 -->
+    <select id="consultarValoresPromocion" resultMap="resultadoTipoOficio" parameterType="java.lang.String">        
+        SELECT TIP_PROMOCION, TIP_PROMOCION_WNOT, DES_OFICIO
+        FROM TIPO_OFICIO
+        WHERE TIP_TRAMITE = 'OFIC'
+        AND TIP_OFICIO = #{tipoOficio}
+    </select>
+    
+    <!-- SQL3 -->
+    <select id="consultarTipoPromocion" resultMap="resultadoTipoPromocion" parameterType="java.lang.String">        
+        SELECT DES_TIPO_RDU, ARTICULO, TIP_TRAMITE, IND_RENOVACION
+        FROM TIPO_PROMOCION
+        WHERE IND_RDU = 'S'
+        AND TIP_PROMOCION = #{tipoPromocion}
+    </select>
+    
+    <!-- SQL4 -->
+    <select id="consultarDocumento" resultMap="resultadoDocumento" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        SELECT COD_OFICINA AS COD_OFICINA_RESP, TIP_LIBRO AS TIP_LIBRO_RESP, 
+        SER_DOCUM AS SER_DOCUM_RESP, NUM_DOCUM AS NUM_DOCUM_RESP
+        FROM DOCUMENTO
+        WHERE COD_OFICINA_OFICIO  = #{codOficinaOficio}  AND
+        SER_OFICIO  = #{serOficio} AND 
+        NUM_OFICIO = #{numOficio}
+    </select>
+    
+    <!-- SQL5 -->
+    <select id="consultarNotificacion" resultType="java.lang.Integer" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        select 1
+        from tramite t, movimiento m
+        where
+        t.tip_tramite_sup= 'SOLI' and
+        t.tip_tramite 	= 'OFIC' and
+        t.cod_status 	= 'WRES' and
+        t.tip_tramite 	= m.tip_tramite and
+        t.num_tramite 	= m.num_tramite and
+        m.tip_movimiento = 'NOTI_GAC' and
+        t.cod_oficina_oficio = #{codOficinaOficio} and
+        t.ser_oficio 	= #{serOficio} and
+        t.num_oficio 	= #{numOficio}
+    </select>
+    
+    <!-- SQL6 -->
+    <select id="consultarNumSolicitud" resultMap="resultadoNumSolicitud" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        select  t2.COD_OFICINA_EXPED as COD_OFICINA_EXPED,
+        t2.TIP_EXPED as TIP_EXPED,
+        t2.SER_EXPED as SER_EXPED,
+        t2.NUM_EXPED as NUM_EXPED
+        from tramite t1, tramite t2
+        where t1.tip_tramite = #{tipoTramite} and
+        t1.num_tramite = #{numTramite} and
+        t2.tip_tramite = t1.tip_tramite_solic and
+        t2.num_tramite = t1.num_tramite_solic
+    </select>
+    
+    <!-- SQL6a -->
+    <select id="ejecutarConsultaJerarquica" resultMap="resultadoConsultaJerarquica" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        select COD_OFICINA_EXPED, TIP_EXPED, SER_EXPED, NUM_EXPED,
+        COD_OFICINA_EXP_PRO, TIP_EXPED_EXP_PRO, SER_EXPED_EXP_PRO, NUM_EXPED_EXP_PRO
+        from tramite 
+        connect by tip_tramite = prior tip_tramite_sup and num_tramite = prior num_tramite_sup
+        start with tip_tramite = #{tipoTramite} and num_tramite = #{numTramite}
+        order by level desc
+    </select>
+    
+    <!-- SQL7 -->
+    <select id="consultarNumConcesion" resultType="java.lang.Double" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        select NUM_CONCESION
+        from solicitud
+        where cod_oficina = #{codOficinaExped} and
+        tip_exped = #{tipoExped} and
+        ser_exped = #{serExped} and
+        num_exped = #{numExped}
+    </select>
+    
+    <!-- SQL8 -->
+    <select id="consultarTipoSolicitante" resultMap="resultadoTipoSolicitante" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        SELECT  P.NOM_PERSONA as NOM_PERSONA, T.DES_TIPO as DES_TIPO, 
+        T.TIP_PERSONA as TIP_PERSONA, T.TIP_SOLICITANTE as TIP_SOLICITANTE
+        FROM  SOLICITUD S, TIPO_SOLICITANTE T, PERSONA P
+        WHERE
+        COD_OFICINA = #{codOficinaExped} AND
+        TIP_EXPED = #{tipoExped} AND
+        SER_EXPED = #{serExped} AND
+        NUM_EXPED = #{numExped} AND 
+        S.COD_PERSONA_TIT1 = COD_PERSONA AND 
+        S.TIP_SOLICITANTE = T.TIP_SOLICITANTE
+    </select>
+    
+    <select id="consultarExisteSolicitud" resultMap="resultadoNumSolicitud" parameterType="mx.gob.impi.sagpat.persistence.model.TramiteOficio">        
+        select  COD_OFICINA, TIP_EXPED, SER_EXPED, NUM_EXPED
+        from EXPEDIENTE
+        where COD_OFICINA = #{codOficinaExped} and
+        TIP_EXPED = #{tipoExped} and
+        SER_EXPED = #{serExped} and
+        NUM_EXPED = #{numExped}
+    </select>
+    
+</mapper>

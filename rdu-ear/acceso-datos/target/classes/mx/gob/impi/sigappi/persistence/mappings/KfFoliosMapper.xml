@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.KfFoliosMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.KfFolios" >
+<result column="CODBARRAS" property="codbarras" jdbcType="VARCHAR" />
+<result column="TITLE" property="title" jdbcType="VARCHAR" />
+<result column="PERSON" property="person" jdbcType="VARCHAR" />
+<result column="TYPE" property="type" jdbcType="VARCHAR" />
+<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+<result column="FECHA" property="fecha" jdbcType="TIMESTAMP" />
+<result column="SUBCLASSID" property="subclassid" jdbcType="VARCHAR" />
+<result column="SECURITY" property="security" jdbcType="VARCHAR" />
+<result column="ELIMINAR_SEPARADOR" property="eliminarSeparador" jdbcType="VARCHAR" />
+<result column="OBJID" property="objid" jdbcType="VARCHAR" />
+<result column="FOLIO" property="folio" jdbcType="DECIMAL" />
+<result column="SERIE" property="serie" jdbcType="DECIMAL" />
+<result column="FOLIO_STRING" property="folioString" jdbcType="VARCHAR" />
+<result column="COD_OFICINA" property="codOficina" jdbcType="DECIMAL" />
+<result column="TIPO_DOCUMENTO" property="tipoDocumento" jdbcType="DECIMAL" />
+<result column="FECHA_RECEPCION" property="fechaRecepcion" jdbcType="TIMESTAMP" />
+<result column="USUARIO" property="usuario" jdbcType="VARCHAR" />
+<result column="OBSERVACIONES" property="observaciones" jdbcType="VARCHAR" />
+<result column="FOLIOEXP" property="folioexp" jdbcType="VARCHAR" />
+<result column="INDICADOR" property="indicador" jdbcType="VARCHAR" />
+<result column="FOLIO_SECCION" property="folioSeccion" jdbcType="DECIMAL" />
+<result column="ACCION" property="accion" jdbcType="VARCHAR" />
+<result column="OBJID2" property="objid2" jdbcType="VARCHAR" />
+<result column="ANALISTA" property="analista" jdbcType="VARCHAR" />
+<result column="REFERENCIA" property="referencia" jdbcType="VARCHAR" />
+<result column="IND_FAX" property="indFax" jdbcType="DECIMAL" />
+<result column="SENTIDO" property="sentido" jdbcType="VARCHAR" />
+<result column="CODBARRAS_ACUERDO" property="codbarrasAcuerdo" jdbcType="VARCHAR" />
+<result column="CVE_USUARIO" property="cveUsuario" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.KfFolios" >
+    insert into KFFOLIOS (CODBARRAS,
+                        TITLE,
+                        PERSON,
+                        TYPE,
+                        DESCRIPTION,
+                        FECHA,
+                        SUBCLASSID,
+                        SECURITY,
+                        ELIMINAR_SEPARADOR,
+                        OBJID,
+                        FOLIO,
+                        SERIE,
+                        FOLIO_STRING,
+                        COD_OFICINA,
+                        TIPO_DOCUMENTO,
+                        FECHA_RECEPCION,
+                        USUARIO,
+                        OBSERVACIONES,
+                        FOLIOEXP,
+                        INDICADOR,
+                        FOLIO_SECCION,
+                        ACCION,
+                        OBJID2,
+                        ANALISTA,
+                        REFERENCIA,
+                        IND_FAX,
+                        SENTIDO,
+                        CODBARRAS_ACUERDO,
+                        CVE_USUARIO)
+                values (
+                #{codbarras,jdbcType=VARCHAR},
+                #{title,jdbcType=VARCHAR},
+                #{person,jdbcType=VARCHAR},
+                #{type,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR},
+                #{fecha,jdbcType=TIMESTAMP},
+                #{subclassid,jdbcType=VARCHAR},
+                #{security,jdbcType=VARCHAR},
+                #{eliminarSeparador,jdbcType=VARCHAR},
+                #{objid,jdbcType=VARCHAR},
+                #{folio,jdbcType=DECIMAL},
+                #{serie,jdbcType=DECIMAL},
+                #{folioString,jdbcType=VARCHAR},
+                #{codOficina,jdbcType=DECIMAL},
+                #{tipoDocumento,jdbcType=DECIMAL},
+                #{fechaRecepcion,jdbcType=TIMESTAMP},
+                #{usuario,jdbcType=VARCHAR},
+                #{observaciones,jdbcType=VARCHAR},
+                #{folioexp,jdbcType=VARCHAR},
+                #{indicador,jdbcType=VARCHAR},
+                #{folioSeccion,jdbcType=DECIMAL},
+                #{accion,jdbcType=VARCHAR},
+                #{objid2,jdbcType=VARCHAR},
+                #{analista,jdbcType=VARCHAR},
+                #{referencia,jdbcType=VARCHAR},
+                #{indFax,jdbcType=DECIMAL},
+                #{sentido,jdbcType=VARCHAR},
+                #{codbarrasAcuerdo,jdbcType=VARCHAR},
+                #{cveUsuario,jdbcType=VARCHAR})
+  </insert>
+
+
+  <select id="selectByCodbarras" parameterType="map" resultMap="BaseResultMap">
+        SELECT CODBARRAS,
+                TITLE,
+                PERSON,
+                TYPE,
+                DESCRIPTION,
+                FECHA,
+                SUBCLASSID,
+                SECURITY,
+                ELIMINAR_SEPARADOR,
+                OBJID,
+                FOLIO,
+                SERIE,
+                FOLIO_STRING,
+                COD_OFICINA,
+                TIPO_DOCUMENTO,
+                FECHA_RECEPCION,
+                USUARIO,
+                OBSERVACIONES,
+                FOLIOEXP,
+                INDICADOR,
+                FOLIO_SECCION,
+                ACCION,
+                OBJID2,
+                ANALISTA,
+                REFERENCIA,
+                IND_FAX,
+                SENTIDO,
+                CODBARRAS_ACUERDO,
+                CVE_USUARIO
+        FROM KFFOLIOS
+        WHERE CODBARRAS = #{codbarras,jdbcType=VARCHAR}
+        
+    </select>
+  
+</mapper>

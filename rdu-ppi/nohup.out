@@ -1,0 +1,172 @@
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalStateException: This function should be called while holding treeLock
+	at java.awt.Component.checkTreeLock(Component.java:1196)
+	at java.awt.Container.validateTree(Container.java:1682)
+	at ice.pilots.html4.swing.PanePanel.validateTree(DocView.java:829)
+	at ice.pilots.html4.swing.DocPanel.doLayout(DocView.java:1181)
+	at ice.pilots.html4.swing.DocView.revalidate(DocView.java:309)
+	at ice.pilots.html4.CSSLayout.eventThreadRevalidate(CSSLayout.java:3023)
+	at ice.pilots.html4.RefreshEvent.doit(CSSLayout.java:3601)
+	at ice.pilots.html4.DocAction.run(DocAction.java:31)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:251)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:733)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:694)
+	at java.awt.EventQueue$3.run(EventQueue.java:692)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:703)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+Parser.forest(): no suitable branches
+ , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ where id_tramite_patente = 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+Parser.forest(): no suitable branches
+ where id_tramite_patente = 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+Parser.forest(): no suitable branches
+ where id_tramite_patente = 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+Parser.forest(): no suitable branches
+ where id_tramite_patente = 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+Parser.forest(): no suitable branches
+ where id_tramite_patente = 34261 AND id_anexo IN ( 42040 , 42039 ) ; SELECT * FROM cat_anexos_relacion WHERE visiblexcarga = 1 AND id_subtiposolicitud IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 AND id_tipoanexo = 7 ORDER BY id_subtiposolicitud ; select * from cat_subtiposolicitud where ID_SUBTIPOSOLICITUD IN ( 11 , 12 , 13 , 14 ) AND ind_activo = 1 SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 } AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN SELECT relAnexo . ORDEN , relAnexo . ID_SUBTIPOSOLICITUD , relAnexo . ID_TIPOMARCA , relAnexo . ID_TIPOANEXO , tipoanexo . DESCRIPCION , tipoanexo . EXTENSION , relAnexo . OBLIGATORIO , relAnexo . VISIBLEXCARGA , anexo . ID_ANEXO , anexo . ID_TRAMITE , decode ( tipoanexo . EXTENSION , 'gif' , anexo . archivo_anexo , empty_blob ( ) ) ARCHIVO_ANEXO , anexo . NOMBRE_ARCHIVO , anexo . OTRO_IDIOMA , anexo . TXTANEXO , anexo . ID_TIPOANEXOTRAD , anexo . ARCHIVO_TRAD , anexo . NOMBRE_TRAD , anexo . TXTANEXO_TRAD FROM ( Select * from CAT_ANEXOS_RELACION where IND_ACTIVO = 1 and ( VISIBLEXCARGA = 1 ) and ID_SUBTIPOSOLICITUD = 12 AND ( ID_TIPOMARCA = 0 ) ) relAnexo INNER JOIN ( Select * From CAT_ANEXOS ) tipoAnexo ON tipoAnexo . ID_TIPOANEXO = relAnexo . ID_TIPOANEXO left join ( select * from anexos where ID_TRAMITE = 34261 ) anexo on anexo . ID_TIPOANEXO = relAnexo . id_tipoanexo order by relAnexo . ORDEN
+Exception in thread "InsightThread" java.lang.NullPointerException
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+Parser.forest(): no suitable branches
+ 1922 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 19 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 20 select * from cat_anexos order by id_tipoanexo ; select * from cat_subtiposolicitud
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ 1922 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 19 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 20 select * from cat_anexos order by id_tipoanexo ; select * from cat_subtiposolicitud
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ 19 , 2022 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 19 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 20 select * from cat_anexos order by id_tipoanexo ; select * from cat_subtiposolicitud
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Parser.forest(): no suitable branches
+ 19 , 20 , 22 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 19 select * from cat_anexos_relacion where visiblexcarga = 1 and id_subtiposolicitud in ( 12 , 13 ) and id_tipoanexo = 20 select * from cat_anexos order by id_tipoanexo ; select * from cat_subtiposolicitud
+Exception in thread "InsightThread" java.lang.NullPointerException
+	at oracle.dbtools.parser.plsql.LazyNode.expand(LazyNode.java:225)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.collectIdentifiers(IdentifiersDb.java:196)
+	at oracle.dbtools.parser.plsql.IdentifiersDb.getIdentifierDefs(IdentifiersDb.java:165)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:715)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Exception in thread "InsightThread" java.lang.ArrayIndexOutOfBoundsException: 21
+	at oracle.dbtools.parser.Earley.complete(Earley.java:389)
+	at oracle.dbtools.parser.Earley.parse(Earley.java:88)
+	at oracle.dbtools.raptor.insight.CompletionInsight.complete(CompletionInsight.java:558)
+	at oracle.dbtools.raptor.insight.CompletionInsight$InsightThread.run(CompletionInsight.java:510)
+Error: SQL Developer can't recognize the JDK version
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+Parser.forest(): no suitable branches
+ 34275 du$mY du$mY
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen
+Error: SQL Developer can't recognize the JDK version
+
+Oracle SQL Developer
+ Copyright (c) 1997, 2011, Oracle and/or its affiliates. All rights reserved. 
+
+Registered TimesTen

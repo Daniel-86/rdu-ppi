@@ -1,0 +1,125 @@
+Loading XML bean definitions from class path resource [config/applicationContext-service-ejbRduCatalogos.xml]
+Loading XML bean definitions from class path resource [config/applicationContext-persistence.xml]
+Refreshing org.springframework.context.support.GenericApplicationContext@11ff436: startup date [Wed Apr 11 12:43:24 CDT 2012]; root of context hierarchy
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loaded JDBC driver: oracle.jdbc.OracleDriver
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@11d3226]; rollback [false]
+---------------------------> Aguascalientes
+---------------------------> Baja California
+---------------------------> Baja California Sur
+---------------------------> Campeche
+---------------------------> Chiapas
+---------------------------> Chihuahua
+---------------------------> Coahuila
+---------------------------> Colima
+---------------------------> Distrito Federal
+---------------------------> Durango
+---------------------------> Guanajuato
+---------------------------> Guerrero
+---------------------------> Hidalgo
+---------------------------> Importación
+---------------------------> Jalisco
+---------------------------> México
+---------------------------> Michoacán
+---------------------------> Morelos
+---------------------------> Nacional
+---------------------------> Nayarit
+---------------------------> Nuevo León
+---------------------------> Oaxaca
+---------------------------> Puebla
+---------------------------> Querétaro
+---------------------------> Quintana Roo
+---------------------------> San Luis Potosí
+---------------------------> Sin Especificar
+---------------------------> Sinaloa
+---------------------------> Sonora
+---------------------------> Tabasco
+---------------------------> Tamaulipas
+---------------------------> Tlaxcala
+---------------------------> Veracruz
+---------------------------> Yucatán
+---------------------------> Zacatecas
+Committed transaction after test execution for test context [[TestContext@1b5998f testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@19b04e2, testMethod = testEntidadesFederativas@RduCatalogosServiceTest, testException = [null]]]
+Closing org.springframework.context.support.GenericApplicationContext@11ff436: startup date [Wed Apr 11 12:43:24 CDT 2012]; root of context hierarchy
+Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loading XML bean definitions from class path resource [config/applicationContext-service-ejbRduCatalogos.xml]
+Loading XML bean definitions from class path resource [config/applicationContext-persistence.xml]
+Refreshing org.springframework.context.support.GenericApplicationContext@11ff436: startup date [Wed Apr 11 12:51:50 CDT 2012]; root of context hierarchy
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loaded JDBC driver: oracle.jdbc.OracleDriver
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@ffa6eb]; rollback [false]
+---------------------------> D.F.: Oficina de Servicios METROPOLITANA, D.F.
+Committed transaction after test execution for test context [[TestContext@1d7fbfb testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@30d82d, testMethod = testCoordinacionesEstatales@RduCatalogosServiceTest, testException = [null]]]
+Closing org.springframework.context.support.GenericApplicationContext@11ff436: startup date [Wed Apr 11 12:51:50 CDT 2012]; root of context hierarchy
+Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loading XML bean definitions from class path resource [config/applicationContext-service-ejbRduCatalogos.xml]
+Loading XML bean definitions from class path resource [config/applicationContext-persistence.xml]
+Refreshing org.springframework.context.support.GenericApplicationContext@e0a386: startup date [Mon Apr 30 23:59:32 CDT 2012]; root of context hierarchy
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loaded JDBC driver: oracle.jdbc.OracleDriver
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@1e8c585]; rollback [false]
+---------------------------> D.F.: Oficina de Servicios METROPOLITANA, D.F.
+Committed transaction after test execution for test context [[TestContext@1d7fbfb testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@19ce060, testMethod = testCoordinacionesEstatales@RduCatalogosServiceTest, testException = [null]]]
+Closing org.springframework.context.support.GenericApplicationContext@e0a386: startup date [Mon Apr 30 23:59:32 CDT 2012]; root of context hierarchy
+Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@118fa47: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loading XML bean definitions from class path resource [config/applicationContext-service-ejbRduCatalogos.xml]
+Loading XML bean definitions from class path resource [config/applicationContext-persistence.xml]
+Refreshing org.springframework.context.support.GenericApplicationContext@11dba45: startup date [Tue May 01 00:00:21 CDT 2012]; root of context hierarchy
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1dee400: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loaded JDBC driver: oracle.jdbc.OracleDriver
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@1c79dfc]; rollback [false]
+---------------------------> D.F.: Oficina de Servicios METROPOLITANA, D.F.
+Committed transaction after test execution for test context [[TestContext@39e5b5 testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@4ecfdd, testMethod = testCoordinacionesEstatales@RduCatalogosServiceTest, testException = [null]]]
+Began transaction (2): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@1c79dfc]; rollback [false]
+---------------------------> Aguascalientes
+---------------------------> Baja California
+---------------------------> Baja California Sur
+---------------------------> Campeche
+---------------------------> Chiapas
+---------------------------> Chihuahua
+---------------------------> Coahuila
+---------------------------> Colima
+---------------------------> Distrito Federal
+---------------------------> Durango
+---------------------------> Guanajuato
+---------------------------> Guerrero
+---------------------------> Hidalgo
+---------------------------> Importación
+---------------------------> Jalisco
+---------------------------> México
+---------------------------> Michoacán
+---------------------------> Morelos
+---------------------------> Nacional
+---------------------------> Nayarit
+---------------------------> Nuevo León
+---------------------------> Oaxaca
+---------------------------> Puebla
+---------------------------> Querétaro
+---------------------------> Quintana Roo
+---------------------------> San Luis Potosí
+---------------------------> Sin Especificar
+---------------------------> Sinaloa
+---------------------------> Sonora
+---------------------------> Tabasco
+---------------------------> Tamaulipas
+---------------------------> Tlaxcala
+---------------------------> Veracruz
+---------------------------> Yucatán
+---------------------------> Zacatecas
+Committed transaction after test execution for test context [[TestContext@39e5b5 testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@4ecfdd, testMethod = testEntidadesFederativas@RduCatalogosServiceTest, testException = [null]]]
+Closing org.springframework.context.support.GenericApplicationContext@11dba45: startup date [Tue May 01 00:00:21 CDT 2012]; root of context hierarchy
+Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1dee400: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loading XML bean definitions from class path resource [config/applicationContext-service-ejbRduCatalogos.xml]
+Loading XML bean definitions from class path resource [config/applicationContext-persistence.xml]
+Refreshing org.springframework.context.support.GenericApplicationContext@18941f7: startup date [Fri Jul 20 09:20:45 CDT 2012]; root of context hierarchy
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@17a1767: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,personaMapper,rduCatAreaMapper,rduFirmaMapper,rduCertificadoMapper,rduCatEstatusCertificadoMapper,rduCatEstatusMapper,rduCatTipoanexoMapper,rduAnexosMapper,rduPaisMapper,rduCatSubtiposolicitudMapper,rduCatTiposolicitudMapper,rduDomicilioMapper,rduDomicilioNotificacionMapper,rduTramiteMapper,rduCatTipomarcaMapper,rduCatFormaseleccionclaseMapper,rduCatTipopersonaMapper,rduDatosContactoMapper,rduPersonaMapper,rduEstablecimientoXTramiteMapper,rduTipoclaseseleccionadaMapper,rduDocumentoArticuloMapper,rduTipoDocumentoMapper,rduCatClaseMapper,rduCatProductoMapper,rduSolicitanteXTramiteMapper,rduDomicilionotificacionMapper,rduCatFirmaHorariosMapper,rduFolioMapper,rduPagoMapper,rduProductoservicioMapper,rduCatAnexosMapper,rduCodigosPostalesMapper,rduFuncionesSimplesMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+Loaded JDBC driver: oracle.jdbc.OracleDriver
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@13e6226]; rollback [false]
+** DENTRO DE selectHorariosFiltroFirma==> 
+** cal.getTime()==> Mon Jun 25 00:00:00 CDT 2012
+** listaHorarios.size==> 0
+Committed transaction after test execution for test context [[TestContext@476128 testClass = EjbFirmaHorariosTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.EjbFirmaHorariosTest@18825b3, testMethod = selectHorariosFiltroFirma@EjbFirmaHorariosTest, testException = [null]]]
+Began transaction (1): transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@13e6226]; rollback [false]
+Committed transaction after test execution for test context [[TestContext@fe2558 testClass = RduCatalogosServiceTest, locations = array<String>['classpath:/config/applicationContext-service-ejbRduCatalogos.xml', 'classpath:config/applicationContext-persistence.xml'], testInstance = mx.gob.impi.rdu.test.local.RduCatalogosServiceTest@1632847, testMethod = areaTipoSolicitud@RduCatalogosServiceTest, testException = [null]]]
+Closing org.springframework.context.support.GenericApplicationContext@18941f7: startup date [Fri Jul 20 09:20:45 CDT 2012]; root of context hierarchy
+Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@17a1767: defining beans [rduCatalogosService,miRduCatalogosBeanImpl,dataSource,transactionManager,sqlSessionFactory,rduPerfilMapper,rduTipoUsuarioMapper,rduUsuarioMapper,rduUsuarioPerfilMapper,rduUsuarioSeguridadMapper,rduEntidadFederativaMapper,rduCoordinacionEstatalMapper,personaMapper,rduCatAreaMapper,rduFirmaMapper,rduCertificadoMapper,rduCatEstatusCertificadoMapper,rduCatEstatusMapper,rduCatTipoanexoMapper,rduAnexosMapper,rduPaisMapper,rduCatSubtiposolicitudMapper,rduCatTiposolicitudMapper,rduDomicilioMapper,rduDomicilioNotificacionMapper,rduTramiteMapper,rduCatTipomarcaMapper,rduCatFormaseleccionclaseMapper,rduCatTipopersonaMapper,rduDatosContactoMapper,rduPersonaMapper,rduEstablecimientoXTramiteMapper,rduTipoclaseseleccionadaMapper,rduDocumentoArticuloMapper,rduTipoDocumentoMapper,rduCatClaseMapper,rduCatProductoMapper,rduSolicitanteXTramiteMapper,rduDomicilionotificacionMapper,rduCatFirmaHorariosMapper,rduFolioMapper,rduPagoMapper,rduProductoservicioMapper,rduCatAnexosMapper,rduCodigosPostalesMapper,rduFuncionesSimplesMapper,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy

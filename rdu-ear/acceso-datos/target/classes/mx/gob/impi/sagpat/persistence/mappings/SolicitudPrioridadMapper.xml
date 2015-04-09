@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.SolicitudPrioridadMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.SolicitudPrioridad" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="COD_PAIS" property="codPais" jdbcType="VARCHAR" />
+    <id column="ID_SOLICITUD" property="idSolicitud" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="FEC_SOLICITUD" property="fecSolicitud" jdbcType="TIMESTAMP" />
+    <result column="RECONOCIDA" property="reconocida" jdbcType="VARCHAR" />
+    <result column="OBS" property="obs" jdbcType="VARCHAR" />
+    <result column="ID_SOLICITUD_ALT" property="idSolicitudAlt" jdbcType="DECIMAL" />
+    <result column="RECONOCIDA_FON" property="reconocidaFon" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 'false' as QUERYID,
+    COD_OFICINA, COD_PAIS, ID_SOLICITUD, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION, 
+    FEC_SOLICITUD, RECONOCIDA, OBS, ID_SOLICITUD_ALT, RECONOCIDA_FON
+    from PATENTES.SOLICITUD_PRIORIDAD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and ID_SOLICITUD = #{idSolicitud,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.SOLICITUD_PRIORIDAD
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and ID_SOLICITUD = #{idSolicitud,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPrioridad" >
+    insert into PATENTES.SOLICITUD_PRIORIDAD (COD_OFICINA, COD_PAIS, ID_SOLICITUD, 
+      NUM_EXPED, SER_EXPED, TIP_EXPED, 
+      ROW_VERSION, FEC_SOLICITUD, RECONOCIDA, 
+      OBS, ID_SOLICITUD_ALT, RECONOCIDA_FON
+      )
+    values (#{codOficina,jdbcType=VARCHAR}, #{codPais,jdbcType=VARCHAR}, #{idSolicitud,jdbcType=VARCHAR}, 
+      #{numExped,jdbcType=DECIMAL}, #{serExped,jdbcType=DECIMAL}, #{tipExped,jdbcType=VARCHAR}, 
+      #{rowVersion,jdbcType=DECIMAL}, #{fecSolicitud,jdbcType=TIMESTAMP}, #{reconocida,jdbcType=VARCHAR}, 
+      #{obs,jdbcType=VARCHAR}, #{idSolicitudAlt,jdbcType=DECIMAL}, #{reconocidaFon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPrioridad" >
+    insert into PATENTES.SOLICITUD_PRIORIDAD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        COD_OFICINA,
+      </if>
+      <if test="codPais != null" >
+        COD_PAIS,
+      </if>
+      <if test="idSolicitud != null" >
+        ID_SOLICITUD,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="fecSolicitud != null" >
+        FEC_SOLICITUD,
+      </if>
+      <if test="reconocida != null" >
+        RECONOCIDA,
+      </if>
+      <if test="obs != null" >
+        OBS,
+      </if>
+      <if test="idSolicitudAlt != null" >
+        ID_SOLICITUD_ALT,
+      </if>
+      <if test="reconocidaFon != null" >
+        RECONOCIDA_FON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="codPais != null" >
+        #{codPais,jdbcType=VARCHAR},
+      </if>
+      <if test="idSolicitud != null" >
+        #{idSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecSolicitud != null" >
+        #{fecSolicitud,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reconocida != null" >
+        #{reconocida,jdbcType=VARCHAR},
+      </if>
+      <if test="obs != null" >
+        #{obs,jdbcType=VARCHAR},
+      </if>
+      <if test="idSolicitudAlt != null" >
+        #{idSolicitudAlt,jdbcType=DECIMAL},
+      </if>
+      <if test="reconocidaFon != null" >
+        #{reconocidaFon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPrioridad" >
+    update PATENTES.SOLICITUD_PRIORIDAD
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecSolicitud != null" >
+        FEC_SOLICITUD = #{fecSolicitud,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reconocida != null" >
+        RECONOCIDA = #{reconocida,jdbcType=VARCHAR},
+      </if>
+      <if test="obs != null" >
+        OBS = #{obs,jdbcType=VARCHAR},
+      </if>
+      <if test="idSolicitudAlt != null" >
+        ID_SOLICITUD_ALT = #{idSolicitudAlt,jdbcType=DECIMAL},
+      </if>
+      <if test="reconocidaFon != null" >
+        RECONOCIDA_FON = #{reconocidaFon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and ID_SOLICITUD = #{idSolicitud,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.SolicitudPrioridad" >
+    update PATENTES.SOLICITUD_PRIORIDAD
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      FEC_SOLICITUD = #{fecSolicitud,jdbcType=TIMESTAMP},
+      RECONOCIDA = #{reconocida,jdbcType=VARCHAR},
+      OBS = #{obs,jdbcType=VARCHAR},
+      ID_SOLICITUD_ALT = #{idSolicitudAlt,jdbcType=DECIMAL},
+      RECONOCIDA_FON = #{reconocidaFon,jdbcType=VARCHAR}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and COD_PAIS = #{codPais,jdbcType=VARCHAR}
+      and ID_SOLICITUD = #{idSolicitud,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.gob.impi.rdu.persistence.mapper.PerfilMapper">
+  <resultMap id="PerfilResultMap" type="mx.gob.impi.rdu.persistence.model.Perfil">
+    <id column="id_perfil" property="idPerfil" jdbcType="VARCHAR"/>
+    <result column="nombre" property="nombre" jdbcType="VARCHAR"/>
+    <result column="id_tipo_agrupacion" property="idTipoAgrupacion" jdbcType="SMALLINT"/>
+    <result column="constante" property="constante" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="getAll" resultMap="PerfilResultMap">
+      select perfil.id_perfil as idPerfil,
+        perfil.nombre as nombre, perfil.id_tipo_agrupacion as idTipoAgrupacion,
+        perfil.constante as constante
+        from  perfil perfil order by perfil.nombre
+
+  </select>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="ejb.businesslayer.application.context" lazy-init="false"
+		class="org.springframework.context.support.ClassPathXmlApplicationContext">
+		<constructor-arg>
+			<list>
+
+				<value>config/applicationContext-persistence.xml</value>
+                                <value>config/applicationContext-persistence-sigmar.xml</value>
+                                <value>config/applicationContext-persistence-ingresos.xml</value>
+                                <value>config/applicationContext-persistence-sagpat.xml</value>
+                                <value>config/applicationContext-persistence-sigappi.xml</value>
+                                <value>config/applicationContext-persistence-pase.xml</value>
+				<value>config/applicationContext-service-ejbRduUsuarios.xml</value>
+                                <value>config/applicationContext-service-ejbRduCatalogos.xml</value>
+				<value>config/applicationContext-service-ejbFlujosGenerales.xml</value>
+                                <value>config/applicationContext-service-ejbRduPatentes.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+        <!-- Configuracion de log4j -->
+	<bean id="log4jInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.springframework.util.Log4jConfigurer.initLogging" />
+		<property name="arguments">
+			<list>
+				<value>classpath:log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

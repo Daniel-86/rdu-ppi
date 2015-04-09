@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.gob.impi.rdu.persistence.mapper.TelefonoMapper">
+  <resultMap id="TelefonoResultMap" type="mx.gob.impi.rdu.persistence.model.Telefono">
+    <id column="id_telefono" property="idTelefono" jdbcType="BIGINT"/>
+    <result column="tipo_telefono" property="tipoTelefono" jdbcType="VARCHAR"/>
+    <result column="lada" property="lada" jdbcType="VARCHAR"/>
+    <result column="numero" property="numero" jdbcType="VARCHAR"/>
+    <result column="id_usuario" property="idUsuario" jdbcType="BIGINT"/>
+  </resultMap>
+</mapper>

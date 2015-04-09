@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.CatTipoSolicitanteMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.CatTipoSolicitante" >
+        <id column="ID_TIPO_SOLICITANTE" property="idTipoSolicitante" jdbcType="DECIMAL" />
+        <result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+        <result column="IND_ACTIVO" property="indActivo" jdbcType="DECIMAL" />
+        <result column="ID_TIPO_PERSONA" property="idTipoPersona" jdbcType="DECIMAL" />
+        <result column="APLICADESCUENTO" property="aplicaDescuento" jdbcType="DECIMAL" />
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select ID_TIPO_SOLICITANTE, DESCRIPCION, IND_ACTIVO, ID_TIPO_PERSONA, APLICADESCUENTO
+    from CAT_TIPO_SOLICITANTE
+    where ID_TIPO_SOLICITANTE = #{idTipoSolicitante,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CAT_TIPO_SOLICITANTE
+    where ID_TIPO_SOLICITANTE = #{idTipoSolicitante,jdbcType=DECIMAL}
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoSolicitante" >
+    update CAT_TIPO_SOLICITANTE
+        <set >
+            <if test="descripcion != null" >
+        DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+            </if>
+            <if test="indActivo != null" >
+        IND_ACTIVO = #{indActivo,jdbcType=DECIMAL},
+            </if>
+            <if test="idTipoPersona != null" >
+        ID_TIPO_PERSONA = #{idTipoPersona,jdbcType=DECIMAL},
+            </if>
+            <if test="aplicaDescuento != null" >
+        APLICADESCUENTO = #{aplicaDescuento,jdbcType=DECIMAL},
+            </if>
+        </set>
+    where ID_TIPO_SOLICITANTE = #{idTipoSolicitante,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoSolicitante" >
+    update CAT_TIPO_SOLICITANTE
+    set DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+      IND_ACTIVO = #{indActivo,jdbcType=DECIMAL},
+      ID_TIPO_PERSONA = #{idTipoPersona,jdbcType=DECIMAL},
+      APLICADESCUENTO = #{aplicaDescuento,jdbcType=DECIMAL}
+    where ID_TIPO_SOLICITANTE = #{idTipoSolicitante,jdbcType=DECIMAL}
+    </update>
+
+    <select id="getByCriterio" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoSolicitante" >
+      select
+    ID_TIPO_SOLICITANTE, DESCRIPCION, IND_ACTIVO,ID_TIPO_PERSONA, APLICADESCUENTO
+    from CAT_TIPO_SOLICITANTE
+
+        <where>
+           <if test="idTipoSolicitante!=null">
+                ID_TIPO_SOLICITANTE = #{idTipoSolicitante,jdbcType=DECIMAL}
+            </if>
+
+           
+            <if test="indActivo != null" >
+                AND IND_ACTIVO = #{indActivo,jdbcType=DECIMAL}
+            </if>
+
+        </where>
+    </select>
+</mapper>

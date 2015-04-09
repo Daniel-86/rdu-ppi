@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.PagoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Pago" >
+    <id column="ID_PAGO" property="idPago" jdbcType="DECIMAL" />
+    <result column="FOLIOPAGO" property="foliopago" jdbcType="VARCHAR" />
+    <result column="FEPS" property="feps" jdbcType="VARCHAR" />
+    <result column="TOTAL" property="total" jdbcType="DECIMAL" />
+    <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+    <result column="FECHAPAGO" property="fechapago" jdbcType="TIMESTAMP" />
+    <result column="FECHAPORPAGAR" property="fechaPorPagar" jdbcType="TIMESTAMP" />
+    <result column="ID_TRAMITE_PATENTE" property="idTramitePatentes" jdbcType="DECIMAL" />
+    <result column="ID_TRAMITE_PROMO_MARCA" property="idTramitePromoMarcas" jdbcType="DECIMAL" />
+  </resultMap>  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    ID_PAGO, FOLIOPAGO, FEPS, TOTAL, ID_TRAMITE, FECHAPAGO
+    from PAGO
+    where ID_PAGO = #{idPago,jdbcType=DECIMAL}
+  </select>
+   <select id="selectByTramiteId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  ID_PAGO, FOLIOPAGO, FEPS, TOTAL, ID_TRAMITE, FECHAPAGO, ID_TRAMITE_PATENTE,
+    ID_TRAMITE_PROMO_MARCA
+    from PAGO
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    or ID_TRAMITE_PATENTE = #{idTramite,jdbcType=DECIMAL}
+    or ID_TRAMITE_PROMO_MARCA = #{idTramite,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PAGO
+    where ID_PAGO = #{idPago,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Pago" >
+        <selectKey resultType="long" keyProperty="idAnexo" order="AFTER">
+            SELECT PAGO_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+    insert into PAGO (ID_PAGO, FOLIOPAGO, FEPS, 
+      TOTAL, ID_TRAMITE, FECHAPORPAGAR, FECHAPAGO, ID_TRAMITE_PATENTE, ID_TRAMITE_PROMO_MARCA
+      )
+    values (PAGO_SEQ.nextval, #{foliopago,jdbcType=VARCHAR}, #{feps,jdbcType=VARCHAR},
+      #{total,jdbcType=DECIMAL}, #{idTramite,jdbcType=DECIMAL}, sysdate, #{fechapago,jdbcType=TIMESTAMP}
+      , #{idTramitePatentes,jdbcType=DECIMAL}, #{idTramitePromoMarcas,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Pago" >
+    insert into PAGO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idPago != null" >
+        ID_PAGO,
+      </if>
+      <if test="foliopago != null" >
+        FOLIOPAGO,
+      </if>
+      <if test="feps != null" >
+        FEPS,
+      </if>
+      <if test="total != null" >
+        TOTAL,
+      </if>
+      <if test="idTramite != null" >
+        ID_TRAMITE,
+      </if>
+      <if test="fechapago != null" >
+        FECHAPAGO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idPago != null" >
+        #{idPago,jdbcType=DECIMAL},
+      </if>
+      <if test="foliopago != null" >
+        #{foliopago,jdbcType=VARCHAR},
+      </if>
+      <if test="feps != null" >
+        #{feps,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramite != null" >
+        #{idTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="fechapago != null" >
+        #{fechapago,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Pago" >
+    update PAGO
+    <set >
+      <if test="foliopago != null" >
+        FOLIOPAGO = #{foliopago,jdbcType=VARCHAR},
+      </if>
+      <if test="feps != null" >
+        FEPS = #{feps,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        TOTAL = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="fechapago != null" >
+        FECHAPAGO = #{fechapago,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID_PAGO = #{idPago,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Pago" >
+    update PAGO
+    set FOLIOPAGO = #{foliopago,jdbcType=VARCHAR},
+      FEPS = #{feps,jdbcType=VARCHAR},
+      TOTAL = #{total,jdbcType=DECIMAL},
+      ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      FECHAPAGO = #{fechapago,jdbcType=TIMESTAMP}
+    where ID_PAGO = #{idPago,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updatePASE" parameterType="mx.gob.impi.rdu.persistence.model.Pago" >
+    update PAGO
+    <set>
+      <if test="foliopago != null" >
+        FOLIOPAGO = #{foliopago,jdbcType=VARCHAR},
+      </if>
+      <if test="feps != null" >
+        FEPS = #{feps,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        TOTAL = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="fechapago != null" >
+        FECHAPAGO = #{fechapago,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FEPS = #{feps,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

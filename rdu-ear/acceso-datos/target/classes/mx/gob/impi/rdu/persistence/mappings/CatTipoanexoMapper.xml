@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.CatTipoanexoMapper" >
+    
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.CatTipoanexo" >
+        <id column="ID_TIPOANEXO" property="idTipoanexo" jdbcType="DECIMAL" />
+        <result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+        <result column="OBLIGATORIO" property="obligatorio" jdbcType="DECIMAL" />
+        <result column="IND_ACTIVO" property="indActivo" jdbcType="DECIMAL" />
+        <result column="ID_SUBTIPOSOLICITUD" property="idSubtiposolicitud" jdbcType="DECIMAL" />
+        <result column="VISIBLEXCARGA" property="visiblexcarga" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <resultMap id="ResultMapDTO" type="mx.gob.impi.rdu.dto.AnexosViewDto">
+        <result column="ID_TIPOANEXO" property="idTipoanexo" jdbcType="DECIMAL" />
+        <result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+        <result column="OBLIGATORIO" property="obligatorio" jdbcType="DECIMAL" />
+        <result column="IND_ACTIVO" property="indActivo" jdbcType="DECIMAL" />
+        <result column="ID_SUBTIPOSOLICITUD" property="idSubtiposolicitud" jdbcType="DECIMAL" />
+        <result column="ID_TIPOMARCA" property="idTipomarca" jdbcType="DECIMAL" />
+        <result column="VISIBLEXCARGA" property="visiblexcarga" jdbcType="DECIMAL" />
+        <result column="ORDEN" property="orden" jdbcType="DECIMAL" />
+        <result column="ID_AREA" property="idArea" jdbcType="DECIMAL" />
+        <result column="ID_ANEXO" property="idAnexo" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE_PATENTE" property="idTramitePatente" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE_PROMOCION_MARCA" property="idTramitePromocionMarcas" jdbcType="DECIMAL" />
+        <result column="ARCHIVO_ANEXO" property="archivoAnexo" jdbcType="BLOB" />
+        <result column="EXTENSION" property="extension" jdbcType="VARCHAR" />
+        <result column="NOMBRE_ARCHIVO" property="nombreArchivo" jdbcType="VARCHAR" />
+        <result column="TEXTO_AYUDA" property="textoAyuda" jdbcType="VARCHAR" />
+        <result column="TXTANEXO" property="txtAnexo" jdbcType="CLOB" />
+        <result column="OTRO_IDIOMA" property="otroIdioma" jdbcType="DECIMAL" />
+        <result column="ID_TIPOANEXOTRAD" property="idTipoanexoTrad" jdbcType="DECIMAL" />
+        <result column="ARCHIVO_TRAD" property="archivoTrad" jdbcType="BLOB" />
+        <result column="NOMBRE_TRAD" property="nombreTrad" jdbcType="VARCHAR" />
+        <result column="TXTANEXO_TRAD" property="txtAnexoTrad" jdbcType="CLOB" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+      ID_TIPOANEXO, DESCRIPCION, OBLIGATORIO, IND_ACTIVO, ID_SUBTIPOSOLICITUD, VISIBLEXCARGA
+    from CAT_TIPOANEXO
+    where ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from CAT_TIPOANEXO
+    where ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoanexo" >
+    insert into CAT_TIPOANEXO (ID_TIPOANEXO, DESCRIPCION, OBLIGATORIO, 
+      IND_ACTIVO, ID_SUBTIPOSOLICITUD, VISIBLEXCARGA
+      )
+    values (#{idTipoanexo,jdbcType=DECIMAL}, #{descripcion,jdbcType=VARCHAR}, #{obligatorio,jdbcType=DECIMAL}, 
+      #{indActivo,jdbcType=DECIMAL}, #{idSubtiposolicitud,jdbcType=DECIMAL}, #{visiblexcarga,jdbcType=DECIMAL}
+      )
+    </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoanexo" >
+    insert into CAT_TIPOANEXO
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idTipoanexo != null" >
+        ID_TIPOANEXO,
+            </if>
+            <if test="descripcion != null" >
+        DESCRIPCION,
+            </if>
+            <if test="obligatorio != null" >
+        OBLIGATORIO,
+            </if>
+            <if test="indActivo != null" >
+        IND_ACTIVO,
+            </if>
+            <if test="idSubtiposolicitud != null" >
+        ID_SUBTIPOSOLICITUD,
+            </if>
+            <if test="visiblexcarga != null" >
+        VISIBLEXCARGA,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="idTipoanexo != null" >
+        #{idTipoanexo,jdbcType=DECIMAL},
+            </if>
+            <if test="descripcion != null" >
+        #{descripcion,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatorio != null" >
+        #{obligatorio,jdbcType=DECIMAL},
+            </if>
+            <if test="indActivo != null" >
+        #{indActivo,jdbcType=DECIMAL},
+            </if>
+            <if test="idSubtiposolicitud != null" >
+        #{idSubtiposolicitud,jdbcType=DECIMAL},
+            </if>
+            <if test="visiblexcarga != null" >
+        #{visiblexcarga,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoanexo" >
+    update CAT_TIPOANEXO
+        <set >
+            <if test="descripcion != null" >
+        DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatorio != null" >
+        OBLIGATORIO = #{obligatorio,jdbcType=DECIMAL},
+            </if>
+            <if test="indActivo != null" >
+        IND_ACTIVO = #{indActivo,jdbcType=DECIMAL},
+            </if>
+            <if test="idSubtiposolicitud != null" >
+        ID_SUBTIPOSOLICITUD = #{idSubtiposolicitud,jdbcType=DECIMAL},
+            </if>
+            <if test="visiblexcarga != null" >
+        VISIBLEXCARGA = #{visiblexcarga,jdbcType=DECIMAL},
+            </if>
+        </set>
+    where ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoanexo" >
+    update CAT_TIPOANEXO
+    set DESCRIPCION = #{descripcion,jdbcType=VARCHAR},
+      OBLIGATORIO = #{obligatorio,jdbcType=DECIMAL},
+      IND_ACTIVO = #{indActivo,jdbcType=DECIMAL},
+      ID_SUBTIPOSOLICITUD = #{idSubtiposolicitud,jdbcType=DECIMAL},
+      VISIBLEXCARGA = #{visiblexcarga,jdbcType=DECIMAL}
+    where ID_TIPOANEXO = #{idTipoanexo,jdbcType=DECIMAL}
+    </update>
+
+    <select id="selectDynamic" parameterType="mx.gob.impi.rdu.persistence.model.CatTipoanexo" resultMap="BaseResultMap">
+     SELECT tipoanexo.ID_TIPOANEXO,
+      tipoanexo.DESCRIPCION,
+      tipoanexo.OBLIGATORIO,
+      tipoanexo.IND_ACTIVO,
+      tipoanexo.ID_SUBTIPOSOLICITUD,
+      tipoanexo.VISIBLEXCARGA,
+      anexo.archivo_anexo
+    FROM CAT_TIPOANEXO tipoAnexo
+    left join anexos anexo
+    on anexo.ID_TIPOANEXO = tipoanexo.id_tipoanexo
+    where id_subtiposolicitud=#{idSubtiposolicitud,jdbcType=DECIMAL}
+    </select>
+
+
+    <select id="selectDynamicDTO" parameterType="mx.gob.impi.rdu.dto.AnexosViewDto" resultMap="ResultMapDTO">
+     SELECT
+     relAnexo.ORDEN,
+     relAnexo.ID_SUBTIPOSOLICITUD,
+     relAnexo.ID_TIPOMARCA,
+     relAnexo.ID_TIPOANEXO,
+     tipoanexo.DESCRIPCION,
+     tipoanexo.EXTENSION,
+     relAnexo.OBLIGATORIO,
+     relAnexo.VISIBLEXCARGA,
+     tipoanexo.TEXTO_AYUDA
+        <if test="idTramite != null" >
+        ,anexo.ID_ANEXO, anexo.ID_TRAMITE, anexo.ID_TRAMITE_PATENTE, anexo.ARCHIVO_ANEXO,anexo.NOMBRE_ARCHIVO, anexo.ID_TRAMITE_PROMOCION_MARCA,anexo.TXTANEXO
+        ,anexo.OTRO_IDIOMA, anexo.ID_TIPOANEXOTRAD, anexo.ARCHIVO_TRAD, anexo.NOMBRE_TRAD, anexo.TXTANEXO_TRAD
+        </if>
+      FROM (Select * from CAT_ANEXOS_RELACION where IND_ACTIVO=1 
+        and (VISIBLEXCARGA=1
+        <if test="reglasUso != null" >
+            OR VISIBLEXCARGA=#{reglasUso,jdbcType=DECIMAL}
+        </if>
+        <if test="prioridad != null" >
+            OR VISIBLEXCARGA=#{prioridad,jdbcType=DECIMAL}
+        </if>
+        )
+        and ID_SUBTIPOSOLICITUD=#{idSubtiposolicitud,jdbcType=DECIMAL}
+        AND (ID_TIPOMARCA=0
+        <if test="idTipomarca != null" >
+            OR ID_TIPOMARCA=#{idTipomarca,jdbcType=DECIMAL}
+        </if>
+        )) relAnexo
+      INNER JOIN (Select * From CAT_ANEXOS) tipoAnexo ON tipoAnexo.ID_TIPOANEXO=relAnexo.ID_TIPOANEXO
+        <if test="idTramite != null" >
+        left join (select * from anexos where ID_TRAMITE=#{idTramite,jdbcType=DECIMAL} or ID_TRAMITE_PATENTE=#{idTramite,jdbcType=DECIMAL} or ID_TRAMITE_PROMOCION_MARCA=#{idTramite,jdbcType=DECIMAL})
+            anexo on anexo.ID_TIPOANEXO = relAnexo.id_tipoanexo
+        </if>
+      order by relAnexo.ORDEN
+    </select>
+
+    <select id="selectDynamicDTOSimple" parameterType="mx.gob.impi.rdu.dto.AnexosViewDto" resultMap="ResultMapDTO">
+     SELECT
+     relAnexo.ORDEN,
+     relAnexo.ID_SUBTIPOSOLICITUD,
+     relAnexo.ID_TIPOMARCA,
+     relAnexo.ID_TIPOANEXO,
+     tipoanexo.DESCRIPCION,
+     tipoanexo.EXTENSION,
+     relAnexo.OBLIGATORIO,
+     relAnexo.VISIBLEXCARGA
+        <if test="idTramite != null" >
+        ,anexo.ID_ANEXO, anexo.ID_TRAMITE, decode(tipoanexo.EXTENSION,'gif',anexo.archivo_anexo,empty_blob()) ARCHIVO_ANEXO,anexo.NOMBRE_ARCHIVO,anexo.OTRO_IDIOMA,anexo.TXTANEXO
+        ,anexo.ID_TIPOANEXOTRAD, anexo.ARCHIVO_TRAD, anexo.NOMBRE_TRAD, anexo.TXTANEXO_TRAD
+        </if>
+      FROM (Select * from CAT_ANEXOS_RELACION where IND_ACTIVO=1
+        and (VISIBLEXCARGA=1
+        <if test="reglasUso != null" >
+            OR VISIBLEXCARGA=#{reglasUso,jdbcType=DECIMAL}
+        </if>
+        <if test="prioridad != null" >
+            OR VISIBLEXCARGA=#{prioridad,jdbcType=DECIMAL}
+        </if>
+        )
+        and ID_SUBTIPOSOLICITUD=#{idSubtiposolicitud,jdbcType=DECIMAL}
+        AND (ID_TIPOMARCA=0
+        <if test="idTipomarca != null" >
+            OR ID_TIPOMARCA=#{idTipomarca,jdbcType=DECIMAL}
+        </if>
+        )) relAnexo
+      INNER JOIN (Select * From CAT_ANEXOS) tipoAnexo ON tipoAnexo.ID_TIPOANEXO=relAnexo.ID_TIPOANEXO
+        <if test="idTramite != null" >
+        left join (select * from anexos where ID_TRAMITE=#{idTramite,jdbcType=DECIMAL}) anexo on anexo.ID_TIPOANEXO = relAnexo.id_tipoanexo
+        </if>
+      order by relAnexo.ORDEN
+    </select>
+
+
+
+<select id="selectDynamicDTOPatentes" parameterType="mx.gob.impi.rdu.dto.AnexosViewDto" resultMap="ResultMapDTO">
+     SELECT
+     relAnexo.ORDEN,
+     relAnexo.ID_SUBTIPOSOLICITUD,
+     relAnexo.ID_TIPOMARCA,
+     relAnexo.ID_TIPOANEXO,
+     tipoanexo.DESCRIPCION,
+     tipoanexo.EXTENSION,
+     relAnexo.OBLIGATORIO,
+     relAnexo.VISIBLEXCARGA,
+     tipoanexo.TEXTO_AYUDA
+        <if test="idTramitePatente != null" >
+        ,anexo.ID_ANEXO, anexo.ID_TRAMITE_PATENTE, anexo.ARCHIVO_ANEXO,anexo.NOMBRE_ARCHIVO,anexo.TXTANEXO,anexo.OTRO_IDIOMA
+        ,anexo.ID_TIPOANEXOTRAD, anexo.ARCHIVO_TRAD, anexo.NOMBRE_TRAD, anexo.TXTANEXO_TRAD
+        </if>
+      FROM (Select * from CAT_ANEXOS_RELACION where IND_ACTIVO=1
+        and (VISIBLEXCARGA=1
+        <if test="comprobacionFechaDiv != null" >
+            OR VISIBLEXCARGA=#{comprobacionFechaDiv,jdbcType=DECIMAL}
+        </if>
+        <if test="prioridad != null" >
+            OR VISIBLEXCARGA=#{prioridad,jdbcType=DECIMAL}
+        </if>
+        <if test="notificaciones != null" >
+            OR VISIBLEXCARGA=#{notificaciones,jdbcType=DECIMAL}
+        </if>
+        <if test="doctoAcreditaPersonalidad != null" >
+            OR VISIBLEXCARGA=#{doctoAcreditaPersonalidad,jdbcType=DECIMAL}
+        </if>
+        <if test="cesionDerechos != null" >
+            OR VISIBLEXCARGA=#{cesionDerechos,jdbcType=DECIMAL}
+        </if>
+
+
+        )
+        and ID_SUBTIPOSOLICITUD=#{idSubtiposolicitud,jdbcType=DECIMAL}
+        AND (ID_TIPOMARCA=0
+
+        )) relAnexo
+      INNER JOIN (Select * From CAT_ANEXOS) tipoAnexo ON tipoAnexo.ID_TIPOANEXO=relAnexo.ID_TIPOANEXO
+        <if test="idTramitePatente != null" >
+        left join (select * from anexos where ID_TRAMITE_PATENTE=#{idTramitePatente,jdbcType=DECIMAL}) anexo on anexo.ID_TIPOANEXO = relAnexo.id_tipoanexo
+        </if>
+      order by relAnexo.ORDEN
+    </select>
+
+
+     <select id="selectDynamicDTOSimplePatente" parameterType="mx.gob.impi.rdu.dto.AnexosViewDto" resultMap="ResultMapDTO">
+     SELECT
+     relAnexo.ORDEN,
+     relAnexo.ID_SUBTIPOSOLICITUD,
+     relAnexo.ID_TIPOMARCA,
+     relAnexo.ID_TIPOANEXO,
+     tipoanexo.DESCRIPCION,
+     tipoanexo.EXTENSION,
+     relAnexo.OBLIGATORIO,
+     relAnexo.VISIBLEXCARGA
+      <if test="idTramitePatente != null" >
+        ,anexo.ID_ANEXO, anexo.ID_TRAMITE_PATENTE, decode(tipoanexo.EXTENSION,'gif',anexo.archivo_anexo,empty_blob()) ARCHIVO_ANEXO,anexo.NOMBRE_ARCHIVO,anexo.TXTANEXO,anexo.OTRO_IDIOMA
+        ,anexo.ID_TIPOANEXOTRAD, anexo.ARCHIVO_TRAD, anexo.NOMBRE_TRAD, anexo.TXTANEXO_TRAD
+      </if>
+      FROM (Select * from CAT_ANEXOS_RELACION where IND_ACTIVO=1
+        and (VISIBLEXCARGA=1
+        <if test="comprobacionFechaDiv != null" >
+            OR VISIBLEXCARGA=#{comprobacionFechaDiv,jdbcType=DECIMAL}
+        </if>
+        <if test="prioridad != null" >
+            OR VISIBLEXCARGA=#{prioridad,jdbcType=DECIMAL}
+        </if>
+        <if test="notificaciones != null" >
+            OR VISIBLEXCARGA=#{notificaciones,jdbcType=DECIMAL}
+        </if>
+        <if test="doctoAcreditaPersonalidad != null" >
+            OR VISIBLEXCARGA=#{doctoAcreditaPersonalidad,jdbcType=DECIMAL}
+        </if>
+
+          <if test="cesionDerechos != null" >
+            OR VISIBLEXCARGA=#{cesionDerechos,jdbcType=DECIMAL}
+        </if>
+
+        )
+        and ID_SUBTIPOSOLICITUD=#{idSubtiposolicitud,jdbcType=DECIMAL}
+        AND (ID_TIPOMARCA=0
+        
+        )) relAnexo
+      INNER JOIN (Select * From CAT_ANEXOS) tipoAnexo ON tipoAnexo.ID_TIPOANEXO=relAnexo.ID_TIPOANEXO
+        
+         <if test="idTramitePatente != null" >
+        left join (select * from anexos where ID_TRAMITE_PATENTE=#{idTramitePatente,jdbcType=DECIMAL}) anexo on anexo.ID_TIPOANEXO = relAnexo.id_tipoanexo
+        </if>
+      order by relAnexo.ORDEN
+    </select>
+    
+    <select id="selectAnexoDynamic" parameterType="mx.gob.impi.rdu.dto.AnexosViewDto" resultMap="ResultMapDTO">
+        SELECT ID_ANEXO, ID_TRAMITE_PATENTE, ARCHIVO_ANEXO, NOMBRE_ARCHIVO,TXTANEXO,OTRO_IDIOMA 
+        from anexos
+        where id_anexo in (
+        <if test="idSolicitante !=null">
+          select id_anexo from anexos_x_inventor where id_solicitante = #{idSolicitante,jdbcType=DECIMAL}
+        </if>
+        <if test="idPrioridad !=null and idTipoanexo==22">
+          select id_anexo_prioridad from prioridad where id_prioridad = #{idPrioridad,jdbcType=DECIMAL}
+        </if>
+        <if test="idPrioridad !=null and idTipoanexo==27">
+          select prioridad.id_anexo_traduccion from prioridad where id_prioridad = #{idPrioridad,jdbcType=DECIMAL}  
+        </if>
+          
+        )
+    </select>
+</mapper>

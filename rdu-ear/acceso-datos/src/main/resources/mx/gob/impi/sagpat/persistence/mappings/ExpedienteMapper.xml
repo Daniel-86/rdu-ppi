@@ -1,0 +1,399 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.ExpedienteMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.Expediente" >
+    <id column="COD_OFICINA" property="codOficina" jdbcType="VARCHAR" />
+    <id column="NUM_EXPED" property="numExped" jdbcType="DECIMAL" />
+    <id column="SER_EXPED" property="serExped" jdbcType="DECIMAL" />
+    <id column="TIP_EXPED" property="tipExped" jdbcType="VARCHAR" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+    <result column="COD_ORIGEN_EXPEDIENTE" property="codOrigenExpediente" jdbcType="DECIMAL" />
+    <result column="TIP_TRAMITE" property="tipTramite" jdbcType="VARCHAR" />
+    <result column="NUM_TRAMITE" property="numTramite" jdbcType="DECIMAL" />
+    <result column="TIP_SOLICITUD" property="tipSolicitud" jdbcType="VARCHAR" />
+    <result column="TIP_LIBRO" property="tipLibro" jdbcType="VARCHAR" />
+    <result column="SER_DOCUM" property="serDocum" jdbcType="DECIMAL" />
+    <result column="NUM_DOCUM" property="numDocum" jdbcType="DECIMAL" />
+    <result column="IND_SOLO_FAX" property="indSoloFax" jdbcType="VARCHAR" />
+    <result column="TIP_EXPED_VIEJA_FJ" property="tipExpedViejaFj" jdbcType="VARCHAR" />
+    <result column="SER_EXPED_VIEJA_FJ" property="serExpedViejaFj" jdbcType="DECIMAL" />
+    <result column="NUM_EXPED_VIEJA_FJ" property="numExpedViejaFj" jdbcType="DECIMAL" />
+    <result column="TIP_EXPED_NUEVA_FJ" property="tipExpedNuevaFj" jdbcType="VARCHAR" />
+    <result column="SER_EXPED_NUEVA_FJ" property="serExpedNuevaFj" jdbcType="DECIMAL" />
+    <result column="NUM_EXPED_NUEVA_FJ" property="numExpedNuevaFj" jdbcType="DECIMAL" />
+    <result column="FEC_CAMBIO_FJ" property="fecCambioFj" jdbcType="TIMESTAMP" />
+    <result column="USER_ID_CAMBIO_FJ" property="userIdCambioFj" jdbcType="DECIMAL" />
+    <result column="COD_LEY" property="codLey" jdbcType="DECIMAL" />
+    <result column="NUM_CONCESION" property="numConcesion" jdbcType="DECIMAL" />
+    <result column="FEC_CONCESION" property="fecConcesion" jdbcType="TIMESTAMP" />
+    <result column="TITULO" property="titulo" jdbcType="VARCHAR" />
+    <result column="SUBTIP_SOLICITUD" property="subtipSolicitud" jdbcType="VARCHAR" />
+    <result column="COD_PERSONA_TIT1" property="codPersonaTit1" jdbcType="DECIMAL" />
+    <result column="COD_PERSONA_PRO" property="codPersonaPro" jdbcType="DECIMAL" />
+    <result column="FEC_PRESENTACION" property="fecPresentacion" jdbcType="TIMESTAMP" />
+    <result column="COD_OFICINA_VIEJA_FJ" property="codOficinaViejaFj" jdbcType="VARCHAR" />
+    <result column="COD_OFICINA_NUEVA_FJ" property="codOficinaNuevaFj" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 'false' as QUERYID,
+      COD_OFICINA, NUM_EXPED, SER_EXPED, TIP_EXPED, ROW_VERSION, COD_ORIGEN_EXPEDIENTE, 
+    TIP_TRAMITE, NUM_TRAMITE, TIP_SOLICITUD, TIP_LIBRO, SER_DOCUM, NUM_DOCUM, IND_SOLO_FAX, 
+    TIP_EXPED_VIEJA_FJ, SER_EXPED_VIEJA_FJ, NUM_EXPED_VIEJA_FJ, TIP_EXPED_NUEVA_FJ, SER_EXPED_NUEVA_FJ, 
+    NUM_EXPED_NUEVA_FJ, FEC_CAMBIO_FJ, USER_ID_CAMBIO_FJ, COD_LEY, NUM_CONCESION, FEC_CONCESION, 
+    TITULO, SUBTIP_SOLICITUD, COD_PERSONA_TIT1, COD_PERSONA_PRO, FEC_PRESENTACION, COD_OFICINA_VIEJA_FJ, 
+    COD_OFICINA_NUEVA_FJ
+    from PATENTES.EXPEDIENTE
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.EXPEDIENTE
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.Expediente" >
+    insert into PATENTES.EXPEDIENTE (COD_OFICINA, NUM_EXPED, SER_EXPED, 
+      TIP_EXPED, ROW_VERSION, COD_ORIGEN_EXPEDIENTE, 
+      TIP_TRAMITE, NUM_TRAMITE, TIP_SOLICITUD, 
+      TIP_LIBRO, SER_DOCUM, NUM_DOCUM, 
+      IND_SOLO_FAX, TIP_EXPED_VIEJA_FJ, SER_EXPED_VIEJA_FJ, 
+      NUM_EXPED_VIEJA_FJ, TIP_EXPED_NUEVA_FJ, SER_EXPED_NUEVA_FJ, 
+      NUM_EXPED_NUEVA_FJ, FEC_CAMBIO_FJ, USER_ID_CAMBIO_FJ, 
+      COD_LEY, NUM_CONCESION, FEC_CONCESION, 
+      TITULO, SUBTIP_SOLICITUD, COD_PERSONA_TIT1, 
+      COD_PERSONA_PRO, FEC_PRESENTACION, COD_OFICINA_VIEJA_FJ, 
+      COD_OFICINA_NUEVA_FJ)
+    values (#{codOficina,jdbcType=VARCHAR}, #{numExped,jdbcType=DECIMAL}, #{serExped,jdbcType=DECIMAL}, 
+      #{tipExped,jdbcType=VARCHAR}, #{rowVersion,jdbcType=DECIMAL}, #{codOrigenExpediente,jdbcType=DECIMAL}, 
+      #{tipTramite,jdbcType=VARCHAR}, #{numTramite,jdbcType=DECIMAL}, #{tipSolicitud,jdbcType=VARCHAR}, 
+      #{tipLibro,jdbcType=VARCHAR}, #{serDocum,jdbcType=DECIMAL}, #{numDocum,jdbcType=DECIMAL}, 
+      #{indSoloFax,jdbcType=VARCHAR}, #{tipExpedViejaFj,jdbcType=VARCHAR}, #{serExpedViejaFj,jdbcType=DECIMAL}, 
+      #{numExpedViejaFj,jdbcType=DECIMAL}, #{tipExpedNuevaFj,jdbcType=VARCHAR}, #{serExpedNuevaFj,jdbcType=DECIMAL}, 
+      #{numExpedNuevaFj,jdbcType=DECIMAL}, #{fecCambioFj,jdbcType=TIMESTAMP}, #{userIdCambioFj,jdbcType=DECIMAL}, 
+      #{codLey,jdbcType=DECIMAL}, #{numConcesion,jdbcType=DECIMAL}, #{fecConcesion,jdbcType=TIMESTAMP}, 
+      #{titulo,jdbcType=VARCHAR}, #{subtipSolicitud,jdbcType=VARCHAR}, #{codPersonaTit1,jdbcType=DECIMAL}, 
+      #{codPersonaPro,jdbcType=DECIMAL}, #{fecPresentacion,jdbcType=TIMESTAMP}, #{codOficinaViejaFj,jdbcType=VARCHAR}, 
+      #{codOficinaNuevaFj,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.Expediente" >
+    insert into PATENTES.EXPEDIENTE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        COD_OFICINA,
+      </if>
+      <if test="numExped != null" >
+        NUM_EXPED,
+      </if>
+      <if test="serExped != null" >
+        SER_EXPED,
+      </if>
+      <if test="tipExped != null" >
+        TIP_EXPED,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+      <if test="codOrigenExpediente != null" >
+        COD_ORIGEN_EXPEDIENTE,
+      </if>
+      <if test="tipTramite != null" >
+        TIP_TRAMITE,
+      </if>
+      <if test="numTramite != null" >
+        NUM_TRAMITE,
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD,
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO,
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM,
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM,
+      </if>
+      <if test="indSoloFax != null" >
+        IND_SOLO_FAX,
+      </if>
+      <if test="tipExpedViejaFj != null" >
+        TIP_EXPED_VIEJA_FJ,
+      </if>
+      <if test="serExpedViejaFj != null" >
+        SER_EXPED_VIEJA_FJ,
+      </if>
+      <if test="numExpedViejaFj != null" >
+        NUM_EXPED_VIEJA_FJ,
+      </if>
+      <if test="tipExpedNuevaFj != null" >
+        TIP_EXPED_NUEVA_FJ,
+      </if>
+      <if test="serExpedNuevaFj != null" >
+        SER_EXPED_NUEVA_FJ,
+      </if>
+      <if test="numExpedNuevaFj != null" >
+        NUM_EXPED_NUEVA_FJ,
+      </if>
+      <if test="fecCambioFj != null" >
+        FEC_CAMBIO_FJ,
+      </if>
+      <if test="userIdCambioFj != null" >
+        USER_ID_CAMBIO_FJ,
+      </if>
+      <if test="codLey != null" >
+        COD_LEY,
+      </if>
+      <if test="numConcesion != null" >
+        NUM_CONCESION,
+      </if>
+      <if test="fecConcesion != null" >
+        FEC_CONCESION,
+      </if>
+      <if test="titulo != null" >
+        TITULO,
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD,
+      </if>
+      <if test="codPersonaTit1 != null" >
+        COD_PERSONA_TIT1,
+      </if>
+      <if test="codPersonaPro != null" >
+        COD_PERSONA_PRO,
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION,
+      </if>
+      <if test="codOficinaViejaFj != null" >
+        COD_OFICINA_VIEJA_FJ,
+      </if>
+      <if test="codOficinaNuevaFj != null" >
+        COD_OFICINA_NUEVA_FJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codOficina != null" >
+        #{codOficina,jdbcType=VARCHAR},
+      </if>
+      <if test="numExped != null" >
+        #{numExped,jdbcType=DECIMAL},
+      </if>
+      <if test="serExped != null" >
+        #{serExped,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExped != null" >
+        #{tipExped,jdbcType=VARCHAR},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="codOrigenExpediente != null" >
+        #{codOrigenExpediente,jdbcType=DECIMAL},
+      </if>
+      <if test="tipTramite != null" >
+        #{tipTramite,jdbcType=VARCHAR},
+      </if>
+      <if test="numTramite != null" >
+        #{numTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitud != null" >
+        #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibro != null" >
+        #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocum != null" >
+        #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocum != null" >
+        #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="indSoloFax != null" >
+        #{indSoloFax,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExpedViejaFj != null" >
+        #{tipExpedViejaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedViejaFj != null" >
+        #{serExpedViejaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedViejaFj != null" >
+        #{numExpedViejaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExpedNuevaFj != null" >
+        #{tipExpedNuevaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedNuevaFj != null" >
+        #{serExpedNuevaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedNuevaFj != null" >
+        #{numExpedNuevaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCambioFj != null" >
+        #{fecCambioFj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCambioFj != null" >
+        #{userIdCambioFj,jdbcType=DECIMAL},
+      </if>
+      <if test="codLey != null" >
+        #{codLey,jdbcType=DECIMAL},
+      </if>
+      <if test="numConcesion != null" >
+        #{numConcesion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecConcesion != null" >
+        #{fecConcesion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titulo != null" >
+        #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="codPersonaTit1 != null" >
+        #{codPersonaTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaPro != null" >
+        #{codPersonaPro,jdbcType=DECIMAL},
+      </if>
+      <if test="fecPresentacion != null" >
+        #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codOficinaViejaFj != null" >
+        #{codOficinaViejaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaNuevaFj != null" >
+        #{codOficinaNuevaFj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.Expediente" >
+    update PATENTES.EXPEDIENTE
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="codOrigenExpediente != null" >
+        COD_ORIGEN_EXPEDIENTE = #{codOrigenExpediente,jdbcType=DECIMAL},
+      </if>
+      <if test="tipTramite != null" >
+        TIP_TRAMITE = #{tipTramite,jdbcType=VARCHAR},
+      </if>
+      <if test="numTramite != null" >
+        NUM_TRAMITE = #{numTramite,jdbcType=DECIMAL},
+      </if>
+      <if test="tipSolicitud != null" >
+        TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="tipLibro != null" >
+        TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR},
+      </if>
+      <if test="serDocum != null" >
+        SER_DOCUM = #{serDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="numDocum != null" >
+        NUM_DOCUM = #{numDocum,jdbcType=DECIMAL},
+      </if>
+      <if test="indSoloFax != null" >
+        IND_SOLO_FAX = #{indSoloFax,jdbcType=VARCHAR},
+      </if>
+      <if test="tipExpedViejaFj != null" >
+        TIP_EXPED_VIEJA_FJ = #{tipExpedViejaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedViejaFj != null" >
+        SER_EXPED_VIEJA_FJ = #{serExpedViejaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedViejaFj != null" >
+        NUM_EXPED_VIEJA_FJ = #{numExpedViejaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="tipExpedNuevaFj != null" >
+        TIP_EXPED_NUEVA_FJ = #{tipExpedNuevaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="serExpedNuevaFj != null" >
+        SER_EXPED_NUEVA_FJ = #{serExpedNuevaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="numExpedNuevaFj != null" >
+        NUM_EXPED_NUEVA_FJ = #{numExpedNuevaFj,jdbcType=DECIMAL},
+      </if>
+      <if test="fecCambioFj != null" >
+        FEC_CAMBIO_FJ = #{fecCambioFj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCambioFj != null" >
+        USER_ID_CAMBIO_FJ = #{userIdCambioFj,jdbcType=DECIMAL},
+      </if>
+      <if test="codLey != null" >
+        COD_LEY = #{codLey,jdbcType=DECIMAL},
+      </if>
+      <if test="numConcesion != null" >
+        NUM_CONCESION = #{numConcesion,jdbcType=DECIMAL},
+      </if>
+      <if test="fecConcesion != null" >
+        FEC_CONCESION = #{fecConcesion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titulo != null" >
+        TITULO = #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="subtipSolicitud != null" >
+        SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      </if>
+      <if test="codPersonaTit1 != null" >
+        COD_PERSONA_TIT1 = #{codPersonaTit1,jdbcType=DECIMAL},
+      </if>
+      <if test="codPersonaPro != null" >
+        COD_PERSONA_PRO = #{codPersonaPro,jdbcType=DECIMAL},
+      </if>
+      <if test="fecPresentacion != null" >
+        FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codOficinaViejaFj != null" >
+        COD_OFICINA_VIEJA_FJ = #{codOficinaViejaFj,jdbcType=VARCHAR},
+      </if>
+      <if test="codOficinaNuevaFj != null" >
+        COD_OFICINA_NUEVA_FJ = #{codOficinaNuevaFj,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.Expediente" >
+    update PATENTES.EXPEDIENTE
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      COD_ORIGEN_EXPEDIENTE = #{codOrigenExpediente,jdbcType=DECIMAL},
+      TIP_TRAMITE = #{tipTramite,jdbcType=VARCHAR},
+      NUM_TRAMITE = #{numTramite,jdbcType=DECIMAL},
+      TIP_SOLICITUD = #{tipSolicitud,jdbcType=VARCHAR},
+      TIP_LIBRO = #{tipLibro,jdbcType=VARCHAR},
+      SER_DOCUM = #{serDocum,jdbcType=DECIMAL},
+      NUM_DOCUM = #{numDocum,jdbcType=DECIMAL},
+      IND_SOLO_FAX = #{indSoloFax,jdbcType=VARCHAR},
+      TIP_EXPED_VIEJA_FJ = #{tipExpedViejaFj,jdbcType=VARCHAR},
+      SER_EXPED_VIEJA_FJ = #{serExpedViejaFj,jdbcType=DECIMAL},
+      NUM_EXPED_VIEJA_FJ = #{numExpedViejaFj,jdbcType=DECIMAL},
+      TIP_EXPED_NUEVA_FJ = #{tipExpedNuevaFj,jdbcType=VARCHAR},
+      SER_EXPED_NUEVA_FJ = #{serExpedNuevaFj,jdbcType=DECIMAL},
+      NUM_EXPED_NUEVA_FJ = #{numExpedNuevaFj,jdbcType=DECIMAL},
+      FEC_CAMBIO_FJ = #{fecCambioFj,jdbcType=TIMESTAMP},
+      USER_ID_CAMBIO_FJ = #{userIdCambioFj,jdbcType=DECIMAL},
+      COD_LEY = #{codLey,jdbcType=DECIMAL},
+      NUM_CONCESION = #{numConcesion,jdbcType=DECIMAL},
+      FEC_CONCESION = #{fecConcesion,jdbcType=TIMESTAMP},
+      TITULO = #{titulo,jdbcType=VARCHAR},
+      SUBTIP_SOLICITUD = #{subtipSolicitud,jdbcType=VARCHAR},
+      COD_PERSONA_TIT1 = #{codPersonaTit1,jdbcType=DECIMAL},
+      COD_PERSONA_PRO = #{codPersonaPro,jdbcType=DECIMAL},
+      FEC_PRESENTACION = #{fecPresentacion,jdbcType=TIMESTAMP},
+      COD_OFICINA_VIEJA_FJ = #{codOficinaViejaFj,jdbcType=VARCHAR},
+      COD_OFICINA_NUEVA_FJ = #{codOficinaNuevaFj,jdbcType=VARCHAR}
+    where COD_OFICINA = #{codOficina,jdbcType=VARCHAR}
+      and NUM_EXPED = #{numExped,jdbcType=DECIMAL}
+      and SER_EXPED = #{serExped,jdbcType=DECIMAL}
+      and TIP_EXPED = #{tipExped,jdbcType=VARCHAR}
+  </update>
+</mapper>

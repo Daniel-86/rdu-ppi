@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sagpat.persistence.mappers.PersonaPalabraMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sagpat.persistence.model.PersonaPalabra" >
+    <id column="COD_PALABRA" property="codPalabra" jdbcType="VARCHAR" />
+    <id column="COD_PERSONA" property="codPersona" jdbcType="DECIMAL" />
+    <result column="ROW_VERSION" property="rowVersion" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 'false' as QUERYID,
+     COD_PALABRA, COD_PERSONA, ROW_VERSION
+    from PATENTES.PERSONA_PALABRA
+    where COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from PATENTES.PERSONA_PALABRA
+    where COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.sagpat.persistence.model.PersonaPalabra" >
+    insert into PATENTES.PERSONA_PALABRA (COD_PALABRA, COD_PERSONA, ROW_VERSION
+      )
+    values (#{codPalabra,jdbcType=VARCHAR}, #{codPersona,jdbcType=DECIMAL}, #{rowVersion,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.sagpat.persistence.model.PersonaPalabra" >
+    insert into PATENTES.PERSONA_PALABRA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codPalabra != null" >
+        COD_PALABRA,
+      </if>
+      <if test="codPersona != null" >
+        COD_PERSONA,
+      </if>
+      <if test="rowVersion != null" >
+        ROW_VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codPalabra != null" >
+        #{codPalabra,jdbcType=VARCHAR},
+      </if>
+      <if test="codPersona != null" >
+        #{codPersona,jdbcType=DECIMAL},
+      </if>
+      <if test="rowVersion != null" >
+        #{rowVersion,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.sagpat.persistence.model.PersonaPalabra" >
+    update PATENTES.PERSONA_PALABRA
+    <set >
+      <if test="rowVersion != null" >
+        ROW_VERSION = #{rowVersion,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.sagpat.persistence.model.PersonaPalabra" >
+    update PATENTES.PERSONA_PALABRA
+    set ROW_VERSION = #{rowVersion,jdbcType=DECIMAL}
+    where COD_PALABRA = #{codPalabra,jdbcType=VARCHAR}
+      and COD_PERSONA = #{codPersona,jdbcType=DECIMAL}
+  </update>
+</mapper>

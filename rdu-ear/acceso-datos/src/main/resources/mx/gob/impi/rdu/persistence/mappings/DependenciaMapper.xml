@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.DependenciaMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Dependencia" >
+    <id column="ID_DEPENDENCIA" property="idDependencia" jdbcType="DECIMAL" />
+    <result column="NOMBRE" property="nombre" jdbcType="VARCHAR" />
+  </resultMap>  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select
+    ID_DEPENDENCIA, NOMBRE
+    from DEPENDENCIA
+    where ID_DEPENDENCIA = #{idDependencia,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from DEPENDENCIA
+    where ID_DEPENDENCIA = #{idDependencia,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Dependencia" >
+    insert into DEPENDENCIA (ID_DEPENDENCIA, NOMBRE)
+    values (#{idDependencia,jdbcType=DECIMAL}, #{nombre,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Dependencia" >
+    insert into DEPENDENCIA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idDependencia != null" >
+        ID_DEPENDENCIA,
+      </if>
+      <if test="nombre != null" >
+        NOMBRE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idDependencia != null" >
+        #{idDependencia,jdbcType=DECIMAL},
+      </if>
+      <if test="nombre != null" >
+        #{nombre,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Dependencia" >
+    update DEPENDENCIA
+    <set >
+      <if test="nombre != null" >
+        NOMBRE = #{nombre,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_DEPENDENCIA = #{idDependencia,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Dependencia" >
+    update DEPENDENCIA
+    set NOMBRE = #{nombre,jdbcType=VARCHAR}
+    where ID_DEPENDENCIA = #{idDependencia,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/themes/se-blue-sky/se-theme.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/css/main.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/content/css/jquery.alerts.css" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        <ui:insert name="head">
+            <script language="javascript" type="text/javascript" src="#{request.contextPath}/content/js/rdu-custom-template.js" />
+            <script language="javascript" type="text/javascript" src="#{request.contextPath}/content/js/jquery.alerts.js" />
+        </ui:insert>            
+        <title>IMPI</title>
+    </h:head>
+    <h:body>
+        <h:form  style="display: inline" prependId="false" enctype="multipart/form-data">
+            <p:panel>
+                <p:messages/>
+                <h:panelGrid columns="2" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 400px;">
+                    <h:outputText value="Cargar Imagen"/>
+                    <p:column>
+                        <p:fileUpload  label="Seleccionar"
+                                       invalidFileMessage="El tipo de archivo no es valido"
+                                       widgetVar="uploader"
+                                       auto="true"
+                                       value="#{patentesDisIndMB.file}"
+                                       mode="simple"/><p:commandLink title="Ayuda Imagen o Dibujo"
+                                       oncomplete="ayudaImagenDialog.show()">
+                            <h:graphicImage url="../../imagenes/help-01.jpg" style="right: auto; border-style: none"/>
+                        </p:commandLink>
+                    </p:column>
+                </h:panelGrid>
+                <p:commandButton id="cmbAgragarImagen" value="#{patentesDisIndMB.editarImagenDibujo==false?'Agregar':'Modificar Imagen'} #{patentesDisIndMB.posicionImagenDibujo}" ajax="false"
+                                 actionListener="#{patentesDisIndMB.upload}"
+                                 update="imagenTable"/>
+                <p:commandButton value="Cancelar todo" action="#{patentesDisIndMB.cancelarImagenes}" update="imagenTable"
+                                 title="Cancelar todas las imagenes o dibujos capturados"/>
+                <p:outputPanel autoUpdate="true">
+                    <p:dataTable id="imagenTable" value="#{patentesDisIndMB.tramitePat.imagenes}" var="imagen">
+                        <p:column headerText="Numero">
+                            <h:outputText value="#{imagen.orden}"/>
+                        </p:column>
+                        <p:column headerText="Imagen">
+                            <h:graphicImage url="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarImagen?idImagen=#{imagen.orden}" width="50px" height="50px"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton update="tabs:cmbAgragarImagen"
+                                             action="#{patentesDisIndMB.editarImagen(imagen)}"
+                                             icon="ui-icon-arrowrefresh-1-w">
+                            </p:commandButton>
+                            <p:commandButton update="tabs:cmbAgragarImagen"
+                                             action="#{patentesDisIndMB.eliminarImagenes(imagen)}"
+                                             icon="ui-icon-close">
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,1 @@
+mvn archetype:create -DarchetypeGroupId=mx.com.infotec.se.arquetipos -DarchetypeArtifactId=ejb-ws -DarchetypeVersion=1.0.0 -DgroupId=mx.gob.impi.rdu -DartifactId=%1 -Dversion=1.0

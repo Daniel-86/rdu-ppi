@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigmar.persistence.mappers.NumerosSigmarMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.dto.NumerosSigmarDTO" >
+        <result column="TIPO_SOLICITUD" property="tipo_solicitud" jdbcType="INTEGER" />
+        <result column="ANO_SOLICITUD" property="ano_solicitud" jdbcType="VARCHAR" />
+        <result column="EXPEDIENTE" property="expediente" jdbcType="DECIMAL" />
+        <result column="REGISTRO" property="registro" jdbcType="DECIMAL" />
+        <result column="TITULAR" property="titular" jdbcType="VARCHAR" />
+        <result column="DENOMINACION" property="denominacion" jdbcType="VARCHAR" />
+        <result column="APODERADO" property="apoderado" jdbcType="VARCHAR" />
+        <result column="FECHA_VIGENCIA" property="fechaVigencia" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <select id="recuperarRegistros" resultMap="BaseResultMap" parameterType="map" >
+            Select S.TIPO_SOLICITUD, S.ANO_SOLICITUD, S.EXPEDIENTE,  S.REGISTRO, I.NOMBRE AS TITULAR, D.NOM_DENOMINACION AS DENOMINACION, A.NOMBRE AS APODERADO, S.FECHA_VIGENCIA AS FECHA_VIGENCIA
+            From marcas.SOLICITUD S, marcas.SOLICITUD_INTERESADO SI, INTERESADO I, marcas.SOLICITUD_APODERADO SA,  APODERADO A,  marcas.SOLICITUD_DENOMINACION SD, marcas.DENOMINACION D
+            Where
+            S.TIPO_SOLICITUD IN 
+            <foreach item="item" collection="tipos"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            AND
+            S.TIPO_SOLICITUD = SI.TIPO_SOLICITUD AND
+            S.ANO_SOLICITUD = SI.ANO_SOLICITUD AND
+            S.EXPEDIENTE = SI.EXPEDIENTE AND
+            SI.COD_RELACION = 1 AND
+            SI.COD_INTERESADO = I.COD_INTERESADO AND
+            S.TIPO_SOLICITUD = SA.TIPO_SOLICITUD(+) AND
+            S.ANO_SOLICITUD = SA.ANO_SOLICITUD(+) AND
+            S.EXPEDIENTE = SA.EXPEDIENTE(+) AND
+            SA.COD_APODERADO = A.COD_APODERADO(+)  AND
+            S.TIPO_SOLICITUD = SD.TIPO_SOLICITUD(+) AND
+            S.ANO_SOLICITUD = SD.ANO_SOLICITUD(+) AND
+            S.EXPEDIENTE = SD.EXPEDIENTE(+) AND
+            SD.COD_DENOMINACION = D.COD_DENOMINACION(+) AND
+            S.REGISTRO in
+            <foreach item="item" collection="numero"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        
+    </select>
+
+    <select id="recuperarSolicitudes" resultMap="BaseResultMap" parameterType="map" >
+            Select S.TIPO_SOLICITUD, S.ANO_SOLICITUD, S.EXPEDIENTE,  S.REGISTRO, I.NOMBRE AS TITULAR, D.NOM_DENOMINACION AS DENOMINACION, A.NOMBRE AS APODERADO, S.FECHA_VIGENCIA AS FECHA_VIGENCIA
+            From marcas.SOLICITUD S, marcas.SOLICITUD_INTERESADO SI, INTERESADO I, marcas.SOLICITUD_APODERADO SA,  APODERADO A,  marcas.SOLICITUD_DENOMINACION SD, marcas.DENOMINACION D
+            Where
+            S.TIPO_SOLICITUD IN
+            <foreach item="item" collection="tipos"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            AND
+            S.TIPO_SOLICITUD = SI.TIPO_SOLICITUD AND
+            S.ANO_SOLICITUD = SI.ANO_SOLICITUD AND
+            S.EXPEDIENTE = SI.EXPEDIENTE AND
+            SI.COD_RELACION = 1 AND
+            SI.COD_INTERESADO = I.COD_INTERESADO AND
+            S.TIPO_SOLICITUD = SA.TIPO_SOLICITUD(+) AND
+            S.ANO_SOLICITUD = SA.ANO_SOLICITUD(+) AND
+            S.EXPEDIENTE = SA.EXPEDIENTE(+) AND
+            SA.COD_APODERADO = A.COD_APODERADO(+)  AND
+            S.TIPO_SOLICITUD = SD.TIPO_SOLICITUD(+) AND
+            S.ANO_SOLICITUD = SD.ANO_SOLICITUD(+) AND
+            S.EXPEDIENTE = SD.EXPEDIENTE(+) AND
+            SD.COD_DENOMINACION = D.COD_DENOMINACION(+) AND
+            S.EXPEDIENTE in
+            <foreach item="item" collection="numero"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </select>
+
+<update id="selectProductos" 
+            parameterType="mx.gob.impi.sigmar.persistence.params.ProductosParameters" 
+            statementType="CALLABLE">
+    {call rdumar.GET_PRODUCTO_TXT(
+      #{tipoSolicitud,jdbcType=INTEGER,mode=IN},
+      #{anoSolicitud,jdbcType=INTEGER,mode=IN},
+      #{expedienteSolicitud,jdbcType=INTEGER,mode=IN},
+      #{producto,jdbcType=VARCHAR,mode=OUT}
+    )}
+  </update>
+  
+</mapper>

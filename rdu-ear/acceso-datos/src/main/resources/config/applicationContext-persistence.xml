@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd" default-lazy-init="true">
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!-- dataSouce para ambiente de desarrollo, usar en pruebas locales de los metodos de los EJB 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"/>
+        <property name="username" value="rdu"/>
+        <property name="password" value="rdu"/>
+    </bean>
+    -->
+  
+    <!-- dataSouce para ambiente de produccion utilizando pool de conexiones de glassfish   -->
+  
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/rdusit"></property>
+        <property name="lookupOnStartup" value="true"></property>
+        <property name="cache" value="true"></property>
+        <property name="proxyInterface" value="javax.sql.DataSource"></property>
+    </bean>
+     
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="mapperLocations" value="classpath*:mx/gob/impi/rdu/persistence/mappings/**/*.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean  id="rduPerfilMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PerfilMapper"/>
+    </bean>
+    <bean  id="rduTipoUsuarioMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TipoUsuarioMapper"/>
+    </bean>
+    <bean  id="rduUsuarioMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.UsuarioMapper"/>
+    </bean>
+    <bean  id="rduUsuarioPerfilMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.UsuarioPerfilMapper"/>
+    </bean>
+    <bean  id="rduUsuarioSeguridadMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.UsuarioSeguridadMapper"/>
+    </bean>
+    <bean  id="rduEntidadFederativaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.EntidadFederativaMapper"/>
+    </bean>
+    <bean  id="rduCoordinacionEstatalMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CoordinacionEstatalMapper"/>
+    </bean>
+
+    <bean  id="personaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PersonaMapper"/>
+    </bean>
+
+    <bean  id="rduCatAreaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatAreaMapper"/>
+    </bean>
+
+    <bean  id="rduFirmaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.FirmaMapper"/>
+    </bean>
+
+    <bean  id="rduCertificadoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CertificadoMapper"/>
+    </bean>
+    <bean  id="rduCatEstatusCertificadoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatEstatusCertificadoMapper"/>
+    </bean>
+
+
+    <bean  id="rduCatEstatusMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatEstatusMapper"/>
+    </bean>
+
+    <bean  id="rduCatTipoanexoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatTipoanexoMapper"/>
+    </bean>
+
+    <bean  id="rduAnexosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.AnexosMapper"/>
+    </bean>
+
+
+    <bean  id="rduPaisMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PaisMapper"/>
+    </bean>
+
+    <bean  id="rduCatSubtiposolicitudMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatSubtiposolicitudMapper"/>
+    </bean>
+    <bean  id="rduCatTiposolicitudMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatTiposolicitudMapper"/>
+    </bean>
+
+    <bean  id="rduDomicilioMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.DomicilioMapper"/>
+    </bean>
+
+    <bean  id="rduDomicilioNotificacionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.DomicilionotificacionMapper"/>
+    </bean>
+
+    <bean  id="rduTramiteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TramiteMapper"/>
+    </bean>
+
+    <bean  id="rduCatFormaseleccionclaseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatFormaseleccionclaseMapper"/>
+
+    </bean>
+
+    <bean  id="rduCatTipopersonaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatTipopersonaMapper"/>
+    </bean>
+    <bean  id="rduDatosContactoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.DatoscontactoMapper"/>
+    </bean>
+    <bean  id="rduPersonaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PersonaMapper"/>
+    </bean>
+    <bean  id="rduEstablecimientoXTramiteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.EstablecimientoXTramiteMapper"/>
+    </bean>
+    <bean  id="rduTipoclaseseleccionadaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TipoclaseseleccionadaMapper"/>
+    </bean>
+
+    <bean  id="rduDocumentoArticuloMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.DocumentoArticuloMapper"/>
+    </bean>
+
+    <bean  id="rduTipoDocumentoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TipoDocumentoMapper"/>
+    </bean>
+
+    <bean  id="rduCatClaseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatClaseMapper"/>
+    </bean>
+
+    <bean  id="rduSolicitanteXTramiteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.SolicitanteXTramiteMapper"/>
+    </bean>
+
+    <bean  id="rduDomicilionotificacionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.DomicilionotificacionMapper"/>
+    </bean>
+
+    <bean  id="rduCatFirmaHorariosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatFirmahorariosMapper"/>
+    </bean>
+
+
+    <bean  id="rduFolioMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.FolioMapper"/>
+    </bean>
+
+    <bean  id="rduPagoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PagoMapper"/>
+    </bean>
+    <bean  id="rduProductoservicioMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.ProductoservicioMapper"/>
+    </bean>
+
+    <bean  id="rduCatAnexosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatAnexosMapper"/>
+    </bean>
+
+    <bean  id="rduCodigosPostalesMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CodigosPostalesMapper"/>
+    </bean>
+    <bean  id="rduFuncionesSimplesMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.FuncionesSimplesMapper"/>
+    </bean>
+    <bean  id="rduApoderadoXTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.ApoderadoXTramitePatenteMapper"/>
+    </bean>
+    <bean  id="rduPersonaNotXTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PersonaNotXTramitePatenteMapper"/>
+    </bean>
+    <bean  id="rduInventorXTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.InventorXTramitePatenteMapper"/>
+    </bean>
+    <bean  id="rduPrioridadMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PrioridadMapper"/>
+    </bean>
+    <bean  id="rduPrioridadXTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.PrioridadXTramitePatenteMapper"/>
+    </bean>
+
+
+    <bean  id="rduBitacoraErroresMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.BitacoraErroresMapper"/>
+    </bean>
+    <bean  id="rduSolicitanteXTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.SolicitanteXTramitePatenteMapper"/>
+    </bean>
+
+    <bean  id="rduTramitePatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TramitePatenteMapper"/>
+    </bean>
+
+    <bean  id="rduCatTipoSolicitanteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatTipoSolicitanteMapper"/>
+    </bean>
+    
+    <bean  id="rduCatClasePersonaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatClasePersonaMapper"/>
+    </bean>
+
+    <bean  id="rduNumerosSolicitudMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.NumerosSolicitudMapper"/>
+    </bean>
+
+    <bean  id="rduTramitePersonaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TramitePersonaMapper"/>
+    </bean>
+
+    <bean  id="rduTramitePromocionMarcaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TramitePromocionMarcaMapper"/>
+    </bean>
+    
+    <bean  id="rduTramitePromocionPatenteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.TramitePromocionPatenteMapper"/>
+    </bean>
+
+    <bean  id="rduEstablecimientoXPromomarcaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.EstablecimientoXPromomarcaMapper"/>
+    </bean>
+
+    
+    <bean  id="rduCatCapitulosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatCapitulosMapper"/>
+    </bean>
+    <bean  id="rduImagenDibujoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.ImagenDibujoMapper"/>
+    </bean>
+
+    <bean  id="rduReivindicacionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.ReivindicacionMapper"/>
+    </bean>
+    <bean  id="rduNotificacionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.NotificacionMapper"/>
+    </bean>
+    
+    <bean  id="notificacionFirmaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.NotificacionFirmaMapper"/>
+    </bean>
+    
+    <bean  id="rduAnexosxInventorMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.AnexosxInventorMapper"/>
+    </bean>
+
+    <bean  id="rduCatIdiomasMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="mx.gob.impi.rdu.persistence.mappers.CatIdiomasMapper"/>
+    </bean>
+    
+</beans>

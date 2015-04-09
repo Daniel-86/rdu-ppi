@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.TipoclaseseleccionadaMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" >
+        <id column="ID_TIPOCLASESELECCIONADA" property="idTipoclaseseleccionada" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+        <result column="ID_FORMASELECCIONCLASE" property="idFormaseleccionclase" jdbcType="DECIMAL" />        
+        <result column="ID_CLASE" property="idClase" jdbcType="DECIMAL" />
+        <result column="TIPO_CLASE" property="tipoClase" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" extends="BaseResultMap">
+        <result column="DESCRIPCIONLIBRE" property="descripcionlibre" jdbcType="CLOB"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    ID_TIPOCLASESELECCIONADA, ID_TRAMITE, ID_FORMASELECCIONCLASE, DESCRIPCIONLIBRE, ID_CLASE, TIPO_CLASE
+    from TIPOCLASESELECCIONADA
+    where ID_TIPOCLASESELECCIONADA = #{idTipoclaseseleccionada,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectSelective" resultMap="BaseResultMap" parameterType="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada">
+      SELECT ID_TIPOCLASESELECCIONADA, ID_TRAMITE, ID_FORMASELECCIONCLASE, DESCRIPCIONLIBRE, ID_CLASE, TIPO_CLASE
+        FROM TIPOCLASESELECCIONADA
+        <where>
+            
+            <if test="idTramite != null" >
+                AND ID_TRAMITE=#{idTramite,jdbcType=DECIMAL}
+            </if>
+        </where>
+        
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TIPOCLASESELECCIONADA
+    where ID_TIPOCLASESELECCIONADA = #{idTipoclaseseleccionada,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" >
+        <selectKey resultType="long" keyProperty="idTipoclaseseleccionada" order="AFTER">
+        SELECT TIPOCLASESELECCIONADA_SEQ.currVal AS ID FROM DUAL
+        </selectKey>
+
+    insert into TIPOCLASESELECCIONADA (ID_TIPOCLASESELECCIONADA, ID_TRAMITE, 
+      ID_FORMASELECCIONCLASE, DESCRIPCIONLIBRE, 
+      ID_CLASE, TIPO_CLASE)
+    values (TIPOCLASESELECCIONADA_SEQ.NEXTVAL, #{idTramite,jdbcType=DECIMAL},
+      #{idFormaseleccionclase,jdbcType=DECIMAL}, #{descripcionlibre,jdbcType=VARCHAR}, 
+      #{idClase,jdbcType=DECIMAL}, #{tipoClase,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" >
+    insert into TIPOCLASESELECCIONADA
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idTipoclaseseleccionada != null" >
+        ID_TIPOCLASESELECCIONADA,
+            </if>
+            <if test="idTramite != null" >
+        ID_TRAMITE,
+            </if>
+            <if test="idFormaseleccionclase != null" >
+        ID_FORMASELECCIONCLASE,
+            </if>
+            <if test="descripcionlibre != null" >
+        DESCRIPCIONLIBRE,
+            </if>
+            <if test="idClase != null" >
+        ID_CLASE,
+            </if>
+            <if test="tipoClase != null" >
+       TIPO_CLASE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="idTipoclaseseleccionada != null" >
+        #{idTipoclaseseleccionada,jdbcType=DECIMAL},
+            </if>
+            <if test="idTramite != null" >
+        #{idTramite,jdbcType=DECIMAL},
+            </if>
+            <if test="idFormaseleccionclase != null" >
+        #{idFormaseleccionclase,jdbcType=DECIMAL},
+            </if>
+            <if test="descripcionlibre != null" >
+        #{descripcionlibre,jdbcType=VARCHAR},
+            </if>
+            <if test="idClase != null" >
+        #{idClase,jdbcType=DECIMAL},
+            </if>
+            <if test="tipo_clase != null" >
+        #{tipoClase,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" >
+    update TIPOCLASESELECCIONADA
+        <set >
+            <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+            </if>
+            <if test="idFormaseleccionclase != null" >
+        ID_FORMASELECCIONCLASE = #{idFormaseleccionclase,jdbcType=DECIMAL},
+            </if>
+            <if test="descripcionlibre != null" >
+        DESCRIPCIONLIBRE = #{descripcionlibre,jdbcType=VARCHAR},
+            </if>
+            <if test="idClase != null" >
+        ID_CLASE = #{idClase,jdbcType=DECIMAL},
+            </if>
+            <if test="tipo_clase != null" >
+       TIPO_CLASE= #{tipoClase,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+    where ID_TIPOCLASESELECCIONADA = #{idTipoclaseseleccionada,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Tipoclaseseleccionada" >
+    update TIPOCLASESELECCIONADA
+    set ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+      ID_FORMASELECCIONCLASE = #{idFormaseleccionclase,jdbcType=DECIMAL},
+      DESCRIPCIONLIBRE = #{descripcionlibre,jdbcType=VARCHAR},
+      ID_CLASE = #{idClase,jdbcType=DECIMAL}, TIPO_CLASE= #{tipoClase,jdbcType=VARCHAR}
+    where ID_TIPOCLASESELECCIONADA = #{idTipoclaseseleccionada,jdbcType=DECIMAL}
+    </update>
+</mapper>

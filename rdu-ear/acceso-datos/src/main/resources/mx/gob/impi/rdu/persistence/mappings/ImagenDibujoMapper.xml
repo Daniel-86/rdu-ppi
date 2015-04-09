@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.ImagenDibujoMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.ImagenDibujo" >
+        <id column="ID_IMAGEN_DIBUJO" property="idImagenDibujo" jdbcType="DECIMAL" />
+        <result column="ID_TRAMITE" property="idTramite" jdbcType="DECIMAL" />
+        <result column="NOMBRE_ARCHIVO" property="nombreArchivo" jdbcType="VARCHAR" />
+        <result column="ORDEN" property="orden" jdbcType="DECIMAL" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.ImagenDibujo" extends="BaseResultMap" >
+        <result column="ARCHIVO" property="archivo" jdbcType="BLOB" />
+    </resultMap>
+    <select id="selectSelective" resultMap="ResultMapWithBLOBs" parameterType="mx.gob.impi.rdu.persistence.model.ImagenDibujo">
+    select
+    ID_IMAGEN_DIBUJO, ID_TRAMITE,NOMBRE_ARCHIVO, ORDEN,ARCHIVO
+    from IMAGEN_DIBUJO
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    order by orden
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from IMAGEN_DIBUJO
+    where ID_TRAMITE = #{idTramite,jdbcType=DECIMAL}
+    </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.ImagenDibujo" >
+    update IMAGEN_DIBUJO
+        <set >
+            <if test="idTramite != null" >
+        ID_TRAMITE = #{idTramite,jdbcType=DECIMAL},
+            </if>
+            <if test="orden != null" >
+        ORDEN = #{orden,jdbcType=DECIMAL},
+            </if>
+            <if test="archivo != null" >
+        ARCHIVO = #{archivo,jdbcType=BLOB},
+            </if>
+        </set>
+    where ID_IMAGEN_DIBUJO = #{idImagenDibujo,jdbcType=DECIMAL}
+    </update>
+    <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.ImagenDibujo" >
+        <selectKey keyProperty="idImagenDibujo" resultType="long" order="AFTER">
+            SELECT IMAGEN_DIBUJO_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    INSERT INTO IMAGEN_DIBUJO
+    (
+    ID_IMAGEN_DIBUJO,
+    ID_TRAMITE,
+    NOMBRE_ARCHIVO,
+    ARCHIVO,
+    ORDEN
+    )
+    VALUES(
+       IMAGEN_DIBUJO_SEQ.NEXTVAL,
+       #{idTramite,jdbcType=DECIMAL},
+       #{nombreArchivo,jdbcType=VARCHAR},
+       #{archivo,jdbcType=BLOB},
+       #{orden,jdbcType=DECIMAL}
+       )    
+    </insert>
+</mapper>

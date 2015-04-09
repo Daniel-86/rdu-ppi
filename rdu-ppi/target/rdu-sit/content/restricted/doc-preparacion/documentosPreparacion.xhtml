@@ -1,0 +1,370 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="content">      
+        <p:growl showDetail="true" id="msgGrw" globalOnly="true" life="12000" sticky="false" />
+        <f:loadBundle basename="mx.gob.impi.rdu.i18n.Tableros" var="msgdocs"/>
+        <p:messages id="msgSolPreparacion" showDetail="true"  globalOnly="true"/>
+
+        <h:form id="fmDocPreparacion" prependId="true" style="width:920px">            
+            <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{safeSurfMB.allowAccess(2)}"/>
+            <div class="titulo_seccion" style="font-size: 10pt">#{msgdocs['titulo.docPreparacion.pagina']}</div>
+            <div style="font-size: 7pt; font-family:arial; font-weight: bold">#{msgdocs['titulo.docPreparacion.leyenda']}</div>
+            <!-- filtros de busqueda -->
+            <p:panel  id="pnlFiltrosDocTramites" style="width:920px;">
+                <p:messages id="msgFiltrosTramites"/>
+                <h:panelGrid columns="4" style="width: 90%" styleClass="FontContenido">
+                    <h:outputText value="#{msgdocs['filtro.rotulo.estatus.tramite']}" style="text-align: right" styleClass="FontContenido" rendered="#{docsPreparacionMB.muestraImgEstatus and docsPreparacionMB.tipoSolicitud}"/>
+                    <h:outputText value="#{msgdocs['filtro.rotulo.estatus.tramite.promocion']}" style="text-align: right" styleClass="FontContenido" rendered="#{docsPreparacionMB.muestraImgEstatus and docsPreparacionMB.tipoPromocion}"/>
+                    <h:graphicImage url="../../imagenes/#{docsPreparacionMB.imagenEstatus}" rendered="#{docsPreparacionMB.muestraImgEstatus}" style="right: auto"/>
+                </h:panelGrid>                
+            </p:panel>
+            <!-- resultados de la busqueda -->
+            <p:panel id="pnlDocTramites"  style="width:920px; height:360px; background: #DDDDDD; overflow:auto;">
+                
+                <!-- ========================= TABLA SOLICITUDES ============================== -->
+                <p:dataTable rendered="#{docsPreparacionMB.tipoSolicitud}" id="docsTable" var="oTramite" rowIndexVar="indexTramite"
+                             value="#{docsPreparacionMB.tramites}"
+                             emptyMessage="#{msgdocs['msg.docPreparacion.sinRegistrosTablero']}"
+                             rowKey="#{oTramite.idTramite}" 
+                             selection="#{docsPreparacionMB.tramiteSelected}" selectionMode="single"
+                             paginator="true" paginatorPosition="bottom" rows="7" >
+
+                    <p:ajax event="rowSelect"  listener="#{docsPreparacionMB.verImgTramiteEstatus}" update="fmDocPreparacion:pnlFiltrosDocTramites"/>
+
+                    <p:column sortBy="#{oTramite.idTramite}" style="font-size: 8pt;"
+                              headerText="#{msgdocs['encabezado.docPreparacion.idTramite']}">
+                        <h:outputText value="#{oTramite.idTramite}" styleClass="tablero-rows"/>
+                    </p:column>
+
+                    <p:column sortBy="#{oTramite.fechacaptura}"
+                              style="font-size: 8pt;" headerText="#{msgdocs['encabezado.docPreparacion.fecCreacion']}">
+                        <h:outputText value="#{oTramite.fechacaptura}"  styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.tipoSolicitud']}">
+                        <h:outputText value="#{oTramite.descripcionTiposolicitud}"  style="font-family: arial; font-size: 6pt"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descripcionSubtiposolicitud}"
+                              filterBy="#{oTramite.descripcionSubtiposolicitud}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.subTipoSolicitud']}">
+                        <h:outputText value="#{oTramite.descripcionSubtiposolicitud}" style="font-family: arial; font-size: 6pt"/>
+                        <h:inputHidden   value="#{oTramite.idSubtiposolicitud}" id="subTipoSolicitudId"></h:inputHidden>
+                    </p:column>
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.descripcion']}"
+                              rendered="#{docsPreparacionMB.idTipoTramite==1 ? true:false}">
+                        <h:outputText value="#{oTramite.descripcionsignodistintivo}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.tituloInvencion']}">
+                        <h:outputText value="#{oTramite.nombreCortoInvencion}"  styleClass="tablero-rows" id="nombreInvencion" />
+                        
+                        <p:tooltip for="nombreInvencion" value="#{oTramite.invencion}" showEvent="mouseover" />
+                        
+                    </p:column>
+                    
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.firmante']}">
+                        <h:outputText value="#{oTramite.usuarioFirmante.nombre}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descripcionESTATUS}" filterBy="#{oTramite.descripcionESTATUS}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.estatus']}">
+                        <h:outputText value="#{oTramite.descripcionESTATUS}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.fecEstatus']}">
+                        <h:outputText value="#{oTramite.fechaEstatusActual}" styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>                                        
+
+                    <!-- SIGUIENTE ACCION-->
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.sigAccion']}" sortBy="#{oTramite.sigaccion}">
+                        <!--p:panel rendered="#{oTramite.idEstatus==2 ? true:false}" style="border: none; font-family: arial; font-size: 6pt"-->
+                        <p:commandLink id="lnkAnexarRevPago" value="#{oTramite.sigaccion}"
+                                       oncomplete="singleTramiteDlogActPago.show()" update=":fmDocPreparacion:displaySingleDlogActPago"
+                                       style="font-family: arial; font-size: 6pt #{ oTramite.idEstatus == 3 || oTramite.idEstatus == 2 ? ';color: blue;':'' }" process="@this" rendered="#{oTramite.idEstatus==2 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />                                                        
+                        </p:commandLink>
+                        <!--/p:panel-->
+                        <!--p:panel rendered="#{oTramite.idEstatus!=2 ? true:false}"  style="border: none; font-family: arial; font-size: 6pt"-->
+                        <p:commandLink ajax="false" id="cmlnkSigAccion" value="#{oTramite.sigaccion}" action="#{docsPreparacionMB.irSiguienteAccion}" onclick="lockWindow('divLockWindow');showStatus('divStatus');"
+                                       style="font-family: arial; font-size: 6pt #{ oTramite.idEstatus == 3 ? ';color: blue;':'' }" process="@this" rendered="#{oTramite.idEstatus!=2 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandLink>
+
+                        <!--/p:panel-->
+                    </p:column>
+
+                    <!-- ANEXOS-->
+<!--                    <p:column style="font-size: 8pt" headerText="Ver Anexos">
+                        <p:commandButton icon="ui-icon-document" title="Ver los anexos de esta solicitud"
+                                         actionListener="#{docsPreparacionMB.crearCabecero(oTramite)}"
+                                         process="@this" update=":fmDocPreparacion:displayAnexo" oncomplete="singleAnexoDialog.show()">                            
+                        </p:commandButton>
+                    </p:column>-->
+
+                    <!--
+                       la prop process="@this" va acompañada del f:setPropertyActionListener, si no se coloca
+                       es necesario seleccionar la fila y despues apretar el boton
+                    -->
+
+                    <p:column style="font-size: 8pt" headerText="Eliminar">
+                        <p:commandButton icon="ui-icon-close" title="Eliminar esta solicitud"
+                                         process="@this" update=":fmDocPreparacion:displaySingleDelete" oncomplete="singleTramiteDialogEliminar.show()"
+                                         rendered="#{oTramite.idEstatus==1 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </p:column>                                    
+
+                    <p:column style="font-size: 8pt" headerText="Copiar" rendered="#{sessionScope['area'] == 8 }">
+                        <p:commandButton icon="ui-icon-copy" title="Copiar los datos de esta solicitud"
+                                         process="@this" update=":fmDocPreparacion" oncomplete="copiarDialog.show();"
+                                         rendered="#{oTramite.idEstatus==1 ? true:false}" >
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <!-- probar anexos-->
+                    <!--f:facet name="footer">
+                        temporal
+                        <p:commandButton icon="ui-icon-copy" title="copiar" action="#{docsPreparacionMB.verAnexos}">
+                            <f:setPropertyActionListener value="#{anexoMB.tramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </f:facet-->
+                </p:dataTable>
+                
+<!-- ///////////////////////// TABLA PROMOCIONES ////////////////////////////// -->
+
+<!-- ///////////////////////// TABLA PROMOCIONES ////////////////////////////// -->
+
+<!-- ///////////////////////// TABLA PROMOCIONES ////////////////////////////// -->
+
+<!-- ///////////////////////// TABLA PROMOCIONES ////////////////////////////// -->
+                
+                <p:dataTable rendered="#{docsPreparacionMB.tipoPromocion}" id="docsTableProm" var="oTramite" rowIndexVar="indexTramite"
+                             value="#{docsPreparacionMB.tramites}"
+                             emptyMessage="#{msgdocs['msg.docPreparacion.sinRegistrosTablero']}"
+                             rowKey="#{oTramite.idPromocion}" 
+                             selection="#{docsPreparacionMB.tramiteSelected}" selectionMode="single"
+                             paginator="true" paginatorPosition="bottom" rows="7" >
+
+                    <p:ajax event="rowSelect"  listener="#{docsPreparacionMB.verImgTramiteEstatus}" update="fmDocPreparacion:pnlFiltrosDocTramites"/>
+
+                    <p:column sortBy="#{oTramite.idPromocion}" style="font-size: 8pt;"
+                              headerText="#{msgdocs['encabezado.docPreparacion.idPromocion']}">
+                        <h:outputText value="#{oTramite.idPromocion}" styleClass="tablero-rows"/>
+                    </p:column>
+
+                    <p:column sortBy="#{oTramite.fechacaptura}"
+                              style="font-size: 8pt;" headerText="#{msgdocs['encabezado.docPreparacion.fecCreacion']}">
+                        <h:outputText value="#{oTramite.fechacaptura}"  styleClass="tablero-rows">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descTipoPromocion}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.descTipoPromocion']}">
+                        <h:outputText value="#{oTramite.descTipoPromocion}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.numOficio}"
+                              filterBy="#{oTramite.numOficio}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.numOficio']}">
+                        <h:outputText value="#{oTramite.numOficio}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descOficio}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.descOficio']}">
+                        <h:outputText value="#{oTramite.descOficio}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.numExpediente}"
+                              filterBy="#{oTramite.numExpediente}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.numExpediente']}">
+                        <h:outputText value="#{oTramite.numExpediente}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.numConcesion}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.numConcesion']}">
+                        <h:outputText value="#{oTramite.numConcesion}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descripcionArea}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.area']}">
+                        <h:outputText value="#{oTramite.descripcionArea}"  styleClass="tablero-rows"/>
+                    </p:column>
+                    <p:column sortBy="#{oTramite.descripcionESTATUS}" filterBy="#{oTramite.descripcionESTATUS}"
+                              style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.estatus']}">
+                        <h:outputText value="#{oTramite.descripcionESTATUS}"  styleClass="tablero-rows"/>
+                    </p:column>                                     
+
+                    <!-- SIGUIENTE ACCION-->
+                    <p:column style="font-size: 8pt" headerText="#{msgdocs['encabezado.docPreparacion.sigAccion']}" sortBy="#{oTramite.sigaccion}">
+                        <!--p:panel rendered="#{oTramite.idEstatus==2 ? true:false}" style="border: none; font-family: arial; font-size: 6pt"-->
+                        <p:commandLink id="lnkAnexarRevPago" value="#{oTramite.sigaccion}"
+                                       oncomplete="singleTramiteDlogActPago.show()" update=":fmDocPreparacion:displaySingleDlogActPago"
+                                       style="font-family: arial; font-size: 6pt #{ oTramite.idEstatus == 3 || oTramite.idEstatus == 2 ? ';color: blue;':'' }" process="@this" rendered="#{oTramite.idEstatus==2 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />                                                        
+                        </p:commandLink>
+                        <!--/p:panel-->
+                        <!--p:panel rendered="#{oTramite.idEstatus!=2 ? true:false}"  style="border: none; font-family: arial; font-size: 6pt"-->
+                        <p:commandLink ajax="false" id="cmlnkSigAccion" value="#{oTramite.sigaccion}" action="#{docsPreparacionMB.irSiguienteAccionPromociones}" onclick="lockWindow('divLockWindow');showStatus('divStatus');"
+                                       style="font-family: arial; font-size: 6pt #{ oTramite.idEstatus == 3 ? ';color: blue;':'' }" process="@this" rendered="#{oTramite.idEstatus!=2 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandLink>
+
+                        <!--/p:panel-->
+                    </p:column>
+
+                    <!-- ANEXOS-->
+                    <p:column style="font-size: 8pt" headerText="Ver Anexos">
+                        <p:commandButton icon="ui-icon-document" title="Ver los anexos de esta promoción"
+                                         actionListener="#{docsPreparacionMB.crearCabecero(oTramite)}"
+                                         process="@this" update=":fmDocPreparacion:displayAnexo" oncomplete="singleAnexoDialog.show()">                            
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <!--
+                       la prop process="@this" va acompañada del f:setPropertyActionListener, si no se coloca
+                       es necesario seleccionar la fila y despues apretar el boton
+                    -->
+
+                    <p:column style="font-size: 8pt" headerText="Eliminar">
+                        <p:commandButton icon="ui-icon-close" title="Eliminar esta promoción"
+                                         process="@this" update=":fmDocPreparacion:displaySingleDelete" oncomplete="singleTramiteDialogEliminarPromocion.show()"
+                                         rendered="#{oTramite.idEstatus==1 ? true:false}">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </p:column>                                    
+
+                    <p:column style="font-size: 8pt" headerText="Copiar" rendered="#{sessionScope['area'] == 8 }">
+                        <p:commandButton icon="ui-icon-copy" title="Copiar los datos de esta solicitud"
+                                         process="@this" update=":fmDocPreparacion" oncomplete="copiarDialog.show();"
+                                         rendered="#{oTramite.idEstatus==1 ? true:false}" >
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <!-- probar anexos-->
+                    <!--f:facet name="footer">
+                        temporal
+                        <p:commandButton icon="ui-icon-copy" title="copiar" action="#{docsPreparacionMB.verAnexos}">
+                            <f:setPropertyActionListener value="#{anexoMB.tramite}" target="#{docsPreparacionMB.tramiteSelected}" />
+                        </p:commandButton>
+                    </f:facet-->
+                </p:dataTable>
+
+                <!-- ventana emergente: COPIAR-->
+                <p:confirmDialog  id="confirmDialogCopiar" header="Copiar solicitud" widgetVar="singleTramiteDialogCopiar"
+                                  message="Esta seguro de copiar la solicitud:" severity="info">
+                    <h:panelGrid id="displaySingleCopy" columns="2" cellpadding="4" style="text-align: left">
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{docsPreparacionMB.tramiteSelected.idTramite}" />
+                        <h:outputText value="estado:" />
+                        <h:outputText value="#{docsPreparacionMB.tramiteSelected.descripcionESTATUS}" />
+                    </h:panelGrid>
+                    <div class="derecha">
+                        <p:commandButton id="confirmCopy" value="Si" oncomplete="singleTramiteDialogCopiar.hide()" onclick="lockWindow('divLockWindow');showStatus('divStatus');"
+                                         actionListener="#{docsPreparacionMB.copiar}" update=":fmDocPreparacion:docsTable msgGrw"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}"/>
+                        </p:commandButton>
+                        <p:commandButton id="declineCopy" value="No" onclick="singleTramiteDialogCopiar.hide();" type="button" />
+                    </div>
+                </p:confirmDialog>
+
+                <!-- ventana emergente: ELIMINAR-->
+                <p:confirmDialog  id="confirmDialogEliminar" header="Eliminar solicitud" widgetVar="singleTramiteDialogEliminar"
+                                  message="Esta seguro de eliminar la solicitud:" severity="info" style="position: fixed; top: 0px; left: 0px">
+                    <h:panelGrid id="displaySingleDelete" columns="2" cellpadding="4" style="text-align: left">
+                        <h:outputText value="estado:" />
+                        <h:outputText value="#{docsPreparacionMB.tramiteSelected.descripcionESTATUS}" />
+                    </h:panelGrid>
+                    <div class="derecha">
+                        <p:commandButton id="confirmDelete" value="Si" oncomplete="singleTramiteDialogEliminar.hide(); hideMessage('msgSolPreparacion',12)"
+                                         actionListener="#{docsPreparacionMB.eliminar}" update=":fmDocPreparacion:docsTable msgGrw msgSolPreparacion"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}"/>
+                        </p:commandButton>
+                        <p:commandButton id="declineDelete" value="No" onclick="singleTramiteDialogEliminar.hide();" type="button" />
+                    </div>
+                </p:confirmDialog>
+                
+                <!-- ventana emergente: ELIMINAR PROMOCIÓN-->
+                <p:confirmDialog  id="confirmDialogEliminarPromocion" header="Eliminar Promoción" widgetVar="singleTramiteDialogEliminarPromocion"
+                                  message="Está seguro de eliminar la promoción" severity="info" style="position: fixed; top: 0px; left: 0px">
+                    <h:panelGrid id="displaySingleDeletePromocion" columns="2" cellpadding="4" style="text-align: left">
+                        <h:outputText value="estado:" />
+                        <h:outputText value="#{docsPreparacionMB.tramiteSelected.descripcionESTATUS}" />
+                    </h:panelGrid>
+                    <div class="derecha">
+                        <p:commandButton id="confirmDeletePromocion" value="Si" oncomplete="singleTramiteDialogEliminarPromocion.hide(); hideMessage('msgSolPreparacion',12)"
+                                         actionListener="#{docsPreparacionMB.eliminarPromocion}" update=":fmDocPreparacion:docsTableProm msgGrw msgSolPreparacion"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}"/>
+                        </p:commandButton>
+                        <p:commandButton id="declineDeletePromocion" value="No" onclick="singleTramiteDialogEliminarPromocion.hide();" type="button" />
+                    </div>
+                </p:confirmDialog>
+
+                <!-- ventana emergente: COPIAR SOLICITUD-->
+                <p:dialog widgetVar="copiarDialog" 
+                          modal="true" width="550" height="380"  >
+                    <h:panelGrid columns="1" style="text-align: left;font-size: 14px">
+                        <p>Usted acepta que toda la información que se copiará en una nueva solicitud es responsabilidad única y exclusiva de la persona que originó dicho contenido. </p>
+                        <p>Bajo ninguna circunstancia y en ninguna forma, el Instituto Mexicano de la Propiedad Industrial será responsable de cualquier error u omisión que el usuario haya cometido en la captura de los datos de la solicitud de registro o publicación de signos distintivos.</p>
+                        <p>Por consiguiente, antes de finalizar la captura de la misma, se sugiere generar la vista previa de dicha solicitud, a fin de corroborar que los datos que serán enviados son los correctos.</p>
+                        <br />
+                        <p><center><strong>"El copiado de la solicitud únicamente incluye datos, por lo que deberá adjuntar los anexos que correspondan a la nueva solicitud”</strong></center></p>
+                    
+                        <br/>
+                        <br/>
+                        <span style="text-align: left;font-size: 14px">
+                            ¿Desea continuar?
+                        </span>
+                    </h:panelGrid>                    
+                    <div class="derecha">
+                        <p:commandButton value="Si" action="#{docsPreparacionMB.setCopiarTramite}" onclick="unlockWindow('divLockWindow');showStatus('divStatus');"/>
+                        <p:commandButton value="No" onclick="copiarDialog.hide();unlockWindow('divLockWindow');"/>                      
+                    </div>                                                                                        
+                </p:dialog>
+
+
+                <!-- ventana emergente: ACTUALIZAR PAGO-->
+                <p:confirmDialog  id="confirmDlogActPago" header="Actualizar pago" widgetVar="singleTramiteDlogActPago"
+                                  message="¿Quiere ir al PASE para realizar el pago de esta solicitud?" severity="info">
+                    <h:panelGrid id="displaySingleDlogActPago" columns="2" cellpadding="4" style="text-align: left">
+                        <h:outputText value="estado:" />
+                        <h:outputText value="#{docsPreparacionMB.tramiteSelected.descripcionESTATUS}" />
+                    </h:panelGrid>
+                    <div class="derecha">
+                        <p:commandButton id="confirmActPago" value="Si" oncomplete="singleTramiteDlogActPago.hide()"
+                                         actionListener="#{docsPreparacionMB.irSiguienteAccionPagar}" update=":fmDocPreparacion:docsTable msgGrw"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{oTramite}" target="#{docsPreparacionMB.tramiteSelected}"/>
+                        </p:commandButton>
+
+                        <p:commandButton id="declineActPago" value="No" onclick="singleTramiteDlogActPago.hide();" type="button" />
+                    </div>
+                </p:confirmDialog>
+
+                <!-- ventana emergente: ANEXOS-->
+                <!-- Cuando el parametro opcionUpload se asigna 1 es necesario
+                que la propiedad del dialogo(dlogPrincipalAnexos) closable sea igual a false-->
+                <p:outputPanel autoUpdate="true">
+                    <p:dialog id="dlogMarcasAnexos" header="Anexos" widgetVar="singleAnexoDialog" resizable="false"
+                              showEffect="fade" modal="true" closable="true" style="position: absolute; top: 100px; left: 100px">
+                        <h:panelGrid id="displayAnexoMarcas" columns="1" cellpadding="4">
+                            <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/content/restricted/include/anexos.faces"
+                                    width="600px" height="550px"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </p:outputPanel>
+
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

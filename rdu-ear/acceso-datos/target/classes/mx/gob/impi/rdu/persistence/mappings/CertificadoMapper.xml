@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.rdu.persistence.mappers.CertificadoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.rdu.persistence.model.Certificado" >
+    <id column="ID_CERTIFICADO" property="idCertificado" jdbcType="DECIMAL" />
+    <result column="NOMBRE_ADMIN" property="nombreAdmin" jdbcType="VARCHAR" />
+    <result column="NUMERO_SERIE" property="numeroSerie" jdbcType="VARCHAR" />
+    <result column="ID_ESTATUS_CERTIFICADO" property="idEstatusCertificado" jdbcType="DECIMAL" />
+    <result column="ID_CAT_AREA" property="idCatArea" jdbcType="DECIMAL" />
+    <result column="PASS" property="pass" jdbcType="VARCHAR" />
+    <result column="FECHA_CARGA" property="fechaCarga" jdbcType="TIMESTAMP" />
+    <result column="USUARIO" property="usuario" jdbcType="VARCHAR" />
+    <result column="PRIORIDAD" property="prioridad" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.Certificado" extends="BaseResultMap" >
+    <result column="KEY_FILE" property="keyFile" jdbcType="BLOB" />
+    <result column="CER_FILE" property="cerFile" jdbcType="BLOB" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 'false' as QUERYID,
+      ID_CERTIFICADO, NOMBRE_ADMIN, NUMERO_SERIE, ID_ESTATUS_CERTIFICADO, PASS, FECHA_CARGA, 
+    USUARIO, PRIORIDAD,KEY_FILE, CER_FILE, ID_CAT_AREA
+    from CERTIFICADO
+    where ID_CERTIFICADO = #{idCertificado,jdbcType=DECIMAL}
+  </select>
+    <select id="loadAllActiveCerts" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    select 
+      ID_CERTIFICADO, NOMBRE_ADMIN, NUMERO_SERIE, ID_ESTATUS_CERTIFICADO, PASS, FECHA_CARGA, 
+    USUARIO, PRIORIDAD,KEY_FILE, CER_FILE, ID_CAT_AREA
+    from CERTIFICADO
+    where ID_ESTATUS_CERTIFICADO &lt;&gt; 3
+    and id_cat_area = #{idCatArea,jdbcType=DECIMAL}
+  </select>
+
+  <select id="selectByEstatusArea" resultMap="ResultMapWithBLOBs" parameterType="mx.gob.impi.rdu.persistence.model.Certificado">
+    select 'false' as QUERYID,
+      ID_CERTIFICADO, NOMBRE_ADMIN, NUMERO_SERIE, ID_ESTATUS_CERTIFICADO, PASS, FECHA_CARGA, 
+    USUARIO, PRIORIDAD,KEY_FILE, CER_FILE, ID_CAT_AREA
+    from CERTIFICADO
+    where ID_ESTATUS_CERTIFICADO = #{idEstatusCertificado,jdbcType=DECIMAL}
+    and ID_CAT_AREA= #{idCatArea,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CERTIFICADO
+    where ID_CERTIFICADO = #{idCertificado,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="mx.gob.impi.rdu.persistence.model.Certificado" >
+        <selectKey keyProperty="idCertificado" resultType="java.lang.Long" order="AFTER">SELECT CERTIFICADO_SEQ.CURRVAL FROM DUAL</selectKey>
+    insert into CERTIFICADO (ID_CERTIFICADO, NOMBRE_ADMIN, NUMERO_SERIE, 
+      ID_ESTATUS_CERTIFICADO, PASS, FECHA_CARGA, 
+      USUARIO, PRIORIDAD, KEY_FILE,  
+      CER_FILE, ID_CAT_AREA)
+    values (CERTIFICADO_SEQ.NEXTVAL, #{nombreAdmin,jdbcType=VARCHAR}, #{numeroSerie,jdbcType=VARCHAR}, 
+      #{idEstatusCertificado,jdbcType=DECIMAL}, #{pass,jdbcType=VARCHAR}, #{fechaCarga,jdbcType=TIMESTAMP}, 
+      #{usuario,jdbcType=VARCHAR}, #{prioridad,jdbcType=DECIMAL}, #{keyFile,jdbcType=BLOB}, 
+      #{cerFile,jdbcType=BLOB},#{idCatArea,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="mx.gob.impi.rdu.persistence.model.Certificado" >
+    insert into CERTIFICADO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idCertificado != null" >
+        ID_CERTIFICADO,
+      </if>
+      <if test="nombreAdmin != null" >
+        NOMBRE_ADMIN,
+      </if>
+      <if test="numeroSerie != null" >
+        NUMERO_SERIE,
+      </if>
+      <if test="idEstatusCertificado != null" >
+        ID_ESTATUS_CERTIFICADO,
+      </if>
+      <if test="pass != null" >
+        PASS,
+      </if>
+      <if test="fechaCarga != null" >
+        FECHA_CARGA,
+      </if>
+      <if test="usuario != null" >
+        USUARIO,
+      </if>
+      <if test="prioridad != null" >
+        PRIORIDAD,
+      </if>
+      <if test="keyFile != null" >
+        KEY_FILE,
+      </if>
+      <if test="cerFile != null" >
+        CER_FILE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idCertificado != null" >
+        #{idCertificado,jdbcType=DECIMAL},
+      </if>
+      <if test="nombreAdmin != null" >
+        #{nombreAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="numeroSerie != null" >
+        #{numeroSerie,jdbcType=VARCHAR},
+      </if>
+      <if test="idEstatusCertificado != null" >
+        #{idEstatusCertificado,jdbcType=DECIMAL},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="fechaCarga != null" >
+        SYSDATE
+      </if>
+      <if test="usuario != null" >
+        #{usuario,jdbcType=VARCHAR},
+      </if>
+      <if test="prioridad != null" >
+        #{prioridad,jdbcType=DECIMAL},
+      </if>
+      <if test="keyFile != null" >
+        #{keyFile,jdbcType=BLOB},
+      </if>
+      <if test="cerFile != null" >
+        #{cerFile,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mx.gob.impi.rdu.persistence.model.Certificado" >
+    update CERTIFICADO
+    <set >
+      <if test="nombreAdmin != null" >
+        NOMBRE_ADMIN = #{nombreAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="numeroSerie != null" >
+        NUMERO_SERIE = #{numeroSerie,jdbcType=VARCHAR},
+      </if>
+      <if test="idEstatusCertificado != null" >
+        ID_ESTATUS_CERTIFICADO = #{idEstatusCertificado,jdbcType=DECIMAL},
+      </if>
+      <if test="pass != null" >
+        PASS = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="fechaCarga != null" >
+        FECHA_CARGA = SYSDATE,
+      </if>
+      <if test="usuario != null" >
+        USUARIO = #{usuario,jdbcType=VARCHAR},
+      </if>
+      <if test="prioridad != null" >
+        PRIORIDAD = #{prioridad,jdbcType=DECIMAL},
+      </if>
+      <if test="keyFile != null" >
+        KEY_FILE = #{keyFile,jdbcType=BLOB},
+      </if>
+      <if test="cerFile != null" >
+        CER_FILE = #{cerFile,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID_CERTIFICADO = #{idCertificado,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="mx.gob.impi.rdu.persistence.model.Certificado" >
+    update CERTIFICADO
+    set NOMBRE_ADMIN = #{nombreAdmin,jdbcType=VARCHAR},
+      NUMERO_SERIE = #{numeroSerie,jdbcType=VARCHAR},
+      ID_ESTATUS_CERTIFICADO = #{idEstatusCertificado,jdbcType=DECIMAL},
+      PASS = #{pass,jdbcType=VARCHAR},
+      FECHA_CARGA =SYSDATE,
+      USUARIO = #{usuario,jdbcType=VARCHAR},
+      PRIORIDAD = #{prioridad,jdbcType=DECIMAL},
+      KEY_FILE = #{keyFile,jdbcType=BLOB},
+      CER_FILE = #{cerFile,jdbcType=BLOB},
+       ID_CAT_AREA = #{idCatArea,jdbcType=DECIMAL}
+    where ID_CERTIFICADO = #{idCertificado,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mx.gob.impi.rdu.persistence.model.Certificado" >
+    update CERTIFICADO
+    set NOMBRE_ADMIN = #{nombreAdmin,jdbcType=VARCHAR},
+      NUMERO_SERIE = #{numeroSerie,jdbcType=VARCHAR},
+      ID_ESTATUS_CERTIFICADO = #{idEstatusCertificado,jdbcType=DECIMAL},
+      PASS = #{pass,jdbcType=VARCHAR},
+      FECHA_CARGA = SYSDATE,
+      USUARIO = #{usuario,jdbcType=VARCHAR},
+      PRIORIDAD = #{prioridad,jdbcType=DECIMAL}
+    where ID_CERTIFICADO = #{idCertificado,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mx.gob.impi.rdu</groupId>
+	<artifactId>rdu-ear</artifactId>
+	<packaging>ear</packaging>
+	<version>1.0.1</version>
+	<name>EAR-Project</name>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>net.infotec.ant</groupId>
+			<artifactId>ear-multiproject-task</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>mx.gob.impi.rdu</groupId>
+			<artifactId>ejb-rduUsuarios</artifactId>
+			<version>1.0.1</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>mx.gob.impi.rdu</groupId>
+			<artifactId>ejb-rduCatalogos</artifactId>
+			<version>1.0.1</version>
+			<type>ejb</type>
+		</dependency>		
+		<dependency>
+			<groupId>mx.gob.impi.rdu</groupId>
+			<artifactId>ejb-rduFlujosGenerales</artifactId>
+			<version>1.0.1</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>mx.gob.impi.rdu</groupId>
+			<artifactId>ejb-rduPatentes</artifactId>
+			<version>1.0.1</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+                                <!-- version>2.4.2</version -->  <!-- NOTA: Descomentar esta línea para MAVEN 3 -->
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<displayName>EAR Components</displayName>
+					<description>EAR Components</description>
+					<version>1.4</version>
+					<modules>
+						<ejbModule>
+							<groupId>mx.gob.impi.rdu</groupId>
+							<artifactId>ejb-rduUsuarios</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>mx.gob.impi.rdu</groupId>
+							<artifactId>ejb-rduCatalogos</artifactId>
+						</ejbModule>						
+						<ejbModule>
+							<groupId>mx.gob.impi.rdu</groupId>
+							<artifactId>ejb-rduFlujosGenerales</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>mx.gob.impi.rdu</groupId>
+							<artifactId>ejb-rduPatentes</artifactId>
+						</ejbModule>
+
+					</modules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>remote module installation</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<property name="compile_classpath" refid="maven.compile.classpath" />
+								
+								<taskdef name="install-modules" classname="net.infotec.ant.task.InstallModules"
+									classpath="${compile_classpath}" />
+								<install-modules />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>generate-ear-description</id>
+			<activation>
+				<property>
+					<name>modules.include</name>
+					<value>true</value>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.3</version>
+						<executions>
+							<execution>
+								<id>module inclution</id>
+								<phase>validate</phase>
+								<configuration>
+									<tasks>
+										<property name="compile_classpath" refid="maven.compile.classpath" />
+										
+										<taskdef name="read-modules" classname="net.infotec.ant.task.ReadModules"
+											classpath="${compile_classpath}" />
+										<read-modules groupId="mx.gob.impi.rdu" 
+											artifactId="rdu-ear" version="1.0"/>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>
+	
+	<repositories>
+		<repository>
+			<id>m2repo</id>
+			<name>m2repo</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+
+		<repository>
+			<id>global</id>
+			<name>External Mirror of Central Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<id>repo.maven</id>
+			<url>http://repo1.maven.org/maven2-repoclean-java.net</url>
+		</repository>
+		<repository>
+			<id>ibiblio</id>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>ejb3unit</id>
+			<name>ejb3unit repository</name>
+			<url>http://ejb3unit.sourceforge.net/maven2</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>repo1org</id>
+			<name>External Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
+
