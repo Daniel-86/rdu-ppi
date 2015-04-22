@@ -33,6 +33,7 @@ import mx.gob.impi.rdu.dto.FolioDto;
 
 import mx.gob.impi.rdu.dto.RespuestaDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
+import mx.gob.impi.rdu.exposition.flujosGenerales.Notification;
 import mx.gob.impi.rdu.exposition.flujosGenerales.reporte.GenerarReporte;
 import mx.gob.impi.rdu.exposition.form.CapturaSolicitudForm;
 import mx.gob.impi.rdu.exposition.patentes.PatentesDisenoIndustrialMB;
@@ -920,6 +921,24 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     @Override
     public List<KfContenedores> selectKfContenedoresByTitle(String title) {
         return this.rduFlujosGeneralesRemot.selectKfContenedoresByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Notification> findAllByUser(long l) {
+        return null; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Notification findByTitle(String recordID) {
+//        Notification notification = rduFlujosGeneralesRemot.findNotificationByTitle(recordID);
+        Notification notification = null;
+        if(notification == null) {
+            List<KfContenedores> record = rduFlujosGeneralesRemot.selectKfContenedoresByTitle(recordID);
+            if(record != null) {
+                notification = new Notification();
+                notification.setUserId(12345l);
+                notification.setPerson("testing");
+            }
+        }
+        return notification;
     }
     
 

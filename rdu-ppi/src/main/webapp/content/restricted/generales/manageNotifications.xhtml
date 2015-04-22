@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="content">
+        <h:form id="notificationsForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+            <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificaciones"/>
+            <p:panel>
+                <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
+                    
+                    <p:panel header="Datos generales">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Nombre"/>
+                            <p:column>
+                                <p:inputTextarea/>
+                                <!--<p:inputTextarea value="#{user.name}" disabled="#{section}"/>-->
+                            </p:column>
+                            <h:outputText value="Paterno"/>
+                            <p:column>
+                                <p:inputTextarea/>
+                            </p:column>
+                            <h:outputText value="Materno"/>
+                            <p:column>
+                                <p:inputTextarea/>
+                            </p:column>
+                        </h:panelGrid>
+                    </p:panel>
+                    
+                    
+                    <ui:include src="../include/domicilioNotificacion.xhtml">
+                        <ui:param name="managedBean" value="#{patentesDisIndMB.domicilioContacto}"/>
+                        <ui:param name="cambiarPais" value="false"/>
+                        <ui:param name="mostrarFax" value="true"/>
+                        <ui:param name="titulo" value="Domicilio"/>
+                    </ui:include>                    
+
+
+
+                    <p:panel>
+                        <center>
+                            <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
+                                <h:outputText value="ID expediente: "/>
+                                <p:inputText id="txtCodbarrasAcuerdo" value="#{cargaNotificacionMB.codbarrasAcuerdo}"/>
+                                <p:commandButton value="Buscar" action="#{cargaNotificacionMB.findRecord()}"
+                                                 update="notificationsForm"/>
+                            </h:panelGrid>
+                        </center>
+                        <br/>
+                        <p:dataTable id="tableArchivos" value="#{cargaNotificacionMB.notificacionDM}" paginator="true" rows="7"
+                                     selection="#{cargaNotificacionMB.notificacionesSelected}" var="notificacion">
+                            <p:column selectionMode="multiple"/>
+                            <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
+                                <h:outputText value="#{notificacion.oficioSalida}"/>
+                            </p:column>
+                            <p:column headerText="Expediente">
+                                <h:outputText value="#{notificacion.expediente}"/>
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{notificacion.fechaMovimiento}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                <h:outputText value="#{notificacion.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Tipo">
+                                <h:outputText value="#{notificacion.tipoSolicitud}"/>
+                            </p:column>
+                            <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
+                                <h:outputText value="#{notificacion.registro}"/>
+                            </p:column>
+                            <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
+                                <h:outputText value="#{notificacion.titular}"/>
+                            </p:column>
+                            <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
+                                <h:outputText value="#{notificacion.denominacion}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <center>
+                            <h:panelGrid columns="2" style="width: 200px;">
+                                <p:commandButton value="Eliminar" actionListener="#{cargaNotificacionMB.eliminarNotSeleccionadas}" update="notificationsForm:tableArchivos notificationsForm:msgErrors"/>
+                                <p:commandButton value="Eliminar todos" actionListener="#{cargaNotificacionMB.eliminarTodasNot}" update="notificationsForm:tableArchivos notificationsForm:msgErrors"/>
+                            </h:panelGrid>
+                        </center>
+                        <br/>
+                    </p:panel>
+                    
+
+
+
+
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+</ui:composition>

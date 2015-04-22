@@ -29,7 +29,8 @@
                          <p:commandButton value="Buscar" action="#{cargaNotificacionMB.buscarAcuerdo()}"
                                                  update="forma"/>
                          <p:inputTextarea id="txtNombreArchivos" rendered="false"
-                                         disabled="true" value="#{cargaNotificacionMB.nombreArchivos!=null and cargaNotificacionMB.nombreArchivos.length()>2?cargaNotificacionMB.nombreArchivos.substring(0,cargaNotificacionMB.nombreArchivos.length()-2):cargaNotificacionMB.nombreArchivos}"
+                                         disabled="true" 
+                                         value="#{cargaNotificacionMB.nombreArchivos!=null and cargaNotificacionMB.nombreArchivos.length()>2?cargaNotificacionMB.nombreArchivos.substring(0,cargaNotificacionMB.nombreArchivos.length()-2):cargaNotificacionMB.nombreArchivos}"
                                          style="width: 400px;" autoResize="false"/>
                         <p:commandButton value="..." onclick="subirArchivoDialog.show()" rendered="false"/>
                         <center>

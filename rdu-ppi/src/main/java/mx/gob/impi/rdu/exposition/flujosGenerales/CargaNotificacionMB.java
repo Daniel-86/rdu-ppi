@@ -5,9 +5,13 @@
 package mx.gob.impi.rdu.exposition.flujosGenerales;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -26,6 +30,7 @@ import mx.gob.impi.rdu.service.FlujosGralesViewServiceImpl;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.rdu.util.FileServicesUtil;
 import mx.gob.impi.rdu.util.Util;
+import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
@@ -55,12 +60,14 @@ public class CargaNotificacionMB {
     private List<FileUploadEvent> files = new ArrayList<FileUploadEvent>();
     private String nombreArchivos = "";
     private String codbarrasAcuerdo = "";
+    public String recordID = "";
     private String msgErrors;
     private boolean mostrarResumen;
     public static final String PATTERN_OFICION_SALIDA_PATENTES = "MX\\_[0-9]{4}\\_[0-9]{1,7}.pdf";
     public static final String PATTERN_CODBARRAS_SIGAPPI = "PI/[A-Z]{1}/[0-9]{4}/[0-9]{6}";
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
+    
 
     @PostConstruct
     public void init() {
@@ -136,61 +143,63 @@ public class CargaNotificacionMB {
         nombreArchivos = "";
         files.clear();
     }
-public String buscaAcuerdo() {
+    
+    
+    public String buscaAcuerdo() {
         String msgError = "";
         //UploadedFile file = event.getFile();
         Notificacion not = null; // de rdu
         NotificacionView notView = new NotificacionView();
-        KffoliosNotificacion kffoliosNotificacion=null;
-        KfFolios kfFolios=null;
+        KffoliosNotificacion kffoliosNotificacion = null;
+        KfFolios kfFolios = null;
         if (this.codbarrasAcuerdo != null) {
             try {
-                
-                    if (validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
-                            //not = new Notificacion(file.getFileName().substring(0, file.getFileName().length() - 4), file.getFileName(), file.getContents());
-                            not = new Notificacion(codbarrasAcuerdo);
-                            Notificacion notifi = null;
-                           
-                                notifi = flujosgralesViewService.getNotificacionesByFolio(not.getFolio());
-                            
-                            if (notifi == null) {
-                                
-                                    try {
-                                        kfFolios = !flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).isEmpty() ? flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).get(0): null;
-                                    } catch (Exception nfe) {
-                                        nfe.printStackTrace();
-                                    }
-                                
-                                if (kfFolios != null) {
-                                    //notView.setArchivo(not.getArchivo());
-                                    if (!existeNotificacion(notificacionesView, kfFolios)) {
-                                        notView.setOficioSalida(kfFolios.getCodbarras());
-                                        notView.setExpediente(kfFolios.getPerson());
-                                        notView.setFechaMovimiento(kfFolios.getFecha());
-                                        notView.setDenominacion(kfFolios.getDescription());
-                                        notView.setTitular(kfFolios.getAnalista());
-                                        notificacionesView.add(notView);
-                                        not.setDenominacion(notView.getDenominacion());
-                                        not.setExpediente(notView.getExpediente());
-                                        not.setTitular(notView.getTitular());
-                                        notificaciones.add(not);
-                                    } else {
-                                        msgError += "El Acuerdo " + not.getFolio()  + " ya se ha cargado en la tabla....|";
-                                    }
-                                } else {
-                                    msgError += "Folio de salida: " + not.getFolio() + " no encontrado....|";
-                                }
+
+                if (validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
+                    //not = new Notificacion(file.getFileName().substring(0, file.getFileName().length() - 4), file.getFileName(), file.getContents());
+                    not = new Notificacion(codbarrasAcuerdo);
+                    Notificacion notifi = null;
+
+                    notifi = flujosgralesViewService.getNotificacionesByFolio(not.getFolio());
+
+                    if (notifi == null) {
+
+                        try {
+                            kfFolios = !flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).isEmpty() ? flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).get(0) : null;
+                        } catch (Exception nfe) {
+                            nfe.printStackTrace();
+                        }
+
+                        if (kfFolios != null) {
+                            //notView.setArchivo(not.getArchivo());
+                            if (!existeNotificacion(notificacionesView, kfFolios)) {
+                                notView.setOficioSalida(kfFolios.getCodbarras());
+                                notView.setExpediente(kfFolios.getPerson());
+                                notView.setFechaMovimiento(kfFolios.getFecha());
+                                notView.setDenominacion(kfFolios.getDescription());
+                                notView.setTitular(kfFolios.getAnalista());
+                                notificacionesView.add(notView);
+                                not.setDenominacion(notView.getDenominacion());
+                                not.setExpediente(notView.getExpediente());
+                                not.setTitular(notView.getTitular());
+                                notificaciones.add(not);
                             } else {
-                                msgError += "El Acuerdo " + not.getFolio() + " ya existe en la base de datos....|";
+                                msgError += "El Acuerdo " + not.getFolio() + " ya se ha cargado en la tabla....|";
                             }
-                        
+                        } else {
+                            msgError += "Folio de salida: " + not.getFolio() + " no encontrado....|";
+                        }
                     } else {
-                        msgError += "El codbarras " + this.codbarrasAcuerdo + " no tiene un formato valido|";
+                        msgError += "El Acuerdo " + not.getFolio() + " ya existe en la base de datos....|";
                     }
-                
+
+                } else {
+                    msgError += "El codbarras " + this.codbarrasAcuerdo + " no tiene un formato valido|";
+                }
+
             } catch (IllegalArgumentException iae) {
                 msgError += "Solamente se pueden cargar archivos *.pdf....|";
-            } 
+            }
         }
         return msgError;
     }
@@ -300,6 +309,13 @@ public String buscaAcuerdo() {
                 break;
             }
         }
+        return result;
+    }
+    
+    public boolean existeNotificacion(List<NotificacionView> notificacionesView, KfContenedores kfconte) {
+        boolean result = false;
+        for(NotificacionView notView: notificacionesView) 
+            if(notView.getOficioSalida().equals(kfconte.getTitle())) {result = true; break;}
         return result;
     }
 
@@ -476,4 +492,51 @@ public String buscaAcuerdo() {
     public void setMostrarResumen(boolean mostrarResumen) {
         this.mostrarResumen = mostrarResumen;
     }
+    
+    public String findRecord() {
+        String msgError = "";
+        List<Notification> currentNotifications = null;
+        Notification requested = null;
+        NotificacionView notView = new NotificacionView();
+        List<KfContenedores> dummyList = null;
+        KfContenedores record = null;
+        
+        if(isAlreadyPresent(notificacionesView, codbarrasAcuerdo))
+            msgError = "El expediente con título " + this.codbarrasAcuerdo + " ya está cargado en la tabla";
+        else if(this.codbarrasAcuerdo != null && !this.codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
+            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
+            dummyList = flujosgralesViewService.selectKfContenedoresByTitle(this.codbarrasAcuerdo);
+            if(dummyList != null && dummyList.size() > 0) {
+                try {
+                    record = dummyList.get(0);
+                    notView.setOficioSalida(record.getTitle());
+                    notView.setExpediente(record.getPerson());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                    notView.setFechaMovimiento(dateFormat.parse(record.getFecha()));
+                    notView.setDenominacion(record.getDescription());
+                    notView.setTitular(record.getServidor());
+                    notificacionesView.add(notView);
+                } catch (ParseException ex) {
+                    java.util.logging.Logger.getLogger(CargaNotificacionMB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+                msgError = "Expediente no encontrado";
+//            requested = flujosgralesViewService.findByTitle(this.codbarrasAcuerdo);
+        }
+        return msgError;
+    }
+    
+    
+    public boolean isAlreadyPresent(List<NotificacionView> notificacionesView, String id) {
+        boolean result = false;
+        for (NotificacionView notView : notificacionesView) {
+            if (notView.getOficioSalida().equals(id)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+    
 }

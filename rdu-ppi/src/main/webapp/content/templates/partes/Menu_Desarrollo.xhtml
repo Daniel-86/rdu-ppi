@@ -12,10 +12,10 @@
             <p:submenu  label="Captura de solicitudes" icon="ui-icon ui-icon-document" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.admin}">
             <!--Se agrega una opcion al menu de solicitudes-->
               
-                 <p:menuitem rendered="#{sessionScope['area'] == 20}" value="Búsquedas" oncomplete="otros(20);showStatus('divStatus');lockWindow('divLockWindow');"   action="#{menuMB.actualizar}">
+                 <p:menuitem rendered="#{sessionScope['area'] == 40}" value="Búsquedas" oncomplete="otros(20);showStatus('divStatus');lockWindow('divLockWindow');"   action="#{menuMB.actualizar}">
                     <f:setPropertyActionListener value="20" target="#{menuMB.idMenu}" />
                 </p:menuitem>
-                <p:menuitem rendered="#{sessionScope['area'] == 20}" value="Vigilancia" oncomplete="otros(21);showStatus('divStatus');lockWindow('divLockWindow');"   action="#{menuMB.actualizar}">
+                <p:menuitem rendered="#{sessionScope['area'] == 40}" value="Vigilancia" oncomplete="otros(21);showStatus('divStatus');lockWindow('divLockWindow');"   action="#{menuMB.actualizar}">
                     <f:setPropertyActionListener value="21" target="#{menuMB.idMenu}" />
                 </p:menuitem>
             </p:submenu>
@@ -38,6 +38,10 @@
                 <p:menuitem rendered="true" value="Coordinador " onclick="otros(42);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}">
                     <f:setPropertyActionListener value="42" target="#{menuMB.idMenu}" />
                 </p:menuitem>
+                
+                <p:menuitem rendered="true" value="Administrar" action="#{menuMB.actualizar}" onclick="otros(33); showStatus('divStatus');lockWindow('divLockWindow');">
+                    <f:setPropertyActionListener value="33" target="#{menuMB.idMenu}"/>
+                </p:menuitem>
 
             </p:submenu>
 
@@ -48,10 +52,10 @@
 
             <p:submenu   label="Promociones" icon="ui-icon ui-icon-document" rendered="false">
                           
-                <p:menuitem value="Con Oficio A Responder" rendered="#{sessionScope['area'] == 20 }" oncomplete="otros(40);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}">
+                <p:menuitem value="Con Oficio A Responder" rendered="#{sessionScope['area'] == 40 }" oncomplete="otros(40);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}">
                     <f:setPropertyActionListener value="40" target="#{menuMB.idMenu}" />
                 </p:menuitem>
-                <p:menuitem value="Otros Documentos" rendered="#{sessionScope['area'] == 20 }" oncomplete="otros(41);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar2}">
+                <p:menuitem value="Otros Documentos" rendered="#{sessionScope['area'] == 40 }" oncomplete="otros(41);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar2}">
                     <f:setPropertyActionListener value="41" target="#{menuMB.idMenu}"/>
                 </p:menuitem>
             </p:submenu>
@@ -93,10 +97,10 @@
                 <f:setPropertyActionListener value="5" target="#{menuMB.idMenu}" />
             </p:menuitem>
 
-            <p:menuitem  value="Acerca de ..." icon="ui-icon ui-icon-notice"  onclick="acercaPatentesDialog.show()" rendered="#{sessionScope['area'] == 20 }"/>
+            <p:menuitem  value="Acerca de ..." icon="ui-icon ui-icon-notice"  onclick="acercaPatentesDialog.show()" rendered="#{sessionScope['area'] == 40 }"/>
             
                    
-            <p:menuitem value="Cerrar sesión" action="#{menuMB.actualizar}"  onclick="showStatus('divStatus');lockWindow('divLockWindow');" icon="ui-icon-back" rendered="#{sessionScope['area'] == 20 }">
+            <p:menuitem value="Cerrar sesión" action="#{menuMB.actualizar}"  onclick="showStatus('divStatus');lockWindow('divLockWindow');" icon="ui-icon-back" rendered="#{sessionScope['area'] == 40 }">
                 <f:setPropertyActionListener value="58" target="#{menuMB.idMenu}" />
             </p:menuitem>
 
@@ -186,6 +190,10 @@
                     break                   
                 case 43: //Promociones patentes
                     pagina="#{request.contextPath}/content/restricted/patentes/promociones/promocionesPreparacion.faces"
+                    break
+                
+                case 33:
+                    pagina="#{request.contextPath}/content/restricted/generales/manageNotifications.faces"
                     break
                 
                 default:
