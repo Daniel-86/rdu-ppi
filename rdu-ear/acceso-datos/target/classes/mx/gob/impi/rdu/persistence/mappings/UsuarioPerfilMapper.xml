@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mx.gob.impi.rdu.persistence.mapper.UsuarioPerfilMapper">
-  <resultMap id="UsuarioPerfilResultMap" type="mx.gob.impi.rdu.persistence.model.UsuarioPerfil">
-    <id column="id_perfil" property="idPerfil" jdbcType="VARCHAR"/>
-    <id column="id_usuario" property="idUsuario" jdbcType="BIGINT"/>
-  </resultMap>
-</mapper>
