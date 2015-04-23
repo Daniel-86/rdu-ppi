@@ -133,6 +133,9 @@
         <property name="kfFoliosMapper" ref="kfFoliosMapper" />
         <property name="kfAlmacenarMapper" ref="kfAlmacenarMapper" />
         <property name="kfContenedoresMapper" ref="kfContenedoresMapper" />
+       <property name="solicitudInteresadosMapper" ref="solicitudInteresadosMapper" />
+       <property name="tiposRelacionMapper" ref="tiposRelacionMapper" />
+       <property name="usuariosSigappiMapper" ref="usuariosSigappiMapper" />
        
     </bean>
         

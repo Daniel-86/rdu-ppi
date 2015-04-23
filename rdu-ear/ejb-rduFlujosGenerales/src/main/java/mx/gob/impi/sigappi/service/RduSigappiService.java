@@ -9,6 +9,9 @@ import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 
 /**
  *
@@ -34,7 +37,21 @@ public interface RduSigappiService {
     int insert(KfAlmacenar kfAlmacenar);
     
     List<KfContenedores> selectKfContenedoresByTitle(String title);
+    List<KfContenedores> selectKfContenedoresByPC(String pc);
     
     int insert(KfContenedores kfContenedores);
+    
+    List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado);
+    List<SolicitudInteresados> selectSolicitudInteresadosByTitle( String title);
+    
+    int insert(SolicitudInteresados solicitudInteresados);
+    
+    List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion);
+    
+    int insert(TiposRelacion  tiposRelacion);
+    
+    List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
+    
+    int insert(UsuariosSigappi usuariosSigappi);
     
 }
