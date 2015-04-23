@@ -20,7 +20,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <!-- dataSouce para ambiente de produccion utilizando pool de conexiones de glassfish   -->
   
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="jdbc/rdusit"></property>
+        <property name="jndiName" value="jdbc/rduppi"></property>
         <property name="lookupOnStartup" value="true"></property>
         <property name="cache" value="true"></property>
         <property name="proxyInterface" value="javax.sql.DataSource"></property>

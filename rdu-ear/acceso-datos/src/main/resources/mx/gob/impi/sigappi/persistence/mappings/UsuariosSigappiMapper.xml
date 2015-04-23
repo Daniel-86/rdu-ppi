@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.UsuariosSigappi" >
+        <result column="CVE_USUARIO" property="cveUsuario" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="NOMBRE" property="nombre" jdbcType="VARCHAR" />
+        <result column="IND_ADMINISTRADOR" property="indAdministrador" jdbcType="DECIMAL" />
+        <result column="AREA" property="area" jdbcType="VARCHAR" />
+        <result column="IND_ACTIVO" property="indActivo" jdbcType="DECIMAL" />
+        <result column="CVE_AREA" property="cveArea" jdbcType="DECIMAL" />
+        <result column="IND_ANALISTA" property="indAnalista" jdbcType="DECIMAL" />
+        <result column="IMPRESORA" property="impresora" jdbcType="VARCHAR" />
+        <result column="CVE_PERFIL" property="cvePerfil" jdbcType="DECIMAL" />
+    </resultMap>
+    <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.UsuariosSigappi" >
+        insert into USUARIOS (CVE_USUARIO,
+        PASSWORD,
+        NOMBRE,
+        IND_ADMINISTRADOR,
+        AREA,
+        IND_ACTIVO,
+        CVE_AREA,
+        IND_ANALISTA,
+        IMPRESORA,
+        CVE_PERFIL)
+        values (
+        #{cveUsuario,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{nombre,jdbcType=VARCHAR},
+        #{indAdministrador,jdbcType=DECIMAL},
+        #{area,jdbcType=VARCHAR},
+        #{indActivo,jdbcType=DECIMAL},
+        #{cveArea,jdbcType=DECIMAL},
+        #{indAnalista,jdbcType=DECIMAL},
+        #{impresora,jdbcType=VARCHAR},
+        #{cvePerfil,jdbcType=DECIMAL})
+    </insert>
+
+
+    <select id="selectByCveUsuario" parameterType="map" resultMap="BaseResultMap">
+        SELECT CVE_USUARIO,
+        PASSWORD,
+        NOMBRE,
+        IND_ADMINISTRADOR,
+        AREA,
+        IND_ACTIVO,
+        CVE_AREA,
+        IND_ANALISTA,
+        IMPRESORA,
+        CVE_PERFIL
+        FROM USUARIOS
+        WHERE CVE_USUARIO=#{cveUsuario,jdbcType=VARCHAR}
+        
+    </select>
+    
+</mapper>

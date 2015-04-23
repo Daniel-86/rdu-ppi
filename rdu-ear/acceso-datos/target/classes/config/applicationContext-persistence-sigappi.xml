@@ -42,5 +42,20 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
         <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.KfContenedoresMapper"/>
     </bean>
+    
+    <bean  id="solicitudInteresadosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.SolicitudInteresadosMapper"/>
+    </bean>
+    
+    <bean  id="tiposRelacionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.TiposRelacionMapper"/>
+    </bean>
+    
+    <bean  id="usuariosSigappiMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper"/>
+    </bean>
  
 </beans>
