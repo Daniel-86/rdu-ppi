@@ -4293,7 +4293,7 @@ public void inicializaSolPCT() {
                             SesionRDU obtSession = ContextUtils.obtenerSesionUsuario();
                             if (null != obtSession) {
                                 obtSession.setIdTramite(idTramite);
-                                obtSession.setIdTipoTramite(TipoTramiteEnum.SOL_SIT.getIdTipoTramite());
+                                obtSession.setIdTipoTramite(TipoTramiteEnum.SOL_PPI.getIdTipoTramite());
                                 ContextUtils.crearSesionRdu(obtSession);
                             }
 //                      FacesContext.getCurrentInstance().getExternalContext().redirect("../include/redireccionar.faces");

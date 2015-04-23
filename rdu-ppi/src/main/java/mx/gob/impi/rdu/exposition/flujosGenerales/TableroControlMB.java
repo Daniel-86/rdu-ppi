@@ -103,6 +103,20 @@ public class TableroControlMB implements Serializable {
             }
 
         }
+        
+        if (area.equals("40") ) {
+            if (ambienteProduccion.equals("1")) {
+                this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.SOL_PPI.getIdTipoTramite(), TipoTramiteEnum.SOL_PPI.getDescripcion()));
+                this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.NOTIFICACIONES.getIdTipoTramite(), TipoTramiteEnum.NOTIFICACIONES.getDescripcion()));
+                //this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite(), TipoTramiteEnum.PROM_PATENTES.getDescripcion()));
+            
+            } else {
+                this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.SOL_PPI.getIdTipoTramite(), TipoTramiteEnum.SOL_PPI.getDescripcion()));
+                this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.NOTIFICACIONES.getIdTipoTramite(), TipoTramiteEnum.NOTIFICACIONES.getDescripcion()));
+                //this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite(), TipoTramiteEnum.PROM_PATENTES.getDescripcion()));
+            }
+
+        }
 
 
 

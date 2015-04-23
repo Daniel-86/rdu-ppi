@@ -127,6 +127,9 @@ public class RedireccionarMB implements Serializable {
             }else if (obtSession.getIdTipoTramite() == TipoTramiteEnum.SOL_SIT.getIdTipoTramite()) {
                 logger.info("   **  PERTENECE A SIT DENTRO DEL PASE ==>20");
                 areaXml = TipoTramiteEnum.SOL_SIT.getIdTipoTramite();
+            }else if (obtSession.getIdTipoTramite() == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {
+                logger.info("   **  PERTENECE A SIT DENTRO DEL PASE ==>40");
+                areaXml = TipoTramiteEnum.SOL_SIT.getIdTipoTramite();
             }else if(obtSession.getIdTipoTramite() == TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite()){
                 logger.info("   **  PERTENECE A PROMOCIONES DENTRO DEL PASE ==>????");
                 areaXml = TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite();
@@ -202,6 +205,8 @@ public class RedireccionarMB implements Serializable {
                     area.appendChild(document.createTextNode(String.valueOf(areaXml) + isOff + ""));
                 }else if (areaXml == TipoTramiteEnum.SOL_SIT.getIdTipoTramite() & (isOff > 0)) {
                     area.appendChild(document.createTextNode(String.valueOf(areaXml) + isOff + ""));
+                }else if (areaXml == TipoTramiteEnum.SOL_PPI.getIdTipoTramite() & (isOff > 0)) {
+                    area.appendChild(document.createTextNode(String.valueOf(areaXml) + isOff + ""));
                 } else {
                     area.appendChild(document.createTextNode(String.valueOf(areaXml)));
                 }
@@ -272,6 +277,15 @@ public class RedireccionarMB implements Serializable {
                                     nuevaCantidad = 0;
                                 }
                             }else if (areaXml == TipoTramiteEnum.SOL_SIT.getIdTipoTramite()) {
+                                TramitePatente datosTramitePatente = patentesViewService.obtenerTramitePatenteById(obtSession.getIdTramite());
+                                logger.info("****==> NUMERO DE PRIORIDADES    ==>" + datosTramitePatente.getPrioridades().size());
+
+                                if (datosTramitePatente.getPrioridades().size() > 0) {
+                                    nuevaCantidad = datosTramitePatente.getPrioridades().size();
+                                } else {
+                                    nuevaCantidad = 0;
+                                }
+                            }else if (areaXml == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {
                                 TramitePatente datosTramitePatente = patentesViewService.obtenerTramitePatenteById(obtSession.getIdTramite());
                                 logger.info("****==> NUMERO DE PRIORIDADES    ==>" + datosTramitePatente.getPrioridades().size());
 
@@ -656,6 +670,46 @@ public class RedireccionarMB implements Serializable {
             documentoArticulo.setIdTipoSolicitud(Integer.valueOf(tramitePatente.getIdSubtipoSolicitud().toString()+addTipoSol));
             documentoArticulo.setIdTipoDocumento(1);
             logger.info("  **==> IConfigura el parametro a enviar SIT  ");
+        
+        
+            // =============================== PROMOCIONES ======================================
+        }else if (idArea == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {
+            logger.info("   **  creaArregloDatosTarifa:PERTENECE A SIT DENTRO DEL PASE ==>40");
+            tramitePatente = patentesViewService.selectTramite(idTramite);
+
+            List<Persona> personas = patentesViewService.selectSolicitanteTramitePatente(idTramite);
+
+
+            for (Persona psn : personas) {
+                if (psn != null && psn.getDescuento() != null && psn.getDescuento() > 0) {
+                    if (psn.getIdTipoSolicitante() == Constantes.SOL_EMPRESA_GRANDE | psn.getIdTipoSolicitante() == Constantes.SOL_EMPRESA_MED | psn.getIdTipoSolicitante() == Constantes.SOL_PERSONA_MORAL) {
+                        //isOff=false;
+                        isOff = 0;
+                        break;
+                    } else {
+                        //isOff=true;                                        
+                        isOff = psn.getIdTipoSolicitante().intValue();
+                    }
+
+                } else {
+                    //isOff=false;
+                    isOff = 0;
+                    break;
+                }
+            }
+
+            areaXml = TipoTramiteEnum.SOL_PPI.getIdTipoTramite();
+
+            logger.info("  **==> IDTRAMITE  " + tramitePatente.getIdTramitePatente()
+                    + "  IdSubtiposolicitud  " + tramitePatente.getIdSubtipoSolicitud());
+
+            // Configura el parametro a enviar
+            documentoArticulo.setIdArea(Integer.valueOf(Constantes.AREA_PPI.toString()));
+            String addTipoSol="";
+            if((tramitePatente.getIdSubtipoSolicitud()==28 || tramitePatente.getIdSubtipoSolicitud()==29|| tramitePatente.getIdSubtipoSolicitud()==41) && tramitePatente.getCobertura().equals("2"))  addTipoSol=tramitePatente.getCobertura();
+            documentoArticulo.setIdTipoSolicitud(Integer.valueOf(tramitePatente.getIdSubtipoSolicitud().toString()+addTipoSol));
+            documentoArticulo.setIdTipoDocumento(1);
+            logger.info("  **==> IConfigura el parametro a enviar PPI  ");
         
         
             // =============================== PROMOCIONES ======================================

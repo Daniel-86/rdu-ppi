@@ -81,6 +81,9 @@ public class ExpedienteLazyDM extends LazyDataModel<ExpedientesDto>{
         }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.SOL_SIT.getIdTipoTramite()) {            
             expedientesEncontrados = service.obtenerExpedientesPaginados(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin, start, maxPerPage);
             
+        }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {            
+            expedientesEncontrados = service.obtenerExpedientesPaginados(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin, start, maxPerPage);
+            
         }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.NOTIFICACIONES.getIdTipoTramite()) {            
             expedientesEncontrados = service.obtenerExpedientesNotPaginados(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin, start, maxPerPage);            
         }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite()) {            
@@ -102,6 +105,9 @@ public class ExpedienteLazyDM extends LazyDataModel<ExpedientesDto>{
             total = service.obtenerTotalExpedientes(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin);
             
         }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.SOL_SIT.getIdTipoTramite()) {
+            total = service.obtenerTotalExpedientes(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin);
+            
+        }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {
             total = service.obtenerTotalExpedientes(usuarios, idArea, idTipoSolicitud, ultimaSemana, ultimoMes, fechaInicio, fechaFin);
             
         }else if (idTipoSolicitud.intValue() == TipoTramiteEnum.NOTIFICACIONES.getIdTipoTramite()) {

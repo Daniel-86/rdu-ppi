@@ -53,6 +53,9 @@ import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -573,7 +576,12 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     public List<Notificacion> consultarNotificaciones(Integer idUsuarioFirma) {
         return this.rduFlujosGeneralesRemot.consultarNotificaciones(idUsuarioFirma);
     }    
+    
+    public Notificacion selectNotificacionesById(Integer idNotificacion) {
+        return this.rduFlujosGeneralesRemot.selectNotificacionesById(idNotificacion);
+    }
 
+    
     public List<Notificacion> getNotificacionesUserLoad(Integer idUserLoad, Integer coordinador) {
         return this.rduFlujosGeneralesRemot.getNotificacionesUserLoad(idUserLoad, coordinador);
     }
@@ -920,6 +928,46 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     @Override
     public List<KfContenedores> selectKfContenedoresByTitle(String title) {
         return this.rduFlujosGeneralesRemot.selectKfContenedoresByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<KfContenedores> selectKfContenedoresByPC(String pc) {
+        return this.rduFlujosGeneralesRemot.selectKfContenedoresByPC(pc); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int insert(SolicitudInteresados solicitudInteresados) {
+        return this.rduFlujosGeneralesRemot.insert(solicitudInteresados); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<SolicitudInteresados> selectSolicitudInteresadosByTitle(String title) {
+        return this.rduFlujosGeneralesRemot.selectSolicitudInteresadosByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado) {
+        return this.rduFlujosGeneralesRemot.selectSolicitudInteresadosByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int insert(TiposRelacion tiposRelacion) {
+        return this.rduFlujosGeneralesRemot.insert(tiposRelacion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion) {
+        return this.rduFlujosGeneralesRemot.selectTiposRelacionByCodRelacion(codRelacion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int insert(UsuariosSigappi usuariosSigappi) {
+        return this.rduFlujosGeneralesRemot.insert(usuariosSigappi); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario) {
+        return this.rduFlujosGeneralesRemot.selectUsuariosSigappiByCveUsuario(cveUsuario); //To change body of generated methods, choose Tools | Templates.
     }
     
 

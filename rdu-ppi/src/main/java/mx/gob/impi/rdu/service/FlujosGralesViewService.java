@@ -16,6 +16,9 @@ import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 
 /**
@@ -124,7 +127,10 @@ public interface FlujosGralesViewService {
 
     List<NotificacionView> consultarNotificacionView(String codOficina, Long anio, Long numOficio);
 
-    List<Notificacion> consultarNotificaciones(Integer idUsuarioFirma);
+    List<Notificacion> consultarNotificaciones(Integer idNotificacion);
+    
+    
+    Notificacion selectNotificacionesById(Integer idNotificacion);
     
     public Long saveFirmaNotificacion(NotificacionFirma firma);
 
@@ -184,4 +190,15 @@ public interface FlujosGralesViewService {
     
     int insert(KfContenedores kfContenedores);
     public List<KfContenedores> selectKfContenedoresByTitle(String title);
+    public List<KfContenedores> selectKfContenedoresByPC(String pc);
+    
+    int insert(SolicitudInteresados solicitudInteresados);
+    public List<SolicitudInteresados> selectSolicitudInteresadosByTitle(String title);
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado);
+    
+    int insert(TiposRelacion tiposRelacion);
+    public List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion);
+    
+    int insert(UsuariosSigappi usuariosSigappi);
+    public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
 }

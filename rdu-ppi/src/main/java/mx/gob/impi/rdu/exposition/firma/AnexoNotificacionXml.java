@@ -37,7 +37,7 @@ public class AnexoNotificacionXml {
     private Logger logger = Logger.getLogger(this.getClass());
     public static final String XML_MAIN_HEADER = "documento_electronico";
     public static final String XML_SUB_MAIN = "documento";
-    public static final String XML_AREA = "4";
+    public static final String XML_AREA = "40";
     public final static String XML_TIPO_DOCUMENTO = "XML";
     public static final String XML_TIPO_SOLICITUD = "1";
     public static final String XML_TIPO_SOLICITANTE = "1";

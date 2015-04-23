@@ -89,6 +89,18 @@ public class DocsPreparacionMB implements Serializable {
                     this.filtrosTipoTramite = Util.geTiposTramite(area);
                 }
             }
+            
+            if (area.equals("40")) {
+                if (ambienteProduccion.equals("1")) {
+                    this.idTipoTramite = TipoTramiteEnum.SOL_PPI.getIdTipoTramite();
+                    this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.SOL_PPI.getIdTipoTramite(), TipoTramiteEnum.SOL_PPI.getDescripcion()));
+                    //this.filtrosTipoTramite.add(new TipoTramiteDto(TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite(), TipoTramiteEnum.PROM_PATENTES.getDescripcion()));
+                } else {
+                    this.idTipoTramite = TipoTramiteEnum.SOL_PPI.getIdTipoTramite();
+                    this.filtrosTipoTramite = Util.geTiposTramite(area);
+                }
+            }
+
 
             //this.filtrosTipoTramite = Util.geTiposTramite();            
 
