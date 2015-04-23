@@ -256,7 +256,7 @@ public abstract class Constantes {
     public static final String nombreSolicitudPDF ="FORMATO SOLICITUD";
     
      public static final int[] bytesGifAnimado = new int[]{0x4E,0x45,0x54,0x53,0x43,0x41,0x50,0x45};   
-     public static final String URL_INDEX_PATENTES ="/rdu-sit";
+     public static final String URL_INDEX_PATENTES ="/rdu-ppi";
      public static final int idFechaPrevia =0;
      public static final int idFechaPresent =1;
      public static final int idFechaPriorid =2;

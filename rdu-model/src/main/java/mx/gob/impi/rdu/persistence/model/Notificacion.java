@@ -15,6 +15,7 @@ public class Notificacion implements Serializable {
     private Integer idEstatus;
     private byte[] archivo;
     private String expediente;
+    private String descripcion;
     private String denominacion;
     private String titular;
     private Integer idArea;
@@ -105,6 +106,16 @@ public class Notificacion implements Serializable {
         this.archivo = archivo;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
+
     public String getDenominacion() {
         return denominacion;
     }
@@ -144,4 +155,6 @@ public class Notificacion implements Serializable {
     public void setNombreExaminador(String nombreExaminador) {
         this.nombreExaminador = nombreExaminador;
     }
+    
+    
 }
