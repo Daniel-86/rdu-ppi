@@ -26,6 +26,9 @@ import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 
 public interface RduFlujosGeneralesBean {
 
@@ -159,6 +162,8 @@ public interface RduFlujosGeneralesBean {
     List<NotificacionView> consultarNotificacionView(String codOficina, Long anio, Long numOficio);
 
     List<Notificacion> consultarNotificaciones(Integer idUsuario);
+    
+    Notificacion selectNotificacionesById(Integer idNotificacion);
 
     int insertarNotificacion(Notificacion notificacion);
 
@@ -214,5 +219,19 @@ public interface RduFlujosGeneralesBean {
     
     int insert(KfContenedores kfContenedores);
     
+    List<KfContenedores> selectKfContenedoresByPC(String pc);
     
+    
+    List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado);
+    List<SolicitudInteresados> selectSolicitudInteresadosByTitle( String title);
+    
+    int insert(SolicitudInteresados solicitudInteresados);
+    
+    List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion);
+    
+    int insert(TiposRelacion  tiposRelacion);
+    
+    List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
+    
+    int insert(UsuariosSigappi usuariosSigappi);
 }

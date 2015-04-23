@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IMPI-00-003" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="23" bottomMargin="7" uuid="79808087-3164-42ce-a83d-0c206f7c0205">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="25"/>
+	<property name="ireport.y" value="0"/>
 	<field name="rutaFirmaImpi" class="java.lang.String"/>
 	<field name="folio" class="java.lang.String"/>
 	<field name="expediente" class="java.lang.String"/>
@@ -30,14 +30,14 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DIRECCIÓN DIVISIONAL DE PROTECCIÓN A LA PROPIEDAD INTELECTUAL.
+				<text><![CDATA[DIRECCIÓN DIVISIONAL DE PROMOCIÓN.
 
-SUBDIRECCIÓN DIVISIONAL DE ...
+SUBDIRECCIÓN DIVISIONAL DE SERVICIOS DE INFORMACIÓN TECNOLÓGICA.
 
-COORDINACIÓN DEPARTAMENTAL ...]]></text>
+COORDINACIÓN DEPARTAMENTAL DEL CENTRO DE INFORMACIÓN TECNOLÓGICA.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7b9d11d4-b56d-48db-b88a-a23c8bb7bf0d" x="414" y="103" width="145" height="19"/>
+				<reportElement uuid="7b9d11d4-b56d-48db-b88a-a23c8bb7bf0d" x="414" y="103" width="130" height="19"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
@@ -52,15 +52,15 @@ COORDINACIÓN DEPARTAMENTAL ...]]></text>
                 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="312" y="137" width="99" height="19"/>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="312" y="137" width="150" height="19"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[FOLIO:
+				<text><![CDATA[FOLIO DE RECEPCIÓN:
                 ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="414" y="137" width="145" height="19"/>
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="460" y="137" width="110" height="19"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
@@ -102,7 +102,7 @@ COORDINACIÓN DEPARTAMENTAL ...]]></text>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[EL FIRMANTE MANIFESTÓ:
+				<text><![CDATA[EL SOLICITANTE MANIFESTÓ:
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -110,7 +110,7 @@ COORDINACIÓN DEPARTAMENTAL ...]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Que reconoce como propia y auténtica la información capturada a través de este medio, asumiendo la responsabilidad por el uso de su nombre de usuario, contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se les atribuirá la autoría de la información que se envíe a través del Sistema.
+				<text><![CDATA[Que reconoce como propia y auténtica la información contenida en la solicitud enviada a través de este medio, asumiendo la responsabilidad por el uso de su nombre de usuario y contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se les atribuirá la autoría de la información que se envíe a través del PASE.
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -191,21 +191,21 @@ COORDINACIÓN DEPARTAMENTAL ...]]></text>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[CON LA FECHA Y HORA REFERIDA SE HA FIRMADO Y RECIBIDO SU INFORMACIÓN CON LOS DATOS SEÑALADOS DE LA QUE SE ACUSA RECIBO.
+				<text><![CDATA[CON LA FECHA Y HORA REFERIDA SE HA RECIBIDO SU SOLICITUD CON LOS DATOS SEÑALADOS DE LA QUE SE ACUSA RECIBO.
                 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a01f1634-0fa9-408e-86f9-5508059605bb" x="312" y="172" width="99" height="17"/>
+				<reportElement uuid="a01f1634-0fa9-408e-86f9-5508059605bb" x="312" y="172" width="252" height="39"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[FECHA Y HORA:
+				<text><![CDATA[FECHA Y HORA DE LA RECEPCIÓN DE LA SOLICITUD:
                 ]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="dd29e72f-0262-410d-9a60-46c267beb9b1" x="414" y="172" width="145" height="19"/>
+				<reportElement uuid="dd29e72f-0262-410d-9a60-46c267beb9b1" x="414" y="189" width="130" height="19"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
@@ -214,12 +214,12 @@ COORDINACIÓN DEPARTAMENTAL ...]]></text>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Declaró bajo protesta de decir verdad que los documentos anexos son originales o copia debidamente certificada."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Declaró bajo protesta de decir verdad que los documentos anexos a la solicitud son originales o copia debidamente certificada."]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="b7ed6e9f-850b-4911-a8a7-29d548c52e3e" x="318" y="15" width="245" height="60"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="true" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$F{folio}]]></jr:codeExpression>
+				<reportElement uuid="b7ed6e9f-850b-4911-a8a7-29d548c52e3e" x="329" y="15" width="245" height="60"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Codabar" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[1245]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 		</band>

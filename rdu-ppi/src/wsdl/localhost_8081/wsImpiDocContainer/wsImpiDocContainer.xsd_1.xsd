@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.1.1-b09 (branches/2.1-6834; 2011-07-16T17:14:48+0000) JAXWS-RI/2.2.5-promoted-b04 JAXWS/2.2. --><xs:schema xmlns:tns="http://webservice.contenedor.vidoc.impi.mx.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.contenedor.vidoc.impi.mx.com/">
+
+<xs:element name="checkInDocument" type="tns:checkInDocument"/>
+
+<xs:element name="checkInDocumentResponse" type="tns:checkInDocumentResponse"/>
+
+<xs:element name="deleteDocument" type="tns:deleteDocument"/>
+
+<xs:element name="deleteDocumentResponse" type="tns:deleteDocumentResponse"/>
+
+<xs:element name="getDocumentFile" type="tns:getDocumentFile"/>
+
+<xs:element name="getDocumentFileResponse" type="tns:getDocumentFileResponse"/>
+
+<xs:element name="getDocumentInformation" type="tns:getDocumentInformation"/>
+
+<xs:element name="getDocumentInformationResponse" type="tns:getDocumentInformationResponse"/>
+
+<xs:element name="searchDocument" type="tns:searchDocument"/>
+
+<xs:element name="searchDocumentResponse" type="tns:searchDocumentResponse"/>
+
+<xs:element name="searchHomeDocument" type="tns:searchHomeDocument"/>
+
+<xs:element name="searchHomeDocumentResponse" type="tns:searchHomeDocumentResponse"/>
+
+<xs:complexType name="searchDocument">
+<xs:sequence>
+<xs:element name="inputSearch" type="tns:inputDocumentDocSearch" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inputDocumentDocSearch">
+<xs:sequence>
+<xs:element name="numRows" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="orderDirection" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="strToSearch" type="xs:string" minOccurs="0"/>
+<xs:element name="user" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:vidocDocSearch" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vidocDocSearch">
+<xs:sequence>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+<xs:element name="searchInfo" type="tns:searchInfo" minOccurs="0"/>
+<xs:element name="searchResults" type="tns:searchResults" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchInfo">
+<xs:sequence>
+<xs:element name="endRow" type="xs:int" minOccurs="0"/>
+<xs:element name="numPages" type="xs:int" minOccurs="0"/>
+<xs:element name="pageNumber" type="xs:int" minOccurs="0"/>
+<xs:element name="startRow" type="xs:int" minOccurs="0"/>
+<xs:element name="totalDocsProcessed" type="xs:int" minOccurs="0"/>
+<xs:element name="totalRows" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchResults">
+<xs:sequence>
+<xs:element name="alternateFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="alternateFormat" type="xs:string" minOccurs="0"/>
+<xs:element name="customDocMetaData" type="tns:idcPropertySearch" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="DDocAccount" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocAuthor" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocName" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocTitle" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocType" type="xs:string" minOccurs="0"/>
+<xs:element name="DExtension" type="xs:string" minOccurs="0"/>
+<xs:element name="DFormat" type="xs:string" minOccurs="0"/>
+<xs:element name="DGif" type="xs:string" minOccurs="0"/>
+<xs:element name="DID" type="xs:int" minOccurs="0"/>
+<xs:element name="DInDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DOriginalName" type="xs:string" minOccurs="0"/>
+<xs:element name="DOutDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DPublishType" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition1" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition2" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevLabel" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevisionID" type="xs:int" minOccurs="0"/>
+<xs:element name="DSecurityGroup" type="xs:string" minOccurs="0"/>
+<xs:element name="DWebExtension" type="xs:string" minOccurs="0"/>
+<xs:element name="url" type="xs:string" minOccurs="0"/>
+<xs:element name="vaultFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="webCgiRoot" type="xs:string" minOccurs="0"/>
+<xs:element name="webFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="XCODIGOBARRAS" type="xs:string" minOccurs="0"/>
+<xs:element name="XTITLE" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="idcPropertySearch">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteDocument">
+<xs:sequence>
+<xs:element name="inputDocumentDelete" type="tns:inputDocumentDelete" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inputDocumentDelete">
+<xs:sequence>
+<xs:element name="codbarras" type="xs:string" minOccurs="0"/>
+<xs:element name="idArea" type="xs:int"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="user" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:doDelete" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="doDelete">
+<xs:sequence>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchHomeDocument">
+<xs:sequence>
+<xs:element name="inputSearch" type="tns:inputDocumentDocSearch" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchHomeDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:hVidocDocSearch" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hVidocDocSearch">
+<xs:sequence>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+<xs:element name="searchInfo" type="tns:hSearchInfo" minOccurs="0"/>
+<xs:element name="searchResults" type="tns:hSearchResults" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hSearchInfo">
+<xs:sequence>
+<xs:element name="endRow" type="xs:int" minOccurs="0"/>
+<xs:element name="numPages" type="xs:int" minOccurs="0"/>
+<xs:element name="pageNumber" type="xs:int" minOccurs="0"/>
+<xs:element name="startRow" type="xs:int" minOccurs="0"/>
+<xs:element name="totalDocsProcessed" type="xs:int" minOccurs="0"/>
+<xs:element name="totalRows" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hSearchResults">
+<xs:sequence>
+<xs:element name="alternateFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="alternateFormat" type="xs:string" minOccurs="0"/>
+<xs:element name="customDocMetaData" type="tns:hIdcProperty" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="DDocAccount" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocAuthor" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocName" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocTitle" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocType" type="xs:string" minOccurs="0"/>
+<xs:element name="DExtension" type="xs:string" minOccurs="0"/>
+<xs:element name="DFormat" type="xs:string" minOccurs="0"/>
+<xs:element name="DGif" type="xs:string" minOccurs="0"/>
+<xs:element name="DID" type="xs:int" minOccurs="0"/>
+<xs:element name="DInDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DOriginalName" type="xs:string" minOccurs="0"/>
+<xs:element name="DOutDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DPublishType" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition1" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition2" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevLabel" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevisionID" type="xs:int" minOccurs="0"/>
+<xs:element name="DSecurityGroup" type="xs:string" minOccurs="0"/>
+<xs:element name="DWebExtension" type="xs:string" minOccurs="0"/>
+<xs:element name="url" type="xs:string" minOccurs="0"/>
+<xs:element name="vaultFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="webCgiRoot" type="xs:string" minOccurs="0"/>
+<xs:element name="webFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="XCodigoBarras" type="xs:string" minOccurs="0"/>
+<xs:element name="XDescription" type="xs:string" minOccurs="0"/>
+<xs:element name="XFecha" type="xs:string" minOccurs="0"/>
+<xs:element name="XPerson" type="xs:string" minOccurs="0"/>
+<xs:element name="XTitulo" type="xs:string" minOccurs="0"/>
+<xs:element name="XType" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hIdcProperty">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocumentFile">
+<xs:sequence>
+<xs:element name="inputDocument" type="tns:inputDocumentDocInfo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inputDocumentDocInfo">
+<xs:sequence>
+<xs:element name="codbarras" type="xs:string" minOccurs="0"/>
+<xs:element name="idArea" type="xs:int"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="user" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocumentFileResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:docFile" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="docFile">
+<xs:sequence>
+<xs:element name="contentInfo" type="tns:contentInfo" minOccurs="0"/>
+<xs:element name="file" type="tns:idcFile" minOccurs="0"/>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="contentInfo">
+<xs:sequence>
+<xs:element name="customDocMetaData" type="tns:idcProperty" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="DCheckoutUser" type="xs:string" minOccurs="0"/>
+<xs:element name="DCreateDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocAccount" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocAuthor" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocID" type="xs:int" minOccurs="0"/>
+<xs:element name="DDocName" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocTitle" type="xs:string" minOccurs="0"/>
+<xs:element name="DDocType" type="xs:string" minOccurs="0"/>
+<xs:element name="DExtension" type="xs:string" minOccurs="0"/>
+<xs:element name="DFileSize" type="xs:int" minOccurs="0"/>
+<xs:element name="DFlag1" type="xs:string" minOccurs="0"/>
+<xs:element name="DFormat" type="xs:string" minOccurs="0"/>
+<xs:element name="DID" type="xs:int" minOccurs="0"/>
+<xs:element name="DInDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DIndexerState" type="xs:string" minOccurs="0"/>
+<xs:element name="DIsCheckedOut" type="xs:boolean" minOccurs="0"/>
+<xs:element name="DIsPrimary" type="xs:boolean" minOccurs="0"/>
+<xs:element name="DIsWebFormat" type="xs:boolean" minOccurs="0"/>
+<xs:element name="DLocation" type="xs:string" minOccurs="0"/>
+<xs:element name="DMessage" type="xs:string" minOccurs="0"/>
+<xs:element name="DOriginalName" type="xs:string" minOccurs="0"/>
+<xs:element name="DOutDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DProcessingState" type="xs:string" minOccurs="0"/>
+<xs:element name="DPublishState" type="xs:string" minOccurs="0"/>
+<xs:element name="DPublishType" type="xs:string" minOccurs="0"/>
+<xs:element name="DReleaseDate" type="xs:string" minOccurs="0"/>
+<xs:element name="DReleaseState" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition1" type="xs:string" minOccurs="0"/>
+<xs:element name="DRendition2" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevClassID" type="xs:int" minOccurs="0"/>
+<xs:element name="DRevLabel" type="xs:string" minOccurs="0"/>
+<xs:element name="DRevisionID" type="xs:int" minOccurs="0"/>
+<xs:element name="DSecurityGroup" type="xs:string" minOccurs="0"/>
+<xs:element name="DStatus" type="xs:string" minOccurs="0"/>
+<xs:element name="DWebExtension" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="idcProperty">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="idcFile">
+<xs:sequence>
+<xs:element name="fileContent" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="fileName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkInDocument">
+<xs:sequence>
+<xs:element name="inputDocumentCheckIn" type="tns:inputDocumentCheckIn" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inputDocumentCheckIn">
+<xs:sequence>
+<xs:element name="codbarras" type="xs:string" minOccurs="0"/>
+<xs:element name="contenFile" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="idArea" type="xs:int"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="user" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkInDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:doCheckIn" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="doCheckIn">
+<xs:sequence>
+<xs:element name="contentInfo" type="tns:contentInfo" minOccurs="0"/>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocumentInformation">
+<xs:sequence>
+<xs:element name="inputDocument" type="tns:inputDocumentDocInfo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocumentInformationResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:doDocInfo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="doDocInfo">
+<xs:sequence>
+<xs:element name="contentInfo" type="tns:contentInfo" minOccurs="0"/>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

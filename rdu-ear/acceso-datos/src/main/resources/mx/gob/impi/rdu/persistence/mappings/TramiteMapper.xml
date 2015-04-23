@@ -514,8 +514,11 @@
                 A.DESCRIPCION AREA,
                 A.ID_AREA ID_AREA,
                 F.FECHA_REVISION,
-        <if test="idArea == 4 or idArea == 20" >
+        <if test="idArea == 4 or idArea == 20 " >
                 TP.ID_USUARIO_FIRMANTE
+        </if>
+        <if test=" idArea == 40">
+               N.ID_USUARIO_CARGA ID_USUARIO_FIRMANTE
         </if>
         <if test="idArea == 8">
                 T.ID_USUARIOFIRMANTE ID_USUARIO_FIRMANTE
@@ -524,7 +527,7 @@
             INNER JOIN NOTIFICACION_FIRMA NF ON(F.ID_FIRMA=NF.ID_FIRMA)
             INNER JOIN NOTIFICACION N ON(N.ID_NOTIFICACION=NF.ID_NOTIFICACION)
             AND N.ID_AREA=#{idArea,jdbcType=DECIMAL}
-        <if test="idArea == 4 or idArea == 20">
+        <if test="idArea == 4 or idArea == 20 ">
             INNER JOIN TRAMITE_PATENTE TP ON(TP.ID_TRAMITE_PATENTE=F.ID_PATENTE)
         </if>
         <if test="idArea == 8">
@@ -1016,8 +1019,11 @@
                 A.ID_AREA ID_AREA,
                 F.FECHA_REVISION,
        
-        <if test=" idArea == 4 or idArea == 20">
+        <if test=" idArea == 4 or idArea == 20 ">
                 TP.ID_USUARIO_FIRMANTE
+        </if>
+        <if test=" idArea == 40">
+               N.ID_USUARIO_CARGA ID_USUARIO_FIRMANTE
         </if>
         <if test="idArea == 8">
                 T.ID_USUARIOFIRMANTE ID_USUARIO_FIRMANTE
@@ -1026,7 +1032,7 @@
             INNER JOIN NOTIFICACION_FIRMA NF ON(F.ID_FIRMA=NF.ID_FIRMA)
             INNER JOIN NOTIFICACION N ON(N.ID_NOTIFICACION=NF.ID_NOTIFICACION)
             AND N.ID_AREA=#{idArea,jdbcType=DECIMAL}
-        <if test=" idArea == 4 or idArea == 20">
+        <if test=" idArea == 4 or idArea == 20 ">
             INNER JOIN TRAMITE_PATENTE TP ON(TP.ID_TRAMITE_PATENTE=F.ID_PATENTE)
         </if>
         <if test="idArea == 8">
@@ -1070,8 +1076,11 @@
                 A.DESCRIPCION AREA,
                 A.ID_AREA ID_AREA,
                 F.FECHA_REVISION,
-        <if test=" idArea == 4 or idArea == 20">
+        <if test=" idArea == 4 or idArea == 20 ">
                 TP.ID_USUARIO_FIRMANTE
+        </if>
+        <if test=" idArea == 40">
+               N.ID_USUARIO_CARGA ID_USUARIO_FIRMANTE
         </if>
         <if test="idArea == 8">
                 T.ID_USUARIOFIRMANTE ID_USUARIO_FIRMANTE
@@ -1080,7 +1089,7 @@
             INNER JOIN NOTIFICACION_FIRMA NF ON(F.ID_FIRMA=NF.ID_FIRMA)
             INNER JOIN NOTIFICACION N ON(N.ID_NOTIFICACION=NF.ID_NOTIFICACION)
             AND N.ID_AREA=#{idArea,jdbcType=DECIMAL}
-        <if test=" idArea == 4 or idArea == 20">
+        <if test=" idArea == 4 or idArea == 20 ">
             INNER JOIN TRAMITE_PATENTE TP ON(TP.ID_TRAMITE_PATENTE=F.ID_PATENTE)
         </if>
         <if test="idArea == 8">

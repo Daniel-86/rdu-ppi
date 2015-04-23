@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.TiposRelacionMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.TiposRelacion" >
+<result column="COD_RELACION" property="codRelacion" jdbcType="DECIMAL" />
+<result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+<result column="FECHA_MODIFICACION" property="fechaModificacion" jdbcType="TIMESTAMP" />
+<result column="PARTE" property="parte" jdbcType="VARCHAR" />
+<result column="COD_RELACION_REP" property="codRelacionRep" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.TiposRelacion" >
+    insert into TIPOS_RELACION (COD_RELACION,
+DESCRIPCION,
+FECHA_MODIFICACION,
+PARTE,
+COD_RELACION_REP)
+                values (
+                #{codRelacion,jdbcType=DECIMAL},
+#{descripcion,jdbcType=VARCHAR},
+#{fechaModificacion,jdbcType=TIMESTAMP},
+#{parte,jdbcType=VARCHAR},
+#{codRelacionRep,jdbcType=DECIMAL})
+  </insert>
+
+
+  <select id="selectByCodRelacion" parameterType="map" resultMap="BaseResultMap">
+        SELECT COD_RELACION,
+DESCRIPCION,
+FECHA_MODIFICACION,
+PARTE,
+COD_RELACION_REP
+        FROM TIPOS_RELACION
+        WHERE COD_RELACION = #{codRelacion,jdbcType=DECIMAL}
+        
+    </select>
+     
+</mapper>

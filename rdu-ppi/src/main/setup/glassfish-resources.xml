@@ -16,6 +16,11 @@
       <property name="Password" value="RduCit2015$"></property>
       <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
     </jdbc-connection-pool>
+    <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolRduppi">
+      <property name="User" value="rduppi"></property>
+      <property name="Password" value="RduPpi2015$"></property>
+      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+    </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolSagpat">
       <property name="User" value="RPATENTESDU"></property>
       <property name="Password" value="rpatente$du"></property>
@@ -29,6 +34,7 @@
     <jdbc-resource enabled="true" pool-name="poolIngresos" jndi-name="jdbc/ingresos" object-type="user" ></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolPase" jndi-name="jdbc/pase" object-type="user"></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolRdusit" jndi-name="jdbc/rdusit" object-type="user"></jdbc-resource>
+    <jdbc-resource enabled="true" pool-name="poolRduppi" jndi-name="jdbc/rduppi" object-type="user"></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolSagpat" jndi-name="jdbc/sagpat" object-type="user"></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolSigmar" jndi-name="jdbc/sigmar" object-type="user"></jdbc-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.calculoTarifasRDU" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
@@ -65,6 +71,6 @@
       <property name="value" value="1"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="idArea" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="20"></property>
+      <property name="value" value="40"></property>
     </custom-resource>
 </resources>

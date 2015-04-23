@@ -4,7 +4,9 @@
  */
 package mx.gob.impi.rdu.exposition.firma;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -37,7 +39,10 @@ import mx.gob.impi.rdu.util.BundleUtils;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.rdu.util.FiltroExtraEnum;
 import mx.gob.impi.rdu.util.Util;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import org.apache.log4j.Logger;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.web.util.WebUtils;
 
 /**
@@ -77,6 +82,7 @@ public class FirmaNotificacionMB implements Serializable {
     private String verifyEnc;
     private Integer idPromovente;
     private boolean mostrarResumen;
+    private boolean mostrarResumenFirmadas;
     private FiltroTablero filtroExtra = new FiltroTablero(FiltroExtraEnum.ULTIMA_SEMANA.getIdFiltroExtra(), FiltroExtraEnum.ULTIMA_SEMANA.getDescripcion());
     private Boolean mostrarRango = false;
     private Boolean success = false;
@@ -124,14 +130,15 @@ public class FirmaNotificacionMB implements Serializable {
 
 
         allNotificaciones = this.flujosgralesViewService.consultarNotificaciones(this.idPromovente);
+        
         String area = (String) ContextUtils.getSession().getAttribute("area");
-        if (area.equals("8")) {
-            this.filtrosTipoTramite.add(new Promovente(BigDecimal.ZERO, "Seleccione un usuario..."));
-            this.filtrosTipoTramite.addAll(this.flujosgralesViewService.selectPromoventeByPerfil(22));
-        } else {
+//        if (area.equals("8")) {
+//            this.filtrosTipoTramite.add(new Promovente(BigDecimal.ZERO, "Seleccione un usuario..."));
+//            this.filtrosTipoTramite.addAll(this.flujosgralesViewService.selectPromoventeByPerfil(22));
+//        } else {
             this.filtrosTipoTramite.add(new Promovente(BigDecimal.ZERO, "Seleccione un usuario..."));
             filtrosTipoTramite.addAll(this.flujosgralesViewService.selectPromoventeByPerfil(42));
-        }
+//        }
 
         filtrosExtras = new ArrayList<FiltroTablero>();
         filtrosExtras.add(new FiltroTablero(1L, "Ultima semana"));
@@ -139,12 +146,16 @@ public class FirmaNotificacionMB implements Serializable {
         filtrosExtras.add(new FiltroTablero(3L, "Rango de fechas"));
 
         //Unir la tabla notificaciones con la tabla promoventes dependiendo el perfil
-        this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+        //this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+        this.setNombreExaminador(allNotificaciones);
 
         mediumCarsModel = new NotificacionDataModel(allNotificaciones);
         this.setVerify("notificacion");
         this.setVerifyEnc(Util.encodeObject(this.getVerify()));
 
+        mostrarResumenFirmadas = true;
+        
+        
     }
 
     public void buscaNotificaciones() {
@@ -155,7 +166,17 @@ public class FirmaNotificacionMB implements Serializable {
 
 
     }
-
+public StreamedContent descargaArchivo(int idNotificacion) {
+    Notificacion notTmp=this.flujosgralesViewService.selectNotificacionesById(idNotificacion);
+    StreamedContent file =null;
+    if(notTmp!=null){
+        InputStream is = new ByteArrayInputStream(notTmp.getArchivo());
+        String name=notTmp.getArchivoNombre();
+        System.out.println("Descargando el archivo ["+name+"], size file : "+notTmp.getArchivo().length);
+        file = new DefaultStreamedContent(is, "application/pdf", name);
+    }
+    return file;
+}
     public String guardaFirma() {
         this.success = false;
 
@@ -174,8 +195,8 @@ public class FirmaNotificacionMB implements Serializable {
         if (matcher.find()) {
             this.setCertificadora(matcher.group(1));
         }
-
-        if (!(nombreFirmante != null && nombreFirmante.toUpperCase().trim().equals(obtSession.getPromovente().getNombre() + " " + obtSession.getPromovente().getApaterno() + " " + obtSession.getPromovente().getAmaterno()))) {
+        String nombreTmp=obtSession.getPromovente().getNombre() + " " + obtSession.getPromovente().getApaterno() + " " + obtSession.getPromovente().getAmaterno();
+        if (!(nombreFirmante != null && nombreFirmante.toUpperCase().trim().equals(nombreTmp.trim()))) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre del firmante y certificado no coinciden", "No firmado"));
             return null;
@@ -203,20 +224,20 @@ public class FirmaNotificacionMB implements Serializable {
                 firma.setCertificadora(this.getCertificadora());
                 String ar = (String) ContextUtils.getSession().getAttribute("area");
 
-                if ("8".equals(ar)) {
-                    //firma.setExpediente(new Long(notif.getExpediente()));
-                    Firma fm = this.flujosgralesViewService.getFirmaByExp(new Long(notif.getExpediente()), null);
-                    if (fm != null) {
-                        firma.setIdTramite(fm.getIdTramite());
-                    }
-                } else {
-                    //firma.setClaveExpediente(notif.getExpediente());
-                    //firma.setExpediente(0L);
-                    Firma fm = this.flujosgralesViewService.getFirmaByExp(null, notif.getExpediente());
-                    if (null != fm) {
-                        firma.setIdPatente(fm.getIdPatente());
-                    }
-                }
+//                if ("8".equals(ar)) {
+//                    //firma.setExpediente(new Long(notif.getExpediente()));
+//                    Firma fm = this.flujosgralesViewService.getFirmaByExp(new Long(notif.getExpediente()), null);
+//                    if (fm != null) {
+//                        firma.setIdTramite(fm.getIdTramite());
+//                    }
+//                } else {
+//                    //firma.setClaveExpediente(notif.getExpediente());
+//                    //firma.setExpediente(0L);
+//                    Firma fm = this.flujosgralesViewService.getFirmaByExp(null, notif.getExpediente());
+//                    if (null != fm) {
+//                        firma.setIdPatente(fm.getIdPatente());
+//                    }
+//                }
 
                 firma.setExpediente(0L);
                 firma.setFechaRegistro(sysDate);
@@ -228,8 +249,8 @@ public class FirmaNotificacionMB implements Serializable {
                 firma.setAnexoXml(new AnexoNotificacionXml(notif, firma).getDocumentoXml());
                 //    aqui voy los view service listos
                 Long idFirma = this.flujosgralesViewService.insertaFirma(firma);
-                firma.setExpedienteId(notif.getTitular());
-                firma.setCertificadora(notif.getExpediente());
+                firma.setClaveExpediente(notif.getExpediente());
+                firma.setCertificadora(this.certificadora);
                 this.notFirmadas.add(firma);
                 if (idFirma != null) {
                     Long idNotifFirm = this.flujosgralesViewService.saveFirmaNotificacion(new NotificacionFirma(notif.getIdNotificacion(), idFirma));
@@ -238,19 +259,11 @@ public class FirmaNotificacionMB implements Serializable {
                     // }
 
                     try {
-                        String email = null;
-                        if ("8".equals(ar)) {
-                            email = this.flujosgralesViewService.getEmailByExp(firma.getIdTramite(), ar);
-                        } else {
-                            email = this.flujosgralesViewService.getEmailByExp(firma.getIdPatente(), ar);
-                        }
-
-
-
-                        if (email != null) {
-                            this.mailService.sendMail(BundleUtils.getResource("firma.email.rdu"), email, BundleUtils.getResource("firma.email.subject"), BundleUtils.getResource("firma.email.bodymessnot") + " " + firma.getFolio());
-                        }
-
+                        
+                                if(this.flujosgralesViewService.buscaPromovente(Long.parseLong(notif.getIdUsuarioFirma()+""))!=null){
+                                    String email=this.flujosgralesViewService.buscaPromovente(Long.parseLong(notif.getIdUsuarioFirma()+"")).getEmail();
+                                    this.mailService.sendMail(BundleUtils.getResource("firma.email.rdu"), email, BundleUtils.getResource("firma.email.subject"), BundleUtils.getResource("firma.email.bodymessnot") + " " + firma.getFolio());
+                                }
 
                     } catch (Exception ee) {
                     }
@@ -276,7 +289,8 @@ public class FirmaNotificacionMB implements Serializable {
             allNotificaciones = this.flujosgralesViewService.consultarNotificaciones(this.idPromovente);
 
             //Unir la tabla notificaciones con la tabla promoventes
-            this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+            //this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+            this.setNombreExaminador(allNotificaciones);
 
             mediumCarsModel = new NotificacionDataModel(allNotificaciones);
             WebUtils.setSessionAttribute((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest(), "folionot", fs);
@@ -336,13 +350,19 @@ public class FirmaNotificacionMB implements Serializable {
 
     public String generaCadena(final Notificacion not, Date sysDate) {
         StringBuilder sb = new StringBuilder("|");
-        sb.append(not.getArchivoNombre());
+        sb.append(not.getFolio());
         sb.append("|");
         sb.append(not.getExpediente());
         sb.append("|");
-        sb.append(Util.formatearFecha(sysDate, Util.FORMATODDMMYYYYHHMMSS));
+        sb.append(not.getDenominacion());
+        sb.append("|");
+        sb.append(not.getArchivoNombre());
         sb.append("|");
         sb.append(Util.getDigest(not.getArchivo()));
+        sb.append("|");
+        sb.append(Util.formatearFecha(sysDate, Util.FORMATODDMMYYYYHHMMSS));
+        sb.append("|");
+        sb.append(not.getTitular());
         sb.append("|");
         sb.append(not.getIdUsuarioFirma());
         sb.append("|");
@@ -373,12 +393,24 @@ public class FirmaNotificacionMB implements Serializable {
 
 
             List<Integer> nts = new ArrayList<Integer>();
-
+            
             for (Notificacion nt : this.selectedNotifs) {
                 nts.add(nt.getIdNotificacion().intValue());
             }
 
             this.flujosgralesViewService.deleteNotificacionesByIds(nts);
+            
+            
+            for (Notificacion nt : this.selectedNotifs) {
+                String foliosBorrados="["+nt.getFolio()+","+nt.getDenominacion()+","+nt.getExpediente()+"]";
+            
+                try {
+                      String mail=!this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(nt.getTitular()).isEmpty()?this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(nt.getTitular()).get(0).getNombre():"";
+                      if (mail != null) {
+                        this.mailService.sendMail(BundleUtils.getResource("firma.email.rdu"), /*mail*/"jmhernandez@impi.gob.mx", BundleUtils.getResource("firma.email.notificacion.subject"), BundleUtils.getResource("firma.email.notificacion.bodymessage.borrar") + " " + foliosBorrados);
+                      }
+                } catch (Exception ee) {System.out.println("Erro Mail:"+ee.getMessage()); }
+            }
             allNotificaciones = this.flujosgralesViewService.consultarNotificaciones(this.idPromovente);
             mediumCarsModel = new NotificacionDataModel(allNotificaciones);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "BORRADO EXITOSO", ":: "));
@@ -435,6 +467,13 @@ public class FirmaNotificacionMB implements Serializable {
                     break;
                 }
             }
+        }
+
+    }
+    public void setNombreExaminador(List<Notificacion> notificaciones) {
+        for (Notificacion notificacion : notificaciones) {
+            String examinador=!this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).isEmpty()?this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).get(0).getNombre():"";
+            notificacion.setNombreExaminador(examinador);
         }
 
     }

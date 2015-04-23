@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://rdu.impi.gob.mx:8081/wsImpiDocContainer/wsImpiDocContainer?wsdl" uri="wsdl/localhost_8081/wsImpiDocContainer/wsImpiDocContainer.wsdl"/>
+    <system systemId="https://rdu.impi.gob.mx:8081/wsImpiDocContainer/wsImpiDocContainer?xsd=1" uri="wsdl/localhost_8081/wsImpiDocContainer/wsImpiDocContainer.xsd_1.xsd"/>
+</catalog>

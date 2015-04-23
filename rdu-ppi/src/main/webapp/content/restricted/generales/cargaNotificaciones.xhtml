@@ -49,11 +49,14 @@
                 <p:dataTable id="tableArchivos" value="#{cargaNotificacionMB.notificacionDM}" paginator="true" rows="7"
                              selection="#{cargaNotificacionMB.notificacionesSelected}" var="notificacion">
                     <p:column selectionMode="multiple"/>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
+                    <p:column headerText="Oficio Salida" >
                         <h:outputText value="#{notificacion.oficioSalida}"/>
                     </p:column>
                     <p:column headerText="Expediente">
                         <h:outputText value="#{notificacion.expediente}"/>
+                    </p:column>
+                    <p:column headerText="PC">
+                        <h:outputText value="#{notificacion.denominacion}"/>
                     </p:column>
                     <p:column headerText="Fecha">
                         <h:outputText value="#{notificacion.fechaMovimiento}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
@@ -64,15 +67,15 @@
                     <p:column headerText="Tipo">
                         <h:outputText value="#{notificacion.tipoSolicitud}"/>
                     </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
-                        <h:outputText value="#{notificacion.registro}"/>
+                    <p:column headerText="Archivo">
+                        <p:commandLink id="downloadLink" value="Ver" ajax="false">  
+                            <p:fileDownload value="#{cargaNotificacionMB.descargaArchivo(notificacion.archivo,notificacion.oficioSalida)}" update="forma" />  
+                    </p:commandLink> 
                     </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
+                    <p:column headerText="Analista">
                         <h:outputText value="#{notificacion.titular}"/>
                     </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
-                        <h:outputText value="#{notificacion.denominacion}"/>
-                    </p:column>                    
+                                     
                 </p:dataTable>
                 <center>
                     <h:panelGrid columns="2" style="width: 200px;">
@@ -95,10 +98,10 @@
             </p:panel>
             <p:panel id="pnlResumen" rendered="#{cargaNotificacionMB.mostrarResumen}">
                 <center><h:outputText value="Resumen" style="font-size: large"/></center>
-                <h:outputText value="#{sessionScope['area']=='20' ? 'Examinador': 'Examinador de Patentes'}: #{cargaNotificacionMB.usuarioCarga.nombre} #{cargaNotificacionMB.usuarioCarga.apaterno} #{cargaNotificacionMB.usuarioCarga.amaterno}"/>
+                <h:outputText value="#{sessionScope['area']=='20' ? 'Examinador': 'Examinador'}: #{cargaNotificacionMB.usuarioCarga.nombre} #{cargaNotificacionMB.usuarioCarga.apaterno} #{cargaNotificacionMB.usuarioCarga.amaterno}"/>
                 <br/>
                 <br/>
-                <h:outputText value="#{sessionScope['area']=='20' ? 'Coordinador': 'Coordinador de Patentes'}: #{cargaNotificacionMB.promoventeSelected.nombre} #{cargaNotificacionMB.promoventeSelected.apaterno} #{cargaNotificacionMB.promoventeSelected.amaterno}"/>
+                <h:outputText value="#{sessionScope['area']=='20' ? 'Coordinador': 'Coordinador'}: #{cargaNotificacionMB.promoventeSelected.nombre} #{cargaNotificacionMB.promoventeSelected.apaterno} #{cargaNotificacionMB.promoventeSelected.amaterno}"/>
                 <br/>
                 <br/>
                 <h:outputText value="Fecha: #{cargaNotificacionMB.sysdate}"/>
@@ -106,20 +109,31 @@
                 <br/>
                 <p:dataTable value="#{cargaNotificacionMB.notificacionesSelect}" var="notificacion" paginator="true"
                              rows="10">
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
+                    <p:column headerText="Oficio Salida" >
                         <h:outputText value="#{notificacion.oficioSalida}"/>
                     </p:column>
                     <p:column headerText="Expediente">
                         <h:outputText value="#{notificacion.expediente}"/>
                     </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
-                        <h:outputText value="#{notificacion.registro}"/>
-                    </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
-                        <h:outputText value="#{notificacion.titular}"/>
-                    </p:column>
-                    <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
+                    <p:column headerText="PC">
                         <h:outputText value="#{notificacion.denominacion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{notificacion.fechaMovimiento}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{notificacion.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{notificacion.tipoSolicitud}"/>
+                    </p:column>
+                    <p:column headerText="Archivo">
+                        <p:commandLink id="downloadLink" value="Ver" ajax="false">  
+                            <p:fileDownload value="#{cargaNotificacionMB.descargaArchivo(notificacion.archivo,notificacion.oficioSalida)}" update="forma"/>  
+                    </p:commandLink> 
+                    </p:column>
+                    <p:column headerText="Analista">
+                        <h:outputText value="#{notificacion.titular}"/>
                     </p:column>
                 </p:dataTable>
             </p:panel>

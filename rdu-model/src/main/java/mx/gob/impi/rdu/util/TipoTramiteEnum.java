@@ -19,7 +19,8 @@ public enum TipoTramiteEnum {
     SOL_PATENTES(11,"Solicitudes de Patentes"),
     PROM_PATENTES(4,"Promociones de Patentes"),
     NOTIFICACIONES(5,"Notificaciones"),
-    SOL_SIT(20,"Solicitudes del SIT");
+    SOL_SIT(20,"Solicitudes del SIT"),
+    SOL_PPI(40,"Solicitudes del PPI");
 
     private TipoTramiteEnum(int idTipoTramite, String descripcion) {
         this.idTipoTramite = idTipoTramite;

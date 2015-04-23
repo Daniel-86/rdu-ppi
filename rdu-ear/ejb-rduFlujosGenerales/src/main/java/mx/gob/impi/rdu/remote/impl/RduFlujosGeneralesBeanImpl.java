@@ -40,6 +40,9 @@ import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -469,6 +472,11 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
     public List<Notificacion> consultarNotificaciones(Integer idUsuario) {
         return rduNotificacionesService.consultarNotificaciones(idUsuario);
     }
+    
+    public Notificacion selectNotificacionesById(Integer idNotificacion) {
+        return rduNotificacionesService.selectNotificacionesById(idNotificacion);
+    }
+    
 
     public int insertarNotificacion(Notificacion notificacion) {
         return rduNotificacionesService.insertarNotificacion(notificacion);
@@ -616,6 +624,38 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
 
     public int insert(KfContenedores kfContenedores) {
         return rduSigappiService.insert(kfContenedores); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<KfContenedores> selectKfContenedoresByPC(String pc) {
+        return rduSigappiService.selectKfContenedoresByPC(pc); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado) {
+        return rduSigappiService.selectSolicitudInteresadosByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<SolicitudInteresados> selectSolicitudInteresadosByTitle(String title) {
+        return rduSigappiService.selectSolicitudInteresadosByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int insert(SolicitudInteresados solicitudInteresados) {
+        return rduSigappiService.insert(solicitudInteresados); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion) {
+        return rduSigappiService.selectTiposRelacionByCodRelacion(codRelacion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int insert(TiposRelacion tiposRelacion) {
+        return rduSigappiService.insert(tiposRelacion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario) {
+        return rduSigappiService.selectUsuariosSigappiByCveUsuario(cveUsuario); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int insert(UsuariosSigappi usuariosSigappi) {
+        return rduSigappiService.insert(usuariosSigappi); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -396,6 +396,138 @@ public class FirmaMB implements Serializable {
                         this.setFirmanteBase(this.getFirmanteNombreTramite());
 //                        this.setFirmanteBase("JUAN HERNANDEZ REYES");
 
+                    }else if (obtSession.getIdTipoTramite() == TipoTramiteEnum.SOL_PPI.getIdTipoTramite()) {//patentes
+                        //this.generaPdf(this.patentesViewService.obtenerTramitePatenteById(this.getTramiteId()), true);
+                        //tramite = rduPatentesBeanRemote.obtenerTramitePatenteById(tramite.getIdTramitePatente());
+                        pat = this.patentesViewService.obtenerTramitePatenteById(obtSession.getIdTramite());
+                        patenteDI =new PatentesDisenoIndustrialMB();
+                        patenteDI.setIdTramite(obtSession.getIdTramite());
+                        patenteDI.setEntidadesFederativas(catalogosViewService.ConsultarEntidadesFederativas());
+                        this.patentesViewService.recuperarTramite(patenteDI);
+                        pat.getDomicilioObj().setPais(patenteDI.getTramitePat().getDomicilioObj().getPais());
+                        pat.getDomicilioObj().setEntidad(patenteDI.getTramitePat().getDomicilioObj().getEntidad());
+                        
+                      // prueba ///////////////////////////
+        List<Anexos> prioridadAnx=new ArrayList<Anexos>();
+        
+        for (int i = 0; i < patenteDI.getListaPrioridades().size(); i++) {
+                    String nombrePais = patenteDI.getListaPrioridades().get(i).getNombrePais();
+                    Long idPrioridad = patenteDI.getListaPrioridades().get(i).getIdPrioridad();
+                    AnexosViewDto anexoDbPrioridad = new AnexosViewDto();
+                    Anexos anexoView= new Anexos();     
+                    
+                    anexoDbPrioridad.setIdPrioridad(idPrioridad);
+                    anexoDbPrioridad.setIdTipoanexo(Constantes.ANEXO_PRIORIDAD_PAT);
+                    anexoDbPrioridad = catalogosViewService.selectAnexoDynamic(anexoDbPrioridad);
+                    
+                    if(anexoDbPrioridad!=null){
+                        anexoView.setIdAnexo(anexoDbPrioridad.getIdAnexo());
+                        anexoView.setIdTipoanexo(Constantes.ANEXO_PRIORIDAD_PAT);                        
+                        anexoView.setIdTramitePatente(anexoDbPrioridad.getIdTramitePatente());
+                        anexoView.setArchivoAnexo(anexoDbPrioridad.getArchivoAnexo());
+                        anexoView.setNombreArchivo(anexoDbPrioridad.getNombreArchivo());
+                        anexoView.setExtension("pdf");
+                    }
+                    prioridadAnx.add(anexoView);
+
+        }
+         for (int i = 0; i < patenteDI.getListaPrioridades().size(); i++) {
+                    String nombrePais = patenteDI.getListaPrioridades().get(i).getNombrePais();
+                    Long idPrioridad = patenteDI.getListaPrioridades().get(i).getIdPrioridad();
+                    AnexosViewDto anexoDbTraduccion = new AnexosViewDto();
+                    Anexos traduccionView = new Anexos();       
+                                     
+                    anexoDbTraduccion.setIdPrioridad(idPrioridad);
+                    anexoDbTraduccion.setIdTipoanexo(Constantes.ANEXO_TRADUCCION_PRIORIDAD);
+                    anexoDbTraduccion = catalogosViewService.selectAnexoDynamic(anexoDbTraduccion);
+                                        
+                    if(anexoDbTraduccion!=null){
+                        traduccionView.setIdAnexo(anexoDbTraduccion.getIdAnexo());
+                        traduccionView.setIdTipoanexo(Constantes.ANEXO_TRADUCCION_PRIORIDAD);
+                        traduccionView.setIdTramitePatente(anexoDbTraduccion.getIdTramitePatente());
+                        traduccionView.setArchivoAnexo(anexoDbTraduccion.getArchivoAnexo());
+                        traduccionView.setNombreArchivo(anexoDbTraduccion.getNombreArchivo());
+                        traduccionView.setExtension("pdf");
+                    }   
+                    prioridadAnx.add(traduccionView);
+        }
+        ///prioridades 
+        pat.setLstPrio(prioridadAnx);
+        
+                        /////////////////////////////
+
+//                        if (null != this.flujosgralesViewService.selectFepsByFolio(new Long(pat.getPago().getFeps()))) {                         
+//                            lger.error("FIRMA: ERROR, EL FOLIO FEPS YA SE ENCUENTRA REGISTRADO EN SAGPAT >>> ");
+//                            ContextUtils.getSession().setAttribute("errorFirm", "EL FOLIO FEPS YA SE ENCUENTRA REGISTRADO EN SAGPAT");
+//                            FacesContext.getCurrentInstance().getExternalContext().redirect("/rdu-ppi/content/restricted/firma/firmaerror.faces");
+//                        }
+                        
+                        
+                        /*Se elimina el archivo hoja de descuento y se vuelve a construir colocandole la fecha en la cual 
+                         * fue pagada la solicitud*/
+                        
+                        Anexos anexoHojaDescuento = new Anexos();
+                        anexoHojaDescuento.setIdTipoanexo(Constantes.ANEXO_HOJA_DESCUENT0);
+                        anexoHojaDescuento.setIdTramitePatente(this.getTramiteId());
+                        
+                        lger.info("Elimina el anexo HOJA DE DESCUENTO PARA DESPUES CREARLA CON LA FECHA DE PAGO");
+                        int res = this.flujosgralesViewService.deleteByTypeAnexo(anexoHojaDescuento);
+                        
+                        for (int w = 0; w < pat.getSolicitantes().size(); w++) {
+                            Persona perSol = (Persona) pat.getSolicitantes().get(w);
+                        
+                            if (perSol.getDescuento() != null) {
+                                if (perSol.getDescuento().intValue() == 1) {
+                                    pat.getSolicitantes().get(w).setAplicarDescuento(true);
+                                }
+                            }
+                            
+                        }
+
+//                        FirmaDto firma=new FirmaDto();
+////                        
+//                        if (this.flujosgralesViewService.validarSolicitantes(pat.getSolicitantes())) {
+////                            List<Pago> pagos = this.flujosgralesViewService.selectPagoByTramiteId(pat.getIdTramitePatente());
+//                            
+//                            DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
+//                            String convertido = "";
+//                            
+//                            if(pat.getPago() != null && pat.getPago().getFechapago() != null){
+//                                convertido = fecha.format(pat.getPago().getFechapago());
+//                            }
+//                            
+//                            
+//                            for (int i = 0; i < pat.getSolicitantes().size(); i++) {
+//                                lger.info("*** Crea Anexo hoja de descuento   "+pat.getSolicitantes().get(i).getNombrecompleto());
+//                                this.flujosgralesViewService.crearAnexoHojaDescuento(Constantes.INIT, pat.getSolicitantes().get(i),
+//                                        pat.getApoderados(), this.getTramiteId(), convertido,firma.getNombreFirmante(),firma.getFirmaSolicitante());
+//                            }
+//                        }                        
+                        //FIN
+   
+                        //this.generaPdf(pat, true, new FirmaDto());
+                        pat.setAnexos(this.flujosgralesViewService.obtenerAnexosByTramite(this.getTramiteId()));
+                        this.generaPdf(pat, true, new FirmaDto());
+                        this.setVerify(this.generaCadenaSolicitantePat(pat));
+                        lger.info("CADENA ORIGINAL1 ." + this.getVerify() + ".");
+                        byte[] utf8 = this.getVerify().getBytes("UTF8");
+                        String chain = new String(utf8, "UTF8");
+                        chain = this.flujosgralesViewService.validatePhrase(chain);
+                        lger.info("chain:     " + chain);
+                        utf8 = chain.getBytes("UTF8");
+                        chain = new String(utf8, "UTF8");
+                        this.setVerify(chain);
+                        lger.info("FIRMA: CADENA ORIGINAL1 ." + chain + ".");
+                        this.setVerify(chain);
+                        this.setVerifyEnc(Util.encodeObject(this.getVerify()));
+                        
+                        //this.generaPdf(pat, true, new FirmaDto());
+                        lger.info("getIdUsuarioFirmante:     " + pat.getIdUsuarioFirmante().toString());
+                        this.setFirmanteId(pat.getIdUsuarioFirmante().toString());
+
+                        this.setFirmanteBase(this.getFirmanteNombreTramite());
+//                        this.setFirmanteBase("JUAN HERNANDEZ REYES");
+
                     } else if (obtSession.getIdTipoTramite() == TipoTramiteEnum.PROM_PATENTES.getIdTipoTramite()) {//promociones
                         SolicitudPreparacionDto tramitePromocion = this.flujosgralesViewService.selectPromoByPrimaryKey(this.getTramiteId());
                         tramitePromocion.setAnexos(this.flujosgralesViewService.obtenerAnexosByTramite(this.getTramiteId()));

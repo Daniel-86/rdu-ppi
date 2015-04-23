@@ -4,9 +4,12 @@
  */
 package mx.gob.impi.rdu.exposition.flujosGenerales;
 
+import com.mx.impi.vidoc.contenedor.webservice.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -20,6 +23,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.WebServiceRef;
 import mx.gob.impi.pase.persistence.model.Promovente;
 import mx.gob.impi.rdu.dataModel.NotificacionViewDM;
 import mx.gob.impi.rdu.dto.PromoventeDto;
@@ -30,12 +34,15 @@ import mx.gob.impi.rdu.service.FlujosGralesViewServiceImpl;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.rdu.util.FileServicesUtil;
 import mx.gob.impi.rdu.util.Util;
+import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.BeanUtils;
 
@@ -46,6 +53,9 @@ import org.springframework.beans.BeanUtils;
 @ManagedBean
 @ViewScoped
 public class CargaNotificacionMB {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/wsImpiDocContainer/wsImpiDocContainer.wsdl")
+    private com.mx.impi.vidoc.contenedor.webservice.WsImpiDocContainer_Service service;
+    
 
     Logger logger = Logger.getLogger(this.getClass());
     private List<Notificacion> notificaciones = new ArrayList<Notificacion>();
@@ -79,6 +89,7 @@ public class CargaNotificacionMB {
             idArea = new Integer((String) session.getAttribute("area"));
             notificacionDM = new NotificacionViewDM(notificacionesView);
             promoventes = flujosgralesViewService.selectPromoventeByPerfil(obtenerPromovente(obtSession).getId_perfil() + 1);
+            promoventes.add(flujosgralesViewService.buscaPromovente(Long.parseLong("30023")));
             if (promoventes != null && !promoventes.isEmpty()) {
                 BeanUtils.copyProperties(promoventes.get(0), promoventeSelected);
             }
@@ -138,6 +149,14 @@ public class CargaNotificacionMB {
         files.clear();
         nombreArchivos = "";
     }
+    
+    public StreamedContent descargaArchivo(byte[] bytes,String name) {
+    InputStream is = new ByteArrayInputStream(bytes);
+    name=name.replace("/", "_")+".pdf";
+    System.out.println("Descargando el archivo ["+name+"], size file : "+bytes.length);
+    StreamedContent file = new DefaultStreamedContent(is, "application/pdf", name);
+    return file;
+}
 
     public void cancelarArchivo() {
         nombreArchivos = "";
@@ -150,45 +169,90 @@ public class CargaNotificacionMB {
         //UploadedFile file = event.getFile();
         Notificacion not = null; // de rdu
         NotificacionView notView = new NotificacionView();
-        KffoliosNotificacion kffoliosNotificacion = null;
-        KfFolios kfFolios = null;
+        KffoliosNotificacion kffoliosNotificacion=null;
+        KfFolios kfFolios=null;
+        KfAlmacenar kfAlmacenar=null;
+        KfContenedores kfContenedores=null;
         if (this.codbarrasAcuerdo != null) {
             try {
+                
+                    if (validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
+                            //not = new Notificacion(file.getFileName().substring(0, file.getFileName().length() - 4), file.getFileName(), file.getContents());
+                            not = new Notificacion(codbarrasAcuerdo);
+                            Notificacion notifi = null;
+                           
+                                notifi = flujosgralesViewService.getNotificacionesByFolio(not.getFolio());
+                            
+                            if (notifi == null) {
+                                
+                                    try {
+                                        kfFolios = !flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).isEmpty() ? flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).get(0): null;
+                                        } catch (Exception nfe) {
+                                        nfe.printStackTrace();
+                                    }
+                                
+                                if (kfFolios != null) {
+                                    //notView.setArchivo(not.getArchivo());
+                                    if (!existeNotificacion(notificacionesView, kfFolios)) {
+                                        
+                                        
+                                       
+                                        DocFile docFile=null;
+                                        
+                                        try { // Call Web Service Operation
+                                            WsImpiDocContainer port = service.getWsImpiDocContainerPort();
+                                            // TODO initialize WS operation arguments here
+                                            InputDocumentDocInfo inputDocument = new InputDocumentDocInfo();
+                                            inputDocument.setUser("webmaster_vidoc@impi.gob.mx");
+                                            inputDocument.setPassword("portal123");
+                                            inputDocument.setCodbarras(not.getFolio());
+                                            inputDocument.setIdArea(7);
+                                            docFile = port.getDocumentFile(inputDocument);
+                                            System.out.println("Result = "+docFile.getMensaje());
+                                        } catch (Exception ex) {
+                                             msgError += "El Acuerdo " + not.getFolio()  + " no se puede recuperar de UCM (ERROR)....|";
+                                             logger.info("UCM (ERROR):"+ex.getMessage());
+                                        }
+                                        if(docFile!=null && docFile.getFile()!=null){
+                                            notView.setArchivo(docFile.getFile().getFileContent());
+                                            notView.setOficioSalida(kfFolios.getCodbarras());
+                                            notView.setDescripcion(kfFolios.getDescription());
+                                            notView.setFechaMovimiento(kfFolios.getFecha());
+                                            //notView.setDenominacion(kfFolios.getPerson());
+                                            notView.setTitular(kfFolios.getAnalista());
+                                            kfAlmacenar = !flujosgralesViewService.selectKfAlmacenarByCodbarras(not.getFolio()).isEmpty() ? flujosgralesViewService.selectKfAlmacenarByCodbarras(not.getFolio()).get(0): null;
+                                        
+                                            if (kfAlmacenar != null) {
+                                                kfContenedores = !flujosgralesViewService.selectKfContenedoresByTitle(kfAlmacenar.getTitle()).isEmpty() ? flujosgralesViewService.selectKfContenedoresByTitle(kfAlmacenar.getTitle()).get(0): null;
+                                                if (kfAlmacenar != null) {
+                                                    notView.setDenominacion(kfContenedores.getPc());
+                                                }
+                                            
+                                                notView.setExpediente(kfAlmacenar.getTitle());
+                                            }
+                                            notificacionesView.add(notView);
+                                            /*  idNotificacion,folio,idUsuarioCarga,fechaCarga,idUsuarioFirma,archivoNombre,idActivo,idEstatus,archivo;
+                                            expediente,denominacion,titular,idArea,nombreExaminador;
+                                            */
+                                            not.setArchivo(docFile.getFile().getFileContent());
+                                            not.setArchivoNombre(codbarrasAcuerdo.replace("/", "_"));
+                                            not.setDenominacion(notView.getDenominacion());
+                                            not.setDescripcion(notView.getDescripcion());
+                                            not.setFechaCarga(notView.getFechaMovimiento());
+                                            not.setExpediente(notView.getExpediente());
+                                            not.setTitular(notView.getTitular());
+                                            notificaciones.add(not);
+                                        }else {
+                                            msgError += "El Acuerdo " + not.getFolio()  + " no se puede recuperar de UCM....|";
+                                        }
+                                    } else {
+                                        msgError += "El Acuerdo " + not.getFolio()  + " ya se ha cargado en la tabla....|";
+                                    }
+                                } else {
+                                    msgError += "Folio de salida: " + not.getFolio() + " no encontrado....|";
+                                }
 
-                if (validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
-                    //not = new Notificacion(file.getFileName().substring(0, file.getFileName().length() - 4), file.getFileName(), file.getContents());
-                    not = new Notificacion(codbarrasAcuerdo);
-                    Notificacion notifi = null;
-
-                    notifi = flujosgralesViewService.getNotificacionesByFolio(not.getFolio());
-
-                    if (notifi == null) {
-
-                        try {
-                            kfFolios = !flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).isEmpty() ? flujosgralesViewService.selectKfFoliosByCodbarras(not.getFolio()).get(0) : null;
-                        } catch (Exception nfe) {
-                            nfe.printStackTrace();
-                        }
-
-                        if (kfFolios != null) {
-                            //notView.setArchivo(not.getArchivo());
-                            if (!existeNotificacion(notificacionesView, kfFolios)) {
-                                notView.setOficioSalida(kfFolios.getCodbarras());
-                                notView.setExpediente(kfFolios.getPerson());
-                                notView.setFechaMovimiento(kfFolios.getFecha());
-                                notView.setDenominacion(kfFolios.getDescription());
-                                notView.setTitular(kfFolios.getAnalista());
-                                notificacionesView.add(notView);
-                                not.setDenominacion(notView.getDenominacion());
-                                not.setExpediente(notView.getExpediente());
-                                not.setTitular(notView.getTitular());
-                                notificaciones.add(not);
-                            } else {
-                                msgError += "El Acuerdo " + not.getFolio() + " ya se ha cargado en la tabla....|";
-                            }
-                        } else {
-                            msgError += "Folio de salida: " + not.getFolio() + " no encontrado....|";
-                        }
+                            
                     } else {
                         msgError += "El Acuerdo " + not.getFolio() + " ya existe en la base de datos....|";
                     }
@@ -504,7 +568,7 @@ public class CargaNotificacionMB {
         if(isAlreadyPresent(notificacionesView, codbarrasAcuerdo))
             msgError = "El expediente con título " + this.codbarrasAcuerdo + " ya está cargado en la tabla";
         else if(this.codbarrasAcuerdo != null && !this.codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
-            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
+//            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
             dummyList = flujosgralesViewService.selectKfContenedoresByTitle(this.codbarrasAcuerdo);
             if(dummyList != null && dummyList.size() > 0) {
                 try {

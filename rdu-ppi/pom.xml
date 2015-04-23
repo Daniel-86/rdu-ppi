@@ -368,15 +368,15 @@
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.7.1</version>
+            <artifactId>xerces</artifactId>
+            <version>2.0.2</version>
         </dependency>
     </dependencies>
    
   
 
     <build>
-        <finalName>rdu-sit</finalName>
+        <finalName>rdu-ppi</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -411,6 +411,59 @@
                 <version>2.4.3</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>localhost_8081/wsImpiDocContainer/wsImpiDocContainer.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>com.mx.impi.vidoc.contenedor.webservice</packageName>
+                            <wsdlLocation>https://rdu.impi.gob.mx:8081/wsImpiDocContainer/wsImpiDocContainer?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/wsImpiDocContainer.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-wsImpiDocContainer</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml</groupId>
+                        <artifactId>webservices-api</artifactId>
+                        <version>2.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
+                    <xnocompile>true</xnocompile>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src</directory>
+                            <targetPath>WEB-INF</targetPath>
+                            <includes>
+                                <include>jax-ws-catalog.xml</include>
+                                <include>wsdl/**</include>
+                            </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
         </plugins>

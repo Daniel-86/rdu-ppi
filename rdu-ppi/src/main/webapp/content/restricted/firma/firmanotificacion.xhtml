@@ -60,27 +60,33 @@
                     <p:column headerText="ID">
                         #{notf.idNotificacion}
                     </p:column>
-
-                    <p:column headerText="FOLIO">
-                        #{notf.folio}
+ 
+                    <p:column headerText="Oficio Salida" >
+                        <h:outputText value="#{notf.folio}"/>
                     </p:column>
-
-                    <p:column headerText="FECHA ENVIO">
-                        <h:outputText value="#{notf.fechaCarga}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
-                        </h:outputText>
+                    <p:column headerText="Expediente">
+                        <h:outputText value="#{notf.expediente}"/>
                     </p:column>
-
-                    <p:column headerText="EXAMINADOR">
+                    <p:column headerText="PC">
+                        <h:outputText value="#{notf.denominacion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{notf.fechaCarga}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{notf.descripcion}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Archivo">
+                        <p:commandLink id="downloadLink" value="Ver" ajax="false">  
+                            <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(notf.idNotificacion)}" update="forma" />  
+                    </p:commandLink> 
+                    </p:column>
+                    <p:column headerText="Analista">
+                        <h:outputText value="#{notf.titular}"/>
+                    </p:column>
+                    <p:column headerText="Examinador">
                         #{notf.nombreExaminador}
-                    </p:column>
-
-                    <p:column headerText="ARCHIVO" >
-                        #{notf.archivoNombre}
-                    </p:column>
-
-                    <p:column headerText="EXPEDIENTE">
-                        #{notf.expediente}
                     </p:column>
 
                     <f:facet name="footer">
@@ -116,20 +122,20 @@
 
 
 
-
-                <h:inputHidden   value="#{firmaNotificacionMB.cert}" id="certId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.firmanteNombre}" id="firmanteNombreId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.firmanteId}" id="firmanteId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.certificadora}" id="certificadoraId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.firmaDigitalPromovente}" id="firmaDigitalPromoventeId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.firmaImpi}" id="firmaImpiId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.serialNumberSolicitante}" id="firmanteBaseId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.ocspResponse}" id="ocspResponseId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.fechaOcsp}" id="fechaOcspId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.fechaExpiracion}" id="fechaExpiracionId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.firmanteEncode}" id="firmanteEncodeId"></h:inputHidden>
-                <h:inputHidden   value="#{firmaNotificacionMB.publicKey}" id="publicKeyId"></h:inputHidden>
-
+                <h:panelGrid columns="2" style="width:90%" >
+                <h:outputText value="cert"/> <h:inputText   value="#{firmaNotificacionMB.cert}" id="certId" size="30" ></h:inputText>
+                <h:outputText value="firmanteNombre"/> <h:inputText   value="#{firmaNotificacionMB.firmanteNombre}" id="firmanteNombreId" size="30" ></h:inputText>
+                <h:outputText value="firmanteId"/> <h:inputText   value="#{firmaNotificacionMB.firmanteId}" id="firmanteId" size="30" ></h:inputText>
+                <h:outputText value="certificadora"/> <h:inputText   value="#{firmaNotificacionMB.certificadora}" id="certificadoraId" size="30" ></h:inputText>
+                <h:outputText value="firmaDigitalPromovente"/> <h:inputText   value="#{firmaNotificacionMB.firmaDigitalPromovente}" id="firmaDigitalPromoventeId" size="30" ></h:inputText>
+                <h:outputText value="firmaImpi"/> <h:inputText   value="#{firmaNotificacionMB.firmaImpi}" id="firmaImpiId" size="30" ></h:inputText>
+                <h:outputText value="serialNumberSolicitante"/> <h:inputText   value="#{firmaNotificacionMB.serialNumberSolicitante}" id="firmanteBaseId" size="30" ></h:inputText>
+                <h:outputText value="ocspResponse"/> <h:inputText   value="#{firmaNotificacionMB.ocspResponse}" id="ocspResponseId" size="30" ></h:inputText>
+                <h:outputText value="fechaOcsp"/> <h:inputText   value="#{firmaNotificacionMB.fechaOcsp}" id="fechaOcspId" size="30" ></h:inputText>
+                <h:outputText value="fechaExpiracion"/> <h:inputText   value="#{firmaNotificacionMB.fechaExpiracion}" id="fechaExpiracionId" size="30" ></h:inputText>
+                <h:outputText value="firmanteEncode"/> <h:inputText   value="#{firmaNotificacionMB.firmanteEncode}" id="firmanteEncodeId" size="30" ></h:inputText>
+                <h:outputText value="publicKey"/> <h:inputText   value="#{firmaNotificacionMB.publicKey}" id="publicKeyId" size="30" ></h:inputText>
+                </h:panelGrid>
                 <p:commandLink id="hideSubmit"  update="formaFirma" actionListener="#{firmaNotificacionMB.guardaFirma}"  style="display:none; visibility: hidden;" >
                 </p:commandLink>
 
@@ -145,7 +151,7 @@
             </p:panel>
             <p:panel id="pnlResumen" rendered="#{firmaNotificacionMB.mostrarResumen}">
                 <center><h:outputText value="Resumen" style="font-size: large"/></center>
-                <h:outputText value="#{sessionScope['area']=='8' ? 'Coordinador de Marcas': 'Coordinador de Patentes'}: #{firmaNotificacionMB.nombreFirmante}"/>
+                <h:outputText value="#{sessionScope['area']=='8' ? 'Coordinador': 'Coordinador'}: #{firmaNotificacionMB.nombreFirmante}"/>
                 <br/>
                 <br/>
                 <h:outputText value="Fecha de firma: #{firmaNotificacionMB.sysdate}"/>
@@ -155,34 +161,42 @@
                     <f:facet name="header">
                         Notificaciones firmadas
                     </f:facet>
-                    <p:column headerText="ID">
+                    <p:column headerText="id">
                         #{fm.idNotificacion}
                     </p:column>
 
-                    <p:column headerText="FOLIO">
-                        #{fm.folio}
+                   <p:column headerText="Oficio Salida" >
+                        <h:outputText value="#{fm.folio}"/>
                     </p:column>
-
-                    <p:column headerText="FECHA ENVIO">
-                        <h:outputText value="#{fm.fechaCarga}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City"/>
-                        </h:outputText>
+                    <p:column headerText="Expediente">
+                        <h:outputText value="#{fm.expediente}"/>
                     </p:column>
-
-                    <p:column headerText="EXAMINADOR">
+                    <p:column headerText="PC">
+                        <h:outputText value="#{fm.denominacion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{fm.fechaCarga}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{fm.descripcion}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Archivo">
+                        <p:commandLink id="downloadLink" value="Ver" ajax="false">  
+                            <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(fm.idNotificacion)}" update="forma" />  
+                    </p:commandLink> 
+                    </p:column>
+                    <p:column headerText="Analista">
+                        <h:outputText value="#{fm.titular}"/>
+                    </p:column>
+                    <p:column headerText="Examinador">
                         #{fm.nombreExaminador}
-                    </p:column>
-
-                    <p:column headerText="ARCHIVO" >
-                        #{fm.archivoNombre}
-                    </p:column>
-
-                    <p:column headerText="EXPEDIENTE">
-                        #{fm.expediente}
                     </p:column>
                 </p:dataTable>
             </p:panel>
 
+            
+           
         </h:form>
 
     </ui:define>
