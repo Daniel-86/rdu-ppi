@@ -21,6 +21,16 @@
             </p:submenu>
 
 
+            <p:submenu label="Notificaciones autorizadas" icon="ui-icon ui-icon-document">
+                <p:menuitem rendered="true" value="Administrar" action="#{menuMB.actualizar}" onclick="otros(33); showStatus('divStatus');lockWindow('divLockWindow');">
+                    <f:setPropertyActionListener value="33" target="#{menuMB.idMenu}"/>
+                </p:menuitem>
+                <p:menuitem rendered="true" value="Administrar original" action="#{menuMB.actualizar}" onclick="otros(34); showStatus('divStatus');lockWindow('divLockWindow');">
+                    <f:setPropertyActionListener value="34" target="#{menuMB.idMenu}"/>
+                </p:menuitem>
+            </p:submenu>
+            
+            
             <p:submenu  label="Notificaciones" icon="ui-icon ui-icon-document" rendered="#{perfilUsuario.examinadorPat ||perfilUsuario.coordinadorPat || perfilUsuario.usuarioMaestro || perfilUsuario.usuarioPromovente }">
                 <!--
                 <p:menuitem rendered="#{perfilUsuario.examinadorPat || true}"  value="Examinador" onclick="otros(22);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}">
@@ -38,11 +48,6 @@
                 <p:menuitem rendered="true" value="Coordinador " onclick="otros(42);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}">
                     <f:setPropertyActionListener value="42" target="#{menuMB.idMenu}" />
                 </p:menuitem>
-                
-                <p:menuitem rendered="true" value="Administrar" action="#{menuMB.actualizar}" onclick="otros(33); showStatus('divStatus');lockWindow('divLockWindow');">
-                    <f:setPropertyActionListener value="33" target="#{menuMB.idMenu}"/>
-                </p:menuitem>
-
             </p:submenu>
 
 
@@ -61,7 +66,8 @@
             </p:submenu>
 
 
-            <p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.coordinadorRecepcion || perfilUsuario.admin }">
+            <p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ false }">
+            <!--<p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.coordinadorRecepcion || perfilUsuario.admin }">-->
                 <p:menuitem  value="Solicitudes en Preparacion" onclick="otros(2);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}" rendered="#{perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.admin}">
                     <f:setPropertyActionListener value="2" target="#{menuMB.idMenu}" />
                 </p:menuitem>
@@ -193,7 +199,10 @@
                     break
                 
                 case 33:
-                    pagina="#{request.contextPath}/content/restricted/generales/manageNotifications.faces"
+                    pagina="#{request.contextPath}/content/restricted/generales/manageNotifications.faces";
+                    break
+                case 34:
+                    pagina="#{request.contextPath}/content/restricted/generales/manageNotificationsOld.faces";
                     break
                 
                 default:

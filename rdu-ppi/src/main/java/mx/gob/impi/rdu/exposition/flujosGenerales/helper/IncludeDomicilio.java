@@ -251,4 +251,25 @@ public class IncludeDomicilio implements Serializable{
         this.paisApoderado = paisApoderado;
     }
     
+    
+    public String nicelyFormatted() {
+        String niceAddress = "";
+        niceAddress += domicilio.getCalle() 
+                + " " + domicilio.getNumInt() 
+                + (!"".equals(domicilio.getNumExt()) && domicilio.getNumExt()!= null? " numExt "+domicilio.getNumExt(): "")
+                + " " + domicilio.getColonia()
+                + ", " + domicilio.getPoblacion()
+                + " " + domicilio.getNombreEntidad()
+                + " " + domicilio.getNombrePais()
+                + ". CP " + domicilio.getCodigopostal();
+        return niceAddress;
+    }
+    
+    public String fullPhone() {
+        String fullPhone = "";
+        fullPhone += datosContacto.getTelefono() 
+                + (!"".equals(datosContacto.getTelefonoExt()) && datosContacto.getTelefonoExt()!= null? datosContacto.getTelefonoExt(): "");
+        return fullPhone;
+    }
+    
 }

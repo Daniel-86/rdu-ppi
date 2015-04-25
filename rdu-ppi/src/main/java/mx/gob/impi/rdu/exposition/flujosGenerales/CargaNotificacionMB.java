@@ -38,6 +38,7 @@ import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
@@ -93,6 +94,10 @@ public class CargaNotificacionMB {
             if (promoventes != null && !promoventes.isEmpty()) {
                 BeanUtils.copyProperties(promoventes.get(0), promoventeSelected);
             }
+            
+//            viewNots = buildNotsFromSols(flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(promoventeSelected.getIdPromovente().intValue()));
+            viewNots = new ArrayList<>();
+            selected = new ArrayList<>();
 //        } else {
 //            try {
 //                context.getExternalContext().redirect("/rdu-web/content/restricted/firma/firmaerror.faces");
@@ -557,50 +562,105 @@ public class CargaNotificacionMB {
         this.mostrarResumen = mostrarResumen;
     }
     
-    public String findRecord() {
+    public String findRecord() {        
+        
         String msgError = "";
         List<Notification> currentNotifications = null;
-        Notification requested = null;
-        NotificacionView notView = new NotificacionView();
-        List<KfContenedores> dummyList = null;
-        KfContenedores record = null;
-        
-        if(isAlreadyPresent(notificacionesView, codbarrasAcuerdo))
-            msgError = "El expediente con título " + this.codbarrasAcuerdo + " ya está cargado en la tabla";
-        else if(this.codbarrasAcuerdo != null && !this.codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
+        Notification requested;
+//        NotificacionView requested = new NotificacionView();
+        List<KfContenedores> dummyList;
+        KfContenedores record;
+
+        System.out.println("Entró en findRecord");
+        if (isAlreadyPresent(viewNots, codbarrasAcuerdo)) {
+            msgError = "El expediente con título " + codbarrasAcuerdo + " ya está cargado en la tabla";
+        } else if (codbarrasAcuerdo != null && !codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(codbarrasAcuerdo)) {
 //            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
-            dummyList = flujosgralesViewService.selectKfContenedoresByTitle(this.codbarrasAcuerdo);
-            if(dummyList != null && dummyList.size() > 0) {
-                try {
-                    record = dummyList.get(0);
-                    notView.setOficioSalida(record.getTitle());
-                    notView.setExpediente(record.getPerson());
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-                    notView.setFechaMovimiento(dateFormat.parse(record.getFecha()));
-                    notView.setDenominacion(record.getDescription());
-                    notView.setTitular(record.getServidor());
-                    notificacionesView.add(notView);
-                } catch (ParseException ex) {
-                    java.util.logging.Logger.getLogger(CargaNotificacionMB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else
+            dummyList = flujosgralesViewService.selectKfContenedoresByTitle(codbarrasAcuerdo);
+            if (dummyList != null && dummyList.size() > 0) {
+                requested = new Notification();
+                record = dummyList.get(0);
+
+                requested.setTitle(record.getTitle());
+                requested.setPc(record.getPerson());
+                requested.setUserId(requestingUser);
+                requested.setUsertype(relationType);
+                requested.setLastUpdated(new Date());
+
+                viewNots.add(requested);
+            } else {
                 msgError = "Expediente no encontrado";
+            }
 //            requested = flujosgralesViewService.findByTitle(this.codbarrasAcuerdo);
+        } else {
+            msgError = "El ID " + this.codbarrasAcuerdo + " no es valido";
         }
         return msgError;
     }
     
+    private Integer relationType;
+    private Integer requestingUser = 12345;
+    private List<Notification> viewNots;
+    private List<Notification> selected;
+    private List<Notification> persisted;
     
-    public boolean isAlreadyPresent(List<NotificacionView> notificacionesView, String id) {
+    public Integer getRelationType() {return relationType;}
+    public void setRelationType(Integer r) {relationType = r;}
+    public Integer getRequestingUser() {return requestingUser;}
+    public void setRequestingUser(Integer u) {requestingUser = u;}
+    public List<Notification> getViewNots() {return viewNots;}
+    public void setViewNots(List<Notification> nots) {viewNots = nots;}
+    public List<Notification> getSelected() {return selected;}
+    public void setSelected(List<Notification> s) {selected = s;}
+    
+    
+    public boolean isAlreadyPresent(List<Notification> notificationsInView, String id) {
         boolean result = false;
-        for (NotificacionView notView : notificacionesView) {
-            if (notView.getOficioSalida().equals(id)) {
+        for (Notification notification : notificationsInView) {
+            if (notification.getTitle().equals(id)) {
                 result = true;
                 break;
             }
         }
         return result;
+    }
+    
+    public void updateNotificationsPrefs() {
+        List<SolicitudInteresados> notsToPersist = buildFromView(viewNots);
+        for(SolicitudInteresados n: notsToPersist) {
+//            flujosgralesViewService.insert(n);
+        }
+    }
+    
+    private List<SolicitudInteresados> buildFromView(List<Notification> viewNotifications) {
+        List<SolicitudInteresados> notifications = new ArrayList<>();
+        SolicitudInteresados noti;
+        for(Notification n: viewNotifications) {
+            noti = new SolicitudInteresados();
+            noti.setTitle(n.getTitle());
+            noti.setCodInteresado(n.getUserId());
+            noti.setFechaModificacion(new Date());
+            noti.setSecuencia(999);
+            noti.setCodRelacion(n.getUsertype());
+            noti.setCveUsuario(n.getAuthorizedBy());
+            
+            notifications.add(noti);
+        }
+        return notifications;
+    }
+    
+    private List<Notification> buildNotsFromSols(List<SolicitudInteresados> persistedNotifications) {
+        List<Notification> viewNotifications = new ArrayList<>();
+        Notification noti;
+        for(SolicitudInteresados s: persistedNotifications) {
+            noti = new Notification();
+            noti.setTitle(s.getTitle());
+            noti.setUserId(s.getCodInteresado());
+            noti.setUsertype(s.getCodRelacion());
+            noti.setSequence(s.getSecuencia());
+            noti.setAuthorizedBy(s.getCveUsuario());
+        }
+        return viewNotifications;
     }
     
 }
