@@ -54,4 +54,6 @@ public interface RduSigappiService {
     
     int insert(UsuariosSigappi usuariosSigappi);
     
+    List<TiposRelacion> listTiposRelacion();
+    
 }

@@ -169,4 +169,8 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     public int insert(UsuariosSigappi usuariosSigappi) {
         return this.usuariosSigappiMapper.insert(usuariosSigappi); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public List<TiposRelacion> listTiposRelacion() {
+        return this.tiposRelacionMapper.list();
+    }
 }

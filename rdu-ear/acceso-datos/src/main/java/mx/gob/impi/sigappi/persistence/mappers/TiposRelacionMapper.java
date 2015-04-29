@@ -12,4 +12,6 @@ public interface TiposRelacionMapper {
 
     
     List<TiposRelacion> selectByCodRelacion(@Param("codRelacion")Integer codRelacion);
+    
+    List<TiposRelacion> list();
 }

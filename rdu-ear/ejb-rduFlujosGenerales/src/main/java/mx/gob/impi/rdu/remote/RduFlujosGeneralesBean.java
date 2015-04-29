@@ -234,4 +234,6 @@ public interface RduFlujosGeneralesBean {
     List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
     
     int insert(UsuariosSigappi usuariosSigappi);
+    
+    List<TiposRelacion> listTiposRelacion();
 }

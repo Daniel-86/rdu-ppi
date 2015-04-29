@@ -198,6 +198,7 @@ public interface FlujosGralesViewService {
     
     int insert(TiposRelacion tiposRelacion);
     public List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion);
+    public List<TiposRelacion> listTiposRelacion();
     
     int insert(UsuariosSigappi usuariosSigappi);
     public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
