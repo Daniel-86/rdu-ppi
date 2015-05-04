@@ -40,10 +40,14 @@
                         </center>
                         <br/>
                         <p:dataTable id="tableArchivos" 
-                                     value="#{cargaNotificacionMB.viewNots}" paginator="true" rows="7"
-                                     var="notification">
-<!--                            <p:column headerText="">
-                                <p:selectBooleanCheckbox value="#{notification.sequence != 0}"/>
+                                     value="#{cargaNotificacionMB.viewNots}" 
+                                     paginator="#{cargaNotificacionMB.viewNots != null and cargaNotificacionMB.viewNots.size() gt 7}" 
+                                     rows="7"
+                                     var="notification" 
+                                     selection="#{cargaNotificacionMB.selected}">
+                            <p:column selectionMode="multiple"/>
+<!--                            <p:column headerText="ok">
+                                <p:selectBooleanCheckbox value="#{notification.sequence ne 0}"/>
                             </p:column>-->
                             <p:column headerText="Title" >
                                 <h:outputText value="#{notification.title}"/>
@@ -63,8 +67,9 @@
                             </p:column>
                         </p:dataTable>
                         <center>
-
-                            <p:commandButton value="Generar forma" actionListener="#{cargaNotificacionMB.updateNotificationsPrefs}"/>
+                            <h:panelGrid columns="1" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
+                                <p:commandButton value="Generar forma" actionListener="#{cargaNotificacionMB.updateNotificationsPrefs}" style="float: right;"/>
+                            </h:panelGrid>
                         </center>
                         <br/>
                     </p:panel>

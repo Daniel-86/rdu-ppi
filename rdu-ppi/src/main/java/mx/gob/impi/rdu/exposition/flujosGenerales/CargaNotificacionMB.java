@@ -649,10 +649,14 @@ public class CargaNotificacionMB {
         List<SolicitudInteresados> notsInView = buildFromView(viewNots);
         List<SolicitudInteresados> notsToPersist = new ArrayList<>();
         for(SolicitudInteresados noti: notsInView) {
+            boolean isInThere = false;
             for(SolicitudInteresados pers: persisted) {
-                if(!(pers.getTitle() == null ? noti.getTitle() == null : pers.getTitle().equals(noti.getTitle())) || !Objects.equals(pers.getCodInteresado(), noti.getCodInteresado()))
-                    notsToPersist.add(noti);
+                if((pers.getTitle() == null ? noti.getTitle() == null : pers.getTitle().equals(noti.getTitle())) && Objects.equals(pers.getCodInteresado(), noti.getCodInteresado())) {
+                    isInThere = true;
+                    break;
+                }
             }
+            if(!isInThere) notsToPersist.add(noti);
         }
 //        notsToPersist.removeAll(persisted);
         for(SolicitudInteresados n: notsToPersist) {
