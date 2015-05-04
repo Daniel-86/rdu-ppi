@@ -30,7 +30,7 @@ public class Notification {
     public UserType getUserType() {return userType;}
     public Integer getUsertype() {return usertype;}
     public Date getLastUpdated() {return lastUpdated;}
-    public Integer sequence() {return sequence;}
+    public Integer getSequence() {return sequence;}
     public String getAuthorizedBy() {return authorizedBy;}
     public void setTitle(String title) {this.title = title;}
     public void setPc(String pc) {this.pc = pc;}

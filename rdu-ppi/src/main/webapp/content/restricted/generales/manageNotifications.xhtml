@@ -49,7 +49,11 @@
                                 <h:outputText value="#{notification.pc}"/>
                             </p:column>
                             <p:column headerText="Relación">
-                                <h:outputText value="#{notification.pc}"/>
+                                <p:selectOneMenu value="#{notification.usertype}">
+                                    <f:selectItem itemLabel="Elige una" itemValue=""/>
+                                    <f:selectItems value="#{cargaNotificacionMB.listAllRelationTypes}" var="relation" itemLabel="#{ralation.parte}" itemValue="#{relation.codRelacion}"/>
+                                </p:selectOneMenu>
+                                <!--<h:outputText value="#{notification.pc}"/>-->
                             </p:column>
                             <p:column headerText="Autorizó">
                                 <h:outputText value="#{notification.authorizedBy}"/>

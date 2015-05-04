@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -39,6 +40,7 @@ import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
@@ -95,9 +97,14 @@ public class CargaNotificacionMB {
                 BeanUtils.copyProperties(promoventes.get(0), promoventeSelected);
             }
             
-//            viewNots = buildNotsFromSols(flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(promoventeSelected.getIdPromovente().intValue()));
-            viewNots = new ArrayList<>();
+            persisted = flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(usuarioCarga.getId_promovente());
+            viewNots = buildNotsFromSols(new ArrayList(persisted));
+//            viewNots = buildNotsFromSols(new ArrayList<SolicitudInteresados>());
+//            viewNots = new ArrayList<>();
             selected = new ArrayList<>();
+            relations = flujosgralesViewService.listTiposRelacion();
+//            relations = new ArrayList<>();
+            String basura = "para poner un breakpoint";
 //        } else {
 //            try {
 //                context.getExternalContext().redirect("/rdu-web/content/restricted/firma/firmaerror.faces");
@@ -562,16 +569,19 @@ public class CargaNotificacionMB {
         this.mostrarResumen = mostrarResumen;
     }
     
+    public String tester() {
+        System.out.println("i am a useless tester");
+        return "Basura";
+    }
+    
     public String findRecord() {        
         
         String msgError = "";
-        List<Notification> currentNotifications = null;
         Notification requested;
 //        NotificacionView requested = new NotificacionView();
         List<KfContenedores> dummyList;
         KfContenedores record;
 
-        System.out.println("Entró en findRecord");
         if (isAlreadyPresent(viewNots, codbarrasAcuerdo)) {
             msgError = "El expediente con título " + codbarrasAcuerdo + " ya está cargado en la tabla";
         } else if (codbarrasAcuerdo != null && !codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(codbarrasAcuerdo)) {
@@ -602,7 +612,8 @@ public class CargaNotificacionMB {
     private Integer requestingUser = 12345;
     private List<Notification> viewNots;
     private List<Notification> selected;
-    private List<Notification> persisted;
+    private List<SolicitudInteresados> persisted;
+    private List<TiposRelacion> relations;
     
     public Integer getRelationType() {return relationType;}
     public void setRelationType(Integer r) {relationType = r;}
@@ -612,6 +623,15 @@ public class CargaNotificacionMB {
     public void setViewNots(List<Notification> nots) {viewNots = nots;}
     public List<Notification> getSelected() {return selected;}
     public void setSelected(List<Notification> s) {selected = s;}
+
+    public List<TiposRelacion> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<TiposRelacion> relations) {
+        this.relations = relations;
+    }
+    
     
     
     public boolean isAlreadyPresent(List<Notification> notificationsInView, String id) {
@@ -626,10 +646,19 @@ public class CargaNotificacionMB {
     }
     
     public void updateNotificationsPrefs() {
-        List<SolicitudInteresados> notsToPersist = buildFromView(viewNots);
-        for(SolicitudInteresados n: notsToPersist) {
-//            flujosgralesViewService.insert(n);
+        List<SolicitudInteresados> notsInView = buildFromView(viewNots);
+        List<SolicitudInteresados> notsToPersist = new ArrayList<>();
+        for(SolicitudInteresados noti: notsInView) {
+            for(SolicitudInteresados pers: persisted) {
+                if(!(pers.getTitle() == null ? noti.getTitle() == null : pers.getTitle().equals(noti.getTitle())) || !Objects.equals(pers.getCodInteresado(), noti.getCodInteresado()))
+                    notsToPersist.add(noti);
+            }
         }
+//        notsToPersist.removeAll(persisted);
+        for(SolicitudInteresados n: notsToPersist) {
+            flujosgralesViewService.insert(n);
+        }
+        persisted.addAll(notsToPersist);
     }
     
     private List<SolicitudInteresados> buildFromView(List<Notification> viewNotifications) {
@@ -638,7 +667,7 @@ public class CargaNotificacionMB {
         for(Notification n: viewNotifications) {
             noti = new SolicitudInteresados();
             noti.setTitle(n.getTitle());
-            noti.setCodInteresado(n.getUserId());
+            noti.setCodInteresado(usuarioCarga.getId_promovente());
             noti.setFechaModificacion(new Date());
             noti.setSecuencia(999);
             noti.setCodRelacion(n.getUsertype());
@@ -655,12 +684,20 @@ public class CargaNotificacionMB {
         for(SolicitudInteresados s: persistedNotifications) {
             noti = new Notification();
             noti.setTitle(s.getTitle());
+            noti.setPc(flujosgralesViewService.selectKfContenedoresByTitle(s.getTitle()).get(0).getPerson());
             noti.setUserId(s.getCodInteresado());
             noti.setUsertype(s.getCodRelacion());
             noti.setSequence(s.getSecuencia());
             noti.setAuthorizedBy(s.getCveUsuario());
+            
+            viewNotifications.add(noti);
         }
         return viewNotifications;
+    }
+    
+    public List<TiposRelacion> listAllRelationTypes() {
+        relations = flujosgralesViewService.selectTiposRelacionByCodRelacion(1);
+        return relations;
     }
     
 }

@@ -8,7 +8,7 @@
     
     <ui:define name="content">
         <h:form id="notificationsForm">
-            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+            <p:messages id="msgErrors"/>
             <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
             <p:panel>
                 <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
@@ -34,13 +34,17 @@
                             <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
                                 <h:outputText value="ID expediente: "/>
                                 <p:inputText id="txtCodbarrasAcuerdo" value="#{cargaNotificacionMB.codbarrasAcuerdo}"/>
-                                <p:commandButton value="Buscar" action="#{cargaNotificacionMB.findRecord}"
+                                <p:commandButton value="Buscar" action="#{cargaNotificacionMB.findRecord()}"
                                                  update="notificationsForm"/>
                             </h:panelGrid>
                         </center>
                         <br/>
-                        <p:dataTable id="tableArchivos" value="#{cargaNotificacionMB.viewNots}" paginator="true" rows="7"
+                        <p:dataTable id="tableArchivos" 
+                                     value="#{cargaNotificacionMB.viewNots}" paginator="true" rows="7"
                                      var="notification">
+<!--                            <p:column headerText="">
+                                <p:selectBooleanCheckbox value="#{notification.sequence != 0}"/>
+                            </p:column>-->
                             <p:column headerText="Title" >
                                 <h:outputText value="#{notification.title}"/>
                             </p:column>
@@ -48,7 +52,11 @@
                                 <h:outputText value="#{notification.pc}"/>
                             </p:column>
                             <p:column headerText="Relación">
-                                <h:outputText value="#{notification.pc}"/>
+                                <p:selectOneMenu value="#{notification.usertype}">
+                                    <f:selectItem itemLabel="Elige una" itemValue=""/>
+                                    <f:selectItems value="#{cargaNotificacionMB.relations}" var="relation" itemLabel="#{relation.parte}" itemValue="#{relation.codRelacion}"/>
+                                </p:selectOneMenu>
+                                <!--<h:outputText value="#{notification.pc}"/>-->
                             </p:column>
                             <p:column headerText="Autorizó">
                                 <h:outputText value="#{notification.authorizedBy}"/>

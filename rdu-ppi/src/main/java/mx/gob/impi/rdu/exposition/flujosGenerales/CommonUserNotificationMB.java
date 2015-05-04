@@ -31,7 +31,7 @@ public class CommonUserNotificationMB {
     private String searchedTitle;
     private List<Notification> persistedNots;
     private List<Notification> viewNots;
-    private Long requestingUser;
+    private Integer requestingUser;
     private Integer relationType;
     private List<Notification> selected;
     
@@ -46,7 +46,7 @@ public class CommonUserNotificationMB {
         return viewNots;
     }
 
-    public Long getRequestingUser() {
+    public Integer getRequestingUser() {
         return requestingUser;
     }
 
@@ -62,7 +62,7 @@ public class CommonUserNotificationMB {
         this.viewNots = viewNots;
     }
 
-    public void setRequestingUser(Long requestingUser) {
+    public void setRequestingUser(Integer requestingUser) {
         this.requestingUser = requestingUser;
     }
 
