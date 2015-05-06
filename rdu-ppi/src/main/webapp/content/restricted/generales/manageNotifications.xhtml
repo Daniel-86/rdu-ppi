@@ -26,6 +26,7 @@
                         <h3>Domicilio</h3>
                         <h:outputText value="#{patentesDisIndMB.domicilioContacto.nicelyFormatted()}"/>
                         <h:outputText value="#{loginMB.usuario.domicilio.colonia}"/>
+                        <br/><h:outputText value="#{commonUserNotificationMB.searchedTitle}"/>
                     </p:panel> 
 
 
@@ -33,15 +34,22 @@
                         <center>
                             <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
                                 <h:outputText value="ID expediente: "/>
-                                <p:inputText id="txtCodbarrasAcuerdo" value="#{commonUserNotificationMB.searchedTitle}"/>
-                                <p:commandButton value="Buscar" action="#{commonUserNotificationMB.findRecord}"
+                                <p:inputText value="#{commonUserNotificationMB.searchedTitle}"/>
+                                <p:commandButton value="Buscar" 
+                                                 action="#{commonUserNotificationMB.findRecord}"
                                                  update="notificationsForm"/>
                             </h:panelGrid>
                         </center>
                         <br/>
-                        <p:dataTable id="tableArchivos" value="#{commonUserNotificationMB.viewNots}" paginator="true" rows="7"
-                                     selection="#{commonUserNotificationMB.selected}" var="notification">
-                            <p:column selectionMode="multiple"/>
+                        <p:dataTable id="notificationsTbl" 
+                                     value="#{commonUserNotificationMB.viewNots}" 
+                                     paginator="#{commonUserNotificationMB.viewNots != null and commonUserNotificationMB.viewNots.size() gt 7}"
+                                     rows="7"
+                                     rowKey="#{notification.title}+#{notification.usertype}"
+                                     selection="#{commonUserNotificationMB.selected}"
+                                     var="notification">
+                            <p:column selectionMode="multiple" 
+                                      style="width: 16px;text-align: center;"/>
                             <p:column headerText="Title" >
                                 <h:outputText value="#{notification.title}"/>
                             </p:column>
@@ -51,24 +59,25 @@
                             <p:column headerText="Relación">
                                 <p:selectOneMenu value="#{notification.usertype}">
                                     <f:selectItem itemLabel="Elige una" itemValue=""/>
-                                    <f:selectItems value="#{cargaNotificacionMB.listAllRelationTypes}" var="relation" itemLabel="#{ralation.parte}" itemValue="#{relation.codRelacion}"/>
+                                    <f:selectItems value="#{commonUserNotificationMB.relations}" 
+                                                   var="relation" 
+                                                   itemLabel="#{relation.parte}" 
+                                                   itemValue="#{relation.codRelacion}"/>
                                 </p:selectOneMenu>
-                                <!--<h:outputText value="#{notification.pc}"/>-->
                             </p:column>
                             <p:column headerText="Autorizó">
                                 <h:outputText value="#{notification.authorizedBy}"/>
                             </p:column>
                         </p:dataTable>
                         <center>
-
-                            <p:commandButton value="Generar forma" actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}"/>
+                            <h:panelGrid columns="1" 
+                                         style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
+                                <p:commandButton value="Generar forma" 
+                                                 actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}" style="float: right;"/>
+                            </h:panelGrid>
                         </center>
                         <br/>
                     </p:panel>
-                    
-
-
-
 
                 </h:panelGrid>
             </p:panel>

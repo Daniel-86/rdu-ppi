@@ -97,14 +97,19 @@ public class CargaNotificacionMB {
                 BeanUtils.copyProperties(promoventes.get(0), promoventeSelected);
             }
             
-            persisted = flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(usuarioCarga.getId_promovente());
-            viewNots = buildNotsFromSols(new ArrayList(persisted));
-//            viewNots = buildNotsFromSols(new ArrayList<SolicitudInteresados>());
-//            viewNots = new ArrayList<>();
-            selected = new ArrayList<>();
+            persistedAndSubscribed = flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(usuarioCarga.getId_promovente());
+            viewNots = buildNotsFromSols(new ArrayList(persistedAndSubscribed));
+            selectedN = viewNots != null? new Notification[viewNots.size()]: null;
+            int i = 0;
+            for(Notification n: viewNots) {
+                selectedN[i++] = n;
+            }
+            
+            persistedNoSubscribed = flujosgralesViewService.selectSolicitudInteresadosByCodInteresadoAndSecuencia(usuarioCarga.getId_promovente(), 0);
+//            selectedN = (Notification[]) viewNots.toArray();
             relations = flujosgralesViewService.listTiposRelacion();
-//            relations = new ArrayList<>();
             String basura = "para poner un breakpoint";
+            
 //        } else {
 //            try {
 //                context.getExternalContext().redirect("/rdu-web/content/restricted/firma/firmaerror.faces");
@@ -611,9 +616,20 @@ public class CargaNotificacionMB {
     private Integer relationType;
     private Integer requestingUser = 12345;
     private List<Notification> viewNots;
-    private List<Notification> selected;
-    private List<SolicitudInteresados> persisted;
+    private List<Notification> selected = new ArrayList<>();
+    private Notification [] selectedN;
+    private List<SolicitudInteresados> persistedAndSubscribed;
     private List<TiposRelacion> relations;
+    private List<SolicitudInteresados> persistedNoSubscribed;
+
+    public Notification[] getSelectedN() {
+        return selectedN;
+    }
+
+    public void setSelectedN(Notification[] selectedN) {
+        this.selectedN = selectedN;
+    }
+    
     
     public Integer getRelationType() {return relationType;}
     public void setRelationType(Integer r) {relationType = r;}
@@ -648,21 +664,31 @@ public class CargaNotificacionMB {
     public void updateNotificationsPrefs() {
         List<SolicitudInteresados> notsInView = buildFromView(viewNots);
         List<SolicitudInteresados> notsToPersist = new ArrayList<>();
+        List<SolicitudInteresados> notsToUpdate = new ArrayList<>();
         for(SolicitudInteresados noti: notsInView) {
-            boolean isInThere = false;
-            for(SolicitudInteresados pers: persisted) {
+            boolean isPersisted = false;
+            boolean isSelected = false;
+            for(Notification n: selectedN) {
+                if((n.getTitle() == null? n.getTitle() == null: n.getTitle().equals(noti.getTitle())) && Objects.equals(n.getUserId(), noti.getCodInteresado()))
+                    isSelected = true;
+            }
+            for(SolicitudInteresados pers: persistedAndSubscribed) {
                 if((pers.getTitle() == null ? noti.getTitle() == null : pers.getTitle().equals(noti.getTitle())) && Objects.equals(pers.getCodInteresado(), noti.getCodInteresado())) {
-                    isInThere = true;
+                    isPersisted = true;
                     break;
                 }
             }
-            if(!isInThere) notsToPersist.add(noti);
+            if(!isPersisted && isSelected) notsToPersist.add(noti);
+            if(isPersisted && !isSelected) {
+                noti.setSecuencia(0);
+                notsToUpdate.add(noti);
+            }
         }
 //        notsToPersist.removeAll(persisted);
         for(SolicitudInteresados n: notsToPersist) {
             flujosgralesViewService.insert(n);
         }
-        persisted.addAll(notsToPersist);
+        persistedAndSubscribed.addAll(notsToPersist);
     }
     
     private List<SolicitudInteresados> buildFromView(List<Notification> viewNotifications) {

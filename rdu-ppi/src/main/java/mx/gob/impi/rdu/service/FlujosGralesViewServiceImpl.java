@@ -977,5 +977,9 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
         return this.rduFlujosGeneralesRemot.listTiposRelacion();
     }
     
+    @Override
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return this.rduFlujosGeneralesRemot.selectSolicitudInteresadosByCodInteresadoAndSecuencia(codInteresado, secuencia);
+    }
 
 }
