@@ -13,4 +13,6 @@ public interface SolicitudInteresadosMapper {
     
     List<SolicitudInteresados> selectByTitle(@Param("title")String title);
     List<SolicitudInteresados> selectByCodInteresado(@Param("codInteresado")Integer codInteresado);
+    List<SolicitudInteresados> findByUserAndSequence(@Param("codInteresado")Integer codInteresado, @Param("secuencia")Integer secuencia);
+    int updateSequence(String title, Integer codInteresado, Integer secuencia);
 }

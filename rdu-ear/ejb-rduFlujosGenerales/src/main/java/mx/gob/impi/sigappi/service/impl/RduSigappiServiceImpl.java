@@ -173,4 +173,12 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     public List<TiposRelacion> listTiposRelacion() {
         return this.tiposRelacionMapper.list();
     }
+    
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return this.solicitudInteresadosMapper.findByUserAndSequence(codInteresado, secuencia);
+    }
+    
+    public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
+        return this.solicitudInteresadosMapper.updateSequence(title, codInteresado, secuencia);
+    }
 }
