@@ -7,7 +7,9 @@ package mx.gob.impi.rdu.exposition.flujosGenerales;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import mx.gob.impi.rdu.dto.PromoventeDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
@@ -24,6 +27,11 @@ import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -166,6 +174,7 @@ public class CommonUserNotificationMB {
                 if ((n.getTitle() == null ? n.getTitle() == null : n.getTitle().equals(noti.getTitle())) 
                         && Objects.equals(n.getUserId(), noti.getCodInteresado())) {
                     isSelected = true;
+                    break;
                 }
             }
             for (SolicitudInteresados pers : persistedAndSubscribed) {
@@ -188,6 +197,16 @@ public class CommonUserNotificationMB {
             flujosgralesViewService.insert(n);
         }
         persistedAndSubscribed.addAll(notsToPersist);
+        
+        for(SolicitudInteresados n: notsToUpdate) {
+            flujosgralesViewService.updateNotificationSubscription(n.getTitle(), requestingUser.getId_promovente(), 0);
+            persistedAndSubscribed.remove(n);
+        }
+        persistedNoSubscribed.addAll(notsToUpdate);
+        
+        String basura = "para poner un breakpoint";
+        
+        generateDocument();
     }
 
     private List<SolicitudInteresados> buildFromView(List<Notification> viewNotifications) {
@@ -254,6 +273,32 @@ public class CommonUserNotificationMB {
             }
         } else {
             return null;
+        }
+    }
+
+    private void generateDocument() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String sourceFileName = request.getRealPath("") + "/content/reportes/user_notifications.jasper";
+//        String sourceFileName = request.getRealPath("") + "/content/reportes/newReport.jasper";
+        String printFileName =  null;
+        
+        Map parameters = new HashMap();
+        parameters.put("logo", request.getRealPath("") + "/content/imagenes/firma_impi.jpg");
+        parameters.put("fullName", requestingUser.getNombre() + " " + requestingUser.getApaterno() + " " +  requestingUser.getAmaterno());
+        parameters.put("rfc", requestingUser.getRfc());
+        parameters.put("email", requestingUser.getEmail());
+        parameters.put("fullAddress", requestingUser.getCalle_numero() + " " + requestingUser.getNumero_interior());
+        
+        JRBeanCollectionDataSource notifications = new JRBeanCollectionDataSource(viewNots);
+        
+        try {
+            printFileName = JasperFillManager.fillReportToFile(sourceFileName, parameters, notifications);
+            
+            if(printFileName != null) {
+                JasperExportManager.exportReportToPdfFile(printFileName, request.getRealPath("") + "/miReporteMio.pdf");
+            }
+        } catch(JRException e) {
+            String basura = "para el breakpoint";
         }
     }
 }

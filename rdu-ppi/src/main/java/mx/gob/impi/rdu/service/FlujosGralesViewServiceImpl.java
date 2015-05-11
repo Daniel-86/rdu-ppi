@@ -982,4 +982,9 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
         return this.rduFlujosGeneralesRemot.selectSolicitudInteresadosByCodInteresadoAndSecuencia(codInteresado, secuencia);
     }
 
+    @Override
+    public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
+        return this.rduFlujosGeneralesRemot.updateNotificationSubscription(title, codInteresado, secuencia);
+    }
+
 }
