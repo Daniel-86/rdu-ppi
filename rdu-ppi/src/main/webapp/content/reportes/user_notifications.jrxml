@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a89d6c72-8527-442e-b156-60d84d863673">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="106"/>
 	<parameter name="fullName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="rfc" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="email" class="java.lang.String"/>
@@ -193,13 +193,6 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<text><![CDATA[A T E N T A M E N T E]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee19af9b-5b75-465b-bc20-d7bb2620ffc7" x="197" y="195" width="153" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" isBold="true"/>
-				</textElement>
-				<text><![CDATA[$P{fullName}]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="18d1c9e9-0253-4792-82c2-fe074a2d0b3f" x="0" y="230" width="555" height="37"/>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans"/>
@@ -227,6 +220,13 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				</textElement>
 				<text><![CDATA[Asumo la responsabilidad por el uso de mi nombre de usuario, contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se atribuirá como mi firma electrónica la que se plasme al momento de firmas las notificaciones que reciba.]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="f7ce5cc2-518f-404b-903e-26e266a89801" x="118" y="192" width="318" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fullName}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

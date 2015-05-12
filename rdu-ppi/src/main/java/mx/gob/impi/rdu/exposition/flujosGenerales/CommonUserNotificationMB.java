@@ -5,6 +5,8 @@
  */
 package mx.gob.impi.rdu.exposition.flujosGenerales;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +20,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import mx.gob.impi.rdu.dto.PromoventeDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
 import static mx.gob.impi.rdu.exposition.flujosGenerales.CargaNotificacionMB.validarCodbarrasSigappi;
@@ -27,7 +28,6 @@ import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -49,6 +49,9 @@ public class CommonUserNotificationMB {
     private Notification[] selected;
     private List<TiposRelacion> relations;
     private List<SolicitudInteresados> persistedNoSubscribed;
+    private String documentUrl;
+    private String basePath;
+    private String documentName;
     
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
@@ -92,6 +95,14 @@ public class CommonUserNotificationMB {
     public void setRelations(List<TiposRelacion> relations) {
         this.relations = relations;
     }
+    
+    public String getDocumentUrl() {
+        return documentUrl;
+    }
+    
+    public String getDocumentName() {
+        return documentName;
+    }
 
     public void setFlujosgralesViewService(FlujosGralesViewServiceImpl flujosgralesViewService) {
         this.flujosgralesViewService = flujosgralesViewService;
@@ -101,9 +112,10 @@ public class CommonUserNotificationMB {
     public void init() {
         SesionRDU obtSession = ContextUtils.obtenerSesionUsuario();
         requestingUser = obtenerPromovente(obtSession);
-        searchedTitle = "BASURA";
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        basePath = request.getRealPath("");
         
         persistedAndSubscribed = flujosgralesViewService.selectSolicitudInteresadosByCodInteresado(requestingUser.getId_promovente());
         viewNots = buildNotsFromSols(new ArrayList(persistedAndSubscribed));
@@ -277,13 +289,12 @@ public class CommonUserNotificationMB {
     }
 
     private void generateDocument() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String sourceFileName = request.getRealPath("") + "/content/reportes/user_notifications.jasper";
+        String sourceFileName = basePath + "/content/reportes/user_notifications.jasper";
 //        String sourceFileName = request.getRealPath("") + "/content/reportes/newReport.jasper";
-        String printFileName =  null;
+        String printFileName;
         
         Map parameters = new HashMap();
-        parameters.put("logo", request.getRealPath("") + "/content/imagenes/firma_impi.jpg");
+        parameters.put("logo", basePath + "/content/imagenes/firma_impi.jpg");
         parameters.put("fullName", requestingUser.getNombre() + " " + requestingUser.getApaterno() + " " +  requestingUser.getAmaterno());
         parameters.put("rfc", requestingUser.getRfc());
         parameters.put("email", requestingUser.getEmail());
@@ -295,10 +306,16 @@ public class CommonUserNotificationMB {
             printFileName = JasperFillManager.fillReportToFile(sourceFileName, parameters, notifications);
             
             if(printFileName != null) {
-                JasperExportManager.exportReportToPdfFile(printFileName, request.getRealPath("") + "/miReporteMio.pdf");
+                documentName = "/notificaciones_suscripcion_" + requestingUser.getId_promovente() + ".pdf";
+                JasperExportManager.exportReportToPdfFile(printFileName, basePath + documentName);
             }
         } catch(JRException e) {
-            String basura = "para el breakpoint";
         }
+    }
+    
+    public void deleteDocument() {
+        File pdfFile = new File(basePath + documentName);
+        if(pdfFile.exists())
+            pdfFile.delete();
     }
 }
