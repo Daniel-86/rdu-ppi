@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +22,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import mx.gob.impi.rdu.dto.PromoventeDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
-import static mx.gob.impi.rdu.exposition.flujosGenerales.CargaNotificacionMB.validarCodbarrasSigappi;
 import mx.gob.impi.rdu.service.FlujosGralesViewServiceImpl;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
@@ -39,6 +39,12 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @ManagedBean
 @ViewScoped
 public class CommonUserNotificationMB {
+    
+    public static enum ID_TYPE {
+        TITLE, PC, UNKNOWN
+    }
+    private static final String TITLE_PATTERN = "PI/[A-Z]{1}/[0-9]{4}/[0-9]{6}";
+    private static final String PC_PATTERN = "[A-Z.]+\\d+/\\d{4}\\([A-Z](-\\d+)?\\)\\d+";
     
     private String searchedTitle;
     private List<SolicitudInteresados> persistedAndSubscribed;
@@ -111,8 +117,6 @@ public class CommonUserNotificationMB {
     public void init() {
         SesionRDU obtSession = ContextUtils.obtenerSesionUsuario();
         requestingUser = obtenerPromovente(obtSession);
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         basePath = request.getRealPath("");
         
@@ -129,19 +133,21 @@ public class CommonUserNotificationMB {
         relations = flujosgralesViewService.listTiposRelacion();
     }
     
-    public String findRecord() {
+    public void findRecord() {
 
         String msgError = "";
         Notification requested;
-//        NotificacionView requested = new NotificacionView();
-        List<KfContenedores> dummyList;
+        List<KfContenedores> dummyList = null;
         KfContenedores record;
 
         if (isAlreadyPresent(viewNots, searchedTitle)) {
-            msgError = "El expediente con título " + searchedTitle + " ya está cargado en la tabla";
-        } else if (searchedTitle != null && !searchedTitle.isEmpty() && validarCodbarrasSigappi(searchedTitle)) {
-//            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
-            dummyList = flujosgralesViewService.selectKfContenedoresByTitle(searchedTitle);
+            msgError = "El expediente con título o PC " + searchedTitle + " ya está cargado en la tabla";
+        } else if (searchedTitle != null && !searchedTitle.isEmpty() && isValidId(searchedTitle)) {
+            ID_TYPE idType = idTypeIs(searchedTitle);
+            if(idType == ID_TYPE.TITLE)
+                dummyList = flujosgralesViewService.selectKfContenedoresByTitle(searchedTitle);
+            else if(idType == ID_TYPE.PC)
+                dummyList = flujosgralesViewService.selectKfContenedoresByPC(searchedTitle);
             if (dummyList != null && dummyList.size() > 0) {
                 requested = new Notification();
                 record = dummyList.get(0);
@@ -156,17 +162,19 @@ public class CommonUserNotificationMB {
             } else {
                 msgError = "Expediente no encontrado";
             }
-//            requested = flujosgralesViewService.findByTitle(this.searchedTitle);
         } else {
             msgError = "El ID " + this.searchedTitle + " no es valido";
         }
-        return msgError;
+        
+        if(!"".equals(msgError)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msgError, msgError));
+        }
     }
 
     public boolean isAlreadyPresent(List<Notification> notificationsInView, String id) {
         boolean result = false;
         for (Notification notification : notificationsInView) {
-            if (notification.getTitle().equals(id)) {
+            if (notification.getTitle().equals(id) || notification.getPc().equals(id)) {
                 result = true;
                 break;
             }
@@ -289,7 +297,6 @@ public class CommonUserNotificationMB {
 
     private void generateDocument() {
         String sourceFileName = basePath + "/content/reportes/user_notifications.jasper";
-//        String sourceFileName = request.getRealPath("") + "/content/reportes/newReport.jasper";
         String printFileName;
         
         Map parameters = new HashMap();
@@ -316,5 +323,16 @@ public class CommonUserNotificationMB {
         File pdfFile = new File(basePath + documentName);
         if(pdfFile.exists())
             pdfFile.delete();
+    }
+    
+    public boolean isValidId(String id) {
+        return (Pattern.matches(TITLE_PATTERN, id.toUpperCase()) || Pattern.matches(PC_PATTERN, id.toUpperCase()));
+    }
+    
+    private ID_TYPE idTypeIs(String id) {
+        ID_TYPE idType = ID_TYPE.UNKNOWN;
+        if(Pattern.matches(TITLE_PATTERN, id.toUpperCase())) idType = ID_TYPE.TITLE;
+        else if(Pattern.matches(PC_PATTERN, id.toUpperCase())) idType = ID_TYPE.PC;
+        return idType;
     }
 }

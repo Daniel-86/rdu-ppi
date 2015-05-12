@@ -8,7 +8,6 @@
     
     <ui:define name="content">
         <h:form id="notificationsForm">
-            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
             <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
             <p:panel>
                 <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
@@ -28,11 +27,11 @@
                         <h:outputText value="#{loginMB.usuario.domicilio.colonia}"/>
                     </p:panel> 
 
-
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                     <p:panel>
                         <center>
                             <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
-                                <h:outputText value="ID expediente: "/>
+                                <h:outputText value="Buscar expediente por title o PC: "/>
                                 <p:inputText value="#{commonUserNotificationMB.searchedTitle}"/>
                                 <p:commandButton value="Buscar" 
                                                  action="#{commonUserNotificationMB.findRecord}"
@@ -56,7 +55,7 @@
                                 <h:outputText value="#{notification.pc}"/>
                             </p:column>
                             <p:column headerText="Relación">
-                                <p:selectOneMenu value="#{notification.usertype}">
+                                <p:selectOneMenu value="#{notification.usertype}" required="true">
                                     <f:selectItem itemLabel="Elige una" itemValue=""/>
                                     <f:selectItems value="#{commonUserNotificationMB.relations}" 
                                                    var="relation" 
