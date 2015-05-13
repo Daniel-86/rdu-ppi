@@ -23,6 +23,15 @@ public class Notification {
     private Date lastUpdated;
     private Integer sequence = 999;
     private String authorizedBy = null;
+    private String userTypeDescription;
+
+    public String getUserTypeDescription() {
+        return userTypeDescription;
+    }
+
+    public void setUserTypeDescription(String userTypeDescription) {
+        this.userTypeDescription = userTypeDescription;
+    }
     
     public String getTitle() {return title;}
     public String getPc() {return pc;}

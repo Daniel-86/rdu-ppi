@@ -13,18 +13,11 @@
                 <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
                     
                     <p:panel header="Datos personales">
-                        <h:panelGrid columns="3">
-                            <h:outputText value="#{loginMB.usuario.nombre}"/>
-                            <h:outputText value="#{loginMB.usuario.apellidoPaterno}"/>
-                            <h:outputText value="#{loginMB.usuario.apellidoMaterno}"/>
-                            <p:column/><p:column/><h:outputText value="RFC ASDF123456GH"/>
-                            <h:outputText value="#{patentesDisIndMB.domicilioContacto.datosContacto.correoelectronico}"/>
-                            <h:outputText value="#{patentesDisIndMB.domicilioContacto.fullPhone()}"/>
-                            <h:outputText value="Fax #{patentesDisIndMB.domicilioContacto.datosContacto.fax}"/>
-                        </h:panelGrid>
+                        <strong>Nombre: </strong><h:outputText value="#{commonUserNotificationMB.getFullName()}"/>
+                        <strong>RFC: </strong><h:outputText value="${commonUserNotificationMB.getRFC()}"/>
+                        <h3>Contacto </h3><h:outputText value="#{commonUserNotificationMB.getFullContact()}"/>
                         <h3>Domicilio</h3>
-                        <h:outputText value="#{patentesDisIndMB.domicilioContacto.nicelyFormatted()}"/>
-                        <h:outputText value="#{loginMB.usuario.domicilio.colonia}"/>
+                        <h:outputText value="${commonUserNotificationMB.getFullAddress()}"/>
                     </p:panel> 
 
                     <p:messages id="messages" showDetail="true" autoUpdate="true"/>

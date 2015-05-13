@@ -256,6 +256,7 @@ public class CommonUserNotificationMB {
             noti.setUsertype(s.getCodRelacion());
             noti.setSequence(s.getSecuencia());
             noti.setAuthorizedBy(s.getCveUsuario());
+            noti.setUserTypeDescription(flujosgralesViewService.selectTiposRelacionByCodRelacion(s.getCodRelacion()).get(0).getParte());
 
             viewNotifications.add(noti);
         }
@@ -301,10 +302,10 @@ public class CommonUserNotificationMB {
         
         Map parameters = new HashMap();
         parameters.put("logo", basePath + "/content/imagenes/firma_impi.jpg");
-        parameters.put("fullName", requestingUser.getNombre() + " " + requestingUser.getApaterno() + " " +  requestingUser.getAmaterno());
+        parameters.put("fullName", getFullName());
         parameters.put("rfc", requestingUser.getRfc());
         parameters.put("email", requestingUser.getEmail());
-        parameters.put("fullAddress", requestingUser.getCalle_numero() + " " + requestingUser.getNumero_interior());
+        parameters.put("fullAddress", getFullAddress());
         
         JRBeanCollectionDataSource notifications = new JRBeanCollectionDataSource(viewNots);
         
@@ -334,5 +335,39 @@ public class CommonUserNotificationMB {
         if(Pattern.matches(TITLE_PATTERN, id.toUpperCase())) idType = ID_TYPE.TITLE;
         else if(Pattern.matches(PC_PATTERN, id.toUpperCase())) idType = ID_TYPE.PC;
         return idType;
+    }
+    
+    public String getFullName() {
+        return capitalize(requestingUser.getNombre()) + " " + capitalize(requestingUser.getApaterno()) + " " + capitalize(requestingUser.getAmaterno());
+    }
+    
+    private String capitalize(String s) {
+        return s.length() == 0? "": s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+    
+    public String getFullAddress() {
+        String fullAddress = requestingUser.getCalle_numero() 
+                + " " + requestingUser.getNumero_exterior()
+                + (isEmptyString(requestingUser.getNumero_interior())? "": " No. ext " + requestingUser.getNumero_interior())
+                + ", Colonia " + capitalize(requestingUser.getColonia())
+                + ", Código postal " + requestingUser.getCodigo_postal()
+                + ", en " + capitalize(requestingUser.getDescMunicipio())
+                + ", " + capitalize(requestingUser.getDescEstado());
+        return fullAddress;
+    }
+    
+    private boolean isEmptyString(String s) {
+        return s == null || s.trim().equals("") || s.trim().equals("null");
+    }
+    
+    public String getRFC() {
+        return requestingUser.getRfc();
+    }
+    
+    public String getFullContact() {
+        String fullContact = (isEmptyString(requestingUser.getEmail())? "": "Email: " + requestingUser.getEmail())
+                + (isEmptyString(requestingUser.getTelefono())? "": " Teléfono: " + requestingUser.getTelefono())
+                + (isEmptyString(requestingUser.getFax())? "": " Fax: " + requestingUser.getFax());
+        return fullContact;
     }
 }
