@@ -8,92 +8,80 @@
     
     <ui:define name="content">
         <h:form id="notificationsForm">
-            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-            <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificaciones"/>
+            <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
             <p:panel>
                 <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
                     
-                    <p:panel header="Datos generales">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="Nombre"/>
-                            <p:column>
-                                <p:inputTextarea/>
-                                <!--<p:inputTextarea value="#{user.name}" disabled="#{section}"/>-->
-                            </p:column>
-                            <h:outputText value="Paterno"/>
-                            <p:column>
-                                <p:inputTextarea/>
-                            </p:column>
-                            <h:outputText value="Materno"/>
-                            <p:column>
-                                <p:inputTextarea/>
-                            </p:column>
-                        </h:panelGrid>
-                    </p:panel>
-                    
-                    
-                    <ui:include src="../include/domicilioNotificacion.xhtml">
-                        <ui:param name="managedBean" value="#{patentesDisIndMB.domicilioContacto}"/>
-                        <ui:param name="cambiarPais" value="false"/>
-                        <ui:param name="mostrarFax" value="true"/>
-                        <ui:param name="titulo" value="Domicilio"/>
-                    </ui:include>                    
+                    <p:panel header="Datos personales">
+                        <strong>Nombre: </strong><h:outputText value="#{commonUserNotificationMB.getFullName()}"/>
+                        <strong>RFC: </strong><h:outputText value="${commonUserNotificationMB.getRFC()}"/>
+                        <h3>Contacto </h3><h:outputText value="#{commonUserNotificationMB.getFullContact()}"/>
+                        <h3>Domicilio</h3>
+                        <h:outputText value="${commonUserNotificationMB.getFullAddress()}"/>
+                    </p:panel> 
 
-
-
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                     <p:panel>
                         <center>
                             <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
-                                <h:outputText value="ID expediente: "/>
-                                <p:inputText id="txtCodbarrasAcuerdo" value="#{cargaNotificacionMB.codbarrasAcuerdo}"/>
-                                <p:commandButton value="Buscar" action="#{cargaNotificacionMB.findRecord()}"
+                                <h:outputText value="Buscar expediente por title o PC: "/>
+                                <p:inputText value="#{commonUserNotificationMB.searchedTitle}"/>
+                                <p:commandButton value="Buscar" 
+                                                 action="#{commonUserNotificationMB.findRecord}"
                                                  update="notificationsForm"/>
                             </h:panelGrid>
                         </center>
                         <br/>
-                        <p:dataTable id="tableArchivos" value="#{cargaNotificacionMB.notificacionDM}" paginator="true" rows="7"
-                                     selection="#{cargaNotificacionMB.notificacionesSelected}" var="notificacion">
-                            <p:column selectionMode="multiple"/>
-                            <p:column headerText="#{sessionScope['area']=='20' ? 'Oficio Salida': 'Oficio'}" >
-                                <h:outputText value="#{notificacion.oficioSalida}"/>
+                        <p:dataTable id="notificationsTbl" 
+                                     value="#{commonUserNotificationMB.viewNots}" 
+                                     paginator="#{commonUserNotificationMB.viewNots != null and commonUserNotificationMB.viewNots.size() gt 7}"
+                                     rows="7"
+                                     rowKey="#{notification.title}+#{notification.usertype}"
+                                     selection="#{commonUserNotificationMB.selected}"
+                                     var="notification">
+                            <p:column selectionMode="multiple" 
+                                      style="width: 16px;text-align: center;"/>
+                            <p:column headerText="Title" >
+                                <h:outputText value="#{notification.title}"/>
                             </p:column>
-                            <p:column headerText="Expediente">
-                                <h:outputText value="#{notificacion.expediente}"/>
+                            <p:column headerText="PC">
+                                <h:outputText value="#{notification.pc}"/>
                             </p:column>
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{notificacion.fechaMovimiento}" ><f:convertDateTime pattern="yyyy/MM/dd HH:mm" /></h:outputText>
+                            <p:column headerText="Relación">
+                                <p:selectOneMenu value="#{notification.usertype}" required="true">
+                                    <f:selectItem itemLabel="Elige una" itemValue=""/>
+                                    <f:selectItems value="#{commonUserNotificationMB.relations}" 
+                                                   var="relation" 
+                                                   itemLabel="#{relation.parte}" 
+                                                   itemValue="#{relation.codRelacion}"/>
+                                </p:selectOneMenu>
                             </p:column>
-                            <p:column headerText="Descripción">
-                                <h:outputText value="#{notificacion.descripcion}"/>
-                            </p:column>
-                            <p:column headerText="Tipo">
-                                <h:outputText value="#{notificacion.tipoSolicitud}"/>
-                            </p:column>
-                            <p:column headerText="#{sessionScope['area']=='20' ? 'Registro': 'Número de concesión'}">
-                                <h:outputText value="#{notificacion.registro}"/>
-                            </p:column>
-                            <p:column headerText="#{sessionScope['area']=='20' ? 'Interesado': 'Solicitante'}">
-                                <h:outputText value="#{notificacion.titular}"/>
-                            </p:column>
-                            <p:column headerText="#{sessionScope['area']=='20' ? 'Denominacion': 'Titulo de la invención'}">
-                                <h:outputText value="#{notificacion.denominacion}"/>
+                            <p:column headerText="Autorizó">
+                                <h:outputText value="#{notification.authorizedBy}"/>
                             </p:column>
                         </p:dataTable>
                         <center>
-                            <h:panelGrid columns="2" style="width: 200px;">
-                                <p:commandButton value="Eliminar" actionListener="#{cargaNotificacionMB.eliminarNotSeleccionadas}" update="notificationsForm:tableArchivos notificationsForm:msgErrors"/>
-                                <p:commandButton value="Eliminar todos" actionListener="#{cargaNotificacionMB.eliminarTodasNot}" update="notificationsForm:tableArchivos notificationsForm:msgErrors"/>
+                            <h:panelGrid columns="1" 
+                                         style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
+                                <p:commandButton value="Generar forma" 
+                                                 actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}"
+                                                 update="documentDlg"
+                                                 oncomplete="previewDlg.show();"
+                                                 style="float: right;"/>
                             </h:panelGrid>
                         </center>
                         <br/>
                     </p:panel>
-                    
-
-
-
 
                 </h:panelGrid>
             </p:panel>
+            
+            <p:outputPanel id="preview">
+                <p:dialog id="documentDlg" header="Vista previa" widgetVar="previewDlg" resizable="false">
+                    <p:ajax event="close" listener="#{commonUserNotificationMB.deleteDocument}"/>
+                    <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}#{commonUserNotificationMB.documentName}" width="850px" height="550px"/>
+                </p:dialog>
+            </p:outputPanel>
         </h:form>
     </ui:define>
     

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a89d6c72-8527-442e-b156-60d84d863673">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="106"/>
+	<parameter name="fullName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="rfc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="fullAddress" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="pc" class="java.lang.String"/>
+	<field name="userTypeDescription" class="java.lang.String"/>
+	<field name="authorizedBy" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="270">
+			<staticText>
+				<reportElement uuid="0ddf65d3-d042-4265-92cb-141eb3677c84" x="32" y="79" width="272" height="33"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN DIVISIONAL DE PROTECCIÓN
+A LA PROPIEDAD INTELECTUAL]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="c333d716-2b44-42f6-8156-7195fdbf1e85" x="428" y="8" width="100" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f7121186-2a0a-418f-858b-6c5bdc99e4f9" x="32" y="129" width="146" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS GENERALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a334575-d1d4-473c-9965-f034153b0a78" x="32" y="154" width="61" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c33f9643-022d-4941-b30f-3d078a1d941c" x="32" y="174" width="51" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[R F.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="851753c8-457f-4ab0-99e4-e725b5023842" x="32" y="194" width="132" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[Correo electrónico: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1f1e117-6ec8-4e09-b22c-9f4f52fab7f8" x="32" y="214" width="61" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[Domicilio: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="039415d3-0b30-41cd-ba60-463c7503ef8e" x="106" y="154" width="422" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb212911-2e44-465a-8fd4-ffd27f66ddf4" x="106" y="174" width="198" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rfc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e347b167-8656-4bb5-a27f-6448f0ce82cb" x="178" y="194" width="350" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2dccda58-bab1-4b92-944c-2896719b02b9" x="106" y="214" width="422" height="46"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fullAddress}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d78c5676-c4dc-4e8b-88ea-07dfac792257" x="32" y="8" width="219" height="50"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement uuid="48a972bf-36c7-4378-b927-43ce14884661" x="32" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b96e8bb-29f7-49b4-9a21-b2a0cb48d609" x="152" y="0" width="172" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="00dd88d9-74d8-47cf-929d-7072d5776905" x="342" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d0aef3f-572d-4ba9-9769-a7c22696e2cf" x="465" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autorizó]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24">
+			<textField>
+				<reportElement uuid="f02d1b4c-d478-4c77-87ca-1951fc48d06f" x="32" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dfd62c9e-46e3-4093-b740-b1902d0b7b34" x="152" y="0" width="172" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="e5add6b0-b50a-4594-a485-44a2e29c889a" x="342" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{userTypeDescription}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="0f11a07e-60e2-4a30-a82c-e1edd268f616" x="465" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{authorizedBy} == null || $F{authorizedBy}.trim().equals("") || $F{authorizedBy}.trim().equals("null"))? "-": $F{authorizedBy}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="63bc22f8-f2c1-4901-9857-b8b14157e11d" x="0" y="0" width="555" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Arenal No. 550, Col. Pueblo de Santa María Tepepan, Del. Xochimilco, C.P.16020, México, D.F.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="df5376a5-beff-4aae-b3ce-3fc90aaee2c3" x="0" y="10" width="555" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Tel. (55) 53 34 07 00   www.impi.gob.mx]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="274">
+			<staticText>
+				<reportElement uuid="1a527a03-addc-48ee-8d1f-b4d1b2a21fc0" x="219" y="122" width="123" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A T E N T A M E N T E]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18d1c9e9-0253-4792-82c2-fe074a2d0b3f" x="0" y="233" width="555" height="37"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Para concluir con su trámite le solicitamos amablemente que la presente forma sea entregada en la oficialía de partes de la Dirección Divisional de Protección a la Propiedad Intelectual, para que dicha Dirección Divisional realice el trámite que en derecho corresponda. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d0b0520-c3e8-426c-82de-ef0871f648dc" x="0" y="18" width="555" height="38"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[De conformidad con la facultad que me otorga el artículo 35 de Ley Federal de Procedimiento Administrativo, solicito que las actuaciones derivadas de la sustanciación de los procedimientos enlistados sean notificadas vía comunicación web.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da3a0ded-61f0-4f88-a568-36a2a3353e7c" x="6" y="56" width="191" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL FIRMANTE MANIFIESTA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b061355a-893e-4926-84bf-51f71e84e609" x="0" y="76" width="555" height="36"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Asumo la responsabilidad por el uso de mi nombre de usuario, contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se atribuirá como mi firma electrónica la que se plasme al momento de firmas las notificaciones que reciba.]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f7ce5cc2-518f-404b-903e-26e266a89801" x="118" y="195" width="318" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fullName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

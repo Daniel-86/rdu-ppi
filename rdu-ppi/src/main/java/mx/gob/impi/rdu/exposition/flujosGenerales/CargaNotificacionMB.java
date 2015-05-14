@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -40,6 +41,8 @@ import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
@@ -400,13 +403,6 @@ public class CargaNotificacionMB {
         return result;
     }
     
-    public boolean existeNotificacion(List<NotificacionView> notificacionesView, KfContenedores kfconte) {
-        boolean result = false;
-        for(NotificacionView notView: notificacionesView) 
-            if(notView.getOficioSalida().equals(kfconte.getTitle())) {result = true; break;}
-        return result;
-    }
-
     public void enviarNotificaciones() {
         logger.info("Total de notificaciones: " + notificacionesSelected.length);
         if (notificacionesSelected != null && notificacionesSelected.length > 0) {
@@ -579,52 +575,6 @@ public class CargaNotificacionMB {
 
     public void setMostrarResumen(boolean mostrarResumen) {
         this.mostrarResumen = mostrarResumen;
-    }
-    
-    public String findRecord() {
-        String msgError = "";
-        List<Notification> currentNotifications = null;
-        Notification requested = null;
-        NotificacionView notView = new NotificacionView();
-        List<KfContenedores> dummyList = null;
-        KfContenedores record = null;
-        
-        if(isAlreadyPresent(notificacionesView, codbarrasAcuerdo))
-            msgError = "El expediente con título " + this.codbarrasAcuerdo + " ya está cargado en la tabla";
-        else if(this.codbarrasAcuerdo != null && !this.codbarrasAcuerdo.isEmpty() && validarCodbarrasSigappi(this.codbarrasAcuerdo)) {
-//            currentNotifications = (List<Notification>) flujosgralesViewService.findAllByUser(1234567891L);
-            dummyList = flujosgralesViewService.selectKfContenedoresByTitle(this.codbarrasAcuerdo);
-            if(dummyList != null && dummyList.size() > 0) {
-                try {
-                    record = dummyList.get(0);
-                    notView.setOficioSalida(record.getTitle());
-                    notView.setExpediente(record.getPerson());
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-                    notView.setFechaMovimiento(dateFormat.parse(record.getFecha()));
-                    notView.setDenominacion(record.getDescription());
-                    notView.setTitular(record.getServidor());
-                    notificacionesView.add(notView);
-                } catch (ParseException ex) {
-                    java.util.logging.Logger.getLogger(CargaNotificacionMB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else
-                msgError = "Expediente no encontrado";
-//            requested = flujosgralesViewService.findByTitle(this.codbarrasAcuerdo);
-        }
-        return msgError;
-    }
-    
-    
-    public boolean isAlreadyPresent(List<NotificacionView> notificacionesView, String id) {
-        boolean result = false;
-        for (NotificacionView notView : notificacionesView) {
-            if (notView.getOficioSalida().equals(id)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
     }
     
 }

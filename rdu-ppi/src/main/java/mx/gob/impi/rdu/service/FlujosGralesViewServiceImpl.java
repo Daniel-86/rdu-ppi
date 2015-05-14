@@ -975,6 +975,20 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario) {
         return this.rduFlujosGeneralesRemot.selectUsuariosSigappiByCveUsuario(cveUsuario); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<TiposRelacion> listTiposRelacion() {
+        return this.rduFlujosGeneralesRemot.listTiposRelacion();
+    }
     
+    @Override
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return this.rduFlujosGeneralesRemot.selectSolicitudInteresadosByCodInteresadoAndSecuencia(codInteresado, secuencia);
+    }
+
+    @Override
+    public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
+        return this.rduFlujosGeneralesRemot.updateNotificationSubscription(title, codInteresado, secuencia);
+    }
 
 }

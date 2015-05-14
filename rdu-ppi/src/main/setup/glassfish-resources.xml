@@ -2,34 +2,34 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolIngresos">
-      <property name="User" value="ingresos"></property>
-      <property name="password" value="ingresos"></property>
-      <property name="url" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="User" value="ingresos"></property>
+        <property name="password" value="ingresos"></property>
+        <property name="url" value="jdbc:oracle:thin:@192.168.10.146:1521:DESA"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolPase">
-      <property name="User" value="impi"></property>
-      <property name="Password" value="rduing"></property>
-      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="User" value="impi"></property>
+        <property name="Password" value="impi"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:DESA"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolRdusit">
-      <property name="User" value="rducit"></property>
-      <property name="Password" value="RduCit2015$"></property>
-      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="User" value="rducit"></property>
+        <property name="Password" value="RduCit2015$"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolRduppi">
-      <property name="User" value="rduppi"></property>
-      <property name="Password" value="RduPpi2015$"></property>
-      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="User" value="rduppi"></property>
+        <property name="Password" value="RduPpi2015$"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolSagpat">
-      <property name="User" value="RPATENTESDU"></property>
-      <property name="Password" value="rpatente$du"></property>
-      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:desa"></property>
+        <property name="User" value="RPATENTESDU"></property>
+        <property name="Password" value="rpatente$du"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:desa"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolSigmar">
-      <property name="User" value="rdumar"></property>
-      <property name="Password" value="rdumar"></property>
-      <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:IMPIC"></property>
+        <property name="User" value="rdumar"></property>
+        <property name="Password" value="rdumar"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:IMPIC"></property>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" pool-name="poolIngresos" jndi-name="jdbc/ingresos" object-type="user" ></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolPase" jndi-name="jdbc/pase" object-type="user"></jdbc-resource>
@@ -38,39 +38,39 @@
     <jdbc-resource enabled="true" pool-name="poolSagpat" jndi-name="jdbc/sagpat" object-type="user"></jdbc-resource>
     <jdbc-resource enabled="true" pool-name="poolSigmar" jndi-name="jdbc/sigmar" object-type="user"></jdbc-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.calculoTarifasRDU" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="https://rduqa.impi.gob.mx:8443/seimpi/action/calculoTarifasRDU"></property>
+        <property name="value" value="https://rduqa.impi.gob.mx:8443/seimpi/action/calculoTarifasRDU"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.regresaPagPrpal.url" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="https://rduqa.impi.gob.mx:8443/seimpi/action/w_DespliegueContenidoCarrito?FEPS="></property>
+        <property name="value" value="https://rduqa.impi.gob.mx:8443/seimpi/action/w_DespliegueContenidoCarrito?FEPS="></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.salir.url" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="https://localhost:443/seimpi/action/pagPrpalMensajesRDU"></property>
+        <property name="value" value="https://localhost:443/seimpi/action/pagPrpalMensajesRDU"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.salirPase.url" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="http://localhost:8080/rdu-ppi/content/restricted/include/salir.faces"></property>
+        <property name="value" value="http://localhost:8080/rdu-ppi/content/restricted/include/salir.faces"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="action.ambienteProduccion" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="0"></property>
+        <property name="value" value="0"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="idPromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="30192"></property>
+        <property name="value" value="30192"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="nombrePromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="JUAN"></property>
+        <property name="value" value="JUAN"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="aPaternoPromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="HERNANDEZ"></property>
+        <property name="value" value="HERNANDEZ"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="aMaternoPromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="REYES"></property>
+        <property name="value" value="REYES"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="emailPromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="blanca@algo.com"></property>
+        <property name="value" value="blanca@algo.com"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="idPerfilPromovente" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="1"></property>
+        <property name="value" value="1"></property>
     </custom-resource>
     <custom-resource res-type="java.lang.String" jndi-name="idArea" factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory">
-      <property name="value" value="40"></property>
+        <property name="value" value="40"></property>
     </custom-resource>
 </resources>

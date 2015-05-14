@@ -54,4 +54,10 @@ public interface RduSigappiService {
     
     int insert(UsuariosSigappi usuariosSigappi);
     
+    List<TiposRelacion> listTiposRelacion();
+    
+    List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia);
+    
+    int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia);
+    
 }

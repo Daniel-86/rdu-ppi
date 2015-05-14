@@ -662,4 +662,16 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
         return rduSigappiService.insert(usuariosSigappi); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public List<TiposRelacion> listTiposRelacion() {
+        return rduSigappiService.listTiposRelacion();
+    }
+    
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return rduSigappiService.selectSolicitudInteresadosByCodInteresadoAndSecuencia(codInteresado, secuencia);
+    }
+    
+    public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
+        return rduSigappiService.updateNotificationSubscription(title, codInteresado, secuencia);
+    }
+    
 }

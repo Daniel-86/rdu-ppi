@@ -50,4 +50,21 @@
         WHERE TITLE = #{title,jdbcType=VARCHAR}  
         AND SECUENCIA=999
     </select>
+    
+    <select id="findByUserAndSequence" parameterType="map" resultMap="BaseResultMap">
+        SELECT TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO
+        FROM SOLICITUD_INTERESADOS
+        WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
+        AND SECUENCIA = #{secuencia,jdbcType=DECIMAL}
+    </select>
+    <update id="updateSequence" parameterType="map">
+        UPDATE SOLICITUD_INTERESADOS
+        SET SECUENCIA = #{secuencia,jdbcType=DECIMAL}
+        WHERE TITLE = #{title,jdbcType=VARCHAR} AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}
+    </update>
 </mapper>

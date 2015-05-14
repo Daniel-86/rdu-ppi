@@ -196,9 +196,12 @@ public interface FlujosGralesViewService {
     int insert(SolicitudInteresados solicitudInteresados);
     public List<SolicitudInteresados> selectSolicitudInteresadosByTitle(String title);
     public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresado(Integer codInteresado);
+    public List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia);
+    public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia);
     
     int insert(TiposRelacion tiposRelacion);
     public List<TiposRelacion> selectTiposRelacionByCodRelacion(Integer codRelacion);
+    public List<TiposRelacion> listTiposRelacion();
     
     int insert(UsuariosSigappi usuariosSigappi);
     public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
