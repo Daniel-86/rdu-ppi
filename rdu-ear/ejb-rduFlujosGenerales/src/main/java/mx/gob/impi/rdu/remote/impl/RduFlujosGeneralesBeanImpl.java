@@ -503,6 +503,10 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
     public List<Notificacion>getNotificacionesUserLoad(Integer idUserLoad, Integer promovente){
         return this.rduNotificacionesService.getNotificacionesUserLoad(idUserLoad, promovente);
     }
+    
+    public List<Notificacion>getNotificacionesTitular(String titular, Integer promovente){
+        return this.rduNotificacionesService.getNotificacionesTitular(titular, promovente);
+    }
 
     public Firma obternerFirmaByExpediente(Long expediente, String expedienteSat){
         return this.rduFirmaService.obternerFirmaByExpediente(expediente, expedienteSat);

@@ -60,6 +60,10 @@ public class RduNotificacionesServiceImpl implements RduNotificacionesService {
     public List<Notificacion> getNotificacionesUserLoad(Integer idUsuario, Integer promovente) {
         return rduNotificacionMapper.selectByIdUsuarioCarga(idUsuario, promovente);
     }
+    
+    public List<Notificacion> getNotificacionesTitular(String titutar, Integer promovente) {
+        return rduNotificacionMapper.selectByTitular(titutar, promovente);
+    }
 
     public Notificacion selectNotificacionesById(Integer idNotificacion) {
         return rduNotificacionMapper.selectByPrimaryKey(idNotificacion);

@@ -17,6 +17,18 @@ public class UsuariosSigappi implements Serializable {
     private String impresora;
     private Integer cvePerfil;
 
+    public UsuariosSigappi() {
+    }
+
+    
+    
+    public UsuariosSigappi(String cveUsuario, String nombre) {
+        this.cveUsuario = cveUsuario;
+        this.nombre = nombre;
+    }
+
+    
+    
     public String getCveUsuario() {
         return cveUsuario;
     }

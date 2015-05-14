@@ -25,6 +25,7 @@ public interface RduNotificacionesService {
     Notificacion selectNotificacionesById(Integer idNotificacion);
     
     List<Notificacion>getNotificacionesUserLoad(Integer usuariaCarga, Integer promovente);
+    List<Notificacion>getNotificacionesTitular(String titular, Integer promovente);
         
     List<Notificacion> selectNotificacionesByIds(List<Integer> cadenaIds);
     

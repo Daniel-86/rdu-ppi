@@ -174,6 +174,8 @@ public interface RduFlujosGeneralesBean {
     public List<Notificacion> selectNotificacionesByIds(List<Integer> cadenaIds);
 
     public List<Notificacion> getNotificacionesUserLoad(Integer idUserLoad, Integer promovente);
+    
+    public List<Notificacion> getNotificacionesTitular(String titular, Integer promovente);
 
     public List<Notificacion> getNotificacionesByDate(String fechaInicio, String fechaFin, Integer ultimaSemana, Integer ultimoMes, Integer idUsuarioFirmante);
 
