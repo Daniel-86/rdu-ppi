@@ -4,12 +4,12 @@
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolIngresos">
         <property name="User" value="ingresos"></property>
         <property name="password" value="ingresos"></property>
-        <property name="url" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="url" value="jdbc:oracle:thin:@192.168.10.146:1521:DESA"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolPase">
         <property name="User" value="impi"></property>
-        <property name="Password" value="rduing"></property>
-        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:impic"></property>
+        <property name="Password" value="impi"></property>
+        <property name="URL" value="jdbc:oracle:thin:@192.168.10.146:1521:DESA"></property>
     </jdbc-connection-pool>
     <jdbc-connection-pool driver-classname="" datasource-classname="oracle.jdbc.pool.OracleDataSource" res-type="javax.sql.DataSource" name="poolRdusit">
         <property name="User" value="rducit"></property>
