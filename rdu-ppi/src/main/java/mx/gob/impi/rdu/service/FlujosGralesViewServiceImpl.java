@@ -586,6 +586,10 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     public List<Notificacion> getNotificacionesUserLoad(Integer idUserLoad, Integer coordinador) {
         return this.rduFlujosGeneralesRemot.getNotificacionesUserLoad(idUserLoad, coordinador);
     }
+    
+    public List<Notificacion> getNotificacionesTitular(String titular, Integer coordinador) {
+        return this.rduFlujosGeneralesRemot.getNotificacionesTitular(titular, coordinador);
+    }
 
     public Long saveFirmaNotificacion(NotificacionFirma firma) {
         return this.rduFlujosGeneralesRemot.saveNotificacionFirma(firma);

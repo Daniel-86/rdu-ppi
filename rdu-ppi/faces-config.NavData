@@ -2,43 +2,43 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="content/common/authentication/pagina-test.xhtml" x="1150" y="450" zoom="true"/>
-        <Node id="content/common/exception/ErrorViewExpired.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="content/restricted/doc-preparacion/testOcultarComponentes.xhtml" x="1900" y="150" zoom="true"/>
-        <Node id="content/common/authentication/invalid-session.xhtml" x="900" y="450" zoom="true"/>
-        <Node id="content/restricted/include/datosSolicitante.xhtml" x="1650" y="300" zoom="true"/>
-        <Node id="content/restricted/include/domicilioNotificacion.xhtml" x="2150" y="150" zoom="true"/>
-        <Node id="content/common/authentication/registerUser.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="content/templates/partes/Header.xhtml" x="150" y="750" zoom="true"/>
         <Node id="content/common/authentication/forgotPassword.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="content/common/authentication/login.xhtml" x="650" y="600" zoom="true"/>
-        <Node id="content/restricted/marcas/establecimiento.xhtml" x="900" y="750" zoom="true"/>
-        <Node id="content/restricted/include/datosFirmante.xhtml" x="650" y="750" zoom="true"/>
-        <Node id="content/restricted/usuarios/usuariosInt.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="content/common/authentication/access-denied.xhtml" x="1400" y="150" zoom="true"/>
-        <Node id="content/common/exception/ServerError.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="content/restricted/include/buscarNumero.xhtml" x="1400" y="450" zoom="true"/>
-        <Node id="content/common/authentication/restorePassword.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="index_2.xhtml" x="400" y="750" zoom="true"/>
-        <Node id="content/templates/partes/Menu.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="content/common/authentication/top.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="content/common/authentication/loginerror.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="content/restricted/include/domicilio.xhtml" x="900" y="600" zoom="true"/>
-        <Node id="content/common/exception/PageNotFound.xhtml" x="650" y="450" zoom="true"/>
-        <Node id="content/templates/partes/Metadts.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="content/templates/PlainTemplate.xhtml" x="400" y="450" zoom="true"/>
         <Node id="content/restricted/marcas/prioridad.xhtml" x="150" y="1050" zoom="true"/>
-        <Node id="content/restricted/include/redireccionar.xhtml" x="400" y="1050" zoom="true"/>
-        <Node id="content/restricted/marcas/capturaSolicitudSignosDistintivos.xhtml" x="1400" y="300" zoom="true"/>
-        <Node id="content/restricted/generales/detalleAnexos.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="content/restricted/usuarios/usuariosInt.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="content/templates/partes/Menu.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="content/restricted/include/buscarNumero.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="content/templates/PlainTemplate.xhtml" x="400" y="450" zoom="true"/>
         <Node id="content/restricted/usuarios/usuarios.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="content/restricted/include/datosContactar.xhtml" x="1150" y="600" zoom="true"/>
-        <Node id="content/common/exception/ErrorTemplate.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="content/restricted/doc-preparacion/documentosPreparacion.xhtml" x="150" y="1200" zoom="true"/>
-        <Node id="content/restricted/include/anexos.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="content/restricted/include/domicilioNotificacion.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="content/common/authentication/access-denied.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="content/restricted/generales/detalleAnexos.xhtml" x="650" y="900" zoom="true"/>
         <Node id="content/restricted/include/agregarNumero.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="content/common/authentication/top.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="content/common/exception/PageNotFound.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="content/common/authentication/registerUser.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="content/common/exception/ErrorTemplate.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="content/templates/partes/Header.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="content/common/exception/ServerError.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="content/restricted/marcas/capturaSolicitudSignosDistintivos.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="content/restricted/include/datosContactar.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="index.xhtml" x="650" y="150" zoom="true"/>
         <Node id="content/templates/partes/Footer.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="content/common/exception/ErrorViewExpired.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="content/common/authentication/pagina-test.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="content/restricted/include/anexos.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="content/restricted/include/redireccionar.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="content/restricted/include/datosSolicitante.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="content/restricted/doc-preparacion/testOcultarComponentes.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="content/restricted/doc-preparacion/documentosPreparacion.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="content/restricted/include/domicilio.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="content/common/authentication/loginerror.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="index_2.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="content/templates/partes/Metadts.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="content/restricted/include/datosFirmante.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="content/common/authentication/login.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="content/common/authentication/invalid-session.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="content/common/authentication/restorePassword.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="content/restricted/marcas/establecimiento.xhtml" x="900" y="750" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

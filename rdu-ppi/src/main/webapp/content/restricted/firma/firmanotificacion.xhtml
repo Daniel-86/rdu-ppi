@@ -20,12 +20,12 @@
             <p:panel>
                 <h:panelGrid columns="4" style="width:90%;text-align: left;" >
                     <h:outputText value="Examinador:"/>
-                    <p:selectOneMenu id="tipoSolictudselect" value="#{firmaNotificacionMB.idTipoTramite}"
+                    <p:selectOneMenu id="tipoSolictudselect" value="#{firmaNotificacionMB.titular}"
                                      >
-                        <f:selectItems value="#{firmaNotificacionMB.filtrosTipoTramite}"
+                        <f:selectItems value="#{firmaNotificacionMB.filtrosUsuariosSigappi}"
                                        var="renglon"
                                        itemLabel="#{renglon.nombre}"
-                                       itemValue="#{renglon.idPromovente}"  />
+                                       itemValue="#{renglon.cveUsuario}"  />
                         <p:ajax listener="#{firmaNotificacionMB.tipoSolictudselect_changeValue}" update="multiCars formaFirma:pnlResumen"/>
                     </p:selectOneMenu>
                     <h:outputText value="Filtro:"/>
@@ -81,6 +81,12 @@
                         <p:commandLink id="downloadLink" value="Ver" ajax="false">  
                             <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(notf.idNotificacion)}" update="forma" />  
                     </p:commandLink> 
+                    </p:column>
+                    
+                    <p:column headerText="PDF">
+                        <p:commandLink id="downloadLink1" actionListener="#{firmaNotificacionMB.getFileDownload(notf.idNotificacion)}" oncomplete="reporteDialog.show();" update="vistaPrevia">  
+                         <p:graphicImage value="#{notf.folio==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
+                              </p:commandLink> 
                     </p:column>
                     <p:column headerText="Analista">
                         <h:outputText value="#{notf.titular}"/>
@@ -186,6 +192,13 @@
                             <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(fm.idNotificacion)}" update="forma" />  
                     </p:commandLink> 
                     </p:column>
+                    <p:column style="text-align: center; width:60px;"  headerText="PDF">
+                                        
+                        <p:commandLink id="downloadArchivo" disabled="#{fm.idNotificacion==null ? false:true}" action="#{firmaNotificacionMB.getFileDownload(fm.idNotificacion)}" 
+                                       oncomplete="reporteDialog.show();" update="vistaPrevia">
+                            <p:graphicImage value="#{fm.idNotificacion==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
+                            </p:commandLink>
+                    </p:column>
                     <p:column headerText="Analista">
                         <h:outputText value="#{fm.titular}"/>
                     </p:column>
@@ -195,7 +208,14 @@
                 </p:dataTable>
             </p:panel>
 
-            
+            <p:outputPanel id="vistaPrevia">
+                <p:dialog id="reporteDialog" header="Vista Previa" widgetVar="reporteDialog" resizable="false" modal="true" 
+                          position="center top" rendered="true"   onShow="document.getElementById('iframeFile').src='#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarReporte';">
+                    <h:panelGrid >
+                        <iframe id="iframeFile" src="" width="850px" height="550px"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </p:outputPanel>
            
         </h:form>
 

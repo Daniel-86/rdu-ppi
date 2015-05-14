@@ -6,10 +6,11 @@ package mx.gob.impi.rdu.exposition.flujosGenerales;
 
 import com.mx.impi.vidoc.contenedor.webservice.*;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -33,6 +34,7 @@ import mx.gob.impi.rdu.service.FlujosGralesViewService;
 import mx.gob.impi.rdu.service.FlujosGralesViewServiceImpl;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.rdu.util.FileServicesUtil;
+import mx.gob.impi.rdu.util.PerfilEnumeration;
 import mx.gob.impi.rdu.util.Util;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
@@ -78,6 +80,8 @@ public class CargaNotificacionMB {
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
     
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    
 
     @PostConstruct
     public void init() {
@@ -88,7 +92,8 @@ public class CargaNotificacionMB {
 //        if (usuarioCarga.getId_perfil() == 22 || usuarioCarga.getId_perfil() == 42) {
             idArea = new Integer((String) session.getAttribute("area"));
             notificacionDM = new NotificacionViewDM(notificacionesView);
-            promoventes = flujosgralesViewService.selectPromoventeByPerfil(obtenerPromovente(obtSession).getId_perfil() + 1);
+            //promoventes = flujosgralesViewService.selectPromoventeByPerfil(obtenerPromovente(obtSession).getId_perfil() + 1);
+            promoventes = flujosgralesViewService.selectPromoventeByPerfil(Integer.parseInt(PerfilEnumeration.ROLE_COORDINADOR_PPI.getIdPerfil()));
             promoventes.add(flujosgralesViewService.buscaPromovente(Long.parseLong("30023")));
             if (promoventes != null && !promoventes.isEmpty()) {
                 BeanUtils.copyProperties(promoventes.get(0), promoventeSelected);
@@ -157,6 +162,25 @@ public class CargaNotificacionMB {
     StreamedContent file = new DefaultStreamedContent(is, "application/pdf", name);
     return file;
 }
+    
+    public String getFileDownloadByte(byte[] file) throws IOException {
+    
+    
+        InputStream stream = null; 
+        ByteArrayOutputStream outStream=null;
+        session.removeAttribute("reporteStream");
+        
+
+        if(file!=null){
+                stream = new ByteArrayInputStream(file);
+                outStream = new ByteArrayOutputStream();
+                outStream.write(file);
+                session.setAttribute("reporteStream", outStream);
+            
+        }
+        return null;
+    }
+
 
     public void cancelarArchivo() {
         nombreArchivos = "";

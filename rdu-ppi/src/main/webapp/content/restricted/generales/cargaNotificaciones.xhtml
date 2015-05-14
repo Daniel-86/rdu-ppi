@@ -69,9 +69,15 @@
                     </p:column>
                     <p:column headerText="Archivo">
                         <p:commandLink id="downloadLink" value="Ver" ajax="false">  
-                            <p:fileDownload value="#{cargaNotificacionMB.descargaArchivo(notificacion.archivo,notificacion.oficioSalida)}" update="forma" />  
+                            <p:fileDownload value="#{cargaNotificacionMB.descargaArchivo(notificacion.archivo,notificacion.oficioSalida)}"  />  
                     </p:commandLink> 
                     </p:column>
+                    <p:column headerText="PDF">
+                        <p:commandLink id="downloadLink1" actionListener="#{cargaNotificacionMB.getFileDownloadByte(notificacion.archivo)}" oncomplete="reporteDialog.show();" update="vistaPrevia">  
+                         <p:graphicImage value="#{notificacion.oficioSalida==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
+                              </p:commandLink> 
+                    </p:column>
+                   
                     <p:column headerText="Analista">
                         <h:outputText value="#{notificacion.titular}"/>
                     </p:column>
@@ -89,7 +95,7 @@
                         <h:outputText value="Enviar a:"/>
                         <p:selectOneMenu value="#{cargaNotificacionMB.promoventeSelected.idPromovente}">
                             <f:selectItems value="#{cargaNotificacionMB.promoventes}" var="promovente"
-                                           itemLabel="#{promovente.nombre}" itemValue="#{promovente.idPromovente}"/>
+                                           itemLabel="#{promovente.nombre} #{promovente.apaterno} #{promovente.amaterno}" itemValue="#{promovente.idPromovente}"/>
                             <p:ajax listener="#{cargaNotificacionMB.overrideNombreCoordinador_select}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="Enviar" update="forma:confirmarDialog" oncomplete="confirmarDialog.show();"/>
@@ -131,6 +137,12 @@
                         <p:commandLink id="downloadLink" value="Ver" ajax="false">  
                             <p:fileDownload value="#{cargaNotificacionMB.descargaArchivo(notificacion.archivo,notificacion.oficioSalida)}" update="forma"/>  
                     </p:commandLink> 
+                        
+                    </p:column>
+                    <p:column headerText="PDF">
+                        <p:commandLink id="downloadLink2" actionListener="#{cargaNotificacionMB.getFileDownloadByte(notificacion.archivo)}" oncomplete="reporteDialog.show();" update="vistaPrevia">  
+                         <p:graphicImage value="#{notificacion.oficioSalida==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
+                              </p:commandLink> 
                     </p:column>
                     <p:column headerText="Analista">
                         <h:outputText value="#{notificacion.titular}"/>
@@ -143,7 +155,15 @@
                     <p:commandButton value="Si" actionListener="#{cargaNotificacionMB.enviarNotificaciones}" rendered="#{cargaNotificacionMB.lengthOfArray>0}"
                                      oncomplete="confirmarDialog.hide();" update="forma"/>
                     <p:commandButton value="No" onclick="confirmarDialog.hide();" rendered="#{cargaNotificacionMB.lengthOfArray>0}"/></center>
-            </p:dialog>            
+            </p:dialog>  
+             <p:outputPanel id="vistaPrevia">
+                 <p:dialog id="reporteDialog" header="Vista Previa" widgetVar="reporteDialog" resizable="true" modal="true" 
+                          position="center top" rendered="true" onShow="document.getElementById('iframeFile').src='#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/MostrarReporte';">
+                    <h:panelGrid >
+                        <iframe id="iframeFile" src="" width="850px" height="550px"/>
+                    </h:panelGrid>
+                </p:dialog>
+            </p:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

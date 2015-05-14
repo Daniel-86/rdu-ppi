@@ -62,6 +62,7 @@ public interface FlujosGralesViewService {
     public int copiarSolicitudEnSagpat(TramitePatente patente, int pages);
     
     public List<Notificacion> getNotificacionesUserLoad(Integer idUserLoad, Integer promovente);
+    public List<Notificacion> getNotificacionesTitular(String titular, Integer promovente);
 
     public int insertarAlertas(SisAlerta alerta);
 

@@ -6,6 +6,7 @@ package mx.gob.impi.rdu.exposition.firma;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -88,11 +91,16 @@ public class FirmaNotificacionMB implements Serializable {
     private Boolean success = false;
     private String folios = "";
     private int idTipoTramite = 0;
+    private String titular="";
     private Date fechaInicio;
     private Date fechaFin;
+    private List<String> titulares = new ArrayList<>();
     private List<Promovente> filtrosTipoTramite = new ArrayList<Promovente>();
+    private List<UsuariosSigappi> filtrosUsuariosSigappi = new ArrayList<UsuariosSigappi>();
     private Logger lger = Logger.getLogger(this.getClass().getName());
     private List<FiltroTablero> filtrosExtras = new ArrayList<FiltroTablero>();
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    
 
     public List<Promovente> getFiltrosTipoTramite() {
         return filtrosTipoTramite;
@@ -102,12 +110,28 @@ public class FirmaNotificacionMB implements Serializable {
         this.filtrosTipoTramite = filtrosTipoTramite;
     }
 
+    public List<UsuariosSigappi> getFiltrosUsuariosSigappi() {
+        return filtrosUsuariosSigappi;
+    }
+
+    public void setFiltrosUsuariosSigappi(List<UsuariosSigappi> filtrosUsuariosSigappi) {
+        this.filtrosUsuariosSigappi = filtrosUsuariosSigappi;
+    }
+
     public int getIdTipoTramite() {
         return idTipoTramite;
     }
 
     public void setIdTipoTramite(int idTipoTramite) {
         this.idTipoTramite = idTipoTramite;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
     }
 
     public Boolean getMostrarRango() {
@@ -177,6 +201,63 @@ public StreamedContent descargaArchivo(int idNotificacion) {
     }
     return file;
 }
+
+public String getFileDownload(int idNotificacion) throws IOException {
+    
+    Notificacion notTmp=this.flujosgralesViewService.selectNotificacionesById(idNotificacion);
+        InputStream stream = null;
+//      cambios voista previa        
+        ByteArrayOutputStream outStream=null;
+//        forma.setRenderedVistaPrevia(true);
+        session.removeAttribute("reporteStream");
+        
+        Util utilArch = new Util();
+
+        if(notTmp!=null){
+                stream = new ByteArrayInputStream(notTmp.getArchivo());
+//              Prueba Visualizar archivo  -----------
+                //outStream = new ByteArrayOutputStream(anexoSelected.getArchivoAnexo().length);
+                outStream = new ByteArrayOutputStream();
+//                int read;
+//                while((read = stream.read(anexoSelected.getArchivoAnexo())) >= 0)
+//                {
+//                    outStream.write(anexoSelected.getArchivoAnexo(), 0, read);
+//                }
+//                outStream.flush();
+                outStream.write(notTmp.getArchivo());
+                session.setAttribute("reporteStream", outStream);
+               // vistaPrevia = true;
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                context.execute("reporteDialog.show();");
+////                ----------------
+//                MimeType mType = utilArch.extractMime(anexoSelected.getExtension());
+//                String sMime = mType.getMime();
+//                String sNmDownload = anexoSelected.getNombreArchivo();
+//                file = new DefaultStreamedContent(stream, sMime, sNmDownload);
+            
+        }
+        return null;
+    }
+    
+public String getFileDownloadByte(byte[] file) throws IOException {
+    
+    
+        InputStream stream = null; 
+        ByteArrayOutputStream outStream=null;
+        session.removeAttribute("reporteStream");
+        
+
+        if(file!=null){
+                stream = new ByteArrayInputStream(file);
+                outStream = new ByteArrayOutputStream();
+                outStream.write(file);
+                session.setAttribute("reporteStream", outStream);
+            
+        }
+        return null;
+    }
+
+
     public String guardaFirma() {
         this.success = false;
 
@@ -327,7 +408,8 @@ public StreamedContent descargaArchivo(int idNotificacion) {
         session.removeAttribute("reporteStream");
         GenerarReporte repps = new GenerarReporte();
 
-        ReporteNotificacionAcuseDto deno = new ReporteNotificacionAcuseDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
+        //ReporteNotificacionAcuseDto deno = new ReporteNotificacionAcuseDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
+        ReporteNotificacionAcuseCoordinadorDto deno = new ReporteNotificacionAcuseCoordinadorDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
         //byt= repps.eliminarPagina(/*Metodo para crear la marca de agua*/ repps.crearMarcaAgua(/*Metodo para concatenar los pdfs*/repps.generaRepporte(request.getRealPath("") + "/content/reportes/impi_transRegimen.jasper", deno)), 1);
         byt = repps.generaRepporte(request.getRealPath("") + "/content/reportes/impi_notificacion.jasper", deno);
         //byt = new ByteArrayOutputStream(19);
@@ -379,7 +461,7 @@ public StreamedContent descargaArchivo(int idNotificacion) {
             allNotificaciones = this.flujosgralesViewService.selectNotificacionesByDates(simpleDateFormat.format(fechaInicio), simpleDateFormat.format(fechaFin), null, null, this.idPromovente);
 
             //Unir la tabla notificaciones con la tabla promoventes
-            this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+            this.setNombreExaminador(allNotificaciones); //, filtrosTipoTramite);
 
             mediumCarsModel = new NotificacionDataModel(allNotificaciones);
         }
@@ -436,23 +518,27 @@ public StreamedContent descargaArchivo(int idNotificacion) {
             this.mostrarRango = true;
         }
 
-
+        this.setNombreExaminador(allNotificaciones); 
 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -7);
 
         //2 ultimo mes
         c.add(Calendar.DAY_OF_MONTH, -31);
+        
     }
 
     public void tipoSolictudselect_changeValue() {//buscar por tipo de persona +++++++++++++++++++
         this.success = false;
         mostrarResumen = false;
-        if (this.idTipoTramite != 0) {
+        if (this.titular != null && titular.length()>0) {
 
-            //Unir la tabla notificaciones con la tabla promoventes
-            allNotificaciones = flujosgralesViewService.getNotificacionesUserLoad(this.idTipoTramite, this.idPromovente);
-            this.setNombreExaminador(allNotificaciones, filtrosTipoTramite);
+            if(this.titular.equals("000")){
+                allNotificaciones = this.flujosgralesViewService.consultarNotificaciones(this.idPromovente);
+            }else{
+                allNotificaciones = flujosgralesViewService.getNotificacionesTitular(this.titular, this.idPromovente);
+            }
+            this.setNombreExaminador(allNotificaciones);//, filtrosTipoTramite);
 
             mediumCarsModel = new NotificacionDataModel(allNotificaciones);
         }
@@ -472,8 +558,23 @@ public StreamedContent descargaArchivo(int idNotificacion) {
     }
     public void setNombreExaminador(List<Notificacion> notificaciones) {
         for (Notificacion notificacion : notificaciones) {
-            String examinador=!this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).isEmpty()?this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).get(0).getNombre():"";
+            String examinador="";
+            if(notificacion.getTitular()!=null){
+                titulares.add(notificacion.getTitular());
+                examinador=!this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).isEmpty()?this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(notificacion.getTitular()).get(0).getNombre():"";
+            }
             notificacion.setNombreExaminador(examinador);
+        }
+        Set<String> hs = new HashSet<>();
+        hs.addAll(titulares);
+        titulares.clear();
+        titulares.addAll(hs);
+        filtrosUsuariosSigappi.clear();
+        filtrosUsuariosSigappi.add(new UsuariosSigappi("000", "Mostrar Todos..."));
+        for(String titular1: titulares){
+            UsuariosSigappi usuario = this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(titular1).get(0);
+            if(usuario!=null)
+                filtrosUsuariosSigappi.add(usuario);
         }
 
     }

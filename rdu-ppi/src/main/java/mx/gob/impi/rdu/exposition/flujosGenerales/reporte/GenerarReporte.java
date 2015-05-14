@@ -376,6 +376,18 @@ public class GenerarReporte {
                 //Falta condicion
                 //streamReporteGenerado = this.eliminarPagina(streamReporteGenerado, 2);
             }
+            if (reporte instanceof ReporteNotificacionAcuseCoordinadorDto) {
+                ReporteNotificacionAcuseCoordinadorDto reporteRenovacionDto = (ReporteNotificacionAcuseCoordinadorDto) reporte;
+                List<ReporteNotificacionAcuseCoordinadorDto> renovacion = new ArrayList<ReporteNotificacionAcuseCoordinadorDto>();
+                renovacion.add(reporteRenovacionDto);
+                jasperPrint = JasperFillManager.fillReport(pathFile, null, new JRBeanCollectionDataSource(renovacion));
+                JRExporter jasperExport = new JRPdfExporter();
+                jasperExport.setParameter(JRExporterParameter.OUTPUT_STREAM, streamReporteGenerado);
+                jasperExport.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                jasperExport.exportReport();
+                //Falta condicion
+                //streamReporteGenerado = this.eliminarPagina(streamReporteGenerado, 2);
+            }
             
         } catch (Exception e) {
             e.printStackTrace();
