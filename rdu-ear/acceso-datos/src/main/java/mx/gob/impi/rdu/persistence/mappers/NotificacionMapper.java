@@ -20,6 +20,7 @@ public interface NotificacionMapper {
     int updateByPrimaryKey(Notificacion record);
 
     List<Notificacion> selectByIdUsuarioCarga(@Param("idUsuarioCarga") Integer idUsuarioCarga,@Param("idUsuarioFirma") Integer idUsuarioFirma); 
+    List<Notificacion> selectByTitular(@Param("titular") String titular,@Param("idUsuarioFirma") Integer idUsuarioFirma); 
     
     List<Notificacion> selectByIdUsuarioFirma(Integer idUsuarioFirma);
     

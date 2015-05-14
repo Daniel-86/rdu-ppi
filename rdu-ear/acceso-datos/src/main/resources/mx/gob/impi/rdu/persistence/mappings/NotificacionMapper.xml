@@ -13,7 +13,7 @@
         <result column="EXPEDIENTE" property="expediente" jdbcType="VARCHAR" />
         <result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
         <result column="DENOMINACION" property="denominacion" jdbcType="VARCHAR" />
-        <result column="ID_ESTATUS" property="titular" jdbcType="DECIMAL" />
+        <result column="TITULAR" property="titular" jdbcType="DECIMAL" />
         <result column="ID_AREA" property="idArea" jdbcType="VARCHAR" />
     </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="mx.gob.impi.rdu.persistence.model.Notificacion" extends="BaseResultMap" >
@@ -91,6 +91,24 @@
         ID_AREA
         from NOTIFICACION
         where ID_USUARIO_CARGA = #{idUsuarioCarga,jdbcType=DECIMAL} and ID_ESTATUS=3 and ID_ACTIVO != 0
+        and ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL} 
+    </select>
+    
+     <select id="selectByTitular" resultMap="ResultMapWithBLOBs"  >
+        select
+        ID_NOTIFICACION,
+        FOLIO,
+        ID_USUARIO_CARGA,
+        FECHA_CARGA,
+        ID_USUARIO_FIRMA,
+        ARCHIVO_NOMBRE,
+        EXPEDIENTE,
+        DESCRIPCION,
+        DENOMINACION,
+        TITULAR,
+        ID_AREA
+        from NOTIFICACION
+        where TITULAR = #{titular,jdbcType=VARCHAR} and ID_ESTATUS=3 and ID_ACTIVO != 0
         and ID_USUARIO_FIRMA = #{idUsuarioFirma,jdbcType=DECIMAL} 
     </select>
     
