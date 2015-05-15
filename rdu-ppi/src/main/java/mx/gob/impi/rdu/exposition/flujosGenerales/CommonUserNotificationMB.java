@@ -43,12 +43,14 @@ public class CommonUserNotificationMB {
     public static enum ID_TYPE {
         TITLE, PC, UNKNOWN
     }
+
     private static final String TITLE_PATTERN = "PI/[A-Z]{1}/[0-9]{4}/[0-9]{6}";
     private static final String PC_PATTERN = "[A-Z.]+\\d+/\\d{4}\\([A-Z](-\\d+)?\\)\\d+";
     
     private String searchedTitle;
     private List<SolicitudInteresados> persistedAndSubscribed;
     private List<Notification> viewNots;
+    private List<Notification> viewNotsCanceled;
     private PromoventeDto requestingUser;
     private Integer relationType;
     private Notification[] selected;
@@ -60,6 +62,14 @@ public class CommonUserNotificationMB {
     
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
+    
+    public List<Notification> getViewNotsCanceled() {
+        return viewNotsCanceled;
+    }
+
+    public void setViewNotsCanceled(List<Notification> viewNotsCanceled) {
+        this.viewNotsCanceled = viewNotsCanceled;
+    }
 
     public List<Notification> getViewNots() {
         return viewNots;
@@ -129,14 +139,15 @@ public class CommonUserNotificationMB {
         }
 
         persistedNoSubscribed = flujosgralesViewService.selectSolicitudInteresadosByCodInteresadoAndSecuencia(requestingUser.getId_promovente(), 0);
-//            selectedN = (Notification[]) viewNots.toArray();
+        viewNotsCanceled = buildNotsFromSols(new ArrayList(persistedNoSubscribed));
+            
         relations = flujosgralesViewService.listTiposRelacion();
     }
     
     public void findRecord() {
 
         String msgError = "";
-        Notification requested;
+        Notification requested = null;
         List<KfContenedores> dummyList = null;
         KfContenedores record;
 
@@ -144,24 +155,38 @@ public class CommonUserNotificationMB {
             msgError = "El expediente con título o PC " + searchedTitle + " ya está cargado en la tabla";
         } else if (searchedTitle != null && !searchedTitle.isEmpty() && isValidId(searchedTitle)) {
             ID_TYPE idType = idTypeIs(searchedTitle);
-            if(idType == ID_TYPE.TITLE)
-                dummyList = flujosgralesViewService.selectKfContenedoresByTitle(searchedTitle);
-            else if(idType == ID_TYPE.PC)
-                dummyList = flujosgralesViewService.selectKfContenedoresByPC(searchedTitle);
-            if (dummyList != null && dummyList.size() > 0) {
-                requested = new Notification();
-                record = dummyList.get(0);
-
-                requested.setTitle(record.getTitle());
-                requested.setPc(record.getPerson());
-                requested.setUserId(requestingUser.getId_promovente());
-                requested.setUsertype(relationType);
-                requested.setLastUpdated(new Date());
-
-                viewNots.add(requested);
-            } else {
-                msgError = "Expediente no encontrado";
+            if(isAlreadyPresent(viewNotsCanceled, searchedTitle)) {
+                for(Notification n: viewNotsCanceled) {
+                    if(((idType == ID_TYPE.TITLE && n.getTitle().equals(searchedTitle)) 
+                            || (idType == ID_TYPE.PC && n.getPc().equals(searchedTitle)))
+                            && n.getUserId() == requestingUser.getId_promovente()) {
+                        requested = n;
+                        break;
+                    }
+                }
             }
+            else {
+                if (idType == ID_TYPE.TITLE) {
+                    dummyList = flujosgralesViewService.selectKfContenedoresByTitle(searchedTitle);
+                } else if (idType == ID_TYPE.PC) {
+                    dummyList = flujosgralesViewService.selectKfContenedoresByPC(searchedTitle);
+                }
+                if (dummyList != null && dummyList.size() > 0) {
+                    requested = new Notification();
+                    record = dummyList.get(0);
+
+                    requested.setTitle(record.getTitle());
+                    requested.setPc(record.getPerson());
+                    requested.setUserId(requestingUser.getId_promovente());
+                    requested.setUsertype(relationType);
+                    requested.setLastUpdated(new Date());
+
+                } else {
+                    msgError = "Expediente no encontrado";
+                }
+            }
+            if(requested != null) 
+                viewNots.add(requested);
         } else {
             msgError = "El ID " + this.searchedTitle + " no es valido";
         }
@@ -185,10 +210,18 @@ public class CommonUserNotificationMB {
     public void updateNotificationsPrefs() {
         List<SolicitudInteresados> notsInView = buildFromView(viewNots);
         List<SolicitudInteresados> notsToPersist = new ArrayList<>();
-        List<SolicitudInteresados> notsToUpdate = new ArrayList<>();
+        List<SolicitudInteresados> notsToCancel = new ArrayList<>();
+        List<SolicitudInteresados> notsToSubscribe = new ArrayList<>();
+        List<SolicitudInteresados> subscribedNoChange = new ArrayList<>(persistedAndSubscribed);
+        List<SolicitudInteresados> unsubscribedNoChange = new ArrayList<>(persistedNoSubscribed);
+        List<SolicitudInteresados> totalPersisted = new ArrayList<>(persistedAndSubscribed);
+        totalPersisted.addAll(persistedNoSubscribed);
+        
+        searchedTitle = "";
         for (SolicitudInteresados noti : notsInView) {
             boolean isPersisted = false;
             boolean isSelected = false;
+            boolean isSubscribed = false;
             for (Notification n : selected) {
                 if ((n.getTitle() == null ? n.getTitle() == null : n.getTitle().equals(noti.getTitle())) 
                         && Objects.equals(n.getUserId(), noti.getCodInteresado())) {
@@ -196,36 +229,58 @@ public class CommonUserNotificationMB {
                     break;
                 }
             }
-            for (SolicitudInteresados pers : persistedAndSubscribed) {
+            for (SolicitudInteresados pers : totalPersisted) {
                 if ((pers.getTitle() == null ? noti.getTitle() == null : pers.getTitle().equals(noti.getTitle())) 
                         && Objects.equals(pers.getCodInteresado(), noti.getCodInteresado())) {
                     isPersisted = true;
+                    if(noti.getSecuencia() == 999)
+                        isSubscribed = true;
                     break;
                 }
             }
             if (!isPersisted && isSelected) {
                 notsToPersist.add(noti);
             }
-            if (isPersisted && !isSelected) {
+            if(isPersisted && isSelected && !isSubscribed) {
+                noti.setSecuencia(999);
+                notsToSubscribe.add(noti);
+            }
+            if (isPersisted && !isSelected && isSubscribed) {
                 noti.setSecuencia(0);
-                notsToUpdate.add(noti);
+                notsToCancel.add(noti);
             }
         }
-//        notsToPersist.removeAll(persisted);
+        
         for (SolicitudInteresados n : notsToPersist) {
             flujosgralesViewService.insert(n);
         }
         persistedAndSubscribed.addAll(notsToPersist);
         
-        for(SolicitudInteresados n: notsToUpdate) {
+        for(SolicitudInteresados n: notsToCancel) {
             flujosgralesViewService.updateNotificationSubscription(n.getTitle(), requestingUser.getId_promovente(), 0);
-            persistedAndSubscribed.remove(n);
+            for(SolicitudInteresados s: subscribedNoChange) {
+                if(s.getTitle().equals(n.getTitle()) && Objects.equals(s.getCodInteresado(), n.getCodInteresado()))
+                    persistedAndSubscribed.remove(s);
+            }
         }
-        persistedNoSubscribed.addAll(notsToUpdate);
+        persistedNoSubscribed.addAll(notsToCancel);
         
-        String basura = "para poner un breakpoint";
+        for(SolicitudInteresados n: notsToSubscribe) {
+            flujosgralesViewService.updateNotificationSubscription(n.getTitle(), requestingUser.getId_promovente(), 999);
+            for(SolicitudInteresados s: unsubscribedNoChange) {
+                if (s.getTitle().equals(n.getTitle()) && Objects.equals(s.getCodInteresado(), n.getCodInteresado()))
+                    persistedNoSubscribed.remove(s);
+            }
+        }
+        persistedAndSubscribed.addAll(notsToSubscribe);
         
-        generateDocument();
+        viewNots = buildNotsFromSols(persistedAndSubscribed);
+        viewNotsCanceled = buildNotsFromSols(persistedNoSubscribed);
+        
+        if(viewNots.size() > 0)
+            generateDocument();
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No tienes suscripciones a expedientes"));
     }
 
     private List<SolicitudInteresados> buildFromView(List<Notification> viewNotifications) {
@@ -236,7 +291,7 @@ public class CommonUserNotificationMB {
             noti.setTitle(n.getTitle());
             noti.setCodInteresado(requestingUser.getId_promovente());
             noti.setFechaModificacion(new Date());
-            noti.setSecuencia(999);
+            noti.setSecuencia(n.getSequence());
             noti.setCodRelacion(n.getUsertype());
             noti.setCveUsuario(n.getAuthorizedBy());
 
@@ -263,37 +318,8 @@ public class CommonUserNotificationMB {
         return viewNotifications;
     }
     
-    public void dropSelected() {
-        if (selected != null && selected.length > 0) {
-            for (Notification notView : selected) {
-                viewNots.remove(notView);
-            }
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Eliminacion correcta"));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay archivos seleccionados"));
-        }
-    }
-
-    public void dropAll() {
-        if (selected!= null && selected.length > 0) {
-            viewNots.clear();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Eliminacion correcta"));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay archivos seleccionados"));
-        }
-    }
-    
     public PromoventeDto obtenerPromovente(SesionRDU obtSession) {
-        if (null != obtSession) {
-            PromoventeDto promovente = obtSession.getPromovente();
-            if (promovente != null) {
-                return promovente;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+        return (null != obtSession? obtSession.getPromovente(): null);
     }
 
     private void generateDocument() {
@@ -306,6 +332,8 @@ public class CommonUserNotificationMB {
         parameters.put("rfc", requestingUser.getRfc());
         parameters.put("email", requestingUser.getEmail());
         parameters.put("fullAddress", getFullAddress());
+        parameters.put("username", getUsername());
+        parameters.put("userId", getUserId());
         
         JRBeanCollectionDataSource notifications = new JRBeanCollectionDataSource(viewNots);
         
@@ -365,9 +393,17 @@ public class CommonUserNotificationMB {
     }
     
     public String getFullContact() {
-        String fullContact = (isEmptyString(requestingUser.getEmail())? "": "Email: " + requestingUser.getEmail())
-                + (isEmptyString(requestingUser.getTelefono())? "": " Teléfono: " + requestingUser.getTelefono())
-                + (isEmptyString(requestingUser.getFax())? "": " Fax: " + requestingUser.getFax());
+        String fullContact = (isEmptyString(requestingUser.getEmail())? "": "<strong>Email: </strong>" + requestingUser.getEmail())
+                + (isEmptyString(requestingUser.getTelefono())? "": " <strong>Teléfono: </strong>" + requestingUser.getTelefono())
+                + (isEmptyString(requestingUser.getFax())? "": " <strong>Fax: </strong>" + requestingUser.getFax());
         return fullContact;
+    }
+    
+    public String getUsername() {
+        return requestingUser.getLogin();
+    }
+    
+    public Integer getUserId() {
+        return requestingUser.getId_promovente();
     }
 }

@@ -14,10 +14,11 @@
                     
                     <p:panel header="Datos personales">
                         <strong>Nombre: </strong><h:outputText value="#{commonUserNotificationMB.getFullName()}"/>
-                        <strong>RFC: </strong><h:outputText value="${commonUserNotificationMB.getRFC()}"/>
-                        <h3>Contacto </h3><h:outputText value="#{commonUserNotificationMB.getFullContact()}"/>
+                        <strong>RFC: </strong><h:outputText value="#{commonUserNotificationMB.getRFC()}"/>
+                        <span style="float: right;"><strong><h:outputText value="#{commonUserNotificationMB.getUsername()}"/></strong> - <strong><h:outputText value="#{commonUserNotificationMB.getUserId()}"/></strong></span>
+                        <h3>Contacto </h3><h:outputText escape="false" value="#{commonUserNotificationMB.getFullContact()}"/>
                         <h3>Domicilio</h3>
-                        <h:outputText value="${commonUserNotificationMB.getFullAddress()}"/>
+                        <h:outputText value="#{commonUserNotificationMB.getFullAddress()}"/>
                     </p:panel> 
 
                     <p:messages id="messages" showDetail="true" autoUpdate="true"/>
@@ -41,18 +42,18 @@
                                      var="notification">
                             <p:column selectionMode="multiple" 
                                       style="width: 16px;text-align: center;"/>
-                            <p:column headerText="Title" >
+                            <p:column headerText="Expediente" >
                                 <h:outputText value="#{notification.title}"/>
                             </p:column>
                             <p:column headerText="PC">
                                 <h:outputText value="#{notification.pc}"/>
                             </p:column>
-                            <p:column headerText="Relación">
+                            <p:column headerText="Interesado">
                                 <p:selectOneMenu value="#{notification.usertype}" required="true">
                                     <f:selectItem itemLabel="Elige una" itemValue=""/>
                                     <f:selectItems value="#{commonUserNotificationMB.relations}" 
                                                    var="relation" 
-                                                   itemLabel="#{relation.parte}" 
+                                                   itemLabel="#{relation.parte} - #{relation.codRelacion}" 
                                                    itemValue="#{relation.codRelacion}"/>
                                 </p:selectOneMenu>
                             </p:column>
@@ -65,13 +66,36 @@
                                          style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
                                 <p:commandButton value="Generar forma" 
                                                  actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}"
-                                                 update="documentDlg"
+                                                 update="notificationsForm"
                                                  oncomplete="previewDlg.show();"
                                                  style="float: right;"/>
                             </h:panelGrid>
                         </center>
                         <br/>
                     </p:panel>
+                    
+                    <p:accordionPanel activeIndex="" rendered="#{commonUserNotificationMB.viewNotsCanceled.size() gt 0}">
+                        <p:tab title="Suscripciones canceladas (#{commonUserNotificationMB.viewNotsCanceled.size()})">
+                            <p:dataTable id="notificationsCanceledTbl" 
+                                         value="#{commonUserNotificationMB.viewNotsCanceled}" 
+                                         paginator="#{commonUserNotificationMB.viewNotsCanceled != null and commonUserNotificationMB.viewNotsCanceled.size() gt 7}"
+                                         rows="7"
+                                         var="notification">
+                                <p:column headerText="Expediente" >
+                                    <h:outputText value="#{notification.title}"/>
+                                </p:column>
+                                <p:column headerText="PC">
+                                    <h:outputText value="#{notification.pc}"/>
+                                </p:column>
+                                <p:column headerText="Interesado">
+                                    <h:outputText value="#{notification.userTypeDescription}"/>
+                                </p:column>
+                                <p:column headerText="Autorizó">
+                                    <h:outputText value="#{notification.authorizedBy}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:accordionPanel>
 
                 </h:panelGrid>
             </p:panel>
