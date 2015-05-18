@@ -7,6 +7,11 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     
     <ui:define name="content">
+        <style>
+            .visible {
+                display: none;
+            }
+        </style>
         <h:form id="notificationsForm">
             <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
             <p:panel>
@@ -53,6 +58,13 @@
                             </p:column>
                             <p:column headerText="Interesado">
                                 <h:outputText value="#{notification.userTypeDescription}" rendered="#{notification.persisted}"/>
+                                <p:panel id="hoverPanel" styleClass="hoverPanel" style="background-color: transparent !important;" rendered="false">
+                                    <h:outputText value="#{notification.userTypeDescription}" rendered="#{notification.persisted}"/>
+                                    <p:commandButton value="add" 
+                                                     id="addUsertype" 
+                                                     styleClass="btnUsertype visible" 
+                                                     actionListener="#{commonUserNotificationMB.addNotification(notification.title)}"/>
+                                </p:panel>
                                 <p:selectOneMenu value="#{notification.usertype}" required="true" rendered="#{!notification.persisted}">
                                     <f:selectItem itemLabel="Elige una" itemValue="#{null}"/>
                                     <f:selectItems value="#{commonUserNotificationMB.relations}" 
@@ -144,6 +156,13 @@
                     if("#{commonUserNotificationMB.generateDoc}" == 'true')
                         previewDlg.show();
                 }
+                
+                $('.hoverPanel').hover(
+                    function() {
+                        console.log("estoy en el panel");
+                        $(this).find('.btnUsertype').toggleClass('visible');
+                    }
+                );
             </h:outputScript>
         </h:form>
     </ui:define>

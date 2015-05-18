@@ -179,17 +179,14 @@ public class CommonUserNotificationMB {
         List<KfContenedores> dummyList = null;
         KfContenedores record;
 
-        if (isAlreadyPresent(viewNots, searchedTitle)) {
-            msgError = "El expediente con título o PC " + searchedTitle + " ya está cargado en la tabla";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", msgError));
-        } else if (searchedTitle != null && !searchedTitle.isEmpty() && isValidId(searchedTitle)) {
+        if (searchedTitle != null && !searchedTitle.isEmpty() && isValidId(searchedTitle)) {
             ID_TYPE idType = idTypeIs(searchedTitle);
             if(isAlreadyPresent(viewNotsCanceled, searchedTitle)) {
                 for(Notification n: viewNotsCanceled) {
                     if(((idType == ID_TYPE.TITLE && n.getTitle().equals(searchedTitle)) 
                             || (idType == ID_TYPE.PC && n.getPc().equals(searchedTitle)))
                             && n.getUserId() == requestingUser.getId_promovente()) {
-                        requested = n;
+                        requested = new Notification(n);
                         break;
                     }
                 }
@@ -262,7 +259,8 @@ public class CommonUserNotificationMB {
             boolean isAuthorized = false;
             for (Notification n : selected) {
                 if ((n.getTitle() == null ? n.getTitle() == null : n.getTitle().equals(noti.getTitle())) 
-                        && Objects.equals(n.getUserId(), noti.getCodInteresado())) {
+                        && Objects.equals(n.getUserId(), noti.getCodInteresado()) 
+                        && n.getUsertype().equals(noti.getCodRelacion())) {
                     isSelected = true;
                     break;
                 }
@@ -532,5 +530,9 @@ public class CommonUserNotificationMB {
     
     public boolean existDocument() {
         return (persistedAndSubscribed != null && persistedAndSubscribed.size() > 0);
+    }
+    
+    public void addNotification(String s) {
+        
     }
 }

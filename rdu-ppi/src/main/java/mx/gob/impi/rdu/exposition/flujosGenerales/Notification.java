@@ -29,19 +29,15 @@ public class Notification {
     public boolean isPersisted() {
         return persisted;
     }
-
     public void setPersisted(boolean isPersisted) {
         this.persisted = isPersisted;
     }
-
     public String getUserTypeDescription() {
         return userTypeDescription;
     }
-
     public void setUserTypeDescription(String userTypeDescription) {
         this.userTypeDescription = userTypeDescription;
     }
-    
     public String getTitle() {return title;}
     public String getPc() {return pc;}
     public Integer getUserId() {return userId;}
@@ -58,4 +54,14 @@ public class Notification {
     public void setLastUpdated(Date date) {lastUpdated = date;}
     public void setSequence(Integer s) {sequence = s;}
     public void setAuthorizedBy(String person) {authorizedBy = person;}
+    
+    Notification(Notification n) {
+        title = n.title;
+        userId = n.userId;
+        pc = n.pc;
+    }
+    
+    Notification() {
+        
+    }
 }
