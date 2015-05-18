@@ -21,9 +21,18 @@ public class Notification {
     private UserType userType = UserType.COMMON;
     private Integer usertype;
     private Date lastUpdated;
-    private Integer sequence = 999;
+    private Integer sequence = -999;
     private String authorizedBy = null;
     private String userTypeDescription;
+    private boolean persisted = false;
+
+    public boolean isPersisted() {
+        return persisted;
+    }
+
+    public void setPersisted(boolean isPersisted) {
+        this.persisted = isPersisted;
+    }
 
     public String getUserTypeDescription() {
         return userTypeDescription;
