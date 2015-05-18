@@ -21,7 +21,7 @@
         #{codInteresado,jdbcType=DECIMAL},
         #{codRelacion,jdbcType=DECIMAL},
         sysdate,
-        999,
+        -999,
         NULL
         )
     </insert>
