@@ -6,6 +6,7 @@
 package mx.gob.impi.rdu.exposition.flujosGenerales;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -63,5 +64,25 @@ public class Notification {
     
     Notification() {
         
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Notification) {
+            Notification n = (Notification) o;
+            return (this.title.equals(n.getTitle())
+                    && this.userId.equals(n.getUserId())
+                    && this.usertype.equals(n.getUsertype()));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.title);
+        hash = 37 * hash + Objects.hashCode(this.userId);
+        hash = 37 * hash + Objects.hashCode(this.usertype);
+        return hash;
     }
 }

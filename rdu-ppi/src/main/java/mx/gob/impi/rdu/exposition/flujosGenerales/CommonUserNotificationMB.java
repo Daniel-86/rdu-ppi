@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import mx.gob.impi.rdu.dto.PromoventeDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
 import mx.gob.impi.rdu.service.FlujosGralesViewServiceImpl;
+import mx.gob.impi.rdu.service.MailService;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
@@ -75,6 +76,13 @@ public class CommonUserNotificationMB {
     
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
+    
+    @ManagedProperty(value = "#{mailService}")
+    private MailService mailService;
+
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
     
     public boolean isGenerateDoc() {
         return generateDoc;
@@ -186,7 +194,7 @@ public class CommonUserNotificationMB {
                     if(((idType == ID_TYPE.TITLE && n.getTitle().equals(searchedTitle)) 
                             || (idType == ID_TYPE.PC && n.getPc().equals(searchedTitle)))
                             && n.getUserId() == requestingUser.getId_promovente()) {
-                        requested = new Notification(n);
+                        requested = viewNots.contains(n)? new Notification(n): n;
                         break;
                     }
                 }
@@ -534,5 +542,24 @@ public class CommonUserNotificationMB {
     
     public void addNotification(String s) {
         
+    }
+    
+    public void emailDocument() {
+        HashMap properties = new HashMap();
+        String [] to = {"exoskeletol@gmail.com", "exoskeletol@outlook.com"};
+//        properties.put("to", "exoskeletol@gmail.com");
+        properties.put("to", to);
+        List filePaths = new ArrayList();
+        filePaths.add(basePath + documentName);
+        filePaths.add(basePath + "/historial.pdf");
+//        properties.put("file", basePath + documentName);
+        properties.put("files", filePaths);
+        try {
+            mailService.sendMail(properties);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, null, "Se te ha enviado el documento por email"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, ex.getMessage()));
+        }
     }
 }

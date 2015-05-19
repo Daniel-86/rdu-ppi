@@ -28,7 +28,7 @@
                         <h:outputText value="#{commonUserNotificationMB.getFullAddress().toUpperCase()}"/>
                     </p:panel> 
 
-                    <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                    <p:messages id="messages" showDetail="true" redisplay="false"/>
                     <p:panel>
                         <center>
                             <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
@@ -77,6 +77,9 @@
                                 <h:outputText value="#{notification.authorizedBy}"/>
                             </p:column>
                         </p:dataTable>
+                        <p>* Desmarca las casillas de los expedientes de los que ya no quieres recibir notificaciones.</p>
+                        <p>* Selecciona las notificaciones a eliminar.</p>
+                        <p>** Solo se pueden eliminar y cancelar las notificaciones que han sido autorizadas.</p>
                         <center>
                             <h:panelGrid columns="1" 
                                          style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
@@ -142,11 +145,19 @@
                     <h:panelGrid columns="1">
                         <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}#{commonUserNotificationMB.documentName}" 
                                 width="850px" height="550px"/>
-                        <p:commandButton 
-                            value ="Descargar archivo" 
-                            action="#{commonUserNotificationMB.downloadFile()}" 
-                            ajax="false" 
-                            style="float: left;"/>
+                        <p:messages id="messagesDlg" showDetail="true"/>
+                        <h:panelGroup>
+                            <p:commandButton 
+                                value="Descargar archivo" 
+                                action="#{commonUserNotificationMB.downloadFile()}" 
+                                ajax="false" 
+                                style="float: left;"/>
+                            <p:commandButton
+                                value="Enviar por correo"
+                                action="#{commonUserNotificationMB.emailDocument()}"
+                                update="messagesDlg"
+                                style="float: left; padding: 4px;"/>
+                        </h:panelGroup>
                     </h:panelGrid>
                 </p:dialog>
             </p:outputPanel>
