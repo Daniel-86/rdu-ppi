@@ -5,11 +5,17 @@
 package mx.gob.impi.sigappi.service;
 
 import java.util.List;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 
@@ -21,6 +27,8 @@ public interface RduSigappiService {
 
    
     List<KffoliosNotificacion> selectByOficioSalida(String codbarras);
+    
+    List<KffoliosNotificacion>  selectANotificarByCodInteresado(Integer codInteresado);
     
     int insert(KffoliosNotificacion kffoliosNotificacion);
     
@@ -59,5 +67,19 @@ public interface RduSigappiService {
     List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia);
     
     int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia);
+    
+    
+    List<Anexo> selectAnexoByCodbarras(String codbarras);
+    
+    List<Area> selectAreaByCveArea(Integer cveArea);
+    
+    List<DerechosAsociados> selectDerechosAsociadosByTitle(String title);
+    
+    List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura);
+    
+    List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado);
+    
+    List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria,Integer division,Integer seccion);
+    
     
 }

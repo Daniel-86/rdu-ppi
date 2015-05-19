@@ -121,4 +121,8 @@ public class RduNotificacionesServiceImpl implements RduNotificacionesService {
 //    public int insertSelective(KffoliosNotificacion kffoliosNotificacion) {
 //        return this.kffoliosNotificacionMapper.insertSelective(kffoliosNotificacion); //To change body of generated methods, choose Tools | Templates.
 //    }
+
+    public NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id) {
+        return this.notificacionFirmaMapper.selectByPrimaryKey(id); //To change body of generated methods, choose Tools | Templates.
+    }
 }

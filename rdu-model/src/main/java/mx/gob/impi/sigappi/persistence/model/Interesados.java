@@ -4,43 +4,62 @@ import mx.gob.impi.sigappi.persistence.model.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class KfAlmacenar  implements Serializable{
-    
-    private String codbarras;
-    private String title;
-    private Integer yaimportado;
-    private String title_ant;
+public class Interesados implements Serializable {
 
-    public String getCodbarras() {
-        return codbarras;
+    private Integer codInteresado;
+private String tipoPersona;
+private String nombre;
+private String codNacionalidad;
+private Date fechaModificacion;
+private String cveUsuario;
+
+    public Integer getCodInteresado() {
+        return codInteresado;
     }
 
-    public void setCodbarras(String codbarras) {
-        this.codbarras = codbarras;
+    public void setCodInteresado(Integer codInteresado) {
+        this.codInteresado = codInteresado;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTipoPersona() {
+        return tipoPersona;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTipoPersona(String tipoPersona) {
+        this.tipoPersona = tipoPersona;
     }
 
-    public Integer getYaimportado() {
-        return yaimportado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setYaimportado(Integer yaimportado) {
-        this.yaimportado = yaimportado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getTitle_ant() {
-        return title_ant;
+    public String getCodNacionalidad() {
+        return codNacionalidad;
     }
 
-    public void setTitle_ant(String title_ant) {
-        this.title_ant = title_ant;
+    public void setCodNacionalidad(String codNacionalidad) {
+        this.codNacionalidad = codNacionalidad;
     }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public String getCveUsuario() {
+        return cveUsuario;
+    }
+
+    public void setCveUsuario(String cveUsuario) {
+        this.cveUsuario = cveUsuario;
+    }
+
 
 }

@@ -29,6 +29,13 @@ import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
+
 
 public interface RduFlujosGeneralesBean {
 
@@ -170,6 +177,8 @@ public interface RduFlujosGeneralesBean {
     int updateNotificacion(Notificacion notificacion);
 
     Long saveNotificacionFirma(NotificacionFirma notifFirma);
+    
+    NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id);
 
     public List<Notificacion> selectNotificacionesByIds(List<Integer> cadenaIds);
 
@@ -180,6 +189,8 @@ public interface RduFlujosGeneralesBean {
     public List<Notificacion> getNotificacionesByDate(String fechaInicio, String fechaFin, Integer ultimaSemana, Integer ultimoMes, Integer idUsuarioFirmante);
 
     Firma obternerFirmaByExpediente(Long expediente, String expedienteSat);
+    
+    Firma selectFirmaByPrimaryKey(Long idFirma);
 
     public Notificacion getNotificacionesByFolio(String folio);
 
@@ -202,6 +213,8 @@ public interface RduFlujosGeneralesBean {
     
     // para sigappi
     List<KffoliosNotificacion> selectByOficioSalida(String codbarras);
+    
+    List<KffoliosNotificacion>  selectANotificarByCodInteresado(Integer codInteresado);
     
     int insert(KffoliosNotificacion kffoliosNotificacion);
     
@@ -242,4 +255,17 @@ public interface RduFlujosGeneralesBean {
     List<SolicitudInteresados> selectSolicitudInteresadosByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia);
     
     int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia);
+    
+    List<Anexo> selectAnexoByCodbarras(String codbarras);
+    
+    List<Area> selectAreaByCveArea(Integer cveArea);
+    
+    List<DerechosAsociados> selectDerechosAsociadosByTitle(String title);
+    
+    List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura);
+    
+    List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado);
+    
+    List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria,Integer division,Integer seccion);
+    
 }

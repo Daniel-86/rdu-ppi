@@ -57,5 +57,35 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
         <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper"/>
     </bean>
+    
+    <bean  id="anexoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.AnexoMapper"/>
+    </bean>
+    
+    <bean  id="areaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.AreaMapper"/>
+    </bean>
+    
+    <bean  id="derechosAsociadosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.DerechosAsociadosMapper"/>
+    </bean>
+    
+    <bean  id="figurasJuridicasMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.FigurasJuridicasMapper"/>
+    </bean>
+    
+    <bean  id="interesadosMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.InteresadosMapper"/>
+    </bean>
+    
+    <bean  id="tipoAnexoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper"/>
+    </bean>
  
 </beans>

@@ -4,43 +4,52 @@ import mx.gob.impi.sigappi.persistence.model.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class KfAlmacenar  implements Serializable{
-    
-    private String codbarras;
-    private String title;
-    private Integer yaimportado;
-    private String title_ant;
+public class FigurasJuridicas implements Serializable {
+private Integer numFigura;
+private String cveFigura;
+private String descripcion;
+private Integer cveDireccion;
+private String registroLey;
 
-    public String getCodbarras() {
-        return codbarras;
+    public Integer getNumFigura() {
+        return numFigura;
     }
 
-    public void setCodbarras(String codbarras) {
-        this.codbarras = codbarras;
+    public void setNumFigura(Integer numFigura) {
+        this.numFigura = numFigura;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCveFigura() {
+        return cveFigura;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCveFigura(String cveFigura) {
+        this.cveFigura = cveFigura;
     }
 
-    public Integer getYaimportado() {
-        return yaimportado;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setYaimportado(Integer yaimportado) {
-        this.yaimportado = yaimportado;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getTitle_ant() {
-        return title_ant;
+    public Integer getCveDireccion() {
+        return cveDireccion;
     }
 
-    public void setTitle_ant(String title_ant) {
-        this.title_ant = title_ant;
+    public void setCveDireccion(Integer cveDireccion) {
+        this.cveDireccion = cveDireccion;
     }
+
+    public String getRegistroLey() {
+        return registroLey;
+    }
+
+    public void setRegistroLey(String registroLey) {
+        this.registroLey = registroLey;
+    }
+
 
 }

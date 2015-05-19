@@ -215,4 +215,47 @@
         WHERE CODBARRAS = #{codbarras,jdbcType=VARCHAR} 
         
     </select>
+    
+    
+  <select id="selectANotificarByCodInteresado" parameterType="map" resultMap="BaseResultMap">
+        SELECT codbarras,			
+                                        cod_Interesado,
+                                        secuencia,
+                                        fecha_envio,
+                                        fecha_recepcion_sepomex,
+                                        fecha_notificacion,
+                                        fecha_devolucion,
+                                        tipo_entrega,
+                                        tipo_devolucion,
+                                        tipo_cedula,
+                                        tipo_status,
+                                        nombre_recibio,
+                                        cedula_identificacion,
+                                        codbarras_sepomex,
+                                        lote_sepomex,
+                                        nombre,
+                                        calle,
+                                        colonia,
+                                        cod_postal,
+                                        cve_usuario,
+                                        observaciones,
+                                        fecha_modificacion,
+                                        cod_relacion,
+                                        codbarras_notificacion,
+                                        poblacion,
+                                        estado,
+                                        cr,
+                                        referencia,
+                                        cve_usuario_envio,
+                                        ind_citatorio,
+                                        fecha_captura,
+                                        cve_usuario_capturo,
+                                        ind_notificado
+        FROM KFFOLIOS_NOTIFICACION
+        WHERE SECUENCIA=-999 
+      AND COD_INTERESADO=#{codInteresado,jdbcType=DECIMAL}
+        
+    </select>
+    
+    
 </mapper>

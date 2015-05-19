@@ -22,6 +22,21 @@ public class ReporteNotificacionAcuseCoordinadorDto {
     private String nombreArchivo;
     private FirmaDto firma;
     private Notificacion notificacion;
+    private String codbarras;
+    
+    private String actor;
+    private String demandado;
+    private String derechoInvolucrado;
+    private String PC;
+    private String traslado;
+    private String anexos;
+    private String analista;
+    private String firmante;
+    private String usuario;
+    private String area;
+    
+    
+    
 
     public ReporteNotificacionAcuseCoordinadorDto() {
         super();
@@ -42,6 +57,7 @@ public class ReporteNotificacionAcuseCoordinadorDto {
         this.setFolio(firma.getFolio());
         this.setNombreArchivo(this.notificacion.getArchivoNombre());
         this.setSelloImpi(firma.getFirmaImpi());
+        this.setFirmante(firma.getNombreFirmante());
           
     
     }
@@ -117,4 +133,94 @@ public class ReporteNotificacionAcuseCoordinadorDto {
     public void setSelloImpi(String selloImpi) {
         this.selloImpi = selloImpi;
     }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public String getDemandado() {
+        return demandado;
+    }
+
+    public void setDemandado(String demandado) {
+        this.demandado = demandado;
+    }
+
+    public String getDerechoInvolucrado() {
+        return derechoInvolucrado;
+    }
+
+    public void setDerechoInvolucrado(String derechoInvolucrado) {
+        this.derechoInvolucrado = derechoInvolucrado;
+    }
+
+    public String getPC() {
+        return PC;
+    }
+
+    public void setPC(String PC) {
+        this.PC = PC;
+    }
+
+    public String getTraslado() {
+        return traslado;
+    }
+
+    public void setTraslado(String traslado) {
+        this.traslado = traslado;
+    }
+
+    public String getAnexos() {
+        return anexos;
+    }
+
+    public void setAnexos(String anexos) {
+        this.anexos = anexos;
+    }
+
+    public String getAnalista() {
+        return analista;
+    }
+
+    public void setAnalista(String analista) {
+        this.analista = analista;
+    }
+
+    public String getFirmante() {
+        return firmante;
+    }
+
+    public void setFirmante(String firmante) {
+        this.firmante = firmante;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCodbarras() {
+        return codbarras;
+    }
+
+    public void setCodbarras(String codbarras) {
+        this.codbarras = codbarras;
+    }
+    
+    
 }

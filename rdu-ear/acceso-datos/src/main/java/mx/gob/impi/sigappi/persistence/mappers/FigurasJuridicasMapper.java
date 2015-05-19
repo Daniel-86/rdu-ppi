@@ -2,15 +2,14 @@ package mx.gob.impi.sigappi.persistence.mappers;
 
 import java.util.List;
 import mx.gob.impi.sigappi.persistence.mappers.*;
-import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
 import org.apache.ibatis.annotations.Param;
 
 
 
-public interface KfAlmacenarMapper {
-    int insert(mx.gob.impi.sigappi.persistence.model.KfAlmacenar record);
+public interface FigurasJuridicasMapper {
+    
 
     
-    List<KfAlmacenar> selectByCodbarras(@Param("codbarras")String codbarras);
-    List<KfAlmacenar> selectByTitle(@Param("title")String title);
+    List<FigurasJuridicas> selectByNumFigura(@Param("numFigura")Integer numFigura);
 }

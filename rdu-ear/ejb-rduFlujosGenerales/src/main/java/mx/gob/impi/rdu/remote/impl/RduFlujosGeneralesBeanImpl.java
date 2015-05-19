@@ -36,11 +36,17 @@ import mx.gob.impi.rdu.service.*;
 import mx.gob.impi.sigappi.service.*;
 import mx.gob.impi.rdu.util.Util;
 import mx.gob.impi.sagpat.persistence.model.Solicitud;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
@@ -512,6 +518,10 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
         return this.rduFirmaService.obternerFirmaByExpediente(expediente, expedienteSat);
     }
 
+    public Firma selectFirmaByPrimaryKey(Long idFirma) {
+        return this.rduFirmaService.selectFirmaByPrimaryKey(idFirma); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     public List<Notificacion> getNotificacionesByDate(String fechaInicio, String fechaFin, Integer ultimaSemana,Integer ultimoMes, Integer idUsuarioFirmante){
         return this.rduNotificacionesService.getNotificacionesByDate(fechaInicio, fechaFin, ultimaSemana, ultimoMes, idUsuarioFirmante);
@@ -594,6 +604,10 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
         return rduSigappiService.selectByOficioSalida(codbarras);
     }
 
+    public List<KffoliosNotificacion> selectANotificarByCodInteresado(Integer codInteresado) {
+        return rduSigappiService.selectANotificarByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public int insert(KffoliosNotificacion kffoliosNotificacion) {
         return rduSigappiService.insert(kffoliosNotificacion);
     }
@@ -673,5 +687,35 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
     public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
         return rduSigappiService.updateNotificationSubscription(title, codInteresado, secuencia);
     }
+
+    public List<Anexo> selectAnexoByCodbarras(String codbarras) {
+        return rduSigappiService.selectAnexoByCodbarras(codbarras); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Area> selectAreaByCveArea(Integer cveArea) {
+        return rduSigappiService.selectAreaByCveArea(cveArea); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<DerechosAsociados> selectDerechosAsociadosByTitle(String title) {
+        return rduSigappiService.selectDerechosAsociadosByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura) {
+        return rduSigappiService.selectFigurasJuridicasByNumFigura(numFigura); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado) {
+        return rduSigappiService.selectInteresadosByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria, Integer division, Integer seccion) {
+        return rduSigappiService.selectTipoAnexoByCategoriaDivisionSeccion(categoria, division, seccion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id) {
+        return this.rduNotificacionesService.selectNotificacionFirmaByPrimaryKey(id); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  
     
 }

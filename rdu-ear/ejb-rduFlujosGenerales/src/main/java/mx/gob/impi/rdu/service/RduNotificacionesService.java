@@ -37,6 +37,8 @@ public interface RduNotificacionesService {
     
     Long saveNotificacionFirma(NotificacionFirma notifFirma);
     
+    NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id);
+    
     public List<Notificacion> getNotificacionesByDate(String fechaInicio, String fechaFin, Integer ultimaSemana,Integer ultimoMes, Integer idUsuarioFirmante);
     
     Notificacion getNotificacionesByFolio(String folio);

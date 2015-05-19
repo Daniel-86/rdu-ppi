@@ -2,15 +2,13 @@ package mx.gob.impi.sigappi.persistence.mappers;
 
 import java.util.List;
 import mx.gob.impi.sigappi.persistence.mappers.*;
-import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
+import mx.gob.impi.sigappi.persistence.model.Area;
 import org.apache.ibatis.annotations.Param;
 
 
 
-public interface KfAlmacenarMapper {
-    int insert(mx.gob.impi.sigappi.persistence.model.KfAlmacenar record);
+public interface AreaMapper {
 
     
-    List<KfAlmacenar> selectByCodbarras(@Param("codbarras")String codbarras);
-    List<KfAlmacenar> selectByTitle(@Param("title")String title);
+    List<Area> selectByCveArea(@Param("cveArea")Integer cveArea);
 }

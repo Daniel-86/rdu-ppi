@@ -4,43 +4,45 @@ import mx.gob.impi.sigappi.persistence.model.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class KfAlmacenar  implements Serializable{
+public class TipoAnexo implements Serializable {
+
     
-    private String codbarras;
-    private String title;
-    private Integer yaimportado;
-    private String title_ant;
+    private Integer categoria;
+private Integer division;
+private Integer seccion;
+private String descripcion;
 
-    public String getCodbarras() {
-        return codbarras;
+    public Integer getCategoria() {
+        return categoria;
     }
 
-    public void setCodbarras(String codbarras) {
-        this.codbarras = codbarras;
+    public void setCategoria(Integer categoria) {
+        this.categoria = categoria;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getDivision() {
+        return division;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDivision(Integer division) {
+        this.division = division;
     }
 
-    public Integer getYaimportado() {
-        return yaimportado;
+    public Integer getSeccion() {
+        return seccion;
     }
 
-    public void setYaimportado(Integer yaimportado) {
-        this.yaimportado = yaimportado;
+    public void setSeccion(Integer seccion) {
+        this.seccion = seccion;
     }
 
-    public String getTitle_ant() {
-        return title_ant;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTitle_ant(String title_ant) {
-        this.title_ant = title_ant;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
+
 
 }

@@ -4,43 +4,44 @@ import mx.gob.impi.sigappi.persistence.model.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class KfAlmacenar  implements Serializable{
-    
-    private String codbarras;
-    private String title;
-    private Integer yaimportado;
-    private String title_ant;
+public class Area implements Serializable {
 
-    public String getCodbarras() {
-        return codbarras;
+    private Integer cveArea;
+    private String descripcion;
+    private String descrip;
+    private Integer cveAreaPadre;
+
+    public Integer getCveArea() {
+        return cveArea;
     }
 
-    public void setCodbarras(String codbarras) {
-        this.codbarras = codbarras;
+    public void setCveArea(Integer cveArea) {
+        this.cveArea = cveArea;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Integer getYaimportado() {
-        return yaimportado;
+    public String getDescrip() {
+        return descrip;
     }
 
-    public void setYaimportado(Integer yaimportado) {
-        this.yaimportado = yaimportado;
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
     }
 
-    public String getTitle_ant() {
-        return title_ant;
+    public Integer getCveAreaPadre() {
+        return cveAreaPadre;
     }
 
-    public void setTitle_ant(String title_ant) {
-        this.title_ant = title_ant;
+    public void setCveAreaPadre(Integer cveAreaPadre) {
+        this.cveAreaPadre = cveAreaPadre;
     }
+
 
 }

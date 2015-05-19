@@ -1167,4 +1167,10 @@ public class RduFirmaServiceImpl implements RduFirmaService {
     public Firma obternerFirmaByExpediente(Long expediente, String expedienteSag){
         return rduFirmaMapper.selectByExpediente(expediente, expedienteSag);
     }
+
+    public Firma selectFirmaByPrimaryKey(Long idFirma) {
+        return rduFirmaMapper.selectByPrimaryKey(idFirma); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

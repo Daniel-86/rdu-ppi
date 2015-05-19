@@ -36,7 +36,7 @@
         CVE_USUARIO
         FROM SOLICITUD_INTERESADOS
         WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL} 
-        AND SECUENCIA=999
+        
         
     </select>
     <select id="selectByTitle" parameterType="map" resultMap="BaseResultMap">
@@ -48,7 +48,7 @@
         CVE_USUARIO
         FROM SOLICITUD_INTERESADOS
         WHERE TITLE = #{title,jdbcType=VARCHAR}  
-        AND SECUENCIA=999
+        
     </select>
     
     <select id="findByUserAndSequence" parameterType="map" resultMap="BaseResultMap">

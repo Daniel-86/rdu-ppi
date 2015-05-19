@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.KfAlmacenarMapper" >
-  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.KfAlmacenar" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.AnexoMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.Anexo" >
 <result column="CODBARRAS" property="codbarras" jdbcType="VARCHAR" />
-<result column="TITLE" property="title" jdbcType="VARCHAR" />
-<result column="YAIMPORTADO" property="yaimportado" jdbcType="DECIMAL" />
-<result column="TITLE_ANT" property="title_ant" jdbcType="VARCHAR" />
+<result column="SECUENCIA" property="secuencia" jdbcType="DECIMAL" />
+<result column="CATEGORIA" property="categoria" jdbcType="DECIMAL" />
+<result column="DIVISION" property="division" jdbcType="DECIMAL" />
+<result column="SECCION" property="seccion" jdbcType="DECIMAL" />
+<result column="NUMERO" property="numero" jdbcType="VARCHAR" />
+<result column="MONTO" property="monto" jdbcType="DECIMAL" />
+<result column="ENTIDAD" property="entidad" jdbcType="VARCHAR" />
+<result column="VIGENCIA" property="vigencia" jdbcType="TIMESTAMP" />
+<result column="CODBARRAS_INTERNO" property="codbarrasInterno" jdbcType="VARCHAR" />
+<result column="FOLIO" property="folio" jdbcType="VARCHAR" />
+<result column="EXPEDICION" property="expedicion" jdbcType="TIMESTAMP" />
+<result column="IND_PUBLICIDAD" property="indPublicidad" jdbcType="DECIMAL" />
   </resultMap>
-  <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.KfAlmacenar" >
-    insert into KFALMACENAR (codbarras,
-                            title,
-                            yaimportado,
-                            title_ant)
-                values (
-                #{codbarras,jdbcType=VARCHAR},
-                #{title,jdbcType=VARCHAR},
-                #{yaimportado,jdbcType=DECIMAL},
-                #{title_ant,jdbcType=VARCHAR})
-  </insert>
+  
 
 
   <select id="selectByCodbarras" parameterType="map" resultMap="BaseResultMap">
-        SELECT codbarras,
-                title,
-                yaimportado,
-                title_ant
-        FROM KFALMACENAR
+        SELECT CODBARRAS,
+                SECUENCIA,
+                CATEGORIA,
+                DIVISION,
+                SECCION,
+                NUMERO,
+                MONTO,
+                ENTIDAD,
+                VIGENCIA,
+                CODBARRAS_INTERNO,
+                FOLIO,
+                EXPEDICION,
+                IND_PUBLICIDAD
+        FROM ANEXO
         WHERE CODBARRAS = #{codbarras,jdbcType=VARCHAR} 
         
     </select>
-     <select id="selectByTitle" parameterType="map" resultMap="BaseResultMap">
-        SELECT codbarras,
-                title,
-                yaimportado,
-                title_ant
-        FROM KFALMACENAR
-        WHERE TITLE = #{title,jdbcType=VARCHAR}  
-        
-    </select>
+     
 </mapper>

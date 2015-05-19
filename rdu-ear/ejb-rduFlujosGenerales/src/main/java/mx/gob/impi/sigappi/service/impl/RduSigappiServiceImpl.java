@@ -5,6 +5,11 @@
 package mx.gob.impi.sigappi.service.impl;
 
 import java.util.List;
+import mx.gob.impi.sigappi.persistence.mappers.AnexoMapper;
+import mx.gob.impi.sigappi.persistence.mappers.AreaMapper;
+import mx.gob.impi.sigappi.persistence.mappers.DerechosAsociadosMapper;
+import mx.gob.impi.sigappi.persistence.mappers.FigurasJuridicasMapper;
+import mx.gob.impi.sigappi.persistence.mappers.InteresadosMapper;
 import mx.gob.impi.sigappi.persistence.mappers.KfAlmacenarMapper;
 import mx.gob.impi.sigappi.persistence.mappers.KfContenedoresMapper;
 import mx.gob.impi.sigappi.persistence.mappers.KfFoliosMapper;
@@ -12,13 +17,20 @@ import mx.gob.impi.sigappi.persistence.mappers.KfFoliosMapper;
 import mx.gob.impi.sigappi.service.RduSigappiService;
 import mx.gob.impi.sigappi.persistence.mappers.KffoliosNotificacionMapper;
 import mx.gob.impi.sigappi.persistence.mappers.SolicitudInteresadosMapper;
+import mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper;
 import mx.gob.impi.sigappi.persistence.mappers.TiposRelacionMapper;
 import mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 
@@ -36,6 +48,12 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     private mx.gob.impi.sigappi.persistence.mappers.SolicitudInteresadosMapper solicitudInteresadosMapper;
     private mx.gob.impi.sigappi.persistence.mappers.TiposRelacionMapper tiposRelacionMapper;
     private mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper usuariosSigappiMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.AnexoMapper anexoMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.AreaMapper areaMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.DerechosAsociadosMapper derechosAsociadosMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.FigurasJuridicasMapper figurasJuridicasMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.InteresadosMapper interesadosMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper tipoAnexoMapper;
     
     
 
@@ -97,9 +115,61 @@ public class RduSigappiServiceImpl implements RduSigappiService {
         this.usuariosSigappiMapper = usuariosSigappiMapper;
     }
 
+    public AnexoMapper getAnexoMapper() {
+        return anexoMapper;
+    }
+
+    public void setAnexoMapper(AnexoMapper anexoMapper) {
+        this.anexoMapper = anexoMapper;
+    }
+
+    public AreaMapper getAreaMapper() {
+        return areaMapper;
+    }
+
+    public void setAreaMapper(AreaMapper areaMapper) {
+        this.areaMapper = areaMapper;
+    }
+
+    public DerechosAsociadosMapper getDerechosAsociadosMapper() {
+        return derechosAsociadosMapper;
+    }
+
+    public void setDerechosAsociadosMapper(DerechosAsociadosMapper derechosAsociadosMapper) {
+        this.derechosAsociadosMapper = derechosAsociadosMapper;
+    }
+
+    public FigurasJuridicasMapper getFigurasJuridicasMapper() {
+        return figurasJuridicasMapper;
+    }
+
+    public void setFigurasJuridicasMapper(FigurasJuridicasMapper figurasJuridicasMapper) {
+        this.figurasJuridicasMapper = figurasJuridicasMapper;
+    }
+
+    public InteresadosMapper getInteresadosMapper() {
+        return interesadosMapper;
+    }
+
+    public void setInteresadosMapper(InteresadosMapper interesadosMapper) {
+        this.interesadosMapper = interesadosMapper;
+    }
+
+    public TipoAnexoMapper getTipoAnexoMapper() {
+        return tipoAnexoMapper;
+    }
+
+    public void setTipoAnexoMapper(TipoAnexoMapper tipoAnexoMapper) {
+        this.tipoAnexoMapper = tipoAnexoMapper;
+    }
+
     
     public List<KffoliosNotificacion> selectByOficioSalida(String codbarras) {
         return this.kffoliosNotificacionMapper.selectByOficioSalida(codbarras); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public List<KffoliosNotificacion> selectANotificarByCodInteresado(Integer codInteresado) {
+        return this.kffoliosNotificacionMapper.selectANotificarByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int insert(KffoliosNotificacion kffoliosNotificacion) {
@@ -181,4 +251,30 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
         return this.solicitudInteresadosMapper.updateSequence(title, codInteresado, secuencia);
     }
+
+    public List<Anexo> selectAnexoByCodbarras(String codbarras) {
+        return this.anexoMapper.selectByCodbarras(codbarras); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Area> selectAreaByCveArea(Integer cveArea) {
+        return this.areaMapper.selectByCveArea(cveArea);//To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<DerechosAsociados> selectDerechosAsociadosByTitle(String title) {
+        return this.derechosAsociadosMapper.selectByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura) {
+        return this.figurasJuridicasMapper.selectByNumFigura(numFigura); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado) {
+        return this.interesadosMapper.selectByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria, Integer division, Integer seccion) {
+        return this.tipoAnexoMapper.selectByCategoriaDivisionSeccion(categoria, division, seccion); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

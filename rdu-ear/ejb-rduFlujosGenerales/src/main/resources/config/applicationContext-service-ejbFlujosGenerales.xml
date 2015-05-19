@@ -136,6 +136,12 @@
        <property name="solicitudInteresadosMapper" ref="solicitudInteresadosMapper" />
        <property name="tiposRelacionMapper" ref="tiposRelacionMapper" />
        <property name="usuariosSigappiMapper" ref="usuariosSigappiMapper" />
+       <property name="anexoMapper" ref="anexoMapper" />
+       <property name="areaMapper" ref="areaMapper" />
+       <property name="derechosAsociadosMapper" ref="derechosAsociadosMapper" />
+       <property name="figurasJuridicasMapper" ref="figurasJuridicasMapper" />
+       <property name="interesadosMapper" ref="interesadosMapper" />
+       <property name="tipoAnexoMapper" ref="tipoAnexoMapper" />
        
     </bean>
         

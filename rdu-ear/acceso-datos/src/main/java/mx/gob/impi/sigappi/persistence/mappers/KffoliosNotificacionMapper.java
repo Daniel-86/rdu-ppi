@@ -13,4 +13,6 @@ public interface KffoliosNotificacionMapper {
     int insertSelective(mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion record);
     
     List<KffoliosNotificacion> selectByOficioSalida(@Param("codbarras")String codbarras);
+    
+    List<KffoliosNotificacion>  selectANotificarByCodInteresado(@Param("codInteresado")Integer codInteresado);
 }

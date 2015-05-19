@@ -47,4 +47,6 @@ public interface RduFirmaService {
     Firma obternerFirmaByTramite(Long idTramite);
     
     Firma obternerFirmaByExpediente(Long expediente, String expedienteSat);
+    
+    Firma selectFirmaByPrimaryKey(Long idFirma);
 }

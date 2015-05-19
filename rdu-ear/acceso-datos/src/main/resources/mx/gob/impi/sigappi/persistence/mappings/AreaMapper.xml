@@ -1,41 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.KfAlmacenarMapper" >
-  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.KfAlmacenar" >
-<result column="CODBARRAS" property="codbarras" jdbcType="VARCHAR" />
-<result column="TITLE" property="title" jdbcType="VARCHAR" />
-<result column="YAIMPORTADO" property="yaimportado" jdbcType="DECIMAL" />
-<result column="TITLE_ANT" property="title_ant" jdbcType="VARCHAR" />
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.AreaMapper" >
+  <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.Area" >
+<result column="CVE_AREA" property="cveArea" jdbcType="DECIMAL" />
+<result column="DESCRIPCION" property="descripcion" jdbcType="VARCHAR" />
+<result column="DESCRIP" property="descrip" jdbcType="VARCHAR" />
+<result column="CVE_AREA_PADRE" property="cveAreaPadre" jdbcType="DECIMAL" />
   </resultMap>
-  <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.KfAlmacenar" >
-    insert into KFALMACENAR (codbarras,
-                            title,
-                            yaimportado,
-                            title_ant)
-                values (
-                #{codbarras,jdbcType=VARCHAR},
-                #{title,jdbcType=VARCHAR},
-                #{yaimportado,jdbcType=DECIMAL},
-                #{title_ant,jdbcType=VARCHAR})
-  </insert>
+  
 
 
-  <select id="selectByCodbarras" parameterType="map" resultMap="BaseResultMap">
-        SELECT codbarras,
-                title,
-                yaimportado,
-                title_ant
-        FROM KFALMACENAR
-        WHERE CODBARRAS = #{codbarras,jdbcType=VARCHAR} 
+  <select id="selectByCveArea" parameterType="map" resultMap="BaseResultMap">
+        SELECT CVE_AREA,
+                DESCRIPCION,
+                DESCRIP,
+                CVE_AREA_PADRE
+        FROM AREA
+        WHERE CVE_AREA = #{cveArea,jdbcType=DECIMAL} 
         
     </select>
-     <select id="selectByTitle" parameterType="map" resultMap="BaseResultMap">
-        SELECT codbarras,
-                title,
-                yaimportado,
-                title_ant
-        FROM KFALMACENAR
-        WHERE TITLE = #{title,jdbcType=VARCHAR}  
-        
-    </select>
+     
 </mapper>
