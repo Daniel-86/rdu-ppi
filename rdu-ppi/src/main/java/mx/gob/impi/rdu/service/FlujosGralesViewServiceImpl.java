@@ -50,11 +50,17 @@ import mx.gob.impi.rdu.util.ComparatorPersona;
 import mx.gob.impi.rdu.util.Constantes;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sagpat.persistence.model.Solicitud;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
@@ -573,6 +579,11 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
         return rduFlujosGeneralesRemot.obternerFirmaByTramite(idTramite);
     }
 
+    @Override
+    public Firma selectFirmaByPrimaryKey(Long idFirma) {
+        return rduFlujosGeneralesRemot.selectFirmaByPrimaryKey(idFirma); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     public List<Notificacion> consultarNotificaciones(Integer idUsuarioFirma) {
         return this.rduFlujosGeneralesRemot.consultarNotificaciones(idUsuarioFirma);
@@ -594,6 +605,13 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     public Long saveFirmaNotificacion(NotificacionFirma firma) {
         return this.rduFlujosGeneralesRemot.saveNotificacionFirma(firma);
     }
+
+    @Override
+    public NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id) {
+        return this.rduFlujosGeneralesRemot.selectNotificacionFirmaByPrimaryKey(id); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
     public List<Notificacion> selectNotificacionesByIds(List<Integer> cadenaIds) {
         return this.rduFlujosGeneralesRemot.selectNotificacionesByIds(cadenaIds);
@@ -619,6 +637,10 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
 
     public List<Promovente> selectPromoventeByPerfil(Integer idPerfil) {
         return this.rduFlujosGeneralesRemot.selectPromoventeByPerfil(idPerfil);
+    }
+    
+    public Promovente selectPromovente(Long id) {
+        return this.rduFlujosGeneralesRemot.selectPromovente(id);
     }
 
     public int insertarNotificacion(Notificacion notificacion) {
@@ -901,6 +923,13 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     }
 
     @Override
+    public List<KffoliosNotificacion> selectANotificarByCodInteresado(Integer codInteresado) {
+        return this.rduFlujosGeneralesRemot.selectANotificarByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
+    @Override
     public int insert(KfFolios kfFolios) {
         return this.rduFlujosGeneralesRemot.insert(kfFolios); //To change body of generated methods, choose Tools | Templates.
     }
@@ -989,6 +1018,36 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     @Override
     public int updateNotificationSubscription(String title, Integer codInteresado, Integer secuencia) {
         return this.rduFlujosGeneralesRemot.updateNotificationSubscription(title, codInteresado, secuencia);
+    }
+
+    @Override
+    public List<Anexo> selectAnexoByCodbarras(String codbarras) {
+        return this.rduFlujosGeneralesRemot.selectAnexoByCodbarras(codbarras); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Area> selectAreaByCveArea(Integer cveArea) {
+        return this.rduFlujosGeneralesRemot.selectAreaByCveArea(cveArea); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<DerechosAsociados> selectDerechosAsociadosByTitle(String title) {
+        return this.rduFlujosGeneralesRemot.selectDerechosAsociadosByTitle(title); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura) {
+        return this.rduFlujosGeneralesRemot.selectFigurasJuridicasByNumFigura(numFigura); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado) {
+        return this.rduFlujosGeneralesRemot.selectInteresadosByCodInteresado(codInteresado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria, Integer division, Integer seccion) {
+        return this.rduFlujosGeneralesRemot.selectTipoAnexoByCategoriaDivisionSeccion(categoria, division, seccion); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -9,7 +9,8 @@
     <h:form id="form-menu">
         <p:menubar style="height: 2.5em;  border-color:  lightgray" >
             <p:menuitem value="Inicio" action="#{menuMB.actualizar}"  onclick="document.location.href='/rdu-ppi/'" icon="ui-icon-back" />
-            <p:submenu  label="Captura de solicitudes" icon="ui-icon ui-icon-document" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.admin}">
+            <p:submenu  label="Captura de solicitudes" icon="ui-icon ui-icon-document" rendered="false">
+            <!--<p:submenu  label="Captura de solicitudes" icon="ui-icon ui-icon-document" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.admin}">-->
             <!--Se agrega una opcion al menu de solicitudes-->
               
                  <p:menuitem rendered="#{sessionScope['area'] == 40}" value="Búsquedas" oncomplete="otros(20);showStatus('divStatus');lockWindow('divLockWindow');"   action="#{menuMB.actualizar}">
@@ -66,9 +67,9 @@
             </p:submenu>
 
 
-            <p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ false }">
+            <p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ true }">
             <!--<p:submenu label="Gestión de Documentos" icon="ui-icon-search" rendered="#{ perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.coordinadorRecepcion || perfilUsuario.admin }">-->
-                <p:menuitem  value="Solicitudes en Preparacion" onclick="otros(2);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}" rendered="#{perfilUsuario.usuarioMaestro  || perfilUsuario.usuarioPromovente || perfilUsuario.admin}">
+                <p:menuitem  value="Solicitudes en Preparacion" onclick="otros(2);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}" rendered="false">
                     <f:setPropertyActionListener value="2" target="#{menuMB.idMenu}" />
                 </p:menuitem>
                 <p:menuitem  value="Promociones en Preparación" oncomplete="otros(43);showStatus('divStatus');lockWindow('divLockWindow');" action="#{menuMB.actualizar}" rendered="false">

@@ -77,11 +77,11 @@
                         <h:outputText value="#{notf.descripcion}"/>
                     </p:column>
                     
-                    <p:column headerText="Archivo">
+                    <!--<p:column headerText="Archivo">
                         <p:commandLink id="downloadLink" value="Ver" ajax="false">  
                             <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(notf.idNotificacion)}" update="forma" />  
                     </p:commandLink> 
-                    </p:column>
+                    </p:column>-->
                     
                     <p:column headerText="PDF">
                         <p:commandLink id="downloadLink1" actionListener="#{firmaNotificacionMB.getFileDownload(notf.idNotificacion)}" oncomplete="reporteDialog.show();" update="vistaPrevia">  
@@ -187,17 +187,15 @@
                         <h:outputText value="#{fm.descripcion}"/>
                     </p:column>
                     
-                    <p:column headerText="Archivo">
+                    <!--<p:column headerText="Archivo" >
                         <p:commandLink id="downloadLink" value="Ver" ajax="false">  
                             <p:fileDownload value="#{firmaNotificacionMB.descargaArchivo(fm.idNotificacion)}" update="forma" />  
                     </p:commandLink> 
-                    </p:column>
-                    <p:column style="text-align: center; width:60px;"  headerText="PDF">
-                                        
-                        <p:commandLink id="downloadArchivo" disabled="#{fm.idNotificacion==null ? false:true}" action="#{firmaNotificacionMB.getFileDownload(fm.idNotificacion)}" 
-                                       oncomplete="reporteDialog.show();" update="vistaPrevia">
-                            <p:graphicImage value="#{fm.idNotificacion==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
-                            </p:commandLink>
+                    </p:column>-->
+                    <p:column headerText="PDF">
+                        <p:commandLink id="downloadLink2" actionListener="#{firmaNotificacionMB.getFileFirmaDownload(fm.idNotificacion)}" oncomplete="reporteDialog.show();" update="vistaPrevia">  
+                         <p:graphicImage value="#{fm.folio==null? '/content/imagenes/vacio.png':'/content/imagenes/Pdf-icon.png'}" style="border-style: none"/>
+                              </p:commandLink> 
                     </p:column>
                     <p:column headerText="Analista">
                         <h:outputText value="#{fm.titular}"/>

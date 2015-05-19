@@ -12,11 +12,17 @@ import mx.gob.impi.rdu.dto.*;
 import mx.gob.impi.rdu.exposition.patentes.PatentesDisenoIndustrialMB;
 import mx.gob.impi.rdu.persistence.model.*;
 import mx.gob.impi.sagpat.persistence.model.Solicitud;
+import mx.gob.impi.sigappi.persistence.model.Anexo;
+import mx.gob.impi.sigappi.persistence.model.Area;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.Interesados;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import mx.gob.impi.sigmar.persistence.model.NotificacionView;
@@ -123,6 +129,8 @@ public interface FlujosGralesViewService {
     public List<Anexos> obtenerAnexosByTramite(Long idTramite);
 
     public Firma obtenerFirmaByTramite(Long idTramite);
+    
+    Firma selectFirmaByPrimaryKey(Long idFirma);
 
         List<NotificacionView> consultarNotificacionView(Long oficioSalida);
 
@@ -136,6 +144,8 @@ public interface FlujosGralesViewService {
     public Long saveFirmaNotificacion(NotificacionFirma firma);
 
     public int updateNotificacionFirmada(Notificacion notificacion);
+    
+    NotificacionFirma selectNotificacionFirmaByPrimaryKey(Integer id);
 
     int insertarNotificacion(Notificacion notificacion);
 
@@ -144,6 +154,8 @@ public interface FlujosGralesViewService {
     public List<Notificacion> selectNotificacionesByDates(String fechaInicio, String fechaFinal, Integer ultimaSemana, Integer ultimoMes, Integer idUsuarioFirmante);
 
     public String getEmailByExp(Long expediente, String expedienteSag);
+
+    Promovente selectPromovente(Long id);
 
     List<Promovente> selectPromoventeByPerfil(Integer idPerfil);
 
@@ -182,6 +194,8 @@ public interface FlujosGralesViewService {
 
     public List<KffoliosNotificacion> selectByOficioSalida(String codbarras);
     
+    public List<KffoliosNotificacion>  selectANotificarByCodInteresado(Integer codInteresado);
+    
     int insert(KfFolios kfFolios);
     public List<KfFolios> selectKfFoliosByCodbarras(String codbarras);
     
@@ -205,4 +219,18 @@ public interface FlujosGralesViewService {
     
     int insert(UsuariosSigappi usuariosSigappi);
     public List<UsuariosSigappi> selectUsuariosSigappiByCveUsuario(String cveUsuario);
+    
+    public List<Anexo> selectAnexoByCodbarras(String codbarras);
+    
+    public List<Area> selectAreaByCveArea(Integer cveArea);
+    
+    public List<DerechosAsociados> selectDerechosAsociadosByTitle(String title);
+    
+    public List<FigurasJuridicas> selectFigurasJuridicasByNumFigura(Integer numFigura);
+    
+    public List<Interesados> selectInteresadosByCodInteresado(Integer codInteresado);
+    
+    public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria,Integer division,Integer seccion);
+    
+    
 }

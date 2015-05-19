@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IMPI-00-003" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="23" bottomMargin="7" uuid="79808087-3164-42ce-a83d-0c206f7c0205">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="77"/>
+	<field name="rutaFirmaImpi" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="cadenaImpi" class="java.lang.String"/>
+	<field name="selloImpi" class="java.lang.String"/>
+	<field name="nombreArchivo" class="java.lang.String"/>
+	<field name="actor" class="java.lang.String"/>
+	<field name="demandado" class="java.lang.String"/>
+	<field name="derechoInvolucrado" class="java.lang.String"/>
+	<field name="PC" class="java.lang.String"/>
+	<field name="traslado" class="java.lang.String"/>
+	<field name="anexos" class="java.lang.String"/>
+	<field name="analista" class="java.lang.String"/>
+	<field name="firmante" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="codbarras" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="958">
+			<image isLazy="true">
+				<reportElement uuid="1031a703-3f0b-4141-837d-4cf4f4e57ca2" isPrintRepeatedValues="false" x="15" y="15" width="194" height="60"/>
+				<imageExpression><![CDATA[$F{rutaFirmaImpi}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7b9d11d4-b56d-48db-b88a-a23c8bb7bf0d" x="125" y="349" width="434" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PC}.concat("; "+$F{expediente} )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f614aefa-eda5-4c28-9167-7aeb83020c34" x="23" y="349" width="99" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EXPEDIENTE:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="23" y="377" width="114" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FOLIO A NOTIFICAR:
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="142" y="377" width="228" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="231" width="45" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ACTOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="581" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EL FIRMANTE MANIFIESTA:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="611" width="544" height="51"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Que reconoce como propia y auténtica la información capturada a través de este medio, asumiendo la responsabilidad por el uso de su nombre de usuario, contraseña y FIEL por persona distinta a la autorizada, por lo que de ocurrir ese supuesto se le atribuirá la autoría de la información que se envíe a través del presente sistema.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="744" width="213" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FIRMA DE ACUSE:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" x="21" y="793" width="119" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cadena Original IMPI
+
+
+
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e57eb09e-1210-4bf3-996f-dd7ad42fd5f9" x="19" y="935" width="115" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Número de serie
+
+
+
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" x="22" y="891" width="560" height="34"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{selloImpi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2e27dc33-43f3-4c5d-94a5-def062ac0a64" x="137" y="938" width="345" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="7" isItalic="false"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement uuid="16111f62-4484-41ba-a81d-3e50877d6b42" x="22" y="866" width="120" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Firma IMPI
+
+
+
+                ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="511c9322-5cf3-477c-aa4c-2cd1d6d8d072" x="21" y="821" width="538" height="39"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cadenaImpi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="702" width="544" height="41"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CON LA FECHA Y HORA REFERIDA SE HA FIRMADO LA INFORMACIÓN CON LOS DATOS SEÑALADOS EN EL PRESENTE ACUSE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a01f1634-0fa9-408e-86f9-5508059605bb" x="21" y="550" width="99" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FECHA Y HORA:
+                ]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dd29e72f-0262-410d-9a60-46c267beb9b1" x="123" y="550" width="145" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="b7ed6e9f-850b-4911-a8a7-29d548c52e3e" x="318" y="15" width="245" height="60"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{codbarras}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="661f0f26-84ac-4e09-8c65-eade14108254" x="15" y="94" width="270" height="126"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="249" width="45" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[vs ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="268" width="86" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DEMANDADO: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="928cf395-30e5-4ff4-8b97-5d82ac040036" x="80" y="232" width="479" height="18"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a91459de-87f9-45f6-9aba-64c4da636c58" x="109" y="269" width="450" height="18"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{demandado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="23" y="306" width="149" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DERECHO INVOLUCRADO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a91459de-87f9-45f6-9aba-64c4da636c58" x="182" y="307" width="377" height="36"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{derechoInvolucrado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="108" y="405" width="228" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{traslado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="23" y="405" width="69" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[TRASLADO:
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="141" y="434" width="228" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anexos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="434" width="114" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ANEXOS:
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="157" y="491" width="228" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="24" y="491" width="133" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[A QUIEN SE NOTIFICA:
+                ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="108" y="769" width="451" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firmante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="22" y="769" width="86" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FIRMANTE:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa4740bf-792b-4914-8c62-d6647b501aea" x="142" y="463" width="228" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{analista}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="23" y="463" width="114" height="19"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ANALISTA:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f7e5eaf-f339-48c1-9044-4ec5ac7e89d7" x="21" y="666" width="544" height="26"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Declaró bajo protesta de decir verdad que los documentos anexos son originales o copia debidamente certificada.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement uuid="bcee90bf-c731-4420-9438-8a9f87db209c" x="0" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c32988c1-1353-47fa-a633-0733ac2e4b95" x="80" y="0" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

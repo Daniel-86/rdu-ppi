@@ -42,6 +42,11 @@ import mx.gob.impi.rdu.util.BundleUtils;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.rdu.util.FiltroExtraEnum;
 import mx.gob.impi.rdu.util.Util;
+import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
+import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
+import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
+import mx.gob.impi.sigappi.persistence.model.KfFolios;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
 import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
@@ -238,6 +243,44 @@ public String getFileDownload(int idNotificacion) throws IOException {
         }
         return null;
     }
+
+public String getFileFirmaDownload(int idNotificacion) throws IOException {
+    
+    NotificacionFirma notTmp=this.flujosgralesViewService.selectNotificacionFirmaByPrimaryKey(idNotificacion);
+    Firma firm=this.flujosgralesViewService.selectFirmaByPrimaryKey(notTmp.getIdFirma());
+        InputStream stream = null;
+//      cambios voista previa        
+        ByteArrayOutputStream outStream=null;
+//        forma.setRenderedVistaPrevia(true);
+        session.removeAttribute("reporteStream");
+        
+        Util utilArch = new Util();
+
+        if(notTmp!=null){
+                stream = new ByteArrayInputStream(firm.getAcusePdf());
+//              Prueba Visualizar archivo  -----------
+                //outStream = new ByteArrayOutputStream(anexoSelected.getArchivoAnexo().length);
+                outStream = new ByteArrayOutputStream();
+//                int read;
+//                while((read = stream.read(anexoSelected.getArchivoAnexo())) >= 0)
+//                {
+//                    outStream.write(anexoSelected.getArchivoAnexo(), 0, read);
+//                }
+//                outStream.flush();
+                outStream.write(firm.getAcusePdf());
+                session.setAttribute("reporteStream", outStream);
+               // vistaPrevia = true;
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                context.execute("reporteDialog.show();");
+////                ----------------
+//                MimeType mType = utilArch.extractMime(anexoSelected.getExtension());
+//                String sMime = mType.getMime();
+//                String sNmDownload = anexoSelected.getNombreArchivo();
+//                file = new DefaultStreamedContent(stream, sMime, sNmDownload);
+            
+        }
+        return null;
+    }
     
 public String getFileDownloadByte(byte[] file) throws IOException {
     
@@ -409,9 +452,15 @@ public String getFileDownloadByte(byte[] file) throws IOException {
         GenerarReporte repps = new GenerarReporte();
 
         //ReporteNotificacionAcuseDto deno = new ReporteNotificacionAcuseDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
-        ReporteNotificacionAcuseCoordinadorDto deno = new ReporteNotificacionAcuseCoordinadorDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
+        // jman ReporteNotificacionAcuseCoordinadorDto deno = new ReporteNotificacionAcuseCoordinadorDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
+       
+            
+        ReporteNotificacionAcuseCoordinadorDto deno=generarReporteNotificacionAcuseCoordinadorDto(not, firm, request.getRealPath("") + "/content/imagenes/firma_impi.png");
+            
+        
+        
         //byt= repps.eliminarPagina(/*Metodo para crear la marca de agua*/ repps.crearMarcaAgua(/*Metodo para concatenar los pdfs*/repps.generaRepporte(request.getRealPath("") + "/content/reportes/impi_transRegimen.jasper", deno)), 1);
-        byt = repps.generaRepporte(request.getRealPath("") + "/content/reportes/impi_notificacion.jasper", deno);
+        byt = repps.generaRepporte(request.getRealPath("") + "/content/reportes/impi_notificacion_coordinador.jasper", deno);
         //byt = new ByteArrayOutputStream(19);
         List<byte[]> mm = new ArrayList<byte[]>();
         mm.add(not.getArchivo());
@@ -419,6 +468,61 @@ public String getFileDownloadByte(byte[] file) throws IOException {
         return byt.toByteArray();
     }
 
+    public ReporteNotificacionAcuseCoordinadorDto generarReporteNotificacionAcuseCoordinadorDto(Notificacion not,FirmaDto firm, String imagePath){
+        
+        ReporteNotificacionAcuseCoordinadorDto deno1 = new ReporteNotificacionAcuseCoordinadorDto(not, firm, imagePath);
+       if(deno1!=null){
+           List<SolicitudInteresados> interesados = this.flujosgralesViewService.selectSolicitudInteresadosByTitle(deno1.getExpediente());
+           
+           for(SolicitudInteresados interesado: interesados){
+               
+                    if(interesado.getCodRelacion()==1){
+                                deno1.setActor(!this.flujosgralesViewService.selectInteresadosByCodInteresado(interesado.getCodInteresado()).isEmpty()?this.flujosgralesViewService.selectInteresadosByCodInteresado(interesado.getCodInteresado()).get(0).getNombre():"");
+                    }            
+                    if(interesado.getCodRelacion()==2){
+                                deno1.setDemandado(!this.flujosgralesViewService.selectInteresadosByCodInteresado(interesado.getCodInteresado()).isEmpty()?this.flujosgralesViewService.selectInteresadosByCodInteresado(interesado.getCodInteresado()).get(0).getNombre():"");
+                    }
+                
+            }
+           
+           DerechosAsociados der= !this.flujosgralesViewService.selectDerechosAsociadosByTitle(deno1.getExpediente()).isEmpty()?this.flujosgralesViewService.selectDerechosAsociadosByTitle(deno1.getExpediente()).get(0):null;
+           
+           if(der!=null){
+               deno1.setDerechoInvolucrado(der.getNumRegistro()+" "+der.getNombre());
+               FigurasJuridicas fig= !this.flujosgralesViewService.selectFigurasJuridicasByNumFigura(der.getNumFigura()).isEmpty()?this.flujosgralesViewService.selectFigurasJuridicasByNumFigura(der.getNumFigura()).get(0):null;
+               if(fig!=null)
+                    deno1.setDerechoInvolucrado(fig.getDescripcion()+" "+deno1.getDerechoInvolucrado());
+            }
+            
+            deno1.setPC(!this.flujosgralesViewService.selectKfContenedoresByTitle(deno1.getExpediente()).isEmpty()?this.flujosgralesViewService.selectKfContenedoresByTitle(deno1.getExpediente()).get(0).getPc():"");
+            
+            
+            List<KfAlmacenar> rel= this.flujosgralesViewService.selectKfAlmacenarByTitle(deno1.getExpediente());
+            for(KfAlmacenar relacion: rel){
+                List<KfFolios> docs= this.flujosgralesViewService.selectKfFoliosByCodbarras(relacion.getCodbarras());
+                if(docs.get(0).getTipoDocumento()==25)
+                    deno1.setTraslado(docs.get(0).getCodbarras());
+                    
+            }
+            
+            deno1.setAnexos("");
+            deno1.setAnalista(!this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(not.getTitular()).isEmpty()?this.flujosgralesViewService.selectUsuariosSigappiByCveUsuario(not.getTitular()).get(0).getNombre():"");
+            Promovente usuario=this.flujosgralesViewService.selectPromovente(Long.parseLong(not.getIdUsuarioCarga()+""));
+            if(usuario!=null){
+                deno1.setUsuario((usuario.getNombre()+" "+usuario.getApaterno()+" "+usuario.getAmaterno()).toUpperCase().trim());
+            }
+            
+            deno1.setArea("DIRECCIÓN DIVISIONAL DE PROTECCIÓN A LA PROPIEDAD INTELECTUAL.\n" +
+                            "\n" +
+                            "SUBDIRECCIÓN DIVISIONAL DE ...\n" +
+                            "\n" +
+                            "COORDINACIÓN DEPARTAMENTAL ...");
+            deno1.setCodbarras("PI/W/2015/000001");
+            
+       }
+            return deno1;
+    }
+    
     public String generaSelloDigitalmpi(String cadanaImpiGen) {
         String sello;
         try {
@@ -843,4 +947,6 @@ public String getFileDownloadByte(byte[] file) throws IOException {
     public void setMostrarResumen(boolean mostrarResumen) {
         this.mostrarResumen = mostrarResumen;
     }
+
+    
 }

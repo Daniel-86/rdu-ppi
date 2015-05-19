@@ -22,6 +22,7 @@
         <param-value>
            /WEB-INF/spring/applicationContext-main.xml
            /WEB-INF/spring/applicationContext-service.xml
+           /WEB-INF/spring/applicationContext-cronTasks.xml
         </param-value>
     </context-param>
     <context-param>
