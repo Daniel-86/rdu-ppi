@@ -7,17 +7,25 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     
     <ui:define name="content">
+        <style>
+            .visible {
+                display: none;
+            }
+        </style>
         <h:form id="notificationsForm">
             <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
             <p:panel>
                 <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
                     
                     <p:panel header="Datos personales">
-                        <strong>Nombre: </strong><h:outputText value="#{commonUserNotificationMB.getFullName()}"/>
-                        <strong>RFC: </strong><h:outputText value="${commonUserNotificationMB.getRFC()}"/>
-                        <h3>Contacto </h3><h:outputText value="#{commonUserNotificationMB.getFullContact()}"/>
+                        <strong>Nombre: </strong><h:outputText value="#{commonUserNotificationMB.getFullName().toUpperCase()}"/>
+                        <strong>RFC: </strong><h:outputText value="#{commonUserNotificationMB.getRFC()}"/>
+                        <span style="float: right;">
+                            <strong>login: <h:outputText value="#{commonUserNotificationMB.getUsername()}"/></strong>
+                            (<strong><h:outputText value="#{commonUserNotificationMB.getUserId()}"/></strong>)</span>
+                        <p><h:outputText escape="false" value="#{commonUserNotificationMB.getFullContact()}"/></p>
                         <h3>Domicilio</h3>
-                        <h:outputText value="${commonUserNotificationMB.getFullAddress()}"/>
+                        <h:outputText value="#{commonUserNotificationMB.getFullAddress().toUpperCase()}"/>
                     </p:panel> 
 
                     <p:messages id="messages" showDetail="true" autoUpdate="true"/>
@@ -34,25 +42,34 @@
                         <br/>
                         <p:dataTable id="notificationsTbl" 
                                      value="#{commonUserNotificationMB.viewNots}" 
-                                     paginator="#{commonUserNotificationMB.viewNots != null and commonUserNotificationMB.viewNots.size() gt 7}"
+                                     paginator="#{commonUserNotificationMB.viewNots != null 
+                                                  and commonUserNotificationMB.viewNots.size() gt 7}"
                                      rows="7"
                                      rowKey="#{notification.title}+#{notification.usertype}"
                                      selection="#{commonUserNotificationMB.selected}"
                                      var="notification">
                             <p:column selectionMode="multiple" 
                                       style="width: 16px;text-align: center;"/>
-                            <p:column headerText="Title" >
+                            <p:column headerText="Expediente" >
                                 <h:outputText value="#{notification.title}"/>
                             </p:column>
                             <p:column headerText="PC">
                                 <h:outputText value="#{notification.pc}"/>
                             </p:column>
-                            <p:column headerText="Relación">
-                                <p:selectOneMenu value="#{notification.usertype}" required="true">
-                                    <f:selectItem itemLabel="Elige una" itemValue=""/>
+                            <p:column headerText="Interesado">
+                                <h:outputText value="#{notification.userTypeDescription}" rendered="#{notification.persisted}"/>
+                                <p:panel id="hoverPanel" styleClass="hoverPanel" style="background-color: transparent !important;" rendered="false">
+                                    <h:outputText value="#{notification.userTypeDescription}" rendered="#{notification.persisted}"/>
+                                    <p:commandButton value="add" 
+                                                     id="addUsertype" 
+                                                     styleClass="btnUsertype visible" 
+                                                     actionListener="#{commonUserNotificationMB.addNotification(notification.title)}"/>
+                                </p:panel>
+                                <p:selectOneMenu value="#{notification.usertype}" required="true" rendered="#{!notification.persisted}">
+                                    <f:selectItem itemLabel="Elige una" itemValue="#{null}"/>
                                     <f:selectItems value="#{commonUserNotificationMB.relations}" 
                                                    var="relation" 
-                                                   itemLabel="#{relation.parte}" 
+                                                   itemLabel="#{relation.parte} - #{relation.codRelacion}" 
                                                    itemValue="#{relation.codRelacion}"/>
                                 </p:selectOneMenu>
                             </p:column>
@@ -63,15 +80,58 @@
                         <center>
                             <h:panelGrid columns="1" 
                                          style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
-                                <p:commandButton value="Generar forma" 
-                                                 actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}"
-                                                 update="documentDlg"
-                                                 oncomplete="previewDlg.show();"
-                                                 style="float: right;"/>
+                                <h:panelGroup id="btns">
+                                    <p:commandButton value="Actualizar preferencias" 
+                                                     id="gBtn"
+                                                     actionListener="#{commonUserNotificationMB.updateNotificationsPrefs}"
+                                                     update="notificationsForm"
+                                                     oncomplete="afterSomething();"
+                                                     onerror="alert('error');"
+                                                     style="float: right;" 
+                                                     />
+                                    <p:commandButton value="Ver documento" 
+                                                     actionListener="#{commonUserNotificationMB.viewDocument}"
+                                                     update="preview"
+                                                     oncomplete="previewDlg.show();"
+                                                     onerror="alert('error');"
+                                                     style="float: right;" 
+                                                     rendered="#{commonUserNotificationMB.existDocument()}"
+                                                     />
+                                    <p:commandButton value="Eliminar" 
+                                                     id="dBtn"
+                                                     actionListener="#{commonUserNotificationMB.markForDeletion}"
+                                                     update="notificationsForm"
+                                                     style="float: left;" 
+                                                     />
+                                </h:panelGroup>
                             </h:panelGrid>
                         </center>
                         <br/>
                     </p:panel>
+                    
+                    <p:accordionPanel activeIndex="" rendered="#{commonUserNotificationMB.viewNotsCanceled.size() gt 0}">
+                        <p:tab title="Suscripciones canceladas (#{commonUserNotificationMB.viewNotsCanceled.size()})">
+                            <p:dataTable id="notificationsCanceledTbl" 
+                                         value="#{commonUserNotificationMB.viewNotsCanceled}" 
+                                         paginator="#{commonUserNotificationMB.viewNotsCanceled != null 
+                                                      and commonUserNotificationMB.viewNotsCanceled.size() gt 7}"
+                                         rows="7"
+                                         var="notification">
+                                <p:column headerText="Expediente" >
+                                    <h:outputText value="#{notification.title}"/>
+                                </p:column>
+                                <p:column headerText="PC">
+                                    <h:outputText value="#{notification.pc}"/>
+                                </p:column>
+                                <p:column headerText="Interesado">
+                                    <h:outputText value="#{notification.userTypeDescription}"/>
+                                </p:column>
+                                <p:column headerText="Autorizó">
+                                    <h:outputText value="#{notification.authorizedBy}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:accordionPanel>
 
                 </h:panelGrid>
             </p:panel>
@@ -79,9 +139,31 @@
             <p:outputPanel id="preview">
                 <p:dialog id="documentDlg" header="Vista previa" widgetVar="previewDlg" resizable="false">
                     <p:ajax event="close" listener="#{commonUserNotificationMB.deleteDocument}"/>
-                    <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}#{commonUserNotificationMB.documentName}" width="850px" height="550px"/>
+                    <h:panelGrid columns="1">
+                        <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}#{commonUserNotificationMB.documentName}" 
+                                width="850px" height="550px"/>
+                        <p:commandButton 
+                            value ="Descargar archivo" 
+                            action="#{commonUserNotificationMB.downloadFile()}" 
+                            ajax="false" 
+                            style="float: left;"/>
+                    </h:panelGrid>
                 </p:dialog>
             </p:outputPanel>
+            
+            <h:outputScript>
+                function afterSomething() {
+                    if("#{commonUserNotificationMB.generateDoc}" == 'true')
+                        previewDlg.show();
+                }
+                
+                $('.hoverPanel').hover(
+                    function() {
+                        console.log("estoy en el panel");
+                        $(this).find('.btnUsertype').toggleClass('visible');
+                    }
+                );
+            </h:outputScript>
         </h:form>
     </ui:define>
     

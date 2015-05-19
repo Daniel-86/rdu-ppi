@@ -2,12 +2,14 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a89d6c72-8527-442e-b156-60d84d863673">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="106"/>
+	<property name="ireport.y" value="156"/>
 	<parameter name="fullName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="rfc" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="email" class="java.lang.String"/>
 	<parameter name="fullAddress" class="java.lang.String"/>
 	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="userId" class="java.lang.Integer"/>
 	<field name="title" class="java.lang.String"/>
 	<field name="pc" class="java.lang.String"/>
 	<field name="userTypeDescription" class="java.lang.String"/>
@@ -16,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="270">
+		<band height="313">
 			<staticText>
 				<reportElement uuid="0ddf65d3-d042-4265-92cb-141eb3677c84" x="32" y="79" width="272" height="33"/>
 				<textElement>
@@ -54,13 +56,6 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<text><![CDATA[R F.C.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="851753c8-457f-4ab0-99e4-e725b5023842" x="32" y="194" width="132" height="20"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="12"/>
-				</textElement>
-				<text><![CDATA[Correo electrónico: ]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="b1f1e117-6ec8-4e09-b22c-9f4f52fab7f8" x="32" y="214" width="61" height="20"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="12"/>
@@ -82,11 +77,11 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<textFieldExpression><![CDATA[$P{rfc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e347b167-8656-4bb5-a27f-6448f0ce82cb" x="178" y="194" width="350" height="20"/>
+				<reportElement uuid="e347b167-8656-4bb5-a27f-6448f0ce82cb" x="32" y="194" width="496" height="20"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Correo electrónico: " + $P{email}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="2dccda58-bab1-4b92-944c-2896719b02b9" x="106" y="214" width="422" height="46"/>
@@ -99,6 +94,20 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<reportElement uuid="d78c5676-c4dc-4e8b-88ea-07dfac792257" x="32" y="8" width="219" height="50"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ccea6d8c-04fb-4959-92a1-005bafa1d3e8" x="361" y="79" width="167" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["login: " + $P{username} + "(" + $P{userId} + ")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="03db195c-32df-4554-aefe-f75521cc031c" x="124" y="272" width="307" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitud de notificaciones en línea]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>
@@ -108,7 +117,7 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Title]]></text>
+				<text><![CDATA[Expediente]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2b96e8bb-29f7-49b4-9a21-b2a0cb48d609" x="152" y="0" width="172" height="20"/>
@@ -122,7 +131,7 @@ A LA PROPIEDAD INTELECTUAL]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Parte]]></text>
+				<text><![CDATA[Interesado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="6d0aef3f-572d-4ba9-9769-a7c22696e2cf" x="465" y="0" width="63" height="20"/>

@@ -60,5 +60,29 @@ public class SolicitudInteresados implements Serializable {
     public void setCveUsuario(String cveUsuario) {
         this.cveUsuario = cveUsuario;
     }
+    
+    
+    
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof SolicitudInteresados))
+            return false;
+        if(o == this)
+            return true;
+        
+        SolicitudInteresados s = (SolicitudInteresados) o;
+        return (this.title.equals(s.getTitle()) 
+                && this.codInteresado.equals(s.getCodInteresado()) 
+                && this.codRelacion.equals(s.getCodRelacion()));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (this.title != null ? this.title.hashCode() : 0);
+        hash = 89 * hash + (this.codInteresado != null ? this.codInteresado.hashCode() : 0);
+        hash = 89 * hash + (this.codRelacion != null ? this.codRelacion.hashCode() : 0);
+        return hash;
+    }
 
 }
