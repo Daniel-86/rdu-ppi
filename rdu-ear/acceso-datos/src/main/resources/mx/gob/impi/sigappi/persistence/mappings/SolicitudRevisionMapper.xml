@@ -76,7 +76,7 @@
             SOLICITUD_REVISION
         set
             SECUENCIA = #{secuencia,jdbcType=DECIMAL},
-            FECHA_MODIFICACION = sysdate,
+            FECHA_MODIFICACION = sysdate
         where  
             TITLE = #{title,jdbcType=VARCHAR} 
             AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL} 
