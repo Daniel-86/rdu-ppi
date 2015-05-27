@@ -34,6 +34,8 @@ import mx.gob.impi.sigappi.persistence.model.Area;
 import mx.gob.impi.sigappi.persistence.model.DerechosAsociados;
 import mx.gob.impi.sigappi.persistence.model.FigurasJuridicas;
 import mx.gob.impi.sigappi.persistence.model.Interesados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
+import mx.gob.impi.sigappi.persistence.model.SolicitudWeb;
 import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 
 
@@ -268,4 +270,29 @@ public interface RduFlujosGeneralesBean {
     
     List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria,Integer division,Integer seccion);
     
+    int insertSolicitudRevision(SolicitudRevision solicitudRevision);
+    
+    List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia);
+    
+    List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(Integer codInteresado, Integer secuencia, Integer idSolicitud);
+    
+    int updateSolicitudRevision(SolicitudRevision solicitudRevision);
+    
+    KfContenedores findKfContenedoresByTitleOrPc(String id);
+    
+    void deleteSolicitudRevision(SolicitudRevision solicitudRevision);
+    
+    int appendSolicitudRevision(SolicitudRevision solicitudRevision);
+    
+    int insertSolicitudWeb(SolicitudWeb solicitudWeb);
+    
+    int updateSolicitudWeb(SolicitudWeb solicitudWeb);
+    
+    List<SolicitudWeb> findAllSolicitudWebByUserAndStatus(Integer idPromovente, Integer idStatus);
+    
+    List<SolicitudWeb> findAllSolicitudWebByUser(Integer idPromovente);
+    
+    SolicitudWeb findSolicitudWebBySession(Integer idSolicitud);
+    
+    Integer nextSequence();
 }

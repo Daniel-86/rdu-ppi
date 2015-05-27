@@ -13,4 +13,6 @@ public interface KfContenedoresMapper {
     
     List<KfContenedores> selectByTitle(@Param("title")String title);
     List<KfContenedores> selectByPC(@Param("pc")String pc);
+    
+    KfContenedores findByTitleOrPc(@Param("id")String id);
 }

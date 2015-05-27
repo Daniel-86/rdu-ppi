@@ -87,5 +87,15 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
         <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper"/>
     </bean>
+    
+    <bean  id="solicitudRevisionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.SolicitudRevisionMapper"/>
+    </bean>
+    
+    <bean  id="solicitudWebMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactorySigappi"/>
+        <property name="mapperInterface" value="mx.gob.impi.sigappi.persistence.mappers.SolicitudWebMapper"/>
+    </bean>
  
 </beans>

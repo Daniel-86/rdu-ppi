@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.gob.impi.rdu.exposition.flujosGenerales;
+package mx.gob.impi.sigappi.persistence.model;
 
 import java.util.Date;
 import java.util.Objects;
+import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
 
 /**
  *
@@ -56,14 +57,30 @@ public class Notification {
     public void setSequence(Integer s) {sequence = s;}
     public void setAuthorizedBy(String person) {authorizedBy = person;}
     
-    Notification(Notification n) {
+    public Notification(Notification n) {
         title = n.title;
         userId = n.userId;
         pc = n.pc;
     }
     
-    Notification() {
+    public Notification() {
         
+    }
+    
+    public Notification(SolicitudInteresados s) {
+        title = s.getTitle();
+        userId = s.getCodInteresado();
+        usertype = s.getCodRelacion();
+        sequence = s.getSecuencia();
+        authorizedBy = s.getCveUsuario();
+    }
+    
+    public Notification(SolicitudRevision s) {
+        title = s.getTitle();
+        userId = s.getCodInteresado();
+        usertype = s.getCodRelacion();
+        sequence = s.getSecuencia();
+        authorizedBy = s.getCveUsuario();
     }
     
     @Override
@@ -74,6 +91,18 @@ public class Notification {
                     && this.userId.equals(n.getUserId())
                     && this.usertype.equals(n.getUsertype()));
         }
+        if(o instanceof SolicitudInteresados) {
+            SolicitudInteresados s = (SolicitudInteresados) o;
+            return (this.title.equals(s.getTitle())
+                    && this.userId.equals(s.getCodInteresado())
+                    && this.usertype.equals(s.getCodRelacion()));
+        }
+//        if (o instanceof SolicitudRevision) {
+//            SolicitudRevision s = (SolicitudRevision) o;
+//            return (this.title.equals(s.getTitle())
+//                    && this.userId.equals(s.getCodInteresado())
+//                    && this.usertype.equals(s.getCodRelacion()));
+//        }
         return false;
     }
 

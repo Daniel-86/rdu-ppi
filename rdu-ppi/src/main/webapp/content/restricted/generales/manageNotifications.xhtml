@@ -139,6 +139,7 @@
                 </h:panelGrid>
             </p:panel>
             
+            
             <p:outputPanel id="preview">
                 <p:dialog id="documentDlg" header="Vista previa" widgetVar="previewDlg" resizable="false">
                     <p:ajax event="close" listener="#{commonUserNotificationMB.deleteDocument}"/>
@@ -161,7 +162,6 @@
                     </h:panelGrid>
                 </p:dialog>
             </p:outputPanel>
-            
             <h:outputScript>
                 function afterSomething() {
                     if("#{commonUserNotificationMB.generateDoc}" == 'true')

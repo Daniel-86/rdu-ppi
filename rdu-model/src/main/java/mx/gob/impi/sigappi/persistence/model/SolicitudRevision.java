@@ -1,17 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mx.gob.impi.sigappi.persistence.model;
 
-import mx.gob.impi.sigappi.persistence.model.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SolicitudInteresados implements Serializable {
+/**
+ *
+ * @author daniel
+ */
+public class SolicitudRevision implements Serializable{
 
+    private Integer idSolicitud;
     private String title;
     private Integer codInteresado;
     private Integer codRelacion;
     private Date fechaModificacion;
     private Integer secuencia;
     private String cveUsuario;
+
+    public Integer getIdSolicitud() {
+        return idSolicitud;
+    }
+
+    public void setIdSolicitud(Integer idSolicitud) {
+        this.idSolicitud = idSolicitud;
+    }
 
     public String getTitle() {
         return title;
@@ -60,18 +77,23 @@ public class SolicitudInteresados implements Serializable {
     public void setCveUsuario(String cveUsuario) {
         this.cveUsuario = cveUsuario;
     }
-    
-    
-    
+
+
     @Override
     public boolean equals(Object o) {
-        if(o instanceof SolicitudInteresados) {
+        if (o instanceof SolicitudRevision) {
+            SolicitudRevision s = (SolicitudRevision) o;
+            return (this.title.equals(s.getTitle())
+                    && this.codInteresado.equals(s.getCodInteresado())
+                    && this.codRelacion.equals(s.getCodRelacion()));
+        }
+        if (o instanceof SolicitudInteresados) {
             SolicitudInteresados s = (SolicitudInteresados) o;
             return (this.title.equals(s.getTitle())
                     && this.codInteresado.equals(s.getCodInteresado())
                     && this.codRelacion.equals(s.getCodRelacion()));
         }
-        if(o instanceof Notification) {
+        if (o instanceof Notification) {
             Notification n = (Notification) o;
             return (this.title.equals(n.getTitle())
                     && this.codInteresado.equals(n.getUserId())
@@ -83,20 +105,10 @@ public class SolicitudInteresados implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + (this.title != null ? this.title.hashCode() : 0);
-        hash = 89 * hash + (this.codInteresado != null ? this.codInteresado.hashCode() : 0);
-        hash = 89 * hash + (this.codRelacion != null ? this.codRelacion.hashCode() : 0);
+        hash = 83 * hash + (this.idSolicitud != null ? this.idSolicitud.hashCode() : 0);
+        hash = 83 * hash + (this.title != null ? this.title.hashCode() : 0);
+        hash = 83 * hash + (this.codInteresado != null ? this.codInteresado.hashCode() : 0);
+        hash = 83 * hash + (this.codRelacion != null ? this.codRelacion.hashCode() : 0);
         return hash;
     }
-
-//    public SolicitudInteresados() {
-//    }
-//    
-//    public SolicitudInteresados(Notification n) {
-//        title = n.getTitle();
-//        secuencia = n.getSequence();
-//        codRelacion = n.getUsertype();
-//        cveUsuario = n.getAuthorizedBy();
-//        codInteresado = n.getUserId();
-//    }
 }

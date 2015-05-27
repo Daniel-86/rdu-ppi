@@ -1,0 +1,167 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../content/templates/PlainTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="content">
+        <style>
+            .visible {
+                display: none;
+            }
+        </style>
+        <!--<h:form id="notificationsForm">-->
+            <h:outputText styleClass="contenido_index" rendered="true" value="Administrar notificationes"/>
+            <p:panel>
+                <h:panelGrid columns="1" cellpadding="10" style="font-family: sans-serif; font-size: 10pt; text-align: left">
+                    
+                    <p:panel header="Datos personales">
+                        <strong>Nombre: </strong><h:outputText value="#{captureNotificationsMB.fullName.toUpperCase()}"/>
+                        <strong>RFC: </strong><h:outputText value="#{captureNotificationsMB.rfc}"/>
+                        <span style="float: right;">
+                            <strong>login: <h:outputText value="#{captureNotificationsMB.username}"/></strong>
+                            (<strong><h:outputText value="#{captureNotificationsMB.userId}"/></strong>)</span>
+                        <p><h:outputText escape="false" value="#{captureNotificationsMB.fullContact}"/></p>
+                        <h3>Domicilio</h3>
+                        <h:outputText value="#{captureNotificationsMB.fullAddress.toUpperCase()}"/>
+                    </p:panel> 
+
+                    <p:messages id="messages" showDetail="true" redisplay="false" autoUpdate="true"/>
+                    <p:panel>
+                        <center>
+                            <h:form id="searchForm">
+                                <h:panelGrid columns="3" style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px;">
+                                    <h:outputText value="Buscar expediente o PC: "/>
+                                    <p:inputText value="#{captureNotificationsMB.recordId}"/>
+                                    <p:commandButton value="Buscar" 
+                                                     action="#{captureNotificationsMB.findRecord}"
+                                                     update="notificationsTable,searchForm"/>
+                                </h:panelGrid>
+                            </h:form>
+                        </center>
+                        <br/>
+                        <h:form id="notificationsTable">
+                            <p:dataTable id="notificationsTbl" 
+                                         value="#{captureNotificationsMB.notificationsInView}" 
+                                         paginator="#{captureNotificationsMB.notificationsInView != null 
+                                                  and captureNotificationsMB.notificationsInView.size() gt 10}"
+                                         rows="10"
+                                         rowKey="#{notification.title}+#{notification.usertype}"
+                                         var="notification">
+                                <p:column headerText="Expediente" >
+                                    <h:outputText value="#{notification.title}"/>
+                                </p:column>
+                                <p:column headerText="PC">
+                                    <h:outputText value="#{notification.pc}"/>
+                                </p:column>
+                                <p:column headerText="Interesado">
+                                    <p:selectOneMenu value="#{notification.usertype}" required="true" id="rel">
+                                        <f:selectItem itemLabel="Elige una" itemValue="#{null}"/>
+                                        <f:selectItems value="#{captureNotificationsMB.relations}" 
+                                                       var="relation" 
+                                                       itemLabel="#{relation.parte} - #{relation.codRelacion}" 
+                                                       itemValue="#{relation.codRelacion}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="rel"/>
+                                </p:column>
+                                <p:column headerText="Autorizó">
+                                    <h:outputText value="#{notification.authorizedBy}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandLink title="Quitar de la tabla"
+                                                   actionListener="#{captureNotificationsMB.deleteRow(notification)}"
+                                                   update="notificationsTable">
+                                        <img src="#{request.contextPath}/content/imagenes/search.png"/>
+                                    </p:commandLink>
+                                    <p:commandLink title="Agregar otro para el mismo expediente"
+                                                   actionListener="#{captureNotificationsMB.duplicateRow(notification)}"
+                                                   update="notificationsTable">
+                                        <img src="#{request.contextPath}/content/imagenes/Pdf-icon.png"/>
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                            <!--                        <p>* Desmarca las casillas de los expedientes de los que ya no quieres recibir notificaciones.</p>
+                                                    <p>* Selecciona las notificaciones a eliminar.</p>
+                                                    <p>** Solo se pueden eliminar y cancelar las notificaciones que han sido autorizadas.</p>-->
+                            <center>
+                                <h:panelGrid columns="1" 
+                                             style="font-family:sans-serif; font-size: 10pt; text-align: justify; width: 600px; margin-top: 10px;">
+                                    <h:panelGroup id="btns">
+                                        <p:commandButton value="Finalizar captura" 
+                                                         id="gBtn"
+                                                         action="#{captureNotificationsMB.finish}"
+                                                         update="notificationsTable"
+                                                         oncomplete="afterSomething();"
+                                                         style="float: right;" 
+                                                         />
+                                        <p:commandButton value="Guardar sesión" 
+                                                         action="#{captureNotificationsMB.save}"
+                                                         update="notificationsTable"
+                                                         style="float: right;" 
+                                                         />
+                                        <p:commandButton value="Reset" 
+                                                         id="dBtn"
+                                                         actionListener="#{captureNotificationsMB.reset}"
+                                                         update="notificationsTable"
+                                                         style="float: left;" 
+                                                         />
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </center>
+                            <br/>    
+                        </h:form>
+                    </p:panel>
+                    
+                </h:panelGrid>
+            </p:panel>
+            
+            <p:outputPanel id="preview">
+                <h:form id="dialogForm">
+                    <p:dialog id="documentDlg" header="Vista previa" widgetVar="previewDlg" resizable="false">
+                        <p:ajax event="close" listener="#{captureNotificationsMB.deleteDocument}"/>
+                        <h:panelGrid columns="1">
+                            <iframe src="#{facesContext.getCurrentInstance().getExternalContext().getRequest().isSecure()==false?'http':'https'}://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}#{captureNotificationsMB.documentName}" 
+                                    width="850px" height="550px"/>
+                            <p:messages id="messagesDlg" showDetail="true"/>
+                            <h:panelGroup>
+                                <p:commandButton 
+                                    value="Descargar archivo" 
+                                    action="#{captureNotificationsMB.downloadFile()}" 
+                                    ajax="false" 
+                                    style="float: left;"/>
+                                <p:commandButton
+                                    value="Enviar por correo"
+                                    action="#{captureNotificationsMB.emailDocument()}"
+                                    update="messagesDlg"
+                                    style="float: left; padding: 4px;"/>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </p:outputPanel>
+            
+            <h:outputScript>
+                function afterSomething() {
+                console.log("#{captureNotificationsMB.existsDocument()}");
+                console.log("#{captureNotificationsMB.existsDocument()}" == 'true');
+                    if("#{captureNotificationsMB.existsDocument()}" == 'true')
+                        previewDlg.show();
+                }
+                
+                $('.hoverPanel').hover(
+                    function() {
+                        console.log("estoy en el panel");
+                        $(this).find('.btnUsertype').toggleClass('visible');
+                    }
+                );
+                
+                /*$('.remove').click(function() {
+                    $(this).closest('tr').remove();
+                });*/
+            </h:outputScript>
+        <!--</h:form>-->
+    </ui:define>
+    
+</ui:composition>

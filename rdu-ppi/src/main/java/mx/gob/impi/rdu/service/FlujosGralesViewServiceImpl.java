@@ -33,7 +33,7 @@ import mx.gob.impi.rdu.dto.FolioDto;
 
 import mx.gob.impi.rdu.dto.RespuestaDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
-import mx.gob.impi.rdu.exposition.flujosGenerales.Notification;
+import mx.gob.impi.sigappi.persistence.model.Notification;
 import mx.gob.impi.rdu.exposition.flujosGenerales.reporte.GenerarReporte;
 import mx.gob.impi.rdu.exposition.form.CapturaSolicitudForm;
 import mx.gob.impi.rdu.exposition.patentes.PatentesDisenoIndustrialMB;
@@ -60,6 +60,8 @@ import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
+import mx.gob.impi.sigappi.persistence.model.SolicitudWeb;
 import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
@@ -1048,6 +1050,71 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     @Override
     public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria, Integer division, Integer seccion) {
         return this.rduFlujosGeneralesRemot.selectTipoAnexoByCategoriaDivisionSeccion(categoria, division, seccion); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public KfContenedores findKfContenedoresByTitleOrPc(String id) {
+        return this.rduFlujosGeneralesRemot.findKfContenedoresByTitleOrPc(id);
+    }
+    
+    @Override
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSecuencia(Integer userId, Integer secuencia) {
+        return this.rduFlujosGeneralesRemot.findSolicitudRevisionByCodInteresadoAndSecuencia(userId, secuencia);
+    }
+    
+    @Override
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSecuenciaAndSession(Integer userId, Integer secuencia, Integer idSolicitud) {
+        return this.rduFlujosGeneralesRemot.findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(userId, secuencia, idSolicitud);
+    }
+    
+    @Override
+    public int insert(SolicitudRevision s){
+        return this.rduFlujosGeneralesRemot.insertSolicitudRevision(s);
+    }
+    
+    @Override
+    public int update(SolicitudRevision s) {
+        return this.rduFlujosGeneralesRemot.updateSolicitudRevision(s);
+    }
+    
+    @Override
+    public void delete(SolicitudRevision s) {
+        this.rduFlujosGeneralesRemot.deleteSolicitudRevision(s);
+    }
+    
+    @Override
+    public int append(SolicitudRevision s) {
+        return this.rduFlujosGeneralesRemot.appendSolicitudRevision(s);
+    }
+    
+    @Override
+    public int insert(SolicitudWeb s) {
+        return this.rduFlujosGeneralesRemot.insertSolicitudWeb(s);
+    }
+    
+    @Override
+    public int update(SolicitudWeb s) {
+        return this.rduFlujosGeneralesRemot.updateSolicitudWeb(s);
+    }
+    
+    @Override
+    public List<SolicitudWeb> findAllSolicitudWebByUserAndStatus(Integer userId, Integer status) {
+        return this.rduFlujosGeneralesRemot.findAllSolicitudWebByUserAndStatus(userId, status);
+    }
+    
+    @Override
+    public List<SolicitudWeb> findAllSolicitudWebByUser(Integer userId) {
+        return this.rduFlujosGeneralesRemot.findAllSolicitudWebByUser(userId);
+    }
+    
+    @Override
+    public SolicitudWeb findSolicitudWebBySession(Integer sessionId) {
+        return this.rduFlujosGeneralesRemot.findSolicitudWebBySession(sessionId);
+    }
+    
+    @Override
+    public Integer nextSolicitudSequence() {
+        return this.rduFlujosGeneralesRemot.nextSequence();
     }
 
 }

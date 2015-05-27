@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.SolicitudWebMapper" >
+    
+    <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.SolicitudWeb">
+        <result column="ID_SOLICITUD" property="idSolicitud" jdbcType="DECIMAL"/>
+        <result column="FECHA" property="fecha" jdbcType="TIMESTAMP"/>
+        <result column="ID_PROMOVENTE" property="idPromovente" jdbcType="DECIMAL"/>
+        <result column="TIPO_DOCUMENTO" property="tipoDocumento" jdbcType="DECIMAL"/>
+        <result column="CODBARRAS" property="codBarras" jdbcType="VARCHAR"/>
+        <result column="ID_ESTATUS" property="idStatus" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudWeb" >
+<!--        <selectKey resultType="Integer" keyProperty="idSolicitud" order="BEFORE">
+            select FOLIO_SOLICITUD_WEB.nextVal from DUAL
+        </selectKey>-->
+        insert into 
+        SOLICITUD_WEB(
+            ID_SOLICITUD, 
+            FECHA, 
+            ID_PROMOVENTE, 
+            TIPO_DOCUMENTO) 
+        values(
+            #{idSolicitud, jdbcType=DECIMAL}, 
+            sysdate, 
+            #{idPromovente, jdbcType=DECIMAL}, 
+            #{tipoDocumento, jdbcType=DECIMAL})
+    </insert>
+
+
+    <update id="update" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudWeb" >
+        update
+        SOLICITUD_WEB
+        set
+        CODBARRAS = #{codBarras,jdbcType=VARCHAR},
+        FECHA = sysdate,
+        ID_ESTATUS =  #{idStatus,jdbcType=DECIMAL}
+        where  
+        ID_SOLICITUD = #{idSolicitud,jdbcType=DECIMAL} 
+    </update>
+    
+    <select id="findAllByUserAndStatus" resultMap="BaseResultMap" parameterType="map">
+        select
+            ID_SOLICITUD,
+            FECHA,
+            ID_PROMOVENTE,
+            TIPO_DOCUMENTO,
+            CODBARRAS,
+            ID_ESTATUS
+        from
+            SOLICITUD_WEB
+        where
+            ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+            and ID_STATUS = #{idStatus,jdbcType=DECIMAL}
+    </select>
+    
+    <select id="findAllByUser" resultMap="BaseResultMap" parameterType="map">
+        select
+        ID_SOLICITUD,
+        FECHA,
+        ID_PROMOVENTE,
+        TIPO_DOCUMENTO,
+        CODBARRAS,
+        ID_ESTATUS
+        from
+        SOLICITUD_WEB
+        where
+        ID_PROMOVENTE = #{idPromovente,jdbcType=DECIMAL}
+    </select>
+    
+    <select id="findBySession" resultMap="BaseResultMap" parameterType="map">
+        select
+        ID_SOLICITUD,
+        FECHA,
+        ID_PROMOVENTE,
+        TIPO_DOCUMENTO,
+        CODBARRAS,
+        ID_ESTATUS
+        from
+        SOLICITUD_WEB
+        where
+        ID_SOLICITUD = #{idSolicitud,jdbcType=DECIMAL}
+    </select>
+    
+    <select id="nextSequence" resultType="Integer">
+        select FOLIO_SOLICITUD_WEB.nextVal from DUAL
+    </select>
+    
+</mapper>

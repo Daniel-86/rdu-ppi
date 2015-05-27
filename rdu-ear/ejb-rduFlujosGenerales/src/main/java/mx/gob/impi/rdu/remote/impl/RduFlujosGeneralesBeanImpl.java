@@ -46,6 +46,8 @@ import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
+import mx.gob.impi.sigappi.persistence.model.SolicitudWeb;
 import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
@@ -716,6 +718,56 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
         return this.rduNotificacionesService.selectNotificacionFirmaByPrimaryKey(id); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int insertSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return rduSigappiService.insertSolicitudRevision(solicitudRevision);
+    }
+
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return rduSigappiService.findSolicitudRevisionByCodInteresadoAndSecuencia(codInteresado, secuencia);
+    }
+    
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(Integer codInteresado, Integer secuencia, Integer idSolicitud) {
+        return rduSigappiService.findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(codInteresado, secuencia, idSolicitud);
+    }
+
+    public int updateSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return rduSigappiService.updateSolicitudRevision(solicitudRevision);
+    }
+
+    public KfContenedores findKfContenedoresByTitleOrPc(String id) {
+        return rduSigappiService.findKfContenedoresByTitleOrPc(id);
+    }
+    
+    public void deleteSolicitudRevision(SolicitudRevision solicitudRevision) {
+        rduSigappiService.deleteSolicitudRevision(solicitudRevision);
+    }
+    
+    public int appendSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return rduSigappiService.appendSolicitudRevision(solicitudRevision);
+    }
   
+    public int insertSolicitudWeb(SolicitudWeb solicitudWeb) {
+        return rduSigappiService.insertSolicitudWeb(solicitudWeb);
+    }
+    
+    public int updateSolicitudWeb(SolicitudWeb solicitudWeb) {
+        return rduSigappiService.updateSolicitudWeb(solicitudWeb);
+    }
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUserAndStatus(Integer idPromovente, Integer idStatus) {
+        return rduSigappiService.findAllSolicitudWebByUserAndStatus(idPromovente, idStatus);
+    }
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUser(Integer idPromovente) {
+        return rduSigappiService.findAllSolicitudWebByUser(idPromovente);
+    }
+    
+    public SolicitudWeb findSolicitudWebBySession(Integer idSolicitud) {
+        return rduSigappiService.findSolicitudWebBySession(idSolicitud);
+    }
+    
+    public Integer nextSequence() {
+        return rduSigappiService.nextSequence();
+    }
     
 }

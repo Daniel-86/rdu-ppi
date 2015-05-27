@@ -22,6 +22,8 @@ import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KfAlmacenar;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
+import mx.gob.impi.sigappi.persistence.model.SolicitudWeb;
 import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
@@ -232,5 +234,29 @@ public interface FlujosGralesViewService {
     
     public List<TipoAnexo> selectTipoAnexoByCategoriaDivisionSeccion(Integer categoria,Integer division,Integer seccion);
     
+    public KfContenedores findKfContenedoresByTitleOrPc(String id);
     
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSecuencia(Integer userId, Integer secuencia);
+    
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSecuenciaAndSession(Integer userId, Integer secuencia, Integer idSolicitud);
+    
+    public int insert(SolicitudRevision s);
+    
+    public int update(SolicitudRevision s);
+    
+    public void delete(SolicitudRevision s);
+    
+    public int append(SolicitudRevision s);
+    
+    public int insert(SolicitudWeb s);
+    
+    public int update(SolicitudWeb s);
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUserAndStatus(Integer userId, Integer status);
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUser(Integer userId);
+    
+    public SolicitudWeb findSolicitudWebBySession(Integer sessionId);
+    
+    public Integer nextSolicitudSequence();
 }

@@ -17,6 +17,8 @@ import mx.gob.impi.sigappi.persistence.mappers.KfFoliosMapper;
 import mx.gob.impi.sigappi.service.RduSigappiService;
 import mx.gob.impi.sigappi.persistence.mappers.KffoliosNotificacionMapper;
 import mx.gob.impi.sigappi.persistence.mappers.SolicitudInteresadosMapper;
+import mx.gob.impi.sigappi.persistence.mappers.SolicitudRevisionMapper;
+import mx.gob.impi.sigappi.persistence.mappers.SolicitudWebMapper;
 import mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper;
 import mx.gob.impi.sigappi.persistence.mappers.TiposRelacionMapper;
 import mx.gob.impi.sigappi.persistence.mappers.UsuariosSigappiMapper;
@@ -30,6 +32,8 @@ import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.KfFolios;
 import mx.gob.impi.sigappi.persistence.model.KffoliosNotificacion;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
+import mx.gob.impi.sigappi.persistence.model.SolicitudWeb;
 import mx.gob.impi.sigappi.persistence.model.TipoAnexo;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import mx.gob.impi.sigappi.persistence.model.UsuariosSigappi;
@@ -54,11 +58,17 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     private mx.gob.impi.sigappi.persistence.mappers.FigurasJuridicasMapper figurasJuridicasMapper;
     private mx.gob.impi.sigappi.persistence.mappers.InteresadosMapper interesadosMapper;
     private mx.gob.impi.sigappi.persistence.mappers.TipoAnexoMapper tipoAnexoMapper;
-    
-    
+    private mx.gob.impi.sigappi.persistence.mappers.SolicitudRevisionMapper solicitudRevisionMapper;
+    private mx.gob.impi.sigappi.persistence.mappers.SolicitudWebMapper solicitudWebMapper;
 
-   
+    public SolicitudWebMapper getSolicitudWebMapper() {
+        return solicitudWebMapper;
+    }
 
+    public void setSolicitudWebMapper(SolicitudWebMapper solicitudWebMapper) {
+        this.solicitudWebMapper = solicitudWebMapper;
+    }
+    
     public KffoliosNotificacionMapper getKffoliosNotificacionMapper() {
         return kffoliosNotificacionMapper;
     }
@@ -161,6 +171,14 @@ public class RduSigappiServiceImpl implements RduSigappiService {
 
     public void setTipoAnexoMapper(TipoAnexoMapper tipoAnexoMapper) {
         this.tipoAnexoMapper = tipoAnexoMapper;
+    }
+    
+    public SolicitudRevisionMapper getSolicitudRevisionMapper() {
+        return solicitudRevisionMapper;
+    }
+    
+    public void setSolicitudRevisionMapper(SolicitudRevisionMapper solicitudRevisionMapper) {
+        this.solicitudRevisionMapper = solicitudRevisionMapper;
     }
 
     
@@ -276,5 +294,58 @@ public class RduSigappiServiceImpl implements RduSigappiService {
         return this.tipoAnexoMapper.selectByCategoriaDivisionSeccion(categoria, division, seccion); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int insertSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return solicitudRevisionMapper.insert(solicitudRevision);
+//        return 0;
+    }
+
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuencia(Integer codInteresado, Integer secuencia) {
+        return solicitudRevisionMapper.findByCodInteresadoAndSecuencia(codInteresado, secuencia);
+    }
+    
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(Integer codInteresado, Integer secuencia, Integer idSolicitud) {
+        return solicitudRevisionMapper.findByCodInteresadoAndSecuenciaAndSession(codInteresado, secuencia, idSolicitud);
+    }
+
+    public int updateSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return solicitudRevisionMapper.update(solicitudRevision);
+//        return 0;
+    }
+    
+    public KfContenedores findKfContenedoresByTitleOrPc(String id) {
+        return kfContenedoresMapper.findByTitleOrPc(id);
+    }
+    
+    public void deleteSolicitudRevision(SolicitudRevision solicitudRevision) {
+        solicitudRevisionMapper.delete(solicitudRevision);
+    }
+    
+    public int appendSolicitudRevision(SolicitudRevision solicitudRevision) {
+        return solicitudRevisionMapper.append(solicitudRevision);
+    }
+    
+    public int insertSolicitudWeb(SolicitudWeb solicitudWeb) {
+        return solicitudWebMapper.insert(solicitudWeb);
+    }
+    
+    public int updateSolicitudWeb(SolicitudWeb solicitudWeb) {
+        return solicitudWebMapper.update(solicitudWeb);
+    }
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUserAndStatus(Integer idPromovente, Integer idStatus) {
+        return solicitudWebMapper.findAllByUserAndStatus(idPromovente, idStatus);
+    }
+    
+    public List<SolicitudWeb> findAllSolicitudWebByUser(Integer idPromovente) {
+        return solicitudWebMapper.findAllByUser(idPromovente);
+    }
+    
+    public SolicitudWeb findSolicitudWebBySession(Integer idSolicitud) {
+        return solicitudWebMapper.findBySession(idSolicitud);
+    }
+
+    public Integer nextSequence() {
+        return solicitudWebMapper.nextSequence();
+    }
    
 }

@@ -148,4 +148,10 @@
         WHERE PC = #{pc,jdbcType=VARCHAR} 
         
     </select>
+    
+    <select id="findByTitleOrPc" 
+            resultType="mx.gob.impi.sigappi.persistence.model.KfContenedores" 
+            parameterType="String">
+        select * from kfcontenedores where title = #{id,jdbcType=VARCHAR} or pc = #{id, jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -142,6 +142,8 @@
        <property name="figurasJuridicasMapper" ref="figurasJuridicasMapper" />
        <property name="interesadosMapper" ref="interesadosMapper" />
        <property name="tipoAnexoMapper" ref="tipoAnexoMapper" />
+       <property name="solicitudRevisionMapper" ref="solicitudRevisionMapper" />
+       <property name="solicitudWebMapper" ref="solicitudWebMapper" />
        
     </bean>
         

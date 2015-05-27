@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.gob.impi.sigappi.persistence.mappers.SolicitudRevisionMapper" >
+    <resultMap id="BaseResultMap" type="mx.gob.impi.sigappi.persistence.model.SolicitudRevision" >
+        <result column="ID_SOLICITUD" property="idSolicitud" jdbcType="DECIMAL"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="COD_INTERESADO" property="codInteresado" jdbcType="DECIMAL" />
+        <result column="COD_RELACION" property="codRelacion" jdbcType="DECIMAL" />
+        <result column="FECHA_MODIFICACION" property="fechaModificacion" jdbcType="TIMESTAMP" />
+        <result column="SECUENCIA" property="secuencia" jdbcType="DECIMAL" />
+        <result column="CVE_USUARIO" property="cveUsuario" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="insert" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudRevision" >
+<!--        <selectKey resultType="Integer" keyProperty="idSolicitud" order="AFTER">
+            select FOLIO_SOLICITUD_WEB.currVal as id from DUAL
+        </selectKey>
+        insert into 
+            SOLICITUD_REVISION (
+                ID_SOLICITUD,
+                TITLE,
+                COD_INTERESADO,
+                COD_RELACION,
+                FECHA_MODIFICACION,
+                SECUENCIA,
+                CVE_USUARIO)
+        values (
+            FOLIO_SOLICITUD_WEB.nextVal,
+            #{title,jdbcType=VARCHAR},
+            #{codInteresado,jdbcType=DECIMAL},
+            #{codRelacion,jdbcType=DECIMAL},
+            sysdate,
+            -999,
+            NULL
+        )-->
+<!--        <selectKey resultType="Integer" keyProperty="idSolicitud" order="BEFORE">
+            select FOLIO_SOLICITUD_WEB.nextVal from DUAL
+        </selectKey>-->
+        insert into 
+        SOLICITUD_REVISION (
+        ID_SOLICITUD,
+        TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO)
+        values (
+        #{idSolicitud,jdbcType=DECIMAL},
+        #{title,jdbcType=VARCHAR},
+        #{codInteresado,jdbcType=DECIMAL},
+        #{codRelacion,jdbcType=DECIMAL},
+        sysdate,
+        -999,
+        NULL
+        )
+    </insert>
+
+
+    <select id="findByCodInteresadoAndSecuencia" parameterType="map" resultMap="BaseResultMap">
+        SELECT 
+        ID_SOLICITUD,
+        TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO,
+        FROM SOLICITUD_REVISION
+        WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
+        AND SECUENCIA = #{secuencia,jdbcType=DECIMAL}
+    </select>
+    
+    
+    <update id="update" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudRevision" >
+        update
+            SOLICITUD_REVISION
+        set
+            SECUENCIA = #{secuencia,jdbcType=DECIMAL},
+            FECHA_MODIFICACION = sysdate,
+        where  
+            TITLE = #{title,jdbcType=VARCHAR} 
+            AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL} 
+            and COD_RELACION = #{codRelacion,jdbcType=DECIMAL}
+    </update>
+    
+    <delete id="delete" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudRevision">
+        delete from
+            SOLICITUD_REVISION
+        where
+            TITLE = #{title,jdbcType=VARCHAR} 
+            AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL} 
+            and COD_RELACION = #{codRelacion,jdbcType=DECIMAL}
+    </delete>
+    
+    <insert id="append" parameterType="mx.gob.impi.sigappi.persistence.model.SolicitudRevision" >
+        insert into 
+        SOLICITUD_REVISION (
+        ID_SOLICITUD,
+        TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO
+       )
+        values (
+        #{idSolicitud,jdbcType=DECIMAL},
+        #{title,jdbcType=VARCHAR},
+        #{codInteresado,jdbcType=DECIMAL},
+        #{codRelacion,jdbcType=DECIMAL},
+        sysdate,
+        -999,
+        NULL
+        )
+    </insert>
+    
+    <select id="findByCodInteresadoAndSecuenciaAndSession" parameterType="map" resultMap="BaseResultMap">
+        SELECT 
+        ID_SOLICITUD,
+        TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO,
+        FROM SOLICITUD_REVISION
+        WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
+        AND SECUENCIA = #{secuencia,jdbcType=DECIMAL}
+        and ID_SOLICITUD = #{idSolicitud,jdbcType=DECIMAL}
+    </select>
+    
+    
+<!--    <update id="updateSequence" parameterType="map">
+        UPDATE SOLICITUD_REVISION
+        SET SECUENCIA = #{secuencia,jdbcType=DECIMAL}
+        WHERE TITLE = #{title,jdbcType=VARCHAR} AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}
+    </update>-->
+</mapper>

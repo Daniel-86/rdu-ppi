@@ -5,6 +5,7 @@
  */
 package mx.gob.impi.rdu.exposition.flujosGenerales;
 
+import mx.gob.impi.sigappi.persistence.model.Notification;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,8 +25,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import mx.gob.impi.rdu.dto.PromoventeDto;
 import mx.gob.impi.rdu.exposition.SesionRDU;
@@ -34,6 +37,7 @@ import mx.gob.impi.rdu.service.MailService;
 import mx.gob.impi.rdu.util.ContextUtils;
 import mx.gob.impi.sigappi.persistence.model.KfContenedores;
 import mx.gob.impi.sigappi.persistence.model.SolicitudInteresados;
+import mx.gob.impi.sigappi.persistence.model.SolicitudRevision;
 import mx.gob.impi.sigappi.persistence.model.TiposRelacion;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -63,7 +67,6 @@ public class CommonUserNotificationMB {
     private List<Notification> viewNots;
     private List<Notification> viewNotsCanceled;
     private PromoventeDto requestingUser;
-    private Integer relationType;
     private Notification[] selected;
     private List<TiposRelacion> relations;
     private List<SolicitudInteresados> persistedNoSubscribed;
@@ -73,6 +76,24 @@ public class CommonUserNotificationMB {
     private String btnText = "Generar forma";
     private boolean error = false;
     private boolean generateDoc = false;
+    private List<Notification> viewsForCapture;
+    private List<SolicitudRevision> savedSession;
+    
+    public List<SolicitudRevision> getSavedSession() {
+        return savedSession;
+    }
+    
+    public void setSavedSession(List<SolicitudRevision> savedSession) {
+        this.savedSession = savedSession;
+    }
+
+    public List<Notification> getViewsForCapture() {
+        return viewsForCapture;
+    }
+
+    public void setViewsForCapture(List<Notification> viewsForCapture) {
+        this.viewsForCapture = viewsForCapture;
+    }
     
     @ManagedProperty(value = "#{flujosgralesViewService}")
     private FlujosGralesViewServiceImpl flujosgralesViewService;
@@ -103,16 +124,8 @@ public class CommonUserNotificationMB {
         return viewNots;
     }
 
-    public Integer getRelationType() {
-        return relationType;
-    }
-
     public void setViewNots(List<Notification> viewNots) {
         this.viewNots = viewNots;
-    }
-
-    public void setRelationType(Integer relationType) {
-        this.relationType = relationType;
     }
 
     public Notification[] getSelected() {
@@ -212,7 +225,6 @@ public class CommonUserNotificationMB {
                     requested.setTitle(record.getTitle());
                     requested.setPc(record.getPerson());
                     requested.setUserId(requestingUser.getId_promovente());
-                    requested.setUsertype(relationType);
                     requested.setLastUpdated(new Date());
 
                 } else {
@@ -229,7 +241,7 @@ public class CommonUserNotificationMB {
             if(requested != null) 
                 viewNots.add(requested);
         } else {
-            msgError = "El ID " + this.searchedTitle + " no es valido";
+            msgError = "El ID " + this.searchedTitle + " no es válido";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msgError, ""));
         }
         
@@ -300,15 +312,7 @@ public class CommonUserNotificationMB {
                                         + " no ha sido autorizada, no puedes cancelarla"));
                 error = true;
                 int i = selected.length;
-                Notification nt = new Notification();
-                nt.setTitle(noti.getTitle());
-                nt.setPc(flujosgralesViewService.selectKfContenedoresByTitle(noti.getTitle()).get(0).getPerson());
-                nt.setPersisted(true);
-                nt.setSequence(noti.getSecuencia());
-                nt.setUsertype(noti.getCodRelacion());
-                nt.setAuthorizedBy(noti.getCveUsuario());
-                nt.setUserId(noti.getCodInteresado());
-                nt.setUserTypeDescription(flujosgralesViewService.selectTiposRelacionByCodRelacion(noti.getCodRelacion()).get(0).getParte());
+                Notification nt = buildNotFromSol(noti, true);
                 List<Notification> nArr = new ArrayList(Arrays.asList(selected));
                 nArr.add(nt);
                 selected = makeArray(nArr);
@@ -351,17 +355,23 @@ public class CommonUserNotificationMB {
         List<SolicitudInteresados> notifications = new ArrayList<>();
         SolicitudInteresados noti;
         for (Notification n : viewNotifications) {
-            noti = new SolicitudInteresados();
-            noti.setTitle(n.getTitle());
-            noti.setCodInteresado(requestingUser.getId_promovente());
-            noti.setFechaModificacion(new Date());
-            noti.setSecuencia(n.getSequence());
-            noti.setCodRelacion(n.getUsertype());
-            noti.setCveUsuario(n.getAuthorizedBy());
+            n.setUserId(requestingUser.getId_promovente());
+//            noti = new SolicitudInteresados(n);
+            noti = buildFromNot(n);
 
             notifications.add(noti);
         }
         return notifications;
+    }
+    
+    private SolicitudInteresados buildFromNot(Notification n) {
+        SolicitudInteresados  s = new SolicitudInteresados();
+        s.setTitle(n.getTitle());
+        s.setSecuencia(n.getSequence());
+        s.setCodRelacion(n.getUsertype());
+        s.setCveUsuario(n.getAuthorizedBy());
+        s.setCodInteresado(n.getUserId());
+        return s;
     }
 
     private List<Notification> buildNotsFromSols(List<SolicitudInteresados> notifications) {
@@ -372,19 +382,19 @@ public class CommonUserNotificationMB {
         List<Notification> viewNotifications = new ArrayList<>();
         Notification noti;
         for (SolicitudInteresados s : notifications) {
-            noti = new Notification();
-            noti.setTitle(s.getTitle());
-            noti.setPc(flujosgralesViewService.selectKfContenedoresByTitle(s.getTitle()).get(0).getPerson());
-            noti.setUserId(s.getCodInteresado());
-            noti.setUsertype(s.getCodRelacion());
-            noti.setSequence(s.getSecuencia());
-            noti.setAuthorizedBy(s.getCveUsuario());
-            noti.setUserTypeDescription(flujosgralesViewService.selectTiposRelacionByCodRelacion(s.getCodRelacion()).get(0).getParte());
-            noti.setPersisted(isPersisted);
+            noti = buildNotFromSol(s, isPersisted);
 
             viewNotifications.add(noti);
         }
         return viewNotifications;
+    }
+    
+    private Notification buildNotFromSol(SolicitudInteresados s, boolean isPersisted) {
+        Notification n = new Notification(s);
+        n.setPc(flujosgralesViewService.selectKfContenedoresByTitle(s.getTitle()).get(0).getPerson());
+        n.setUserTypeDescription(flujosgralesViewService.selectTiposRelacionByCodRelacion(s.getCodRelacion()).get(0).getParte());
+        n.setPersisted(isPersisted);
+        return n;
     }
     
     public PromoventeDto obtenerPromovente(SesionRDU obtSession) {
@@ -560,6 +570,124 @@ public class CommonUserNotificationMB {
                     FacesMessage.SEVERITY_INFO, null, "Se te ha enviado el documento por email"));
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, ex.getMessage()));
+        }
+    }
+    
+//    public void deleteRow(ActionEvent e) {
+//        UIComponent uic = e.getComponent();
+//        String asdf = "";
+//    }
+    
+    public void deleteRow(Notification n) {
+        if(persistedAndSubscribed.contains(n))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "No puedes eliminar esa fila"));
+        else
+            viewNots.remove(n);
+        String asdf="";
+    }
+    
+    public void duplicateRow(Notification n) {
+        Notification nn = new Notification(n);
+        int indx = viewNots.indexOf(n);
+        viewNots.add(indx+1, nn);
+    }
+    
+    public void saveSession() {
+        List<SolicitudInteresados> notsInView = buildFromView(viewNots);
+        List<SolicitudInteresados> notsToPersist = new ArrayList<>();
+        List<SolicitudInteresados> totalPersisted = new ArrayList<>(persistedAndSubscribed);
+        totalPersisted.addAll(persistedNoSubscribed);
+        error = false;
+        generateDoc = false;
+
+        searchedTitle = "";
+        for (SolicitudInteresados noti : notsInView) {
+            if (noti.getCodRelacion() == null) {
+                error = true;
+                break;
+            }
+            boolean isPersisted = false;
+//            boolean isSelected = false;
+//            boolean isSubscribed = false;
+//            boolean isAuthorized = false;
+//            for (Notification n : selected) {
+//                if ((n.getTitle() == null ? n.getTitle() == null : n.getTitle().equals(noti.getTitle()))
+//                        && Objects.equals(n.getUserId(), noti.getCodInteresado())
+//                        && n.getUsertype().equals(noti.getCodRelacion())) {
+//                    isSelected = true;
+//                    break;
+//                }
+//            }
+            if (totalPersisted.contains(noti)) {
+                isPersisted = true;
+            }
+//            if (isPersisted && noti.getSecuencia() == SUBSCRIBED) {
+//                isSubscribed = true;
+//            }
+//            if (isPersisted && !isEmptyString(noti.getCveUsuario())) {
+//                isAuthorized = true;
+//            }
+            
+            if(!isPersisted) {
+                notsToPersist.add(noti);
+            }
+
+//            if (!isPersisted && isSelected) {
+//                notsToPersist.add(noti);
+//            }
+//            if (isPersisted && isSelected && !isSubscribed) {
+//                noti.setSecuencia(SUBSCRIBED);
+//                notsToSubscribe.add(noti);
+//            }
+//            if (isPersisted && !isSelected && isSubscribed && isAuthorized) {
+//                noti.setSecuencia(UNSUBSCRIBED);
+//                notsToCancel.add(noti);
+//            }
+//            if (isPersisted && !isSelected && isSubscribed && !isAuthorized) {
+//                FacesContext.getCurrentInstance()
+//                        .addMessage(null, new FacesMessage(
+//                                        FacesMessage.SEVERITY_WARN,
+//                                        "Operacion no permitida", "La notificacion con title "
+//                                        + noti.getTitle()
+//                                        + " no ha sido autorizada, no puedes cancelarla"));
+//                error = true;
+//                int i = selected.length;
+//                Notification nt = buildNotFromSol(noti, true);
+//                List<Notification> nArr = new ArrayList(Arrays.asList(selected));
+//                nArr.add(nt);
+//                selected = makeArray(nArr);
+//            }
+        }
+
+        if (error) {
+            return;
+        }
+
+        for (SolicitudInteresados n : notsToPersist) {
+            flujosgralesViewService.insert(n);
+        }
+        persistedAndSubscribed.addAll(notsToPersist);
+
+//        for (SolicitudInteresados n : notsToCancel) {
+//            flujosgralesViewService.updateNotificationSubscription(n.getTitle(), requestingUser.getId_promovente(), UNSUBSCRIBED);
+//        }
+//        persistedAndSubscribed.removeAll(notsToCancel);
+//        persistedNoSubscribed.addAll(notsToCancel);
+//
+//        for (SolicitudInteresados n : notsToSubscribe) {
+//            flujosgralesViewService.updateNotificationSubscription(n.getTitle(), requestingUser.getId_promovente(), SUBSCRIBED);
+//        }
+//        persistedNoSubscribed.removeAll(notsToSubscribe);
+//        persistedAndSubscribed.addAll(notsToSubscribe);
+
+        viewNots = buildNotsFromSols(persistedAndSubscribed, true);
+        viewNotsCanceled = buildNotsFromSols(persistedNoSubscribed, true);
+
+        if (notsToPersist.size() > 0) {
+            generateDoc = true;
+            generateDocument();
+        } else if (persistedAndSubscribed.size() < 1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No tienes suscripciones a expedientes"));
         }
     }
 }

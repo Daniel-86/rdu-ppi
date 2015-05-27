@@ -23,11 +23,17 @@
 
 
             <p:submenu label="Notificaciones autorizadas" icon="ui-icon ui-icon-document">
-                <p:menuitem rendered="true" value="Administrar" action="#{menuMB.actualizar}" onclick="otros(33); showStatus('divStatus');lockWindow('divLockWindow');">
+                <p:menuitem rendered="true" value="Capturar" action="#{menuMB.actualizar}" onclick="otros(33); showStatus('divStatus');lockWindow('divLockWindow');">
                     <f:setPropertyActionListener value="33" target="#{menuMB.idMenu}"/>
                 </p:menuitem>
-                <p:menuitem rendered="true" value="Administrar original" action="#{menuMB.actualizar}" onclick="otros(34); showStatus('divStatus');lockWindow('divLockWindow');">
+                <p:menuitem rendered="true" value="Sesiones" action="#{menuMB.actualizar}" onclick="otros(34); showStatus('divStatus');lockWindow('divLockWindow');">
                     <f:setPropertyActionListener value="34" target="#{menuMB.idMenu}"/>
+                </p:menuitem>
+                <p:menuitem rendered="true" value="Administrar" action="#{menuMB.actualizar}" onclick="otros(35); showStatus('divStatus');lockWindow('divLockWindow');">
+                    <f:setPropertyActionListener value="35" target="#{menuMB.idMenu}"/>
+                </p:menuitem>
+                <p:menuitem rendered="true" value="Old version" action="#{menuMB.actualizar}" onclick="otros(36); showStatus('divStatus');lockWindow('divLockWindow');">
+                    <f:setPropertyActionListener value="36" target="#{menuMB.idMenu}"/>
                 </p:menuitem>
             </p:submenu>
             
@@ -200,10 +206,16 @@
                     break
                 
                 case 33:
-                    pagina="#{request.contextPath}/content/restricted/generales/manageNotifications.faces";
+                    pagina="#{request.contextPath}/content/restricted/notifications/capture.faces";
                     break
                 case 34:
-                    pagina="#{request.contextPath}/content/restricted/generales/manageNotificationsOld.faces";
+                    pagina="#{request.contextPath}/content/restricted/notifications/saved.faces";
+                    break
+                case 35:
+                    pagina="#{request.contextPath}/content/restricted/notifications/manage.faces";
+                    break
+                case 36:
+                    pagina="#{request.contextPath}/content/restricted/generales/manageNotifications.faces";
                     break
                 
                 default:
