@@ -295,4 +295,6 @@ public interface RduFlujosGeneralesBean {
     SolicitudWeb findSolicitudWebBySession(Integer idSolicitud);
     
     Integer nextSequence();
+    
+    List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSession(Integer codInteresado, Integer idSolicitud);
 }

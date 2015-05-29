@@ -259,4 +259,6 @@ public interface FlujosGralesViewService {
     public SolicitudWeb findSolicitudWebBySession(Integer sessionId);
     
     public Integer nextSolicitudSequence();
+    
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSession(Integer userId, Integer idSolicitud);
 }

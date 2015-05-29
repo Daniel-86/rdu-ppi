@@ -64,7 +64,7 @@
         COD_RELACION,
         FECHA_MODIFICACION,
         SECUENCIA,
-        CVE_USUARIO,
+        CVE_USUARIO
         FROM SOLICITUD_REVISION
         WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
         AND SECUENCIA = #{secuencia,jdbcType=DECIMAL}
@@ -122,17 +122,26 @@
         COD_RELACION,
         FECHA_MODIFICACION,
         SECUENCIA,
-        CVE_USUARIO,
+        CVE_USUARIO
         FROM SOLICITUD_REVISION
         WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
         AND SECUENCIA = #{secuencia,jdbcType=DECIMAL}
         and ID_SOLICITUD = #{idSolicitud,jdbcType=DECIMAL}
     </select>
     
+    <select id="findByCodInteresadoAndSession" parameterType="map" resultMap="BaseResultMap">
+        SELECT 
+        ID_SOLICITUD,
+        TITLE,
+        COD_INTERESADO,
+        COD_RELACION,
+        FECHA_MODIFICACION,
+        SECUENCIA,
+        CVE_USUARIO
+        FROM SOLICITUD_REVISION
+        WHERE COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}  
+        AND ID_SOLICITUD = #{idSolicitud,jdbcType=DECIMAL}
+    </select>
     
-<!--    <update id="updateSequence" parameterType="map">
-        UPDATE SOLICITUD_REVISION
-        SET SECUENCIA = #{secuencia,jdbcType=DECIMAL}
-        WHERE TITLE = #{title,jdbcType=VARCHAR} AND COD_INTERESADO = #{codInteresado,jdbcType=DECIMAL}
-    </update>-->
+    
 </mapper>

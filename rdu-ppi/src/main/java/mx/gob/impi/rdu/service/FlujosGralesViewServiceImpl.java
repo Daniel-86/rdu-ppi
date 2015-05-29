@@ -1116,5 +1116,10 @@ public class FlujosGralesViewServiceImpl implements FlujosGralesViewService, Ser
     public Integer nextSolicitudSequence() {
         return this.rduFlujosGeneralesRemot.nextSequence();
     }
+    
+    @Override
+    public List<SolicitudRevision> findSolicitudRevisionByUserAndSession(Integer userId, Integer idSolicitud) {
+        return this.rduFlujosGeneralesRemot.findSolicitudRevisionByCodInteresadoAndSession(userId, idSolicitud);
+    }
 
 }

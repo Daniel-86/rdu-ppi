@@ -304,6 +304,7 @@ public class RduSigappiServiceImpl implements RduSigappiService {
     }
     
     public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSecuenciaAndSession(Integer codInteresado, Integer secuencia, Integer idSolicitud) {
+        String asdf = "";
         return solicitudRevisionMapper.findByCodInteresadoAndSecuenciaAndSession(codInteresado, secuencia, idSolicitud);
     }
 
@@ -346,6 +347,10 @@ public class RduSigappiServiceImpl implements RduSigappiService {
 
     public Integer nextSequence() {
         return solicitudWebMapper.nextSequence();
+    }
+    
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSession(Integer codInteresado, Integer idSolicitud) {
+        return solicitudRevisionMapper.findByCodInteresadoAndSession(codInteresado, idSolicitud);
     }
    
 }

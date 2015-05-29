@@ -109,4 +109,6 @@ public interface RduSigappiService {
     
     Integer nextSequence();
     
+    List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSession(Integer codInteresado, Integer idSolicitud);
+    
 }

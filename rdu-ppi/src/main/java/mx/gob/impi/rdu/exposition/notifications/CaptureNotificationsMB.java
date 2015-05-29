@@ -139,8 +139,14 @@ public class CaptureNotificationsMB {
         
         basePath = request.getRealPath("");
         
-        notificationsInSession = new ArrayList<>();
-        notificationsInView = new ArrayList<>();
+        Integer sessionParam = Integer.valueOf(request.getParameter("sessionId"));
+        
+        if(sessionParam != null)
+            openSession(sessionParam);
+        else {
+            notificationsInSession = new ArrayList<>();
+            notificationsInView = new ArrayList<>();
+        }
 
         relations = flujosgralesViewService.listTiposRelacion();
     }
@@ -423,7 +429,7 @@ public class CaptureNotificationsMB {
     public void openSession(Integer sessionId) {
         this.sessionId = sessionId;
         
-        notificationsInSession = flujosgralesViewService.findSolicitudRevisionByUserAndSecuenciaAndSession(userId, SUBSCRIBED, sessionId);
+        notificationsInSession = flujosgralesViewService.findSolicitudRevisionByUserAndSession(userId, sessionId);
         if (notificationsInSession == null && notificationsInSession.size() > 0) {
             notificationsInSession = new ArrayList<>();
         }

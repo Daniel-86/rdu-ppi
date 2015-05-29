@@ -770,4 +770,8 @@ public class RduFlujosGeneralesBeanImpl implements RduFlujosGeneralesBeanRemote,
         return rduSigappiService.nextSequence();
     }
     
+    public List<SolicitudRevision> findSolicitudRevisionByCodInteresadoAndSession(Integer codInteresado, Integer idSolicitud) {
+        return rduSigappiService.findSolicitudRevisionByCodInteresadoAndSession(codInteresado, idSolicitud);
+    }
+    
 }

@@ -26,4 +26,6 @@ public interface SolicitudRevisionMapper {
     int append(mx.gob.impi.sigappi.persistence.model.SolicitudRevision record);
     
     List<SolicitudRevision> findByCodInteresadoAndSecuenciaAndSession(@Param("codInteresado") Integer codInteresado, @Param("secuencia") Integer secuencia, @Param("idSolicitud")Integer idSolicitud);
+    
+    List<SolicitudRevision> findByCodInteresadoAndSession(@Param("codInteresado") Integer codInteresado, @Param("idSolicitud") Integer idSolicitud);
 }
